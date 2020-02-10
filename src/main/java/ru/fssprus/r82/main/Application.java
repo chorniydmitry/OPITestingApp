@@ -22,8 +22,10 @@ import org.hibernate.Session;
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Password;
 import ru.fssprus.r82.entity.Question;
+import ru.fssprus.r82.entity.Test;
 import ru.fssprus.r82.service.AnswerService;
 import ru.fssprus.r82.service.QuestionService;
+import ru.fssprus.r82.service.TestService;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.swing.main.mainFrame.MainFrame;
 import ru.fssprus.r82.utils.CheatingStopper;
@@ -132,6 +134,13 @@ public class Application {
 		// newPassForConfigure();
 
 		// testValidation();
+		
+		
+		TestService service = new TestService();
+		Test test = new Test();
+		
+		
+		
 		appStart();
 
 		// } catch (HibernateException e) {

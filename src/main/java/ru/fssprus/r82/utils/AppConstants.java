@@ -11,11 +11,12 @@ import java.util.Locale;
 
 public class AppConstants {
 	// Константы разделов приложения
-	public static final int SECTIONS_AMOUNT = 7;
+	public static final int SECTIONS_AMOUNT = 8;
 	
 	public static final String QUESTION_LOAD_ICON = "/questionload.png";
 	public static final String ADMIN_ICON = "/admin.png";
 	public static final String CONFIG_ICON = "/config.png";
+	public static final String TESTCONSTRUCTOR_ICON = "/config.png";
 	public static final String NEW_TEST_ICON = "/newtest.png";
 	public static final String MANAGE_PASSWORDS_ICON = "/password.png";
 	public static final String QUESTION_EDIT_ICON = "/questionedit.png";
@@ -28,6 +29,7 @@ public class AppConstants {
 	public static final String QUESTION_LOAD_DIALOG = "LoadingQuestionSetDialog";
 	public static final String ADMIN_DIALOG = "AdminDialog";
 	public static final String CONFIG_DIALOG = "ConfigDialog";
+	public static final String TESTCONSTRUCTOR_DIALOG = "TestConstructorDialog";
 	public static final String NEW_TEST_DIALOG = "NewTestDialog";
 	public static final String MANAGE_PASSWORDS_DIALOG = "PasswordManageDialog";
 	public static final String QUESTION_EDIT_DIALOG = "QuestionListDialog";
@@ -37,12 +39,13 @@ public class AppConstants {
 	public static final String WRONG_ANSWERS_DIALOG = "WrongAnswersDialog";
 	
 	public static final String[] DIALOG_WITH_PASSWORDS_ARR = { NEW_TEST_DIALOG, STATISTICS_DIALOG, 
-			ADMIN_DIALOG, CONFIG_DIALOG, QUESTION_EDIT_DIALOG, QUESTION_LOAD_DIALOG, 
+			ADMIN_DIALOG, CONFIG_DIALOG, QUESTION_EDIT_DIALOG, QUESTION_LOAD_DIALOG, TESTCONSTRUCTOR_DIALOG, 
 			MANAGE_PASSWORDS_DIALOG };
 
 	public static final String QUESTION_LOAD_TEXT = "Загрузка вопросов";
 	public static final String ADMIN_TEXT = "Администрирование";
 	public static final String CONFIG_TEXT = "Конфигурация";
+	public static final String TESTCONSTRUCTOR_TEXT = "Конструктор тестов";
 	public static final String NEW_TEST_TEXT = "Новый тест";
 	public static final String MANAGE_PASSWORDS_TEXT = "Редактор паролей";
 	public static final String QUESTION_EDIT_TEXT = "Редактор вопросов";
@@ -53,7 +56,7 @@ public class AppConstants {
 	
 
 	public static final String[] DIALOG_WITH_PASSWORDS_TEXT_ARR = { TEST_TEXT, STATISTICS_TEXT, 
-			ADMIN_TEXT, CONFIG_TEXT,QUESTION_EDIT_TEXT, QUESTION_LOAD_TEXT, 
+			ADMIN_TEXT, CONFIG_TEXT,QUESTION_EDIT_TEXT, QUESTION_LOAD_TEXT, TESTCONSTRUCTOR_TEXT,
 			MANAGE_PASSWORDS_TEXT };
 	
 	// Размеры окон
@@ -86,6 +89,11 @@ public class AppConstants {
 
 	public static final int DIALOG_RESULTING_WIDTH = 600;
 	public static final int DIALOG_RESULTING_HEIGHT = 300;
+	
+	public static final int DIALOG_TEST_CONSTRUCTOR_WIDTH = 900;
+	public static final int DIALOG_TEST_CONSTRUCTOR_HEIGHT = 900;
+	
+	
 	
 	// Константы шрифтов
 	public static final Font RESULTDIALOG_TEXT_FONT = new Font("Courier New", Font.BOLD, 18);
@@ -129,6 +137,14 @@ public class AppConstants {
 			"Уровень", "Дата теста", "Время теста", 
 			"Верных ответов", "%", "Результат"};
 	public static final SimpleDateFormat STATDIALOG_TABLE_DATE_FORMAT = new SimpleDateFormat("dd MMMMM yyyy HH:mm", new Locale("ru", "RU"));
+	
+	// TestConstructorDialog константы
+	public static final int[] TESTCONSTRUCTOR_TABLELIST_COL_WIDTHS_ARR = { 20, 250, 60 };
+	public static final String[] TESTCONSTRUCTOR_TABLELIST_COL_CAPTIONS_ARR = {"#", "Название теста", "Сложность"};
+	
+	public static final int[] TESTCONSTRUCTOR_TABLECURRENT_COL_WIDTHS_ARR = { 250, 60 };
+	public static final String[] TESTCONSTRUCTOR_TABLECURRENT_COL_CAPTIONS_ARR = {"Название набора", "%"};
+	
 	
 	// Прочие константы
 	public static final String CONTENT_TYPE_HTML = "text/html";

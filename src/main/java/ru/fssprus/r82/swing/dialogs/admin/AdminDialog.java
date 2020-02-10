@@ -25,12 +25,14 @@ public class AdminDialog extends DialogWithPassword {
 	
 	private static final String BTN_PASSWORDS_CAPTION = "Установка паролей";
 	private static final String BTN_QEDIT_CAPTION = "Редактор вопросов";
+	private static final String BTN_TCOSTRUCTOR = "Конструктор тестов";
 	private static final String BTN_QLOAD_CAPTION = "Выгрузка наборов вопросов";
 	private static final String BTN_SETTINGS_CAPTION = "Конфигурация";
 	
 	private JButton btnSettings = new JGreenButton(BTN_SETTINGS_CAPTION);
 	private JButton btnQuestionLoad = new JGreenButton(BTN_QLOAD_CAPTION);
 	private JButton btnQuestionEdit = new JGreenButton(BTN_QEDIT_CAPTION);
+	private JButton btnTestConstructor = new JGreenButton(BTN_TCOSTRUCTOR);
 	private JButton btnPasswords = new JGreenButton(BTN_PASSWORDS_CAPTION);
 	
 	public AdminDialog(int width, int height, JFrame parent) {
@@ -57,7 +59,10 @@ public class AdminDialog extends DialogWithPassword {
 		contentPanel.add(btnQuestionEdit, new GridBagConstraints(0, 2, GridBagConstraints.REMAINDER, 1, 1, 1,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 10, 10));
 		
-		contentPanel.add(btnPasswords, new GridBagConstraints(0, 3, GridBagConstraints.REMAINDER, 1, 1, 1,
+		contentPanel.add(btnTestConstructor, new GridBagConstraints(0, 3, GridBagConstraints.REMAINDER, 1, 1, 1,
+				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 10, 10));
+		
+		contentPanel.add(btnPasswords, new GridBagConstraints(0, 4, GridBagConstraints.REMAINDER, 1, 1, 1,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 10, 10));
 	}
 	
@@ -102,5 +107,15 @@ public class AdminDialog extends DialogWithPassword {
 	public void setBtnPasswords(JButton btnPasswords) {
 		this.btnPasswords = btnPasswords;
 	}
+
+	public JButton getBtnTestConstructor() {
+		return btnTestConstructor;
+	}
+
+	public void setBtnTestConstructor(JButton btnTestConstructor) {
+		this.btnTestConstructor = btnTestConstructor;
+	}
+	
+	
 
 }

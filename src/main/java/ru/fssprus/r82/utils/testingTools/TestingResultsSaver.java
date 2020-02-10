@@ -2,9 +2,9 @@ package ru.fssprus.r82.utils.testingTools;
 
 import java.util.Date;
 
-import ru.fssprus.r82.entity.Test;
+import ru.fssprus.r82.entity.Result;
 import ru.fssprus.r82.entity.User;
-import ru.fssprus.r82.service.TestService;
+import ru.fssprus.r82.service.ResultService;
 import ru.fssprus.r82.service.UserService;
 import ru.fssprus.r82.utils.TimeUtils;
 
@@ -17,7 +17,7 @@ public class TestingResultsSaver {
 		
 		int correctAnswers = analiser.getCorrectAnswersAmount();
 		
-		Test test = new Test();
+		Result test = new Result();
 		test.setCorrectAnswers(correctAnswers);
 		test.setDate(new Date());
 		
@@ -32,7 +32,7 @@ public class TestingResultsSaver {
 		test.setTestingTime(TimeUtils.getQuizzTimeSecByLevel(testingProcess.getTestLevel()) - timeLeft);
 		test.setTotalQuestions(analiser.getTotalAmount());
 
-		TestService service = new TestService();
+		ResultService service = new ResultService();
 		service.add(test);
 	}
 	

@@ -1,5 +1,6 @@
 package ru.fssprus.r82.entity;
 
+import java.util.HashSet;
 /**
  * @author Chernyj Dmitry
  *
@@ -10,6 +11,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -27,7 +29,10 @@ public class Specification extends Model {
 	private String name;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "specification", fetch = FetchType.EAGER)
-	private Set<Test> testList;
+	private Set<Result> testList;
+	
+    @ManyToMany(mappedBy = "specs")
+    private Set<Test> tests = new HashSet<>();
 
 	public String getName() {
 		return name;

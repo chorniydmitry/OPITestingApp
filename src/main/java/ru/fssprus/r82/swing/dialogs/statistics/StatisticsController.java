@@ -15,14 +15,14 @@ import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.standard.OrientationRequested;
 import javax.swing.JTable;
 
-import ru.fssprus.r82.dao.TestDao;
-import ru.fssprus.r82.dao.impl.TestDatabaseDao;
+import ru.fssprus.r82.dao.ResultDao;
+import ru.fssprus.r82.dao.impl.ResultDatabaseDao;
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
-import ru.fssprus.r82.entity.Test;
+import ru.fssprus.r82.entity.Result;
 import ru.fssprus.r82.entity.User;
 import ru.fssprus.r82.service.SpecificationService;
-import ru.fssprus.r82.service.TestService;
+import ru.fssprus.r82.service.ResultService;
 import ru.fssprus.r82.service.UserService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.table.TablePanelController;
@@ -46,8 +46,8 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 	private int currentPage;
 	private int totalPages;
 
-	private List<Test> testsOnScreenList;
-	private List<Test> totalEntriesList;
+	private List<Result> testsOnScreenList;
+	private List<Result> totalEntriesList;
 
 	public StatisticsController(StatisticsDialog dialog) {
 		super(dialog);
@@ -197,8 +197,8 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 		return Utils.isNumeric(scoreLessText) ? Integer.parseInt(scoreLessText) : 0;
 	}
 
-	private List<Test> getByFilter(int start, int max) {
-		TestService testService = new TestService();
+	private List<Result> getByFilter(int start, int max) {
+		ResultService testService = new ResultService();
 
 		if (start != 0 || max != 0) {
 			return testService.getByUserSpecifiactionLevelAndDate(start, max, getUsers(), getSpecs(), getLevel(),
@@ -225,9 +225,9 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 		updateTableAction();
 	}
 
-	public void convertAndAddToTable(List<Test> tests) {
+	public void convertAndAddToTable(List<Result> tests) {
 		for (int i = 0; i < tests.size(); i++) {
-			Test test = tests.get(i);
+			Result test = tests.get(i);
 
 			String userName = test.getUser().getSurname() + " " + test.getUser().getName() + " "
 					+ test.getUser().getSecondName();
@@ -270,7 +270,7 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 	}
 
 	private int countTotalPages() {
-		TestDao testDao = new TestDatabaseDao();
+		ResultDao testDao = new ResultDatabaseDao();
 		this.totalPages = testDao.countByUserSpecifiactionLevelAndDate(getUsers(), getSpecs(), getLevel(),
 				getDateMore(), getDateLess(), getResult(), getScoreMore(), getScoreLess()) / ENTRIES_FOR_PAGE + 1;
 		
@@ -298,7 +298,7 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 	@Override
 	public void delete(int index) {
 		if (MessageBox.showConfirmQuestionDelete(dialog)) {
-			TestService service = new TestService();
+			ResultService service = new ResultService();
 			service.delete(testsOnScreenList.get(index));
 		}
 		updateTableAction();

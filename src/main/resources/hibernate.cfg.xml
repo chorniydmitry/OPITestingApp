@@ -24,6 +24,7 @@
 		<mapping class="ru.fssprus.r82.entity.Question"></mapping>
 		<mapping class="ru.fssprus.r82.entity.QuestionLevel"></mapping>
 		<mapping class="ru.fssprus.r82.entity.Specification"></mapping>
+		<mapping class="ru.fssprus.r82.entity.Result"></mapping>
 		<mapping class="ru.fssprus.r82.entity.Test"></mapping>
 		<mapping class="ru.fssprus.r82.entity.User"></mapping>
 		<mapping class="ru.fssprus.r82.entity.Password"></mapping>

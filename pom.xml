@@ -11,7 +11,7 @@
 	</properties>
 
 	<groupId>ru.fssprus.r82</groupId>
-	<artifactId>FsspTestingApp</artifactId>
+	<artifactId>OPITestingApp</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
 	<build>

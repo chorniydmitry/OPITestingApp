@@ -37,7 +37,7 @@ public class User extends Model {
 	private String secondName;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="user")
-	private Set<Test> testsDone;
+	private Set<Result> testsDone;
 
 	public User() {
 		super();
@@ -78,11 +78,11 @@ public class User extends Model {
 		this.secondName = secondName;
 	}
 
-	public Set<Test> getTestsDone() {
+	public Set<Result> getTestsDone() {
 		return testsDone;
 	}
 
-	public void setTestsDone(Set<Test> testsDone) {
+	public void setTestsDone(Set<Result> testsDone) {
 		this.testsDone = testsDone;
 	}
 }
