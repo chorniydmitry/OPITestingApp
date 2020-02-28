@@ -5,8 +5,7 @@ import java.util.Set;
 
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
-import ru.fssprus.r82.entity.QuestionLevel;
-import ru.fssprus.r82.entity.Specification;
+import ru.fssprus.r82.entity.QuestionSet;
 
 /**
  * @author Chernyj Dmitry
@@ -18,28 +17,23 @@ public interface QuestionDao extends ItemDao<Question> {
 	
 	public List<Question> getByAnswer(int startPos, int endPos, Answer answer);
 	
-	public List<Question> getBySpecification(int startPos, int endPos, Specification spec);
+	public List<Question> getByQuestionSet(int startPos, int endPos, QuestionSet set);
 	
 	public List<Question> getByIds(Set<Long> ids);
 	
-	public List<Question> getByNameAndSpecification(String name, Specification spec);
+	public List<Question> getByNameAndQuestionSet(String name, QuestionSet set);
 	
-	public int countItemsBySpecification(Specification spec);
+	public int countItemsByQuestionSet(QuestionSet set);
 	
 	public int getAmountOfItems();
 
-	public List<Question> getByNameSpecificationAndLevel(String name, Set<Specification> specs,
-			Set<QuestionLevel> lvls);
+	public List<Question> getByNameAndQuestionSetList(String name, Set<QuestionSet> sets);
 
-	public List<Question> getBySpecificationAndLevel(int startPos, int endPos, Specification spec, QuestionLevel level);
-
-	public int countBySpecificationAndLevel(Specification spec, QuestionLevel level);
+	public int countByQuestionSet(QuestionSet set);
 	
-	public List<Question> getByNameSpecListLvlListAndID(int startPos, int endPos, String name, Set<Specification> specs,
-			Set<QuestionLevel> lvls, Long id);
+	public List<Question> getByNameSetListAndID(int startPos, int endPos, String name, Set<QuestionSet> sets, Long id);
 	
-	public int countByNameSpecListLvlListAndID(String name, Set<Specification> specs,
-			Set<QuestionLevel> lvls, Long id);
+	public int countByNameSetListAndID(String name, Set<QuestionSet> sets, Long id);
 	
 	
 

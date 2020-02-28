@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import ru.fssprus.r82.entity.QuestionLevel;
 
 /**
  * @author Chernyj Dmitry
@@ -58,28 +57,14 @@ public class TimeUtils {
 			sec = "0" + sec;
 		return min + ":" + sec;
 	}
-
-	public static int getQuizzTimeSecByLevel(QuestionLevel level) {
-		int timeSeconds = 0;
-		switch (level) {
-		case Базовый:
-			timeSeconds = Integer.parseInt(ApplicationConfiguration.getItem("base.time"));
-			break;
-		case Стандартный:
-			timeSeconds = Integer.parseInt(ApplicationConfiguration.getItem("standart.time"));
-			break;
-		case Продвинутый:
-			timeSeconds = Integer.parseInt(ApplicationConfiguration.getItem("advanced.time"));
-			break;
-		case Резерв:
-			timeSeconds = Integer.parseInt(ApplicationConfiguration.getItem("reserve.time"));
-			break;
-		}
+//TODO REMOVE THIS
+	public static int getQuizzTimeSecByLevel() {
+		int timeSeconds = 300;
 		return timeSeconds;
 	}
 
 	public static int getQuizzTimeSecByLevel(int index) {
-		return getQuizzTimeSecByLevel(QuestionLevel.values()[index]);
+		return getQuizzTimeSecByLevel();
 	}
 
 }

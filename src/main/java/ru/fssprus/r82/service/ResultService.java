@@ -6,8 +6,7 @@ import java.util.Set;
 
 import ru.fssprus.r82.dao.ResultDao;
 import ru.fssprus.r82.dao.impl.ResultDatabaseDao;
-import ru.fssprus.r82.entity.QuestionLevel;
-import ru.fssprus.r82.entity.Specification;
+import ru.fssprus.r82.entity.QuestionSet;
 import ru.fssprus.r82.entity.Result;
 import ru.fssprus.r82.entity.User;
 
@@ -36,22 +35,22 @@ public class ResultService {
 		resultDao.remove(test);
 	}
 
-	public List<Result> getByUserSpecifiactionLevelAndDate(Set<User> users, Set<Specification> specs, QuestionLevel level,
+	public List<Result> getByUserQuestionSetAndDate(Set<User> users, Set<QuestionSet> sets,
 			Date dateMore, Date dateLess, String result, int scoreMore, int scoreLess) {
-		return resultDao.getByUserSpecifiactionLevelAndDate(-1, -1, users, specs, level, dateMore, dateLess, result, scoreMore, scoreLess);
+		return resultDao.getByUserQuestionSetAndDate(-1, -1, users, sets, dateMore, dateLess, result, scoreMore, scoreLess);
 		
 	}
 
-	public List<Result> getByUserSpecifiactionLevelAndDate(int startX, int endX, Set<User> users,
-			Set<Specification> specs, QuestionLevel level, Date dateMore, Date dateLess, String result, int scoreMore,
+	public List<Result> getByUserQuestionSetAndDate(int startX, int endX, Set<User> users,
+			Set<QuestionSet> sets, Date dateMore, Date dateLess, String result, int scoreMore,
 			int scoreLess) {
-		return resultDao.getByUserSpecifiactionLevelAndDate(startX, endX, users, specs, level, dateMore, dateLess, result, scoreMore, scoreLess);
+		return resultDao.getByUserQuestionSetAndDate(startX, endX, users, sets, dateMore, dateLess, result, scoreMore, scoreLess);
 	}
 	
-	public int countByUserSpecifiactionLevelAndDate(Set<User> users,
-			Set<Specification> specs, QuestionLevel level, Date dateMore, Date dateLess, String result, int scoreMore,
+	public int countByUserQuestionSetAndDate(Set<User> users,
+			Set<QuestionSet> sets, Date dateMore, Date dateLess, String result, int scoreMore,
 			int scoreLess) {
-		return resultDao.countByUserSpecifiactionLevelAndDate(users, specs, level, dateMore, dateLess, result, scoreMore, scoreLess);
+		return resultDao.countByUserQuestionSetAndDate(users, sets, dateMore, dateLess, result, scoreMore, scoreLess);
 		
 	}
 	

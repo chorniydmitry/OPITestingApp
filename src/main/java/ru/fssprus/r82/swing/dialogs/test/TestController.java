@@ -13,7 +13,6 @@ import com.hp.gagawa.java.elements.P;
 
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
-import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.swing.dialogs.ControllerWithTimer;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.utils.AppConstants;
@@ -44,7 +43,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	private int currentIndex;
 
 	public TestController(TestDialog dialog, TestingProcess testingProcess) {
-		super(dialog, getTime(testingProcess.getTestLevel()), dialog.getLblTimeLeftSec());
+		super(dialog, getTime(), dialog.getLblTimeLeftSec());
 		this.testingProcess = testingProcess;
 
 		initVariables();
@@ -249,9 +248,9 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 		});
 	}
 
-
-	private static int getTime(QuestionLevel lvl) {
-		return TimeUtils.getQuizzTimeSecByLevel(lvl);
+//TODO REMOVE THIS
+	private static int getTime() {
+		return TimeUtils.getQuizzTimeSecByLevel();
 	}
 
 	public TestController(TestDialog dialog, int time) {

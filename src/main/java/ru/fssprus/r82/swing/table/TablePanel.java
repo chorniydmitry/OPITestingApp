@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.table.AbstractTableModel;
 
 import ru.fssprus.r82.swing.utils.JGreenButton;
 
@@ -20,6 +21,7 @@ public class TablePanel extends JPanel {
 	
 	private static final String BTN_ADD_CAPTION = "Добавить";
 	private static final String BTN_REMOVE_CAPTION = "Удалить";
+	private static final String BTN_EDIT_CAPTION = "Редактировать";
 	private static final String BTN_NEXT_CAPTION = ">";
 	private static final String BTN_PREVIOUS_CAPTION = "<";
 	private static final String LBL_PAGE_CAPTION = "Страница: ";
@@ -31,6 +33,7 @@ public class TablePanel extends JPanel {
 	
 	private JButton btnAdd;
 	private JButton btnDelete;
+	private JButton btnEdit;
 	private JPanel pnlTop;
 	
 	private JButton btnNext;
@@ -40,18 +43,24 @@ public class TablePanel extends JPanel {
 	private JLabel lblPagesTotal;
 	private JPanel pnlBottom;
 	
-	private CommonTable commonTable;
+	private boolean isPanelTopShowing;
+	private boolean isPanelBottomShowing;
+	
+	private CommonTable table;
 	private JScrollPane scrollPane;
 	
-	public TablePanel(int[] widths, String[] names) {
-		initTable(widths, names);
+	
+	public TablePanel(boolean isAddEditRemoveButtonsShowing, boolean isPagesPanelShowing, CommonTableModel tabModel) {
+		isPanelTopShowing = isAddEditRemoveButtonsShowing;
+		isPanelBottomShowing = isPagesPanelShowing;
+		initTable(tabModel);
 		initPanel();
 		layoutPanel();
 		
 	}
 	
-	private void initTable(int[] widths, String[] names) {
-		commonTable = new CommonTable(widths, names);
+	private void initTable(CommonTableModel tabModel) {
+		table = new CommonTable(tabModel);
 	}
 	
 	private void initPanel() {
@@ -59,19 +68,23 @@ public class TablePanel extends JPanel {
 	}
 	
 	private void initComponents() {
-		btnAdd = new JGreenButton(BTN_ADD_CAPTION);
-		btnDelete = new JGreenButton(BTN_REMOVE_CAPTION);
-		pnlTop = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-		scrollPane = new JScrollPane(commonTable);
+		if(isPanelTopShowing) {
+			btnAdd = new JGreenButton(BTN_ADD_CAPTION);
+			btnDelete = new JGreenButton(BTN_REMOVE_CAPTION);
+			btnEdit = new JGreenButton(BTN_EDIT_CAPTION);
+			pnlTop = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		}
+		scrollPane = new JScrollPane(table);
 		
-		btnNext = new JGreenButton(BTN_NEXT_CAPTION);
-		lblPage = new JLabel(LBL_PAGE_CAPTION);
-		tfPage = new JTextField(TF_PAGE_LENGTH);
-		tfPage.setText(TF_PAGE_DEF_TEXT);
-		lblPagesTotal = new JLabel(LBL_PAGES_TOTAL_DEF_TEXT);
-		btnPrevious = new JGreenButton(BTN_PREVIOUS_CAPTION);
-		pnlBottom = new JPanel();
+		if(isPanelBottomShowing) {
+			btnNext = new JGreenButton(BTN_NEXT_CAPTION);
+			lblPage = new JLabel(LBL_PAGE_CAPTION);
+			tfPage = new JTextField(TF_PAGE_LENGTH);
+			tfPage.setText(TF_PAGE_DEF_TEXT);
+			lblPagesTotal = new JLabel(LBL_PAGES_TOTAL_DEF_TEXT);
+			btnPrevious = new JGreenButton(BTN_PREVIOUS_CAPTION);
+			pnlBottom = new JPanel();
+		}
 			
 	}
 	
@@ -79,21 +92,31 @@ public class TablePanel extends JPanel {
 		layoutComponents();
 		
 		this.setLayout(new BorderLayout());
-		this.add(pnlTop, BorderLayout.NORTH);
+		
+		if(isPanelTopShowing)
+			this.add(pnlTop, BorderLayout.NORTH);
+		
 		this.add(scrollPane, BorderLayout.CENTER);
-		this.add(pnlBottom, BorderLayout.SOUTH);
+		
+		if(isPanelBottomShowing)
+			this.add(pnlBottom, BorderLayout.SOUTH);
 		
 	}
 	
 	private void layoutComponents() {
-		pnlTop.add(btnAdd);
-		pnlTop.add(btnDelete);
+		if(isPanelTopShowing) {
+			pnlTop.add(btnAdd);
+			pnlTop.add(btnDelete);
+			pnlTop.add(btnEdit);
+		}
 		
-		pnlBottom.add(btnPrevious);
-		pnlBottom.add(lblPage);
-		pnlBottom.add(tfPage);
-		pnlBottom.add(lblPagesTotal);
-		pnlBottom.add(btnNext);
+		if(isPanelBottomShowing) {
+			pnlBottom.add(btnPrevious);
+			pnlBottom.add(lblPage);
+			pnlBottom.add(tfPage);
+			pnlBottom.add(lblPagesTotal);
+			pnlBottom.add(btnNext);
+		}
 	}
 
 	public JButton getBtnAdd() {
@@ -110,6 +133,14 @@ public class TablePanel extends JPanel {
 
 	public void setBtnDelete(JButton btnDelete) {
 		this.btnDelete = btnDelete;
+	}
+	
+	public JButton getBtnEdit() {
+		return btnEdit;
+	}
+
+	public void setBtnEdit(JButton btnEdit) {
+		this.btnEdit = btnEdit;
 	}
 
 	public JButton getBtnNext() {
@@ -144,12 +175,12 @@ public class TablePanel extends JPanel {
 		this.lblPagesTotal = lblPagesTotal;
 	}
 
-	public CommonTable getCommonTable() {
-		return commonTable;
+	public CommonTable getTable() {
+		return table;
 	}
 
-	public void setCommonTable(CommonTable commonTable) {
-		this.commonTable = commonTable;
+	public void setTable(CommonTable commonTable) {
+		this.table = commonTable;
 	}
 
 }

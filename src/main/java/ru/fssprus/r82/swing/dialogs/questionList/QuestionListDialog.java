@@ -19,8 +19,7 @@ import javax.swing.JTextField;
 
 import g.cope.swing.autocomplete.jcombobox.AutocompleteJComboBox;
 import g.cope.swing.autocomplete.jcombobox.StringSearchable;
-import ru.fssprus.r82.entity.QuestionLevel;
-import ru.fssprus.r82.service.SpecificationService;
+import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.swing.table.CommonTable;
 import ru.fssprus.r82.swing.table.CommonTableModel;
@@ -73,7 +72,6 @@ public class QuestionListDialog extends DialogWithPassword {
 	private ArrayList<JLabel> lblAnsList = new ArrayList<>();
 	private ArrayList<JCheckBox> cbAnsList = new ArrayList<>();
 
-	private ArrayList<JCheckBox> cbLevelsList = new ArrayList<>();
 
 	private JButton btnDiscardQuestionEditChanges = new JGreenButton(BTN_DISCARD_Q_EDIT_CAPTION_RU);
 	private JButton btnSaveQuestion = new JGreenButton(BTN_SAVE_CAPTION_RU);
@@ -94,7 +92,7 @@ public class QuestionListDialog extends DialogWithPassword {
 	private void initTable() {
 		int[] widths = AppConstants.QLDIALOG_TABLE_COL_WIDTHS_ARR;
 		String[] names = AppConstants.QLDIALOG_TABLE_COL_CAPTIONS_ARR;
-		tablePanel = new TablePanel(widths, names);
+		tablePanel = new TablePanel(true, true, new CommonTableModel(widths, names));
 	}
 	
 	@Override
@@ -126,10 +124,10 @@ public class QuestionListDialog extends DialogWithPassword {
 	}
 	
 	private void initTfSpecNames() {
-		SpecificationService specService = new SpecificationService();
+		QuestionSetService setService = new QuestionSetService();
 		
 		ArrayList<String> keywords = new ArrayList<String>();
-		specService.getAll().forEach((n) -> keywords.add(n.getName()));
+		setService.getAll().forEach((n) -> keywords.add(n.getName()));
 		
 		StringSearchable searchable = new StringSearchable(keywords);
 		setAccbSpecNames(new AutocompleteJComboBox(searchable));
@@ -151,10 +149,6 @@ public class QuestionListDialog extends DialogWithPassword {
 	private void layoutPanelQuestionEdit() {
 		pnlQuestionEdit.setLayout(new GridBagLayout());
 
-		for (QuestionLevel qlevel : QuestionLevel.values()) {
-			cbLevelsList.add(new JCheckBox(qlevel.toString()));
-		}
-
 		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
 			lblAnsList.add(new JLabel(ANSWER_TEXT + (i + 1)));
 			tfAnsList.add(new JTextField());
@@ -172,44 +166,39 @@ public class QuestionListDialog extends DialogWithPassword {
 		// insets(top, left, botom, right), ipadx, ipady
 
 		// 1st .. cbLevelsList.size() row
-		pnlQuestionEdit.add(scrollPane, new GridBagConstraints(0, 0, 2, cbLevelsList.size(), 1, 1,
+		pnlQuestionEdit.add(scrollPane, new GridBagConstraints(0, 0, 2, 1, 1, 1,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
-		for (int i = 0; i < cbLevelsList.size(); i++) {
-			pnlQuestionEdit.add(cbLevelsList.get(i), new GridBagConstraints(2, i, 1, 1, 0, 0, GridBagConstraints.WEST,
-					GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-		}
-
-		pnlQuestionEdit.add(scrollPane, new GridBagConstraints(0, 0, 2, cbLevelsList.size(), 1, 1,
+		pnlQuestionEdit.add(scrollPane, new GridBagConstraints(0, 0, 2, 1, 1, 1,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
 		//
-		pnlQuestionEdit.add(lblSpecName, new GridBagConstraints(0, cbLevelsList.size(), 1, 1, 0, 0,
+		pnlQuestionEdit.add(lblSpecName, new GridBagConstraints(0, 1, 1, 1, 0, 0,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
-		pnlQuestionEdit.add(accbSpecNames, new GridBagConstraints(1, cbLevelsList.size(), 1, 1, 1, 1,
+		pnlQuestionEdit.add(accbSpecNames, new GridBagConstraints(1, 1, 1, 1, 1, 1,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
 		// cbLevelsList.size()+1 row
 		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
-			pnlQuestionEdit.add(lblAnsList.get(i), new GridBagConstraints(0, cbLevelsList.size() + 1 + i, 1, 1, 0, 0,
+			pnlQuestionEdit.add(lblAnsList.get(i), new GridBagConstraints(0, 1 + 1 + i, 1, 1, 0, 0,
 					GridBagConstraints.WEST, GridBagConstraints.CENTER, new Insets(0, 0, 0, 0), 0, 0));
 
-			pnlQuestionEdit.add(tfAnsList.get(i), new GridBagConstraints(1, cbLevelsList.size() + 1 + i, 1, 1, 1, 0,
+			pnlQuestionEdit.add(tfAnsList.get(i), new GridBagConstraints(1, 1 + 1 + i, 1, 1, 1, 0,
 					GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 
-			pnlQuestionEdit.add(cbAnsList.get(i), new GridBagConstraints(2, cbLevelsList.size() + 1 + i, 1, 1, 0, 0,
+			pnlQuestionEdit.add(cbAnsList.get(i), new GridBagConstraints(2, 1 + 1 + i, 1, 1, 0, 0,
 					GridBagConstraints.WEST, GridBagConstraints.CENTER, new Insets(0, 0, 0, 0), 0, 0));
 		}
 
 		// last row
-		pnlQuestionEdit.add(btnDiscardQuestionEditChanges, new GridBagConstraints(0, cbLevelsList.size() + 2 + AppConstants.MAX_ANSWERS_AMOUNT, 1, 1, 0, 0,
+		pnlQuestionEdit.add(btnDiscardQuestionEditChanges, new GridBagConstraints(0, 1 + 2 + AppConstants.MAX_ANSWERS_AMOUNT, 1, 1, 0, 0,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
-		pnlQuestionEdit.add(btnSaveQuestion, new GridBagConstraints(1, cbLevelsList.size() + 2 + AppConstants.MAX_ANSWERS_AMOUNT, 1, 1, 0, 0,
+		pnlQuestionEdit.add(btnSaveQuestion, new GridBagConstraints(1, 1 + 2 + AppConstants.MAX_ANSWERS_AMOUNT, 1, 1, 0, 0,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 		
-		pnlQuestionEdit.add(btnEditQuestion, new GridBagConstraints(2, cbLevelsList.size() + 2 + AppConstants.MAX_ANSWERS_AMOUNT, 1, 1, 0, 0,
+		pnlQuestionEdit.add(btnEditQuestion, new GridBagConstraints(2, 1 + 2 + AppConstants.MAX_ANSWERS_AMOUNT, 1, 1, 0, 0,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 		
 		pnlQuestionEdit.setVisible(true);
@@ -308,14 +297,6 @@ public class QuestionListDialog extends DialogWithPassword {
 		this.btnSaveQuestion = btnSaveQuestion;
 	}
 
-	public ArrayList<JCheckBox> getCbLevelsList() {
-		return cbLevelsList;
-	}
-
-	public void setCbLevelsList(ArrayList<JCheckBox> cbLevelsList) {
-		this.cbLevelsList = cbLevelsList;
-	}
-
 	public AutocompleteJComboBox getAccbSpecNames() {
 		return accbSpecNames;
 	}
@@ -381,7 +362,7 @@ public class QuestionListDialog extends DialogWithPassword {
 	}
 	
 	public CommonTable getTable() {
-		return tablePanel.getCommonTable();
+		return tablePanel.getTable();
 	}
 	
 	public CommonTableModel getTableModel() {

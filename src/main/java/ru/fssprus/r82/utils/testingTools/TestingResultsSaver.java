@@ -17,23 +17,22 @@ public class TestingResultsSaver {
 		
 		int correctAnswers = analiser.getCorrectAnswersAmount();
 		
-		Result test = new Result();
-		test.setCorrectAnswers(correctAnswers);
-		test.setDate(new Date());
+		Result result = new Result();
+		result.setCorrectAnswers(correctAnswers);
+		result.setDate(new Date());
 		
 		TestingProcess testingProcess = analiser.getTestingProcess();
 		
-		test.setScore(analiser.getMarkPercent());
-		test.setResult(analiser.getMarkText());
-		test.setUser(getDBUser(testingProcess.getTestedUser()));
+		result.setScore(analiser.getMarkPercent());
+		result.setResult(analiser.getMarkText());
+		result.setUser(getDBUser(testingProcess.getTestedUser()));
 
-		test.setSpecification(testingProcess.getSpecification());
-		test.setLevel(testingProcess.getTestLevel());
-		test.setTestingTime(TimeUtils.getQuizzTimeSecByLevel(testingProcess.getTestLevel()) - timeLeft);
-		test.setTotalQuestions(analiser.getTotalAmount());
+		result.setQuestionSet(testingProcess.getQuestionSet());
+		result.setTestingTime(TimeUtils.getQuizzTimeSecByLevel() - timeLeft);
+		result.setTotalQuestions(analiser.getTotalAmount());
 
 		ResultService service = new ResultService();
-		service.add(test);
+		service.add(result);
 	}
 	
 	public User getDBUser(User user) {

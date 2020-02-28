@@ -7,11 +7,9 @@ package ru.fssprus.r82.swing.dialogs.addingSet;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Set;
 
 import ru.fssprus.r82.entity.Question;
-import ru.fssprus.r82.entity.QuestionLevel;
-import ru.fssprus.r82.entity.Specification;
+import ru.fssprus.r82.entity.QuestionSet;
 import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.utils.MessageBox;
@@ -84,17 +82,17 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 	private HashSet<Question> getQuestionsParsed() {
 		SpreadSheetParser parser = new SpreadSheetParser();
 		
-		HashSet<Question> questions = parser.parse(testFile, configureLevelsSet(), getSpecification());
+		HashSet<Question> questions = parser.parse(testFile, getQuestionSet());
 		return questions;
 	}
 
 	/**
 	 * @return
 	 */
-	private Specification getSpecification() {
-		Specification spec = new Specification();
-		spec.setName(dialog.getAccbSpecName().getSelectedItem().toString());
-		return spec;
+	private QuestionSet getQuestionSet() {
+		QuestionSet set = new QuestionSet();
+		set.setName(dialog.getAccbSpecName().getSelectedItem().toString());
+		return set;
 	}
 
 	private void doOpenTestFile() {
@@ -106,13 +104,6 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-	}
-
-	private Set<QuestionLevel> configureLevelsSet() {
-		QuestionLevel level = (QuestionLevel) dialog.getCbQuestLevel().getSelectedItem();
-		Set<QuestionLevel> lvls = new HashSet<QuestionLevel>();
-		lvls.add(level);
-		return lvls;
 	}
 
 	private void saveQuestionSetToDB(HashSet<Question> questions) {

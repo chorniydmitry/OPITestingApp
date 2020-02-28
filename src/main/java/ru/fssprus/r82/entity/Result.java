@@ -8,8 +8,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -50,13 +48,9 @@ public class Result extends Model {
 	private int testingTime;
 	
 	@NotNull
-	@Enumerated(EnumType.STRING)
-	private QuestionLevel level;
-	
-	@NotNull
 	@ManyToOne
-	@JoinColumn(name="specification_id")
-	private Specification specification;
+	@JoinColumn(name="questionset_id")
+	private QuestionSet questionset;
 	
 	public Result() {
 		super();
@@ -114,20 +108,12 @@ public class Result extends Model {
 		this.totalQuestions = totalQuestions;
 	}
 
-	public QuestionLevel getLevel() {
-		return level;
+	public QuestionSet getQuestionSet() {
+		return questionset;
 	}
 
-	public void setLevel(QuestionLevel level) {
-		this.level = level;
-	}
-
-	public Specification getSpecification() {
-		return specification;
-	}
-
-	public void setSpecification(Specification specification) {
-		this.specification = specification;
+	public void setQuestionSet(QuestionSet questionSet) {
+		this.questionset = questionSet;
 	}
 
 	public String getResult() {

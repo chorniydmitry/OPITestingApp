@@ -9,20 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.swing.JRadioButton;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import ru.fssprus.r82.entity.QuestionLevel;
-import ru.fssprus.r82.entity.Specification;
+import ru.fssprus.r82.entity.QuestionSet;
 import ru.fssprus.r82.entity.User;
-import ru.fssprus.r82.service.QuestionService;
-import ru.fssprus.r82.service.SpecificationService;
+import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
-import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.testingTools.TestProcessBuilder;
 
 public class NewTestController extends CommonController<NewTestDialog> {
@@ -38,7 +34,6 @@ public class NewTestController extends CommonController<NewTestDialog> {
 	protected void setListeners() {
 		dialog.getBtnBegin().addActionListener(listener -> doBegin());
 		dialog.getBtnCancel().addActionListener(listener -> doCancel());
-		dialog.getCbSpecification().addActionListener(listener -> doCheckSpecAndLevels());
 	}
 
 	private void doBegin() {
@@ -47,11 +42,9 @@ public class NewTestController extends CommonController<NewTestDialog> {
 		if (!validateFields())
 			return;
 
-		QuestionLevel selectedql = QuestionLevel.values()[dialog.getSelectedLevelIndex()];
+		List<QuestionSet> sets = configureSpecsList();
 		
-		List<Specification> specs = configureSpecsList();
-		
-		TestProcessBuilder tpBuilder = new TestProcessBuilder(specs, selectedql, getUser());
+		TestProcessBuilder tpBuilder = new TestProcessBuilder(sets, getUser());
 
 		DialogBuilder.showTestDialog(tpBuilder.buildTest());
 		
@@ -62,38 +55,22 @@ public class NewTestController extends CommonController<NewTestDialog> {
 		return new User(dialog.getTfName().getText(), dialog.getTfSurname().getText(), dialog.getTfSecondName().getText());
 	}
 
-	private List<Specification> configureSpecsList() {
+	private List<QuestionSet> configureSpecsList() {
 		
 		String selectedSpecName = String.valueOf(dialog.getCbSpecification().getSelectedItem());
 		
-		Specification selectedSpec = new SpecificationService().getUniqueByName(selectedSpecName);
-		Specification commonSpec = new SpecificationService().getUniqueByName(COMMON_TEXT);
+		QuestionSet selectedSpec = new QuestionSetService().getUniqueByName(selectedSpecName);
+		QuestionSet commonSpec = new QuestionSetService().getUniqueByName(COMMON_TEXT);
 		
-		List<Specification> specs = new ArrayList<>();
-		specs.add(selectedSpec);
-		specs.add(commonSpec);
+		List<QuestionSet> sets = new ArrayList<>();
+		sets.add(selectedSpec);
+		sets.add(commonSpec);
 
-		return specs;
+		return sets;
 	}
 	
 	private void doCancel() {
 		dialog.dispose();
-	}
-
-	private void doCheckSpecAndLevels() {
-		dialog.getRbLevels().forEach((n) -> n.setEnabled(true));
-
-		QuestionService qService = new QuestionService();
-		SpecificationService sService = new SpecificationService();
-		Specification specification = sService
-				.getUniqueByName(String.valueOf(dialog.getCbSpecification().getSelectedItem()));
-
-		for (int i = 0; i < QuestionLevel.values().length; i++) {
-			int qPerLvl = qService.countBySpecificationAndLevel(specification, QuestionLevel.values()[i]);
-
-			if ((qPerLvl == 0) || (qPerLvl < AppConstants.MINIMUM_QUESTIONS_TO_INIT_TEST))
-				dialog.getRbLevels().get(i).setEnabled(false);
-		}
 	}
 
 	private boolean validateFields() {
@@ -127,12 +104,6 @@ public class NewTestController extends CommonController<NewTestDialog> {
 			validationPassed = false;
 		}
 
-		if (dialog.getSelectedLevelIndex() == AppConstants.NO_INDEX_SELECTED) {
-			for (JRadioButton lvls : dialog.getRbLevels())
-				lvls.setBackground(Color.RED);
-			validationPassed = false;
-		}
-		
 		valFact.close();
 
 		return validationPassed;
@@ -140,15 +111,15 @@ public class NewTestController extends CommonController<NewTestDialog> {
 	}
 
 	private void loadSpecificationList() {
-		SpecificationService service = new SpecificationService();
-		List<Specification> specList = service.getAll();
+		QuestionSetService service = new QuestionSetService();
+		List<QuestionSet> setList = service.getAll();
 
 		dialog.getCbSpecification().addItem(null);
 
-		for (Specification spec : specList) {
-			if (spec.getName().toUpperCase().equals(COMMON_TEXT.toUpperCase()))
+		for (QuestionSet set : setList) {
+			if (set.getName().toUpperCase().equals(COMMON_TEXT.toUpperCase()))
 				continue;
-			dialog.getCbSpecification().addItem(spec.getName());
+			dialog.getCbSpecification().addItem(set.getName());
 		}
 	}
 

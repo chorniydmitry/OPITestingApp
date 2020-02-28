@@ -17,11 +17,10 @@ import javax.swing.JTable;
 
 import ru.fssprus.r82.dao.ResultDao;
 import ru.fssprus.r82.dao.impl.ResultDatabaseDao;
-import ru.fssprus.r82.entity.QuestionLevel;
-import ru.fssprus.r82.entity.Specification;
+import ru.fssprus.r82.entity.QuestionSet;
 import ru.fssprus.r82.entity.Result;
 import ru.fssprus.r82.entity.User;
-import ru.fssprus.r82.service.SpecificationService;
+import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.service.ResultService;
 import ru.fssprus.r82.service.UserService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
@@ -108,15 +107,8 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 	}
 
 	private void initCbs() {
-		initCbLevels();
 		initCbMarks();
-		initCbSpecs();
-	}
-
-	private void initCbLevels() {
-		dialog.getCbLevel().addItem(null);
-		for (QuestionLevel item : QuestionLevel.values())
-			dialog.getCbLevel().addItem(item);
+		initCbSets();
 	}
 
 	private void initCbMarks() {
@@ -125,16 +117,16 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 			dialog.getCbMarks().addItem(mark);
 	}
 
-	private void initCbSpecs() {
-		SpecificationService service = new SpecificationService();
-		List<Specification> specList = service.getAll();
+	private void initCbSets() {
+		QuestionSetService service = new QuestionSetService();
+		List<QuestionSet> setList = service.getAll();
 
-		dialog.getCbSpecs().addItem(null);
+		dialog.getCbSets().addItem(null);
 
-		for (Specification spec : specList) {
-			if (spec.getName().toUpperCase().equals(COMMON_TEXT.toUpperCase()))
+		for (QuestionSet set : setList) {
+			if (set.getName().toUpperCase().equals(COMMON_TEXT.toUpperCase()))
 				continue;
-			dialog.getCbSpecs().addItem(spec.getName());
+			dialog.getCbSets().addItem(set.getName());
 		}
 	}
 
@@ -151,24 +143,15 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 		return users;
 	}
 
-	private Set<Specification> getSpecs() {
-		SpecificationService specService = new SpecificationService();
+	private Set<QuestionSet> getSets() {
+		QuestionSetService setService = new QuestionSetService();
 
-		Set<Specification> specs = null;
-		if (dialog.getCbSpecs().getSelectedIndex() != -1) {
-			specs = new HashSet<>(specService.getByName(dialog.getCbSpecs().getSelectedItem().toString()));
+		Set<QuestionSet> sets = null;
+		if (dialog.getCbSets().getSelectedIndex() != -1) {
+			sets = new HashSet<>(setService.getByName(dialog.getCbSets().getSelectedItem().toString()));
 		}
 
-		return specs;
-	}
-
-	private QuestionLevel getLevel() {
-		QuestionLevel level = null;
-
-		if ((dialog.getCbLevel().getSelectedItem() != null))
-			level = (QuestionLevel.valueOf(dialog.getCbLevel().getSelectedItem().toString()));
-
-		return level;
+		return sets;
 	}
 
 	private Date getDateMore() {
@@ -198,15 +181,15 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 	}
 
 	private List<Result> getByFilter(int start, int max) {
-		ResultService testService = new ResultService();
+		ResultService resultService = new ResultService();
 
 		if (start != 0 || max != 0) {
-			return testService.getByUserSpecifiactionLevelAndDate(start, max, getUsers(), getSpecs(), getLevel(),
+			return resultService.getByUserQuestionSetAndDate(start, max, getUsers(), getSets(),
 					getDateMore(), getDateLess(), getResult(), getScoreMore(), getScoreLess());
 			
 			
 		} else {
-			return testService.getByUserSpecifiactionLevelAndDate(getUsers(), getSpecs(), getLevel(), getDateMore(),
+			return resultService.getByUserQuestionSetAndDate(getUsers(), getSets(), getDateMore(),
 					getDateLess(), getResult(), getScoreMore(), getScoreLess());
 		}
 	}
@@ -214,8 +197,7 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 	private void doClearFiltersAction() {
 
 		dialog.getTfSurNamLast().setText(null);
-		dialog.getCbSpecs().setSelectedIndex(0);
-		dialog.getCbLevel().setSelectedIndex(0);
+		dialog.getCbSets().setSelectedIndex(0);
 		dialog.getCbMarks().setSelectedIndex(0);
 		dialog.getDpDateLess().clear();
 		dialog.getDpDateMore().clear();
@@ -231,8 +213,7 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 
 			String userName = test.getUser().getSurname() + " " + test.getUser().getName() + " "
 					+ test.getUser().getSecondName();
-			String spec = test.getSpecification().getName();
-			QuestionLevel lvl = test.getLevel();
+			String set = test.getQuestionSet().getName();
 
 			Date testDate = test.getDate();
 
@@ -246,7 +227,7 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 			String percent = String.valueOf(test.getScore());
 			String result = test.getResult();
 
-			Object[] row = { i + 1, userName, spec, lvl, date, testTime, corrects, percent, result };
+			Object[] row = { i + 1, userName, set, date, testTime, corrects, percent, result };
 
 			dialog.getTableModel().setRow(row, i);
 			dialog.getTableModel().setRowColor(i,
@@ -271,7 +252,7 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 
 	private int countTotalPages() {
 		ResultDao testDao = new ResultDatabaseDao();
-		this.totalPages = testDao.countByUserSpecifiactionLevelAndDate(getUsers(), getSpecs(), getLevel(),
+		this.totalPages = testDao.countByUserQuestionSetAndDate(getUsers(), getSets(),
 				getDateMore(), getDateLess(), getResult(), getScoreMore(), getScoreLess()) / ENTRIES_FOR_PAGE + 1;
 		
 		return totalPages;

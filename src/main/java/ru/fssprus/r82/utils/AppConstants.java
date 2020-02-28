@@ -64,7 +64,7 @@ public class AppConstants {
 	public static final int DIALOG_CONFIG_HEIGHT = 600;
 	
 	public static final int DIALOG_LOADING_QUESTION_SET_WIDTH = 600;
-	public static final int DIALOG_LOADING_QUESTION_SET_HEIGHT = 300;
+	public static final int DIALOG_LOADING_QUESTION_SET_HEIGHT = 250;
 	
 	public static final int DIALOG_QUESTUIN_EDIT_WIDTH = 1000;
 	public static final int DIALOG_QUESTUIN_EDIT_HEIGHT = 700;
@@ -91,7 +91,7 @@ public class AppConstants {
 	public static final int DIALOG_RESULTING_HEIGHT = 300;
 	
 	public static final int DIALOG_TEST_CONSTRUCTOR_WIDTH = 900;
-	public static final int DIALOG_TEST_CONSTRUCTOR_HEIGHT = 900;
+	public static final int DIALOG_TEST_CONSTRUCTOR_HEIGHT = 700;
 	
 	
 	
@@ -123,8 +123,8 @@ public class AppConstants {
 	// QuestionListDialog константы
 	public static final int QLDIALOG_TF_SIZE = 25;
 	
-	public static final int[] QLDIALOG_TABLE_COL_WIDTHS_ARR = {40, 550, 190, 190};
-	public static final String[] QLDIALOG_TABLE_COL_CAPTIONS_ARR = {"id", "Формулировка", "Уровни", "Спецификация" };
+	public static final int[] QLDIALOG_TABLE_COL_WIDTHS_ARR = {40, 550, 190};
+	public static final String[] QLDIALOG_TABLE_COL_CAPTIONS_ARR = {"id", "Формулировка", "Спецификация" };
 	
 	public static final String ACCP_SPEC_NAMES_PROTOTYPE_DISPLAY_VALUE = "XXXXXXXXXXXXXXXXXXXX";
 	
@@ -139,11 +139,11 @@ public class AppConstants {
 	public static final SimpleDateFormat STATDIALOG_TABLE_DATE_FORMAT = new SimpleDateFormat("dd MMMMM yyyy HH:mm", new Locale("ru", "RU"));
 	
 	// TestConstructorDialog константы
-	public static final int[] TESTCONSTRUCTOR_TABLELIST_COL_WIDTHS_ARR = { 20, 250, 60 };
-	public static final String[] TESTCONSTRUCTOR_TABLELIST_COL_CAPTIONS_ARR = {"#", "Название теста", "Сложность"};
+	public static final int[] TESTCONSTRUCTOR_TABLELIST_COL_WIDTHS_ARR = { 20, 500, 150, 150, 100 };
+	public static final String[] TESTCONSTRUCTOR_TABLELIST_COL_CAPTIONS_ARR = {"#", "Название теста", "Время на тест(сек)", "Всего вопросов", "Тест активен?"};
 	
 	public static final int[] TESTCONSTRUCTOR_TABLECURRENT_COL_WIDTHS_ARR = { 250, 60 };
-	public static final String[] TESTCONSTRUCTOR_TABLECURRENT_COL_CAPTIONS_ARR = {"Название набора", "%"};
+	public static final String[] TESTCONSTRUCTOR_TABLECURRENT_COL_CAPTIONS_ARR = {"Название набора", "Количество вопросов"};
 	
 	
 	// Прочие константы

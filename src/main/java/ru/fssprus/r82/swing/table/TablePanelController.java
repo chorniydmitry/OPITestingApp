@@ -19,7 +19,7 @@ public class TablePanelController {
 
 	public TablePanelController(TablePanel tablePanel) {
 		this.tablePanel = tablePanel;
-		this.table = tablePanel.getCommonTable();
+		this.table = tablePanel.getTable();
 
 		setListeners();
 	}
@@ -83,8 +83,8 @@ public class TablePanelController {
 		table.unselectAll();
 		table.getTabModel().uncolorAll();
 		
-		tablePanel.getCommonTable().getTabModel().addRow(new Object[table.getTabModel().getColumnCount()]);
-		tablePanel.getCommonTable().scrollTableDown();
+		tablePanel.getTable().getTabModel().addRow(new Object[table.getTabModel().getColumnCount()]);
+		tablePanel.getTable().scrollTableDown();
 	}
 
 	public void setSubscriber(UpdatableController updatableController) {

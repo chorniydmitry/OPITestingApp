@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
-import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.Utils;
 
@@ -21,8 +20,6 @@ public class MessageBox extends JOptionPane {
 	private static final String READY = "Готово!";
 	private static final String ERROR_FILE_NOT_LOAD = "Ошибка при открытии файла!";
 	private static final String ERROR_WRONG_SPEC_SPECIFIED = "Не верно указано название специализации!";
-	private static final String ERROR_WRONG_LEVEL_SPECIFIED = "Не верно указан уровень сложности\n"
-			+ "Допустимые значения: ";
 	private static final String PASSWORD_INPUT_TITLE = "Ввод пароля";
 	private static final String PASSWORD_INPUT_MESSAGE = "Введите пароль:";
 	private static final String CONFIRM_QUESTION_DELETE = "Будет удалена выбранная запись из базы данных. Продолжить?";
@@ -62,14 +59,6 @@ public class MessageBox extends JOptionPane {
 
 	public static void showWrongSpecSpecifiedErrorDialog(Component component) {
 		MessageBox.showMessageDialog(component, ERROR_WRONG_SPEC_SPECIFIED, null, JOptionPane.ERROR_MESSAGE);
-	}
-
-	public static void showWrongLevelSpecifiedErrorDialog(Component component) {
-		String msg = ERROR_WRONG_LEVEL_SPECIFIED;
-		for (QuestionLevel level : QuestionLevel.values()) {
-			msg += "[" + level.toString() + "] ";
-		}
-		MessageBox.showMessageDialog(component, msg, null, JOptionPane.ERROR_MESSAGE);
 	}
 
 	public static String showInputPasswordDialog(Component component) {

@@ -20,9 +20,8 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import ru.fssprus.r82.dao.ResultDao;
-import ru.fssprus.r82.entity.QuestionLevel;
-import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.entity.Result;
+import ru.fssprus.r82.entity.QuestionSet;
 import ru.fssprus.r82.entity.User;
 import ru.fssprus.r82.utils.HibernateUtil;
 
@@ -51,8 +50,8 @@ public class ResultDatabaseDao extends AbstractHibernateDao<Result> implements R
 	}
 
 	@Override
-	public List<Result> getByUserSpecifiactionLevelAndDate(int startPos, int endPos, Set<User> users,
-			Set<Specification> specifications, QuestionLevel level, Date dateMore, Date dateLess, String result,
+	public List<Result> getByUserQuestionSetAndDate(int startPos, int endPos, Set<User> users,
+			Set<QuestionSet> sets, Date dateMore, Date dateLess, String result,
 			int scoreMore, int scoreLess) {
 		List<Result> testList = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -67,15 +66,8 @@ public class ResultDatabaseDao extends AbstractHibernateDao<Result> implements R
 			if (users != null && users.size() > 0)
 				predicates.add(root.join("user").in(users));
 
-			if (specifications != null && specifications.size() > 0)
-				predicates.add(root.join("specification").in(specifications));
-
-			if (level != null) {
-				Predicate p = builder.conjunction();
-				p = builder.and(p, builder.equal(root.get("level"), level));
-				predicates.add(p);
-
-			}
+			if (sets != null && sets.size() > 0)
+				predicates.add(root.join("questionset").in(sets));
 
 			if (dateMore != null)
 				predicates.add(builder.greaterThanOrEqualTo(root.get("date"), dateMore));
@@ -113,9 +105,8 @@ public class ResultDatabaseDao extends AbstractHibernateDao<Result> implements R
 	}
 
 	@Override
-	public int countByUserSpecifiactionLevelAndDate(Set<User> users, Set<Specification> specs, QuestionLevel level,
+	public int countByUserQuestionSetAndDate(Set<User> users, Set<QuestionSet> sets,
 			Date dateMore, Date dateLess, String result, int scoreMore, int scoreLess) {
-
 		int returnValue = 0;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
@@ -129,15 +120,8 @@ public class ResultDatabaseDao extends AbstractHibernateDao<Result> implements R
 			if (users != null && users.size() > 0)
 				predicates.add(root.join("user").in(users));
 
-			if (specs != null && specs.size() > 0)
-				predicates.add(root.join("specification").in(specs));
-
-			if (level != null) {
-				Predicate p = builder.conjunction();
-				p = builder.and(p, builder.equal(root.get("level"), level));
-				predicates.add(p);
-
-			}
+			if (sets != null && sets.size() > 0)
+				predicates.add(root.join("questionset").in(sets));
 
 			if (dateMore != null)
 				predicates.add(builder.greaterThanOrEqualTo(root.get("date"), dateMore));

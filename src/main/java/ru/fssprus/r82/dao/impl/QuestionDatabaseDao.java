@@ -18,8 +18,7 @@ import org.hibernate.query.Query;
 import ru.fssprus.r82.dao.QuestionDao;
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
-import ru.fssprus.r82.entity.QuestionLevel;
-import ru.fssprus.r82.entity.Specification;
+import ru.fssprus.r82.entity.QuestionSet;
 import ru.fssprus.r82.utils.HibernateUtil;
 
 /**
@@ -119,7 +118,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 	}
 
 	@Override
-	public List<Question> getBySpecification(int startPos, int endPos, Specification spec) {
+	public List<Question> getByQuestionSet(int startPos, int endPos, QuestionSet set) {
 		List<Question> questionList = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
@@ -127,7 +126,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			CriteriaQuery<Question> criteriaQuery = builder.createQuery(Question.class);
 
 			Root<Question> root = criteriaQuery.from(Question.class);
-			criteriaQuery.where(root.join("specification").in(spec));
+			criteriaQuery.where(root.join("questionset").in(set));
 
 			Query<Question> query = session.createQuery(criteriaQuery);
 
@@ -148,37 +147,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 	}
 
 	@Override
-	public List<Question> getBySpecificationAndLevel(int startPos, int endPos, Specification spec,
-			QuestionLevel level) {
-		List<Question> questionList = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-
-			CriteriaBuilder builder = session.getCriteriaBuilder();
-			CriteriaQuery<Question> criteriaQuery = builder.createQuery(Question.class);
-
-			Root<Question> root = criteriaQuery.from(Question.class);
-			criteriaQuery.where(root.join("specification").in(spec), root.join("levels").in(level));
-
-			Query<Question> query = session.createQuery(criteriaQuery);
-
-			if (!(endPos == -1 || startPos == -1)) {
-				query.setFirstResult(startPos);
-				query.setMaxResults(endPos);
-			}
-
-			questionList = query.getResultList();
-
-			session.close();
-
-		} catch (HibernateException e) {
-			e.printStackTrace();
-		}
-
-		return questionList;
-	}
-
-	@Override
-	public int countItemsBySpecification(Specification spec) {
+	public int countItemsByQuestionSet(QuestionSet set) {
 		int returnValue = 0;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -186,7 +155,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			Root<Question> root = criteriaQuery.from(Question.class);
 
 			criteriaQuery.select(builder.count(root));
-			criteriaQuery.where(root.join("specification").in(spec));
+			criteriaQuery.where(root.join("questionset").in(set));
 
 			TypedQuery<Object> q = session.createQuery(criteriaQuery);
 
@@ -224,7 +193,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 	}
 
 	@Override
-	public List<Question> getByNameAndSpecification(String name, Specification spec) {
+	public List<Question> getByNameAndQuestionSet(String name, QuestionSet set) {
 		List<Question> questionList = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
@@ -233,7 +202,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 
 			Root<Question> root = criteriaQuery.from(Question.class);
 			criteriaQuery.select(root).where((builder.like(root.get("title"), "%" + name + "%")),
-					(root.join("specification").in(spec)));
+					(root.join("questionset").in(set)));
 
 			Query<Question> query = session.createQuery(criteriaQuery);
 
@@ -248,8 +217,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 	}
 
 	@Override
-	public List<Question> getByNameSpecificationAndLevel(String name, Set<Specification> specs,
-			Set<QuestionLevel> lvls) {
+	public List<Question> getByNameAndQuestionSetList(String name, Set<QuestionSet> sets) {
 		List<Question> questionList = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
@@ -258,7 +226,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 
 			Root<Question> root = criteriaQuery.from(Question.class);
 			criteriaQuery.select(root).where((builder.like(root.get("title"), "%" + name + "%")),
-					(root.join("specification").in(specs)), (root.join("levels").in(lvls)));
+					(root.join("questionset").in(sets)));
 
 			Query<Question> query = session.createQuery(criteriaQuery);
 
@@ -273,8 +241,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 	}
 
 	@Override
-	public List<Question> getByNameSpecListLvlListAndID(int startPos, int endPos, String name, Set<Specification> specs,
-			Set<QuestionLevel> lvls, Long id) {
+	public List<Question> getByNameSetListAndID(int startPos, int endPos, String name, Set<QuestionSet> sets, Long id) {
 		List<Question> questionList = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			
@@ -292,12 +259,8 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			if (!name.isEmpty()) {
 				predicates.add(builder.like(root.get("title"), "%" + name + "%"));
 			}
-			if (specs != null) {
-				predicates.add(root.join("specification").in(specs));
-			}
-
-			if (lvls != null) {
-				predicates.add(root.join("levels").in(lvls));
+			if (sets != null) {
+				predicates.add(root.join("questionset").in(sets));
 			}
 
 			criteriaQuery.select(root).where(predicates.toArray(new Predicate[] {}));
@@ -321,7 +284,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 	}
 	
 	@Override
-	public int countBySpecificationAndLevel(Specification spec, QuestionLevel level) {
+	public int countByQuestionSet(QuestionSet set) {
 		int returnValue = 0;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -329,7 +292,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			Root<Question> root = criteriaQuery.from(Question.class);
 
 			criteriaQuery.select(builder.count(root));
-			criteriaQuery.where(root.join("specification").in(spec), root.join("levels").in(level));
+			criteriaQuery.where(root.join("questionset").in(set));
 
 			TypedQuery<Object> q = session.createQuery(criteriaQuery);
 
@@ -345,7 +308,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 	}
 
 	@Override
-	public int countByNameSpecListLvlListAndID(String name, Set<Specification> specs, Set<QuestionLevel> lvls, Long id) {
+	public int countByNameSetListAndID(String name, Set<QuestionSet> sets, Long id) {
 		int returnValue = 0;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			
@@ -363,14 +326,10 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			if (!name.isEmpty()) {
 				predicates.add(builder.like(root.get("title"), "%" + name + "%"));
 			}
-			if (specs != null) {
-				predicates.add(root.join("specification").in(specs));
+			if (sets != null) {
+				predicates.add(root.join("questionset").in(sets));
 			}
 
-			if (lvls != null) {
-				predicates.add(root.join("levels").in(lvls));
-			}
-			
 			criteriaQuery.select(builder.count(root));
 			criteriaQuery.where(predicates.toArray(new Predicate[] {}));
 
@@ -387,9 +346,4 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 
 	}
 
-//  Получить список вопросов по списку id и спецификации
-//	select q.title, s.name
-//	from question as q, specification as s 
-//	inner join question_specification as qs on qs.specification_id = s.id AND qs.question_id  = q.id
-//	where q.id in(3,5,7,9) and s.id = 1
 }

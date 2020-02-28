@@ -7,8 +7,7 @@ import java.util.Map;
 
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
-import ru.fssprus.r82.entity.QuestionLevel;
-import ru.fssprus.r82.entity.Specification;
+import ru.fssprus.r82.entity.QuestionSet;
 import ru.fssprus.r82.entity.User;
 import ru.fssprus.r82.swing.utils.MessageBox;
 
@@ -18,18 +17,16 @@ import ru.fssprus.r82.swing.utils.MessageBox;
  */
 public class TestingProcess {
 	private User testedUser;
-	private Specification specification;
-	private QuestionLevel testLevel;
+	private QuestionSet questionSet;
 	private List<Question> questionsToAskList;
 	private Map<Question, List<Answer>> questionsAndAnswersGiven;
 	private boolean isQuizzFinished = false;
 	//private int totalTimeForQuest;
 
-	public TestingProcess(User user, List<Question> questionsToAsk, QuestionLevel testLevel, Specification spec) {
+	public TestingProcess(User user, List<Question> questionsToAsk, QuestionSet set) {
 		this.testedUser = user;
 		this.questionsToAskList = questionsToAsk;
-		this.testLevel = testLevel;
-		this.specification = spec;
+		this.questionSet = set;
 		
 		initQuestionsAndAnswersGiven();
 	}
@@ -107,14 +104,6 @@ public class TestingProcess {
 		this.isQuizzFinished = isQuizzFinished;
 	}
 
-	public QuestionLevel getTestLevel() {
-		return testLevel;
-	}
-
-	public void setTestLevel(QuestionLevel testLevel) {
-		this.testLevel = testLevel;
-	}
-
 //	public void setTimeForQuest(int time) {
 //		this.totalTimeForQuest = time;
 //	}
@@ -123,12 +112,12 @@ public class TestingProcess {
 //		return totalTimeForQuest;
 //	}
 
-	public Specification getSpecification() {
-		return specification;
+	public QuestionSet getQuestionSet() {
+		return questionSet;
 	}
 
-	public void setSpecification(Specification specification) {
-		this.specification = specification;
+	public void setQuestionSet(QuestionSet questionSet) {
+		this.questionSet = questionSet;
 	}
 
 }

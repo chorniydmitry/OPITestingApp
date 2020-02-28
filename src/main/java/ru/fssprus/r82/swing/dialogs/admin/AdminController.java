@@ -19,18 +19,11 @@ public class AdminController extends CommonController<AdminDialog> {
 		dialog.getBtnQuestionEdit().addActionListener(listener -> doOpenQuestionEditDialog());
 		dialog.getBtnQuestionLoad().addActionListener(listener -> doOpenQuestionLoagingDialog());
 		dialog.getBtnTestConstructor().addActionListener(listener -> doOpenTestConstructorDialog());
-		dialog.getBtnSettings().addActionListener(listener -> doOpenSettingsDialog());
 	}
 
 	private void doOpenTestConstructorDialog() {
 		dialog.dispose();
 		DialogBuilder.showTestConstructorDialog();
-	}
-
-	private void doOpenSettingsDialog() {
-		dialog.dispose();
-		DialogBuilder.showConfigDialog();
-		
 	}
 
 	private void doOpenQuestionLoagingDialog() {

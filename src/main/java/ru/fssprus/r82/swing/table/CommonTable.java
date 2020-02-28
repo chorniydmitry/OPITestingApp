@@ -6,6 +6,7 @@ import java.awt.event.ComponentEvent;
 
 import javax.swing.DropMode;
 import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import ru.fssprus.r82.utils.AppConstants;
@@ -20,16 +21,16 @@ public class CommonTable extends JTable {
 	
 	private int lastSelectedIndex = AppConstants.NO_INDEX_SELECTED;
 	
-	public CommonTable(int[] widths, String[] names) {
-		initTableModel(names);
+	public CommonTable(CommonTableModel tabModel) {
+		initTableModel(tabModel);
 		
 		initTable();
 		
-		updateColumnWidths(widths);
+		updateColumnWidths(tabModel.getColumnWidths());
 	}
 	
-	private void initTableModel(String[] names) {
-		tabModel = new CommonTableModel(names);
+	private void initTableModel(CommonTableModel tabModel) {
+		this.tabModel = tabModel;
 	}
 	
 	private void initTable() {

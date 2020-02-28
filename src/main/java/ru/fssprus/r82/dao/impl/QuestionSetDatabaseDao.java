@@ -10,60 +10,60 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import ru.fssprus.r82.dao.SpecificationDao;
+import ru.fssprus.r82.dao.QuestionSetDao;
 import ru.fssprus.r82.entity.Question;
-import ru.fssprus.r82.entity.Specification;
+import ru.fssprus.r82.entity.QuestionSet;
 import ru.fssprus.r82.utils.HibernateUtil;
 
 /**
  * @author Chernyj Dmitry
  *
  */
-public class SpecifiactionDatabaseDao extends AbstractHibernateDao<Specification> implements SpecificationDao {
+public class QuestionSetDatabaseDao extends AbstractHibernateDao<QuestionSet> implements QuestionSetDao {
 
-	public SpecifiactionDatabaseDao() {
+	public QuestionSetDatabaseDao() {
 		super();
 	}
 
 	@Override
-	public List<Specification> getByTitle(int startPos, int endPos, String title) {
-		List<Specification> specificationList = null;
+	public List<QuestionSet> getByTitle(int startPos, int endPos, String title) {
+		List<QuestionSet> questionSetList = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
 			CriteriaBuilder builder = session.getCriteriaBuilder();
-			CriteriaQuery<Specification> criteriaQuery = builder.createQuery(Specification.class);
+			CriteriaQuery<QuestionSet> criteriaQuery = builder.createQuery(QuestionSet.class);
 
-			Root<Specification> root = criteriaQuery.from(Specification.class);
+			Root<QuestionSet> root = criteriaQuery.from(QuestionSet.class);
 			criteriaQuery.select(root).where(builder.like(root.get("name"), "%" + title + "%"));
 
-			Query<Specification> query = session.createQuery(criteriaQuery);
+			Query<QuestionSet> query = session.createQuery(criteriaQuery);
 			if (!(endPos == -1 || startPos == -1)) {
 				query.setFirstResult(startPos);
 				query.setMaxResults(endPos);
 			}
 
-			specificationList = query.getResultList();
+			questionSetList = query.getResultList();
 			
 			session.close();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}
-		return specificationList;
+		return questionSetList;
 	}
 
 	@Override
-	public List<Specification> getByQuestion(int startPos, int endPos, Question question) {
-		List<Specification> specList = null;
+	public List<QuestionSet> getByQuestion(int startPos, int endPos, Question question) {
+		List<QuestionSet> specList = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
 			CriteriaBuilder builder = session.getCriteriaBuilder();
-			CriteriaQuery<Specification> criteriaQuery = builder.createQuery(Specification.class);
+			CriteriaQuery<QuestionSet> criteriaQuery = builder.createQuery(QuestionSet.class);
 
-			Root<Specification> root = criteriaQuery.from(Specification.class);
-			criteriaQuery.where(root.join("questionList").in(question));
+			Root<QuestionSet> root = criteriaQuery.from(QuestionSet.class);
+			criteriaQuery.where(root.join("questionset").in(question));
 
-			Query<Specification> query = session.createQuery(criteriaQuery);
+			Query<QuestionSet> query = session.createQuery(criteriaQuery);
 			if (!(endPos == -1 || startPos == -1)) {
 				query.setFirstResult(startPos);
 				query.setMaxResults(endPos);

@@ -102,7 +102,10 @@ public class SpreadSheetAdapter {
 		if (sheet instanceof org.apache.poi.ss.usermodel.Sheet) {
 			org.apache.poi.ss.usermodel.Row row = ((org.apache.poi.ss.usermodel.Sheet) sheet).getRow(rowIndex);
 			org.apache.poi.ss.usermodel.Cell cell = row.getCell(columnIndex);
-
+			
+			if(cell == null)
+				return null;
+			
 			if (cell.getCellType() == org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC) {
 				return String.valueOf((int)cell.getNumericCellValue());
 			}
@@ -119,7 +122,7 @@ public class SpreadSheetAdapter {
         TableModel model = table.getModel();
         FileWriter out = new FileWriter(file);
         String groupExport = "";
-        for (int i = 0; i < (model.getColumnCount()); i++) {//* disable export from TableHeaders
+        for (int i = 0; i < (model.getColumnCount()); i++) { //* disable export from TableHeaders
             groupExport = String.valueOf(model.getColumnName(i));
             out.write(String.valueOf(groupExport) + "\t");
         }

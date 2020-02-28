@@ -27,9 +27,7 @@ public class AdminDialog extends DialogWithPassword {
 	private static final String BTN_QEDIT_CAPTION = "Редактор вопросов";
 	private static final String BTN_TCOSTRUCTOR = "Конструктор тестов";
 	private static final String BTN_QLOAD_CAPTION = "Выгрузка наборов вопросов";
-	private static final String BTN_SETTINGS_CAPTION = "Конфигурация";
 	
-	private JButton btnSettings = new JGreenButton(BTN_SETTINGS_CAPTION);
 	private JButton btnQuestionLoad = new JGreenButton(BTN_QLOAD_CAPTION);
 	private JButton btnQuestionEdit = new JGreenButton(BTN_QEDIT_CAPTION);
 	private JButton btnTestConstructor = new JGreenButton(BTN_TCOSTRUCTOR);
@@ -50,19 +48,16 @@ public class AdminDialog extends DialogWithPassword {
 		JPanel contentPanel = getContentPanel();
 		contentPanel.setLayout(new GridBagLayout());
 		
-		contentPanel.add(btnSettings, new GridBagConstraints(0, 0, GridBagConstraints.REMAINDER, 1, 1, 1,
+		contentPanel.add(btnQuestionLoad, new GridBagConstraints(0, 0, GridBagConstraints.REMAINDER, 1, 1, 1,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 10, 10));
 		
-		contentPanel.add(btnQuestionLoad, new GridBagConstraints(0, 1, GridBagConstraints.REMAINDER, 1, 1, 1,
+		contentPanel.add(btnQuestionEdit, new GridBagConstraints(0, 1, GridBagConstraints.REMAINDER, 1, 1, 1,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 10, 10));
 		
-		contentPanel.add(btnQuestionEdit, new GridBagConstraints(0, 2, GridBagConstraints.REMAINDER, 1, 1, 1,
+		contentPanel.add(btnTestConstructor, new GridBagConstraints(0, 2, GridBagConstraints.REMAINDER, 1, 1, 1,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 10, 10));
 		
-		contentPanel.add(btnTestConstructor, new GridBagConstraints(0, 3, GridBagConstraints.REMAINDER, 1, 1, 1,
-				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 10, 10));
-		
-		contentPanel.add(btnPasswords, new GridBagConstraints(0, 4, GridBagConstraints.REMAINDER, 1, 1, 1,
+		contentPanel.add(btnPasswords, new GridBagConstraints(0, 3, GridBagConstraints.REMAINDER, 1, 1, 1,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 10, 10));
 	}
 	
@@ -74,14 +69,6 @@ public class AdminDialog extends DialogWithPassword {
 	@Override
 	protected String getTitleText() {
 		return TITLE;
-	}
-
-	public JButton getBtnSettings() {
-		return btnSettings;
-	}
-
-	public void setBtnSettings(JButton btnSettings) {
-		this.btnSettings = btnSettings;
 	}
 
 	public JButton getBtnQuestionLoad() {

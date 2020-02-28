@@ -7,10 +7,9 @@ import java.util.Set;
 
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
-import ru.fssprus.r82.entity.QuestionLevel;
-import ru.fssprus.r82.entity.Specification;
+import ru.fssprus.r82.entity.QuestionSet;
 import ru.fssprus.r82.service.QuestionService;
-import ru.fssprus.r82.service.SpecificationService;
+import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.table.TablePanelController;
 import ru.fssprus.r82.swing.table.UpdatableController;
@@ -117,7 +116,6 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		clearQuestionEditPanelContents();
 		updatePageInfo();
 		updateTable();
-		
 	}
 
 	private void updateTable() {
@@ -127,7 +125,6 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 
 		fillQuestionOnScreenList();
 		convertUserInputAndAddToTable();
-
 	}
 	
 	private void updatePageInfo() {
@@ -138,22 +135,17 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	private void fillQuestionOnScreenList() {
 		QuestionService questionService = new QuestionService();
 
-		questionsOnScreenList = questionService.getByNameSpecListLvlListAndId(getLimitStart(), getLimitMax(),
-				getQuestionTitleFromFilterUI(), getSpecsFromFilterUI(), getLevelsFromFilterUI(), getIdFromFilterUI());
+		questionsOnScreenList = questionService.getByNameSpecListAndId(getLimitStart(), getLimitMax(),
+				getQuestionTitleFromFilterUI(), getSetsFromFilterUI(), getIdFromFilterUI());
 	}
 
 	private String getQuestionTitleFromFilterUI() {
 		return dialog.getTfQuestionName().getText();
 	}
 
-	private Set<Specification> getSpecsFromFilterUI() {
-		String specsText = dialog.getTfSpecs().getText();
-		return parseSpecs(specsText);
-	}
-
-	private Set<QuestionLevel> getLevelsFromFilterUI() {
-		String levelsText = dialog.getTfLevels().getText();
-		return parseLevels(levelsText);
+	private Set<QuestionSet> getSetsFromFilterUI() {
+		String setsText = dialog.getTfSpecs().getText();
+		return parseSets(setsText);
 	}
 
 	private Long getIdFromFilterUI() {
@@ -169,7 +161,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	private int countTotalPages() {
 		QuestionService questionService = new QuestionService();
 
-		totalQuestions = questionService.countByNameSpecListLvlListAndId(getQuestionTitleFromFilterUI(), getSpecsFromFilterUI(), getLevelsFromFilterUI(),
+		totalQuestions = questionService.countByNameSpecListAndId(getQuestionTitleFromFilterUI(), getSetsFromFilterUI(),
 				getIdFromFilterUI());
 
 		return this.totalPages = totalQuestions / ENTRIES_FOR_PAGE + 1;
@@ -178,9 +170,6 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	private void blockQuestionEditPanel(boolean block) {
 		questionEditing = block;
 		dialog.getTaQuestion().setEditable(!block);
-
-		for (int i = 0; i < dialog.getCbLevelsList().size(); i++)
-			dialog.getCbLevelsList().get(i).setEnabled(!block);
 
 		dialog.getAccbSpecNames().setEditable(!block);
 
@@ -198,24 +187,12 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		fillUIAnswers(answers.indexOf(n), n.getTitle(), n.getIsCorrect()));
 	}
 	
-	private void setLevelsToUI(Question question) {
-		List<QuestionLevel> levelsList = new ArrayList<QuestionLevel>(currentQuestion.getLevels());
-		QuestionLevel[] levels = QuestionLevel.values();
-		
-		levelsList.forEach((n) -> {
-			for(int i = 0; i < levels.length; i++)
-				if(n == levels[i])
-					dialog.getCbLevelsList().get(i).setSelected(true);
-		});
-	}
-	
 	private void showQuestion(Question currentQuestion) {
 		setAnswersToUI(currentQuestion);
-		setLevelsToUI(currentQuestion);
 		
 		dialog.getTaQuestion().setText(currentQuestion.getTitle());
 		
-		dialog.getAccbSpecNames().setSelectedItem(currentQuestion.getSpecification().getName());
+		dialog.getAccbSpecNames().setSelectedItem(currentQuestion.getQuestionSet().getName());
 	}
 	
 	private void fillUIAnswers(int index, String title, boolean isSelected) {
@@ -230,9 +207,6 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 			dialog.getTfAnsList().get(i).setText(null);
 			dialog.getCbAnsList().get(i).setSelected(false);
 		}
-
-		for (int i = 0; i < dialog.getCbLevelsList().size(); i++)
-			dialog.getCbLevelsList().get(i).setSelected(false);
 
 		dialog.getAccbSpecNames().setSelectedIndex(0);
 	}
@@ -268,35 +242,24 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 
 		question.setAnswers(new HashSet<Answer>(getAnswersFromQuestionEditUI(question)));
 
-		question.setLevels(getLevelsFromQuestionEditUI());
-
-		question.setSpecification(getSpecificationFromQuestionEditUI());
+		question.setQuestionSet(getQuestionSetFromQuestionEditUI());
 
 		return question;
 	}
 
-	private Specification getSpecificationFromQuestionEditUI() {
-		SpecificationService specService = new SpecificationService();
+	private QuestionSet getQuestionSetFromQuestionEditUI() {
+		QuestionSetService setService = new QuestionSetService();
 
-		List<Specification> specs = specService.getByName(dialog.getAccbSpecNames().getSelectedItem().toString());
+		List<QuestionSet> sets = setService.getByName(dialog.getAccbSpecNames().getSelectedItem().toString());
 
-		Specification specToAdd = null;
-		if (specs.size() == 0) {
-			specToAdd = new Specification();
-			specToAdd.setName(String.valueOf(dialog.getAccbSpecNames().getSelectedItem()));
+		QuestionSet setToAdd = null;
+		if (sets.size() == 0) {
+			setToAdd = new QuestionSet();
+			setToAdd.setName(String.valueOf(dialog.getAccbSpecNames().getSelectedItem()));
 		} else {
-			specToAdd = specs.get(0);
+			setToAdd = sets.get(0);
 		}
-		return specToAdd;
-	}
-
-	private Set<QuestionLevel> getLevelsFromQuestionEditUI() {
-		Set<QuestionLevel> levels = new HashSet<QuestionLevel>();
-
-		for (int i = 0; i < dialog.getCbLevelsList().size(); i++)
-			if (dialog.getCbLevelsList().get(i).isSelected())
-				levels.add(QuestionLevel.valueOf(dialog.getCbLevelsList().get(i).getText()));
-		return levels;
+		return setToAdd;
 	}
 
 	//TODO
@@ -332,16 +295,6 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 			return false;
 
 		// ----------------
-		// Валидация сложности
-		boolean isAnyLevelSelected = false;
-		for (int i = 0; i < dialog.getCbLevelsList().size(); i++)
-			if (dialog.getCbLevelsList().get(i).isSelected())
-				isAnyLevelSelected = true;
-		// Не выбрано ни одной сложности для вопроса
-		if (!isAnyLevelSelected)
-			return false;
-
-		// ----------------
 		// Валидация спецализации
 		// Не заполнена специализация
 		if (dialog.getAccbSpecNames().getSelectedItem().toString().isEmpty())
@@ -351,56 +304,32 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 
 	}
 
-	private Set<QuestionLevel> parseLevels(String levelsText) {
-		if (!levelsText.isEmpty()) {
-			Set<QuestionLevel> questionLevelList = new HashSet<QuestionLevel>();
-			String[] levelsTextList = levelsText.trim().replaceAll(" ", "").split(",");
+	private Set<QuestionSet> parseSets(String setsText) {
+		if (!setsText.isEmpty()) {
+			QuestionSetService setService = new QuestionSetService();
+			String[] setsTextList = setsText.trim().replaceAll(" ", "").split(",");
 
-			for (int i = 0; i < levelsTextList.length; i++) {
-				try {
-					questionLevelList.add(QuestionLevel.valueOf(levelsTextList[i]));
-				} catch (IllegalArgumentException e) {
-					MessageBox.showWrongLevelSpecifiedErrorDialog(dialog);
-					return null;
-				}
-			}
-			return questionLevelList;
-		}
-		return null;
+			Set<QuestionSet> setsList = new HashSet<QuestionSet>();
+			for (int i = 0; i < setsTextList.length; i++)
+				setsList.addAll(setService.getByName(setsTextList[i]));
 
-	}
-
-	private Set<Specification> parseSpecs(String specsText) {
-		if (!specsText.isEmpty()) {
-			SpecificationService specService = new SpecificationService();
-			String[] specsTextList = specsText.trim().replaceAll(" ", "").split(",");
-
-			Set<Specification> specsList = new HashSet<Specification>();
-			for (int i = 0; i < specsTextList.length; i++)
-				specsList.addAll(specService.getByName(specsTextList[i]));
-
-			return specsList;
+			return setsList;
 		}
 		return null;
 
 	}
 
 	private void convertUserInputAndAddToTable() {
-
 		for (int i = 0; i < questionsOnScreenList.size(); i++) {
 			Question question = questionsOnScreenList.get(i);
 
 			Long id = question.getId();
 			String title = question.getTitle();
-			Set<QuestionLevel> levels = question.getLevels();
-			Specification specification = question.getSpecification();
-			String lvlsString = "";
-			for (QuestionLevel ql : levels)
-				lvlsString += '[' + ql.name() + "] ";
+			QuestionSet questionSet = question.getQuestionSet();
 
-			String specString = specification.getName();
+			String setString = questionSet.getName();
 
-			Object[] row = { id, title, lvlsString, specString };
+			Object[] row = { id, title, setString };
 
 			dialog.getTableModel().setRow(row, i);
 
@@ -411,8 +340,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	private void addBlankQuestion() {
 		Question q = new Question();
 		q.setAnswers(new HashSet<Answer>(AppConstants.MAX_ANSWERS_AMOUNT));
-		q.setLevels(new HashSet<QuestionLevel>(QuestionLevel.values().length));
-		q.setSpecification(new Specification());
+		q.setQuestionSet(new QuestionSet());
 
 		questionsOnScreenList.add(q);
 

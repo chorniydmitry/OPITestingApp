@@ -11,28 +11,28 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "specification")
-public class Specification extends Model {
-	@OneToMany(cascade= CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy="specification")
-	private Set<Question> questionList;
+@Table(name = "questionset")
+public class QuestionSet extends Model {
+	
+	@OneToMany(cascade= CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy="questionset")
+	private Set<Question> questionSets;
 
 	@NotNull
 	@Size(min=5)
 	@Column(name = "name", length = 2048, unique = true, nullable = false, updatable = false)
 	private String name;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "specification", fetch = FetchType.EAGER)
-	private Set<Result> testList;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "questionset", fetch = FetchType.EAGER)
+	private Set<Result> resultList;
 	
-    @ManyToMany(mappedBy = "specs")
-    private Set<Test> tests = new HashSet<>();
+	@OneToMany(mappedBy = "questionset", cascade = CascadeType.ALL)
+	private Set<TestSet> testSets = new HashSet<>();
 
 	public String getName() {
 		return name;
@@ -42,16 +42,14 @@ public class Specification extends Model {
 		this.name = name;
 	}
 
-	// @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy =
-	// "specifications")
 
-	public void setQuestionList(Set<Question> questionList) {
-		this.questionList = questionList;
+	public void setQuestionSets(Set<Question> questionSets) {
+		this.questionSets = questionSets;
 	}
 
 	@Override
 	public String toString() {
-		return "Specification [name=" + name + ", testList=" + testList + "]";
+		return "QuestionSet [name=" + name + ", testList=" + resultList + "]";
 	}
 
 	@Override
@@ -59,7 +57,7 @@ public class Specification extends Model {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((testList == null) ? 0 : testList.hashCode());
+		result = prime * result + ((resultList == null) ? 0 : resultList.hashCode());
 		return result;
 	}
 
@@ -71,22 +69,24 @@ public class Specification extends Model {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Specification other = (Specification) obj;
+		QuestionSet other = (QuestionSet) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (testList == null) {
-			if (other.testList != null)
+		if (resultList == null) {
+			if (other.resultList != null)
 				return false;
-		} else if (!testList.equals(other.testList))
+		} else if (!resultList.equals(other.resultList))
 			return false;
 		return true;
 	}
 
-	public Set<Question> getQuestionList() {
-		return questionList;
+	public Set<Question> getQuestionSets() {
+		return questionSets;
 	}
+	
+	
 
 }

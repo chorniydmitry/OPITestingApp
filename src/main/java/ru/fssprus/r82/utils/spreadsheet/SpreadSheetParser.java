@@ -2,12 +2,10 @@ package ru.fssprus.r82.utils.spreadsheet;
 
 import java.io.File;
 import java.util.HashSet;
-import java.util.Set;
 
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
-import ru.fssprus.r82.entity.QuestionLevel;
-import ru.fssprus.r82.entity.Specification;
+import ru.fssprus.r82.entity.QuestionSet;
 
 /**
  * @author Chernyj Dmitry
@@ -15,7 +13,7 @@ import ru.fssprus.r82.entity.Specification;
  */
 public class SpreadSheetParser {
 	
-	public HashSet<Question> parse(File f, Set<QuestionLevel> lvl, Specification spec) {
+	public HashSet<Question> parse(File f, QuestionSet set) {
 		SpreadSheetAdapter adapter = new SpreadSheetAdapter(f);
 		int columns = adapter.getColumnsCount();
 		int rows = adapter.getRowsCount();
@@ -28,8 +26,7 @@ public class SpreadSheetParser {
 				// 2 - формулировка вопроса
 				if(j == 2) {
 					question.setTitle(adapter.getCellValue(i, j));
-					question.setLevels(lvl);
-					question.setSpecification(spec);
+					question.setQuestionSet(set);
 				}
 				// 3 ... - формулировка ответа, его правильность
 				if(j >= 3) {
@@ -37,7 +34,7 @@ public class SpreadSheetParser {
 					// 3, 5, 7 ... - формулировки ответа
 					if ((j % 2) == 1) {
 						String currAnswer = adapter.getCellValue(i, j);
-						if (!currAnswer.isEmpty()) {
+						if (currAnswer != null && !currAnswer.isEmpty()) {
 							answer = new Answer();
 							answer.setTitle(currAnswer);
 							answer.setQuestion(question);

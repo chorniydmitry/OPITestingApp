@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import cherny.jdatepicker.JDatePicker;
-import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.swing.table.CommonTable;
 import ru.fssprus.r82.swing.table.CommonTableModel;
@@ -54,7 +53,7 @@ public class StatisticsDialog extends DialogWithPassword {
 	private JPanel pnlFilterButtons = new JPanel();
 
 	private JLabel lblSurNamLast = new JLabel(LBL_FIO_CAPTION);
-	private JLabel lblSpecification = new JLabel(LBL_SPEC_CAPTION);
+	private JLabel lblQuestionSet = new JLabel(LBL_SPEC_CAPTION);
 	private JLabel lblLevel = new JLabel(LBL_LVL_CAPTION);
 	private JLabel lblMark = new JLabel(LBL_MARK_CAPTION);
 	private JLabel lblDateLess = new JLabel(LBL_DATE_CAPTION_LESS);
@@ -68,9 +67,8 @@ public class StatisticsDialog extends DialogWithPassword {
 	private JTextField tfScoreLess = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 	private JTextField tfScoreMore = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 
-	private JComboBox<QuestionLevel> cbLevels = new JComboBox<>();
 	private JComboBox<String> cbMarks = new JComboBox<>();
-	private JComboBox<String> cbSpecs = new JComboBox<>();
+	private JComboBox<String> cbSets = new JComboBox<>();
 	
 	private JGreenButton btnFilter = new JGreenButton(BTN_FILTER_CAPTION);
 	private JGreenButton btnClearFilters = new JGreenButton(BTN_CLEAR_CAPTION);
@@ -101,10 +99,10 @@ public class StatisticsDialog extends DialogWithPassword {
 		pnlFilter.add(tfSurNamLast, new GridBagConstraints(1, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 
-		pnlFilter.add(lblSpecification, new GridBagConstraints(2, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
+		pnlFilter.add(lblQuestionSet, new GridBagConstraints(2, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 
-		pnlFilter.add(cbSpecs, new GridBagConstraints(3, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
+		pnlFilter.add(cbSets, new GridBagConstraints(3, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 
 		//
@@ -132,9 +130,6 @@ public class StatisticsDialog extends DialogWithPassword {
 		pnlFilter.add(lblLevel, new GridBagConstraints(2, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 
-		pnlFilter.add(cbLevels, new GridBagConstraints(3, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
-				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
-		
 		//
 		
 		pnlFilter.add(lblDateMore, new GridBagConstraints(0, 3, 1, 1, 0, 0, GridBagConstraints.CENTER,
@@ -166,7 +161,7 @@ public class StatisticsDialog extends DialogWithPassword {
 	private void initTablePanel() {
 		int[] widths = AppConstants.STATDIALOG_TABLE_COL_WIDTHS_ARR;
 		String[] names = AppConstants.STATDIALOG_TABLE_COL_CAPTIONS_ARR;
-		tablePanel = new TablePanel(widths, names);
+		tablePanel = new TablePanel(true, true, new CommonTableModel(widths, names));
 	}
 
 	public TablePanel getTabPanel() {
@@ -174,7 +169,7 @@ public class StatisticsDialog extends DialogWithPassword {
 	}
 
 	public CommonTable getTable() {
-		return tablePanel.getCommonTable();
+		return tablePanel.getTable();
 	}
 
 	public CommonTableModel getTableModel() {
@@ -207,20 +202,12 @@ public class StatisticsDialog extends DialogWithPassword {
 		this.tfSurNamLast = tfSurNamLast;
 	}
 
-	public JComboBox<String> getCbSpecs() {
-		return cbSpecs;
+	public JComboBox<String> getCbSets() {
+		return cbSets;
 	}
 
-	public void setCbSpecs(JComboBox<String> cbSpecs) {
-		this.cbSpecs = cbSpecs;
-	}
-
-	public JComboBox<QuestionLevel> getCbLevel() {
-		return cbLevels;
-	}
-
-	public void setCbLevel(JComboBox<QuestionLevel> tfLevel) {
-		this.cbLevels = tfLevel;
+	public void setCbSets(JComboBox<String> cbSets) {
+		this.cbSets = cbSets;
 	}
 
 	public JComboBox<String> getCbMarks() {

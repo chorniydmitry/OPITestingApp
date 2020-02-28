@@ -18,13 +18,16 @@ public class CommonTableModel extends AbstractTableModel {
 	private static final String WRONG_TABLE_DATA_TEXT = "Не правильные данные для добавления в таблицу!";
 
 	private String[] columnNames;
+	private int[] columnWidths;
 	private int columnCount;
 	private ArrayList<Object[]> onScreenDataList;
 	private List<Color> rowColors = new ArrayList<Color>();
 
-	public CommonTableModel(String[] names) {
-		this.columnNames = names; 
+	public CommonTableModel(int[] widths, String[] names) {
+		this.columnNames = names;
 		columnCount = names.length;
+		
+		this.columnWidths = widths;
 		
 		onScreenDataList = new ArrayList<Object[]>();
 		rowColors = new ArrayList<Color>();
@@ -173,6 +176,22 @@ public class CommonTableModel extends AbstractTableModel {
 
 	public ArrayList<Object[]> getOnScreenDataList() {
 		return onScreenDataList;
+	}
+
+	public String[] getColumnNames() {
+		return columnNames;
+	}
+
+	public void setColumnNames(String[] columnNames) {
+		this.columnNames = columnNames;
+	}
+
+	public int[] getColumnWidths() {
+		return columnWidths;
+	}
+
+	public void setColumnWidths(int[] columnWidths) {
+		this.columnWidths = columnWidths;
 	}
 
 }

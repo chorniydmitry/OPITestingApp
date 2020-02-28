@@ -1,6 +1,5 @@
 package ru.fssprus.r82.utils;
 
-import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.swing.utils.MessageBox;
 
 /**
@@ -37,31 +36,13 @@ public class Utils {
 		return (int) Math.round((double) (amountOfQuestions * (commonPercent / MAX_PERCENT)));
 	}
 	
-	public static int countSpecQuestsAmount(int amountOfQuestions, int commonQuestsAmount) { 
+	public static int countSetQuestsAmount(int amountOfQuestions, int commonQuestsAmount) { 
 		return amountOfQuestions - commonQuestsAmount;
 	}
 
-	public static int countMinimumCommonQuestionsForLevel(int selectedLevel) {
-		return countMinimumCommonQuestionsForLevel(QuestionLevel.values()[selectedLevel]);
-	}
-	
-	public static int countMinimumCommonQuestionsForLevel(QuestionLevel qlevel) {
-		String level = null;
-		switch(qlevel) {
-		case Базовый:
-			level = "base";
-			break;
-		case Стандартный:
-			level = "standart";
-			break;
-		case Продвинутый:
-			level = "advanced";
-			break;
-		case Резерв:
-			level = "reserve";
-			break;
-		}
-		return countMinimumCommonQuestionsForLevel(level);
+	//TODO REMOVE THIS
+	public static int countMinimumCommonQuestionsForLevel() {
+		return 5;
 	}
 	
 	public static boolean isNumeric(String strNum) {

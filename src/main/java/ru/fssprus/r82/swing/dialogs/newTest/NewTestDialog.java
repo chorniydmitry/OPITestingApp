@@ -1,23 +1,18 @@
 package ru.fssprus.r82.swing.dialogs.newTest;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.ArrayList;
 
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
@@ -51,18 +46,11 @@ public class NewTestDialog extends DialogWithPassword {
 	private JTextField tfSecondName = new JTextField();
 	private JComboBox<String> cbSpecification = new JComboBox<String>();
 	
-	private JPanel pnlLevels = new JPanel();
-	
-	private ArrayList<JRadioButton> rbLevels = new ArrayList<JRadioButton>();
-	private ButtonGroup bgLevels = new ButtonGroup();
-	
 	private JButton btnBegin = new JGreenButton(BTN_BEGIN_CAPTION);
 	private JButton btnCancel = new JGreenButton(BTN_CANCEL_CAPTION);
 	
 	public NewTestDialog(int width, int height, JFrame parent) {
 		super(width, height, parent);
-		fillRadioButtons();
-		initPanelLevels();
 	}
 	
 	@Override
@@ -110,14 +98,10 @@ public class NewTestDialog extends DialogWithPassword {
 				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 		
 		// 6th row
-		contentPanel.add(pnlLevels, new GridBagConstraints(0, 5, 4, 1, 4, 1, GridBagConstraints.NORTHEAST,
+		contentPanel.add(btnCancel, new GridBagConstraints(0, 5, 2, 1, 2, 1, GridBagConstraints.NORTHEAST,
 				GridBagConstraints.BOTH, new Insets(2, 2, 2, 2), 0, 0));
 		
-		// 7 th row 
-		contentPanel.add(btnCancel, new GridBagConstraints(0, 6, 2, 1, 2, 1, GridBagConstraints.NORTHEAST,
-				GridBagConstraints.BOTH, new Insets(2, 2, 2, 2), 0, 0));
-		
-		contentPanel.add(btnBegin, new GridBagConstraints(2, 6, 2, 1, 2, 1, GridBagConstraints.NORTHWEST,
+		contentPanel.add(btnBegin, new GridBagConstraints(2, 5, 2, 1, 2, 1, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.BOTH, new Insets(2, 2, 2, 2), 0, 0));
 	}
 	
@@ -131,48 +115,13 @@ public class NewTestDialog extends DialogWithPassword {
 		return TITLE;
 	}
 	
-	private void initPanelLevels() {
-		pnlLevels.setLayout(new FlowLayout());
-		rbLevels.forEach((n) -> pnlLevels.add(n));
-	}
-	
-	private void fillRadioButtons() {
-		JRadioButton rb1 = new JRadioButton(QuestionLevel.Базовый.toString());
-		JRadioButton rb2 = new JRadioButton(QuestionLevel.Стандартный.toString());
-		JRadioButton rb3 = new JRadioButton(QuestionLevel.Продвинутый.toString());
-		JRadioButton rb4 = new JRadioButton(QuestionLevel.Резерв.toString());
 		
-		rbLevels.add(rb1);
-		rbLevels.add(rb2);
-		rbLevels.add(rb3);
-		rbLevels.add(rb4);
-		
-		bgLevels.add(rb1);
-		bgLevels.add(rb2);
-		bgLevels.add(rb3);
-		bgLevels.add(rb4);
-		
-		getRbLevels().forEach((n) -> n.setEnabled(false));
-	}
-	
 	public void resetUserInputComponents() {
 		tfName.setBackground(Color.WHITE);
 		tfSurname.setBackground(Color.WHITE);
 		tfSecondName.setBackground(Color.WHITE);
-		
-		for (JRadioButton lvls : getRbLevels()) {
-			lvls.setBackground(Color.WHITE);
-		}
 	}
 	
-	public int getSelectedLevelIndex() {
-		int returnValue = -1;
-		for(int i = 0; i < rbLevels.size(); i++) 
-			if(rbLevels.get(i).isSelected()) returnValue = i;
-		return returnValue;
-	}
-
-
 	public JTextField getTfName() {
 		return tfName;
 	}
@@ -230,21 +179,5 @@ public class NewTestDialog extends DialogWithPassword {
 		this.btnCancel = btnCancel;
 	}
 	
-	public ArrayList<JRadioButton> getRbLevels() {
-		return rbLevels;
-	}
-
-	public void setRbLevels(ArrayList<JRadioButton> rbLevels) {
-		this.rbLevels = rbLevels;
-	}
-
-	public ButtonGroup getBgLevels() {
-		return bgLevels;
-	}
-
-	public void setBgLevels(ButtonGroup bgLevels) {
-		this.bgLevels = bgLevels;
-	}
-
 }
 

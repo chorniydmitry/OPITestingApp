@@ -10,8 +10,6 @@ import ru.fssprus.r82.swing.dialogs.addingSet.LoadingQuestionSetController;
 import ru.fssprus.r82.swing.dialogs.addingSet.LoadingQuestionSetDialog;
 import ru.fssprus.r82.swing.dialogs.admin.AdminController;
 import ru.fssprus.r82.swing.dialogs.admin.AdminDialog;
-import ru.fssprus.r82.swing.dialogs.config.ConfigController;
-import ru.fssprus.r82.swing.dialogs.config.ConfigDialog;
 import ru.fssprus.r82.swing.dialogs.newTest.NewTestController;
 import ru.fssprus.r82.swing.dialogs.newTest.NewTestDialog;
 import ru.fssprus.r82.swing.dialogs.passwordManage.PasswordManageController;
@@ -59,21 +57,14 @@ public class DialogBuilder {
 				testingProcess);
 	}
 
-	public static void showConfigDialog() {
-		new ConfigController(
-				new ConfigDialog(AppConstants.DIALOG_CONFIG_WIDTH, AppConstants.DIALOG_CONFIG_HEIGHT, parent));
-	}
-
 	public static void showQuestionLoadingSetDialog() {
 		new LoadingQuestionSetController(new LoadingQuestionSetDialog(AppConstants.DIALOG_LOADING_QUESTION_SET_WIDTH,
 				AppConstants.DIALOG_LOADING_QUESTION_SET_HEIGHT, parent));
-
 	}
 
 	public static void showQuestionListDialog() {
 		new QuestionListController(new QuestionListDialog(AppConstants.DIALOG_QUESTUIN_EDIT_WIDTH,
 				AppConstants.DIALOG_QUESTUIN_EDIT_HEIGHT, parent));
-
 	}
 
 	public static void showPasswordManageDialog() {
@@ -90,7 +81,6 @@ public class DialogBuilder {
 		new ResultingController(
 				new ResultingDialog(AppConstants.DIALOG_RESULTING_WIDTH, AppConstants.DIALOG_RESULTING_HEIGHT, parent),
 				tpAnaliser);
-
 	}
 
 	public static void showTestConstructorDialog() {

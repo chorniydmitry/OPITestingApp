@@ -16,4 +16,17 @@ public class TestService {
 	public List<Test> getAll(int fromId, int toId) {
 		return testDao.getAll(fromId, toId);
 	}
+	
+	public Test getById(Long id) {
+		return testDao.getById(id);
+	}
+	
+	public void delete(Test test) {
+		testDao.remove(test);
+	}
+	
+	public void delete(Long id) {
+		testDao.remove(id);
+	}
+	
 }

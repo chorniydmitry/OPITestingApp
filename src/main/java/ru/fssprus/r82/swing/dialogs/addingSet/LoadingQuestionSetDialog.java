@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,8 +18,7 @@ import javax.swing.JTextField;
 
 import g.cope.swing.autocomplete.jcombobox.AutocompleteJComboBox;
 import g.cope.swing.autocomplete.jcombobox.StringSearchable;
-import ru.fssprus.r82.entity.QuestionLevel;
-import ru.fssprus.r82.service.SpecificationService;
+import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
@@ -34,7 +32,6 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 	
 	private static final String BTN_OPEN_CAPTION = "Открыть файл";
 	private static final String LBL_SPEC_NAME_CAPTION = "Специализация:";
-	private static final String LBL_QLEVEL_CAPTION = "Уровень сложности:";
 	private static final String BTN_LOAD_CAPTION = "Добавить";
 	
 	private JLabel lblMsg = new JLabel(AppConstants.DIALOG_LOADING_QUEST_SET_ABOUT_INFO);
@@ -44,8 +41,6 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 	private JLabel lblSpecName = new JLabel(LBL_SPEC_NAME_CAPTION);
 	private AutocompleteJComboBox accbSpecName = new AutocompleteJComboBox(null);
 
-	private JLabel lblQuestLevel = new JLabel(LBL_QLEVEL_CAPTION);
-	private JComboBox<Object> cbQuestLevel = new JComboBox<>(QuestionLevel.values());
 	private JButton btnLoadQuestionsSet = new JGreenButton(BTN_LOAD_CAPTION);
 
 	public LoadingQuestionSetDialog(int width, int height, JFrame parent) {
@@ -98,14 +93,8 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 		contentPanel.add(lblSpecName, new GridBagConstraints(0, 2, 2, 1, 1, 0, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 5), 0, 0));
 
-		contentPanel.add(lblQuestLevel, new GridBagConstraints(2, 2, 2, 1, 1, 0, GridBagConstraints.NORTHWEST,
-				GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 5), 0, 0));
-
 		// 4th row
 		contentPanel.add(accbSpecName, new GridBagConstraints(0, 3, 2, 1, 1, 0, GridBagConstraints.NORTHWEST,
-				GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 5), 0, 0));
-
-		contentPanel.add(cbQuestLevel, new GridBagConstraints(2, 3, 2, 1, 1, 0, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 5), 0, 0));
 
 		// 5th row
@@ -115,10 +104,10 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 	}
 	
 	private void initTfSpecNames() {
-		SpecificationService specService = new SpecificationService();
+		QuestionSetService setService = new QuestionSetService();
 		
 		ArrayList<String> keywords = new ArrayList<String>();
-		specService.getAll().forEach((n) -> keywords.add(n.getName()));
+		setService.getAll().forEach((n) -> keywords.add(n.getName()));
 		
 		StringSearchable searchable = new StringSearchable(keywords);
 		setAccbSpecName(new AutocompleteJComboBox(searchable));
@@ -133,14 +122,6 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 
 	public void setBtnLoadQuestionsSet(JButton btnLoadQuestionsSet) {
 		this.btnLoadQuestionsSet = btnLoadQuestionsSet;
-	}
-	
-	public JComboBox<Object> getCbQuestLevel() {
-		return cbQuestLevel;
-	}
-
-	public void setCbQuestLevel(JComboBox<Object> cbQuestLevel) {
-		this.cbQuestLevel = cbQuestLevel;
 	}
 	
 	public AutocompleteJComboBox getAccbSpecName() {
