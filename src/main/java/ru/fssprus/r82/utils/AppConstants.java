@@ -139,7 +139,7 @@ public class AppConstants {
 	public static final SimpleDateFormat STATDIALOG_TABLE_DATE_FORMAT = new SimpleDateFormat("dd MMMMM yyyy HH:mm", new Locale("ru", "RU"));
 	
 	// TestConstructorDialog константы
-	public static final int[] TESTCONSTRUCTOR_TABLELIST_COL_WIDTHS_ARR = { 20, 500, 150, 150, 100 };
+	public static final int[] TESTCONSTRUCTOR_TABLELIST_COL_WIDTHS_ARR = { 20, 450, 150, 150, 100 };
 	public static final String[] TESTCONSTRUCTOR_TABLELIST_COL_CAPTIONS_ARR = {"#", "Название теста", "Время на тест(сек)", "Всего вопросов", "Тест активен?"};
 	
 	public static final int[] TESTCONSTRUCTOR_TABLECURRENT_COL_WIDTHS_ARR = { 250, 60 };

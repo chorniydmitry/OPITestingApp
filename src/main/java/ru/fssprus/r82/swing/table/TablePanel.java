@@ -2,13 +2,13 @@ package ru.fssprus.r82.swing.table;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.table.AbstractTableModel;
 
 import ru.fssprus.r82.swing.utils.JGreenButton;
 
@@ -65,6 +65,26 @@ public class TablePanel extends JPanel {
 	
 	private void initPanel() {
 		initComponents();
+	}
+	
+	public void clearTable() {
+		this.getTable().getTabModel().clearTable();
+	}
+	
+	public void addRow(Object[] row) {
+		this.getTable().getTabModel().addRow(row);
+	}
+	
+	public void addData(ArrayList<Object[]> data) {
+		this.getTable().getTabModel().addData(data);
+	}
+	
+	public void setRow(Object[] row, int rowIndex) {
+		this.getTable().getTabModel().setRow(row, rowIndex);
+	}
+	
+	public void update() {
+		this.getTable().getTabModel().update();
 	}
 	
 	private void initComponents() {
