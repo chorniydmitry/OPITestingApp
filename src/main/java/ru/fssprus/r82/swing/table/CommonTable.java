@@ -6,7 +6,6 @@ import java.awt.event.ComponentEvent;
 
 import javax.swing.DropMode;
 import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import ru.fssprus.r82.utils.AppConstants;

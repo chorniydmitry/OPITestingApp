@@ -32,7 +32,7 @@ public class StatisticsDialog extends DialogWithPassword {
 	private static final String ICON = AppConstants.STATISTICS_ICON;
 
 	private static final String LBL_FIO_CAPTION = "Фамилия:";
-	private static final String LBL_SPEC_CAPTION = "Специализация:";
+	private static final String LBL_SPEC_CAPTION = "Набор вопросов:";
 	private static final String LBL_LVL_CAPTION = "Уровень:";
 	private static final String LBL_MARK_CAPTION = "Результат:";
 	private static final String LBL_DATE_CAPTION_LESS = "Дата МЕНЬШЕ:";

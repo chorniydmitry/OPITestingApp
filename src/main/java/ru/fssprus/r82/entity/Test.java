@@ -14,6 +14,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Range;
 
+import ru.fssprus.r82.utils.AppConstants;
+
 /**
  * @author Chernyj Dmitry
  *
@@ -23,14 +25,14 @@ import org.hibernate.validator.constraints.Range;
 public class Test extends Model {
 	@NotNull
 	@Size(min=5)
-	@Column(name = "name", length = 2048, unique = true, nullable = false, updatable = false)
+	@Column(name = "name", length = 2048, unique = true)
 	private String name;
 	
-	@OneToMany(mappedBy = "test", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<TestSet> testSets = new HashSet<>();
 	
 	@NotNull
-	@Range(min=300, max=7200)
+	@Range(min=AppConstants.TEST_TIME_MIN, max=AppConstants.TEST_TIME_MAX)
 	@Column(name = "testing_time")
 	private int testTimeSec;
 	
@@ -38,7 +40,7 @@ public class Test extends Model {
 	private boolean isActive;
 	
 	@NotNull
-	@Range(min=20)
+	@Range(min=AppConstants.TEST_QUESTIONS_AMOUNT_MIN, max=AppConstants.TEST_QUESTIONS_AMOUNT_MAX)
 	@Column(name = "questionsamount")
 	private int amountOfQuestions;
 
@@ -81,5 +83,13 @@ public class Test extends Model {
 	public void setAmountOfQuestions(int amountOfQuestions) {
 		this.amountOfQuestions = amountOfQuestions;
 	}
+
+	@Override
+	public String toString() {
+		return "Test [name=" + name + ", testSets=" + testSets + ", testTimeSec=" + testTimeSec + ", isActive="
+				+ isActive + ", amountOfQuestions=" + amountOfQuestions + "]";
+	}
+	
+	
 		
 }

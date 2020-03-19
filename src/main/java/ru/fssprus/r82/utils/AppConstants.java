@@ -93,6 +93,11 @@ public class AppConstants {
 	public static final int DIALOG_TEST_CONSTRUCTOR_WIDTH = 900;
 	public static final int DIALOG_TEST_CONSTRUCTOR_HEIGHT = 700;
 	
+	// констакты Test
+	public static final int TEST_QUESTIONS_AMOUNT_MIN = 10;
+	public static final int TEST_QUESTIONS_AMOUNT_MAX = 1000;
+	public static final int TEST_TIME_MIN = 300;
+	public static final int TEST_TIME_MAX = 18000;
 	
 	
 	// Константы шрифтов
@@ -124,7 +129,7 @@ public class AppConstants {
 	public static final int QLDIALOG_TF_SIZE = 25;
 	
 	public static final int[] QLDIALOG_TABLE_COL_WIDTHS_ARR = {40, 550, 190};
-	public static final String[] QLDIALOG_TABLE_COL_CAPTIONS_ARR = {"id", "Формулировка", "Спецификация" };
+	public static final String[] QLDIALOG_TABLE_COL_CAPTIONS_ARR = {"id", "Формулировка", "Набор вопросов" };
 	
 	public static final String ACCP_SPEC_NAMES_PROTOTYPE_DISPLAY_VALUE = "XXXXXXXXXXXXXXXXXXXX";
 	
@@ -133,7 +138,7 @@ public class AppConstants {
 	// StatisticsDialog константы
 	
 	public static final int[] STATDIALOG_TABLE_COL_WIDTHS_ARR = { 20, 250, 125, 75, 125, 50, 50, 50, 125};
-	public static final String[] STATDIALOG_TABLE_COL_CAPTIONS_ARR = {"#", "ФИО пользователя", "Специализация", 
+	public static final String[] STATDIALOG_TABLE_COL_CAPTIONS_ARR = {"#", "ФИО пользователя", "Набор вопросов", 
 			"Уровень", "Дата теста", "Время теста", 
 			"Верных ответов", "%", "Результат"};
 	public static final SimpleDateFormat STATDIALOG_TABLE_DATE_FORMAT = new SimpleDateFormat("dd MMMMM yyyy HH:mm", new Locale("ru", "RU"));
@@ -142,7 +147,7 @@ public class AppConstants {
 	public static final int[] TESTCONSTRUCTOR_TABLELIST_COL_WIDTHS_ARR = { 20, 450, 150, 150, 100 };
 	public static final String[] TESTCONSTRUCTOR_TABLELIST_COL_CAPTIONS_ARR = {"#", "Название теста", "Время на тест(сек)", "Всего вопросов", "Тест активен?"};
 	
-	public static final int[] TESTCONSTRUCTOR_TABLECURRENT_COL_WIDTHS_ARR = { 250, 60 };
+	public static final int[] TESTCONSTRUCTOR_TABLECURRENT_COL_WIDTHS_ARR = { 450, 150 };
 	public static final String[] TESTCONSTRUCTOR_TABLECURRENT_COL_CAPTIONS_ARR = {"Название набора", "Количество вопросов"};
 	
 	

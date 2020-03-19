@@ -5,6 +5,7 @@ import java.util.List;
 import ru.fssprus.r82.dao.TestDao;
 import ru.fssprus.r82.dao.impl.TestDatabaseDao;
 import ru.fssprus.r82.entity.Test;
+import ru.fssprus.r82.entity.TestSet;
 
 public class TestService {
 	private TestDao testDao = new TestDatabaseDao();
@@ -29,4 +30,12 @@ public class TestService {
 		testDao.remove(id);
 	}
 	
+	public int countAll() {
+		return testDao.countAll();
+	}
+	
+	public void update(Test test) {
+		testDao.update(test);
+	}
+
 }

@@ -17,11 +17,11 @@ public class TestSet extends Model {
 	@Column(name = "questionsamount")
 	private int questionsAmount;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "test_id")
 	private Test test;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "questionset_id")
 	private QuestionSet questionset;
 
@@ -49,4 +49,42 @@ public class TestSet extends Model {
 		this.questionset = questionSet;
 	}
 
+	@Override
+	public String toString() {
+		return "TestSet [questionsAmount=" + questionsAmount + ", test=" + test.getName() + ", questionset=" + questionset + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + questionsAmount;
+		result = prime * result + ((questionset == null) ? 0 : questionset.hashCode());
+		result = prime * result + ((test == null) ? 0 : test.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TestSet other = (TestSet) obj;
+		if (questionsAmount != other.questionsAmount)
+			return false;
+		if (questionset == null) {
+			if (other.questionset != null)
+				return false;
+		} else if (!questionset.equals(other.questionset))
+			return false;
+		if (test == null) {
+			if (other.test != null)
+				return false;
+		} else if (!test.equals(other.test))
+			return false;
+		return true;
+	}
 }

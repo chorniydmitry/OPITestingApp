@@ -42,7 +42,7 @@ public class QuestionService {
 		return questionDao.getByIds(list);
 	}
 
-	public int getCountByQuestionSet(QuestionSet set) {
+	public int getAmountByQuestionSet(QuestionSet set) {
 		return questionDao.countItemsByQuestionSet(set);
 	}
 

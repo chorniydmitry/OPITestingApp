@@ -19,10 +19,12 @@ public class MessageBox extends JOptionPane {
 
 	private static final String READY = "Готово!";
 	private static final String ERROR_FILE_NOT_LOAD = "Ошибка при открытии файла!";
-	private static final String ERROR_WRONG_SPEC_SPECIFIED = "Не верно указано название специализации!";
+	private static final String ERROR_WRONG_SPEC_SPECIFIED = "Не верно указано название набора вопросов!";
 	private static final String PASSWORD_INPUT_TITLE = "Ввод пароля";
 	private static final String PASSWORD_INPUT_MESSAGE = "Введите пароль:";
 	private static final String CONFIRM_QUESTION_DELETE = "Будет удалена выбранная запись из базы данных. Продолжить?";
+	private static final String TABLE_EDITING_ENTRY_NOT_SAVED = "Редактируемая запись в таблице не была сохранена, сохранить запись"
+			+ "перед продолжением?";
 	private static final String ERROR_WRONG_QUESTION_SPECIFIED = "Не верно заполнен вопрос для добавления в базу данных!\n\n"
 			+ "ТЕКСТ ВОПРОСА: " + "Длина текста вопроса должна быть больше " + AppConstants.QUESTION_TEXT_MIN_LENGTH
 			+ " символов.\n\n" + "СПИСОК ОТВЕТОВ:\n"
@@ -78,20 +80,23 @@ public class MessageBox extends JOptionPane {
 		}
 		return "";
 	}
-
+	
+	public static int showEntryEditingNotSavedDialog(Component component) {
+		return JOptionPane.showOptionDialog(component, TABLE_EDITING_ENTRY_NOT_SAVED, null, JOptionPane.YES_NO_OPTION,
+				JOptionPane.INFORMATION_MESSAGE, null, new Object[] { "Да", "Нет", "Отмена"}, "Да");
+	}
+	
 	public static boolean showConfirmQuestionDelete(Component component) {
 		int result = JOptionPane.showOptionDialog(component, CONFIRM_QUESTION_DELETE, null, JOptionPane.YES_NO_OPTION,
-				JOptionPane.INFORMATION_MESSAGE, null, new Object[] { "Да", "Нет" }, "Да");
+				JOptionPane.INFORMATION_MESSAGE, null, new Object[] { "Да", "Нет"}, "Да");
 
 		if (result == JOptionPane.YES_OPTION)
 			return true;
 		return false;
-
 	}
 
 	public static void showWrongQuestionSpecifiedErrorDialog(Component component) {
 		MessageBox.showMessageDialog(component, ERROR_WRONG_QUESTION_SPECIFIED, null, JOptionPane.ERROR_MESSAGE);
-
 	}
 
 	public static void showNotEnoughCommonQuestionError(Component component) {
@@ -110,23 +115,17 @@ public class MessageBox extends JOptionPane {
 		+ "\n Для резерва(минимум): " + reserveMin;
 
 		MessageBox.showMessageDialog(component, message, null, JOptionPane.ERROR_MESSAGE);
-
 	}
 
 	public static void showAppConfigFileNotFoundOrCorrupted(Component component) {
 		MessageBox.showMessageDialog(component, ERROR_APPCONFIG_FILE_PROBLEMS, null, JOptionPane.ERROR_MESSAGE);
-
 	}
 
 	public static void showWrongQuestionToAnswerErrorMessage(Component component) {
 		MessageBox.showMessageDialog(component, ERROR_WRONG_QUESTION, null, JOptionPane.ERROR_MESSAGE);
-		
-		
 	}
 
 	public static void showWrongAnswerListForQuestionErrorMessage(Component component) {
 		MessageBox.showMessageDialog(component, ERROR_WRONG_ANSWERS_SELECTED, null, JOptionPane.ERROR_MESSAGE);
-		
-		
 	}
 }

@@ -45,12 +45,24 @@ public class Utils {
 		return 5;
 	}
 	
-	public static boolean isNumeric(String strNum) {
+	public static boolean isNumeric(Object num) {
+		String strNum = String.valueOf(num);
 		try {
-			Integer.parseInt(strNum);
+			Double.parseDouble(strNum);
 		} catch (NumberFormatException | NullPointerException nfe) {
 			return false;
 		}
 		return true;
 	}
+
+	public static int parseInt(String text) {
+		int returnVal = 0;
+		try {
+			returnVal = Integer.parseInt(text);
+		} catch(NumberFormatException | NullPointerException nfe) {
+			return 0;
+		}
+		return returnVal;
+	}
+
 }

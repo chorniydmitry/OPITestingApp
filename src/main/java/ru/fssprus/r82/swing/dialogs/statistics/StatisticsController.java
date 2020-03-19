@@ -259,7 +259,7 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 	}
 
 	@Override
-	public void edit(int index) {
+	public void selectionChanged(int index) {
 	}
 
 	@Override
@@ -294,4 +294,27 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 		updateTableAction();
 	}
 
+	@Override
+	public void addEntry(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void edit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void save() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void cancel() {
+		// TODO Auto-generated method stub
+		
+	}
 }

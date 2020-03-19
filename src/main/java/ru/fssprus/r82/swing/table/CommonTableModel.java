@@ -22,6 +22,7 @@ public class CommonTableModel extends AbstractTableModel {
 	private int columnCount;
 	private ArrayList<Object[]> onScreenDataList;
 	private List<Color> rowColors = new ArrayList<Color>();
+	private boolean isEditing = false;
 
 	public CommonTableModel(int[] widths, String[] names) {
 		this.columnNames = names;
@@ -52,8 +53,9 @@ public class CommonTableModel extends AbstractTableModel {
 
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return false;
+		return isEditing;
 	}
+
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
@@ -193,5 +195,14 @@ public class CommonTableModel extends AbstractTableModel {
 	public void setColumnWidths(int[] columnWidths) {
 		this.columnWidths = columnWidths;
 	}
+
+	public boolean isEditing() {
+		return isEditing;
+	}
+	
+	public void setEditing(boolean isEditing) {
+		this.isEditing = isEditing;
+	}
+
 
 }

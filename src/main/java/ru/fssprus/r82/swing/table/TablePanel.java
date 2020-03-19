@@ -21,7 +21,10 @@ public class TablePanel extends JPanel {
 	
 	private static final String BTN_ADD_CAPTION = "Добавить";
 	private static final String BTN_REMOVE_CAPTION = "Удалить";
-	private static final String BTN_EDIT_CAPTION = "Редактировать";
+	public static final String BTN_EDIT_CAPTION = "Редактировать";
+	public static final String BTN_SAVE_CAPTION = "Сохранить";
+	private static final String BTN_CANCEL_CAPTION = "Отменить";
+	
 	private static final String BTN_NEXT_CAPTION = ">";
 	private static final String BTN_PREVIOUS_CAPTION = "<";
 	private static final String LBL_PAGE_CAPTION = "Страница: ";
@@ -33,7 +36,8 @@ public class TablePanel extends JPanel {
 	
 	private JButton btnAdd;
 	private JButton btnDelete;
-	private JButton btnEdit;
+	private JButton btnEditAndSave;
+	private JButton btnCancel;
 	private JPanel pnlTop;
 	
 	private JButton btnNext;
@@ -83,15 +87,52 @@ public class TablePanel extends JPanel {
 		this.getTable().getTabModel().setRow(row, rowIndex);
 	}
 	
+	public Object[] getRow(int rowIndex) {
+		return this.getTable().getTabModel().getRowData(rowIndex);
+	}
+	
+	public void updateRow(Object[] row, int rowIndex) {
+		this.getTable().getTabModel().updateRow(row, rowIndex);
+	}
+	
+	public void setValueAt(Object value,int rowIndex, int colIndex) {
+		this.getTable().getTabModel().setValueAt(value, rowIndex, colIndex);
+	}
+	
+	public ArrayList<Object[]> getDataList() {
+		return this.getTable().getTabModel().getOnScreenDataList();
+	}
+	
+	public int getColumnCount() {
+		return table.getColumnCount();
+	}
+	
+	public int getRowCount() {
+		return table.getRowCount();
+	}
+	
 	public void update() {
 		this.getTable().getTabModel().update();
+	}
+	
+	public void updatePages(int current, int maximum) {
+		boolean nextEnabled = (current == maximum) ? false : true;
+		boolean prevEnabled = (current == 1) ? false : true;
+		
+		getBtnNext().setEnabled(nextEnabled);
+		getBtnPrevious().setEnabled(prevEnabled);
+		
+		getTfPage().setText(String.valueOf(current));
+		getLblPagesTotal().setText(String.valueOf(maximum));
+		
 	}
 	
 	private void initComponents() {
 		if(isPanelTopShowing) {
 			btnAdd = new JGreenButton(BTN_ADD_CAPTION);
 			btnDelete = new JGreenButton(BTN_REMOVE_CAPTION);
-			btnEdit = new JGreenButton(BTN_EDIT_CAPTION);
+			btnEditAndSave = new JGreenButton(BTN_EDIT_CAPTION);
+			btnCancel = new JGreenButton(BTN_CANCEL_CAPTION);
 			pnlTop = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		}
 		scrollPane = new JScrollPane(table);
@@ -127,7 +168,8 @@ public class TablePanel extends JPanel {
 		if(isPanelTopShowing) {
 			pnlTop.add(btnAdd);
 			pnlTop.add(btnDelete);
-			pnlTop.add(btnEdit);
+			pnlTop.add(btnEditAndSave);
+			pnlTop.add(btnCancel);
 		}
 		
 		if(isPanelBottomShowing) {
@@ -155,12 +197,20 @@ public class TablePanel extends JPanel {
 		this.btnDelete = btnDelete;
 	}
 	
-	public JButton getBtnEdit() {
-		return btnEdit;
+	public JButton getBtnEditAndSave() {
+		return btnEditAndSave;
 	}
 
-	public void setBtnEdit(JButton btnEdit) {
-		this.btnEdit = btnEdit;
+	public void setBtnEditAndSave(JButton btnEditAndSave) {
+		this.btnEditAndSave = btnEditAndSave;
+	}
+
+	public JButton getBtnCancel() {
+		return btnCancel;
+	}
+
+	public void setBtnCancel(JButton btnCancel) {
+		this.btnCancel = btnCancel;
 	}
 
 	public JButton getBtnNext() {
@@ -202,5 +252,4 @@ public class TablePanel extends JPanel {
 	public void setTable(CommonTable commonTable) {
 		this.table = commonTable;
 	}
-
 }

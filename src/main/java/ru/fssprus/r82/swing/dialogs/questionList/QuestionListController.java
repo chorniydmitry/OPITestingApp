@@ -348,7 +348,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	}
 
 	@Override
-	public void edit(int index) {
+	public void selectionChanged(int index) {
 		if (index >= questionsOnScreenList.size())
 			addBlankQuestion();
 		clearQuestionEditPanelContents();
@@ -391,4 +391,27 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		updateDialog();
 	}
 
+	@Override
+	public void addEntry(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void edit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void save() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void cancel() {
+		// TODO Auto-generated method stub
+		
+	}
 }

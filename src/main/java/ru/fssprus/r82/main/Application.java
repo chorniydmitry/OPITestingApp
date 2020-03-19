@@ -124,12 +124,65 @@ public class Application {
 		}
 	}
 	
+	public static void testTestCreation2() {
+		
+		QuestionSetService qsServ = new QuestionSetService();
+		TestService tServ = new TestService();
+		
+		Test test = new Test();
+		
+		test.setActive(true);
+		test.setAmountOfQuestions(20);
+		test.setName("ПЕРВЫЙ ТЕСТОВЫЙ ТЕСТ");
+		test.setTestTimeSec(300);
+		
+		Set<TestSet> testSets = new HashSet<>();
+		TestSet testSet1 = new TestSet();
+		testSet1.setQuestionsAmount(10);
+		testSet1.setQuestionSet(qsServ.getByID(7L));
+		testSet1.setTest(test);
+		testSets.add(testSet1);
+		
+		TestSet testSet2 = new TestSet();
+		testSet2.setQuestionsAmount(5);
+		testSet2.setQuestionSet(qsServ.getByID(8L));
+		testSet2.setTest(test);
+		testSets.add(testSet2);
+		
+		TestSet testSet3 = new TestSet();
+		testSet3.setQuestionsAmount(5);
+		testSet3.setQuestionSet(qsServ.getByID(9L));
+		testSet3.setTest(test);
+		testSets.add(testSet3);
+		
+		
+		test.setTestSets(testSets);
+		
+		tServ.add(test);
+		
+	}
+	
+	public static void testTestUpdationg() {
+		TestService testServ = new TestService();
+		Test test = testServ.getById(4L);
+		System.out.println(test.getName());
+		test.setName("ПЕРВЫЙ ТЕСТ ИЗМЕНЕННЫЙ");
+		System.out.println(test.getName());
+		testServ.update(test);
+		
+		test = testServ.getById(4L);
+		System.out.println(test.getName());
+		
+		//testServ.delete(test);
+		
+	}
+	
 	
 	public static void testTestCreation() {
 		QuestionSetService qsServ = new QuestionSetService();
 		
 		Test test1 = new Test();
-		test1.setTestTimeSec(300);
+		test1.setTestTimeSec(400);
 		test1.setAmountOfQuestions(30);
 		test1.setName("ПЕРВЫЙ ТЕСТ");
 		test1.setActive(true);
@@ -197,10 +250,12 @@ public class Application {
 
 		// testValidation();
 		//testCreation2();
-		//testTestCreation();
+		//testTestCreation2();
 		//testTestExtractionFromDB();
-		
+		//testTestUpdationg();
 		appStart();
+		
+		//testTestCreation2();
 
 		// } catch (HibernateException e) {
 		// e.printStackTrace();

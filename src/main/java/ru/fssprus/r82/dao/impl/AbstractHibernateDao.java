@@ -3,6 +3,7 @@ package ru.fssprus.r82.dao.impl;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -100,7 +101,7 @@ public abstract class AbstractHibernateDao<T extends Model> {
 	}
 
 	public T getById(Long Id) {
-		List<T> resultList = null;
+		T result = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
 			CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -111,13 +112,13 @@ public abstract class AbstractHibernateDao<T extends Model> {
 
 			Query<T> query = session.createQuery(criteriaQuery);
 
-			resultList = query.getResultList();
+			result = query.getSingleResult();
 
-		} catch (HibernateException e) {
-			e.printStackTrace();
+		} catch (NoResultException e) {
+			return null;
 		}
 
-		return resultList.get(0);
+		return result;
 	}
 
 	public void add(T model) {
@@ -151,6 +152,7 @@ public abstract class AbstractHibernateDao<T extends Model> {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			session.update(model);
+			session.flush();
 			transaction.commit();
 		} catch (HibernateException e) {
 	         if (transaction != null)

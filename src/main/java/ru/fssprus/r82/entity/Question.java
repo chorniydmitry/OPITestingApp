@@ -29,7 +29,7 @@ public class Question extends Model {
 	
 	@NotNull
 	@Size(min=AppConstants.QUESTION_TEXT_MIN_LENGTH)
-	@Column(name="title", length=2048)
+	@Column(name="title", length=2096)
 	private String title;
 	
 	@Size(min=AppConstants.MIN_ANSWERS_AMOUNT, max=AppConstants.MAX_ANSWERS_AMOUNT)
