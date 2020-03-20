@@ -28,7 +28,7 @@ public class TestConstructorController extends CommonController<TestConstructorD
 	private ArrayList<Test> testsOnScreen = new ArrayList<>();
 	private Test currentTest;
 	private boolean isReadyForSaving = false;
-	
+
 	private static final String EDITING_MESSAGE = "<<редактируется>>";
 
 	public TestConstructorController(TestConstructorDiaolg dialog) {
@@ -59,7 +59,7 @@ public class TestConstructorController extends CommonController<TestConstructorD
 	private void loadExistingTests() {
 		dialog.getTblList().clearTable();
 		TestService testService = new TestService();
-		List<Test> tests = testService.getAll(0, 100);
+		List<Test> tests = testService.getAll();
 		testsOnScreen = new ArrayList<Test>(tests);
 
 		addTestToTable(tests);
@@ -86,18 +86,18 @@ public class TestConstructorController extends CommonController<TestConstructorD
 			int amountOfQuestions = testSet.getQuestionsAmount();
 			int i = testSets.indexOf(testSet);
 			int maxForSet = getAmountForSet(testSet.getQuestionSet());
-			
+
 			dialog.changeSpinnerMax(dialog.getSpnsSetAmountOfQuestionList().get(i), maxForSet);
 			dialog.getSpnsSetAmountOfQuestionList().get(i).setValue(amountOfQuestions);
 			dialog.getCbsSetNamesList().get(i).setSelectedItem(questionSetName);
 		}
-	
+
 		dialog.getTfTestName().setText(currentTest.getName());
 		dialog.getSpnQuestionsAmount().setValue(currentTest.getAmountOfQuestions());
 		dialog.getSpnTestTime().setValue(currentTest.getTestTimeSec());
 		dialog.getCbTestIsActive().setSelected(currentTest.isActive());
 	}
-	
+
 	private int getAmountForSet(QuestionSet qSet) {
 		QuestionService qServ = new QuestionService();
 		return qServ.getAmountByQuestionSet(qSet);
@@ -120,9 +120,9 @@ public class TestConstructorController extends CommonController<TestConstructorD
 		testsOnScreen.add(currentTest);
 
 		currentTest.setTestSets(new HashSet<TestSet>());
-		
-		for(int i = 1; i < dialog.getTblList().getColumnCount() - 1 ; i++) {
-			dialog.getTblList().setValueAt(EDITING_MESSAGE, testsOnScreen.size()-1, i);
+
+		for (int i = 1; i < dialog.getTblList().getColumnCount() - 1; i++) {
+			dialog.getTblList().setValueAt(EDITING_MESSAGE, testsOnScreen.size() - 1, i);
 		}
 	}
 
@@ -140,17 +140,18 @@ public class TestConstructorController extends CommonController<TestConstructorD
 
 	private void doComboboxValueChangedAction(int index) {
 		QuestionSetService qsService = new QuestionSetService();
-		QuestionSet qSet = qsService.getByName(String.valueOf(dialog.getCbsSetNamesList().get(index).getSelectedItem())).get(0);
+		QuestionSet qSet = qsService.getByName(String.valueOf(dialog.getCbsSetNamesList().get(index).getSelectedItem()))
+				.get(0);
 		int amount = getAmountForSet(qSet);
 		dialog.changeSpinnerMax(dialog.getSpnsSetAmountOfQuestionList().get(index), amount);
 	}
 
 	private void doCheckAction() {
-		if(checkCurrentTest()) {
+		if (checkCurrentTest()) {
 			dialog.getBtnSave().setEnabled(false);
 			dialog.getTblList().getBtnEditAndSave().setEnabled(true);
 		} else {
-			
+
 		}
 	}
 
@@ -165,13 +166,13 @@ public class TestConstructorController extends CommonController<TestConstructorD
 		dialog.getTblList().clearTable();
 		setEditing(false);
 		loadExistingTests();
-		
+
 	}
 
 	private void updateCurrentTest() {
 		currentTest.setName(dialog.getTfTestName().getText());
-		currentTest.setTestTimeSec((Integer)dialog.getSpnTestTime().getValue());
-		currentTest.setAmountOfQuestions((Integer)dialog.getSpnQuestionsAmount().getValue());
+		currentTest.setTestTimeSec((Integer) dialog.getSpnTestTime().getValue());
+		currentTest.setAmountOfQuestions((Integer) dialog.getSpnQuestionsAmount().getValue());
 		currentTest.setActive(dialog.getCbTestIsActive().isSelected());
 
 		Map<QuestionSet, Integer> onScreenTestSet = getTestSetDataOnScreen();
@@ -183,18 +184,18 @@ public class TestConstructorController extends CommonController<TestConstructorD
 			newTestSet.setQuestionsAmount(entry.getValue());
 			newTestSet.setQuestionSet(entry.getKey());
 			newTestSet.setTest(currentTest);
-			
+
 			currentTest.getTestSets().add(newTestSet);
 		}
 	}
-	
+
 	private Map<QuestionSet, Integer> getTestSetDataOnScreen() {
 		QuestionSetService qSetService = new QuestionSetService();
 		Map<QuestionSet, Integer> retVal = new HashMap<>();
 
 		for (int i = 0; i < TestConstructorDiaolg.MAXIMUM_OF_SETS; i++) {
 			String qSetStr = String.valueOf(dialog.getCbsSetNamesList().get(i).getSelectedItem());
-			int amount = (Integer)(dialog.getSpnsSetAmountOfQuestionList().get(i).getValue());
+			int amount = (Integer) (dialog.getSpnsSetAmountOfQuestionList().get(i).getValue());
 			if (qSetStr.isEmpty() || amount == 0)
 				continue;
 			QuestionSet questionSet = qSetService.getByName(qSetStr).get(0);
@@ -206,14 +207,14 @@ public class TestConstructorController extends CommonController<TestConstructorD
 	}
 
 	private boolean checkCurrentTest() {
-		//TODO СДЕЛАТЬ ВАЛИДАЦИЮ
+		// TODO СДЕЛАТЬ ВАЛИДАЦИЮ
 		return true;
 	}
 
 	@Override
 	protected void setListeners() {
-		for(JComboBox<String> cb : dialog.getCbsSetNamesList()) {
-			cb.addItemListener(l-> doComboboxValueChangedAction(dialog.getCbsSetNamesList().indexOf(cb)));
+		for (JComboBox<String> cb : dialog.getCbsSetNamesList()) {
+			cb.addItemListener(l -> doComboboxValueChangedAction(dialog.getCbsSetNamesList().indexOf(cb)));
 		}
 		dialog.getBtnSave().addActionListener(l -> doCheckAction());
 	}
@@ -221,7 +222,7 @@ public class TestConstructorController extends CommonController<TestConstructorD
 	@Override
 	public void selectionChanged(int index) {
 		doChangeSelectionAction(index);
-	
+
 	}
 
 	@Override
@@ -248,7 +249,7 @@ public class TestConstructorController extends CommonController<TestConstructorD
 	@Override
 	public void edit() {
 		setEditing(true);
-		
+
 	}
 
 	@Override
@@ -270,12 +271,12 @@ public class TestConstructorController extends CommonController<TestConstructorD
 	@Override
 	public void delete(int index) {
 		boolean userConfirmed = MessageBox.showConfirmQuestionDelete(dialog);
-			if(userConfirmed) {
-				TestService tServ = new TestService();
-				tServ.delete(currentTest);
-				loadExistingTests();
-				setEditing(false);
-				clearLowerPanel();
-			}
+		if (userConfirmed) {
+			TestService tServ = new TestService();
+			tServ.delete(currentTest);
+			loadExistingTests();
+			setEditing(false);
+			clearLowerPanel();
+		}
 	}
 }

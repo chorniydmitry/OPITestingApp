@@ -62,22 +62,35 @@ public class TablePanelController {
 	
 	private void updateButtons() {
 		tablePanel.getBtnAdd().setEnabled(!isEditing);
-		tablePanel.getBtnDelete().setEnabled(!isEditing);
 		
-		String textForBtnEditAndSave = isEditing ? TablePanel.BTN_SAVE_CAPTION : TablePanel.BTN_EDIT_CAPTION;
-		tablePanel.getBtnEditAndSave().setText(textForBtnEditAndSave);
-		tablePanel.getBtnEditAndSave().setEnabled(!isEditing);
-		if(isEditing && !isReadyToSave) {
-			tablePanel.getBtnEditAndSave().setEnabled(false);
-		}
+		updateBtnDelete();
+		
+		updateButtonEditAndSave();
 		 
-		boolean isBtnSaveVisible = isEditing ? true : false;
-		tablePanel.getBtnCancel().setVisible(isBtnSaveVisible);
+		boolean isBtnCancelVisible = isEditing ? true : false;
+		tablePanel.getBtnCancel().setVisible(isBtnCancelVisible);
 		
 		table.setEnabled(!isEditing);
 		tablePanel.getTable().getTabModel().setEditing(isEditing);
 	}
 	
+	private void updateBtnDelete() {
+		if(table.getSelectedRow() == CommonTable.NO_ROWS_SELECTED)
+			tablePanel.getBtnDelete().setEnabled(false);
+		else {
+			tablePanel.getBtnDelete().setEnabled(!isEditing);
+		}
+	}
+	
+	private void updateButtonEditAndSave() {
+		String textForBtnEditAndSave = isEditing ? TablePanel.BTN_SAVE_CAPTION : TablePanel.BTN_EDIT_CAPTION;
+		tablePanel.getBtnEditAndSave().setText(textForBtnEditAndSave);
+		tablePanel.getBtnEditAndSave().setEnabled(!isEditing);
+		if(isEditing && !isReadyToSave || table.getSelectedRow() == CommonTable.NO_ROWS_SELECTED) {
+			tablePanel.getBtnEditAndSave().setEnabled(false);
+		}
+	}
+
 	private void doAddAction() {
 		table.unselectAll();
 		table.getTabModel().uncolorAll();

@@ -16,6 +16,8 @@ import ru.fssprus.r82.utils.AppConstants;
  */
 public class CommonTable extends JTable {
 	private static final long serialVersionUID = 1281533315206385819L;
+	public static final int NO_ROWS_SELECTED = -1;
+	
 	private CommonTableModel tabModel;
 	
 	private int lastSelectedIndex = AppConstants.NO_INDEX_SELECTED;

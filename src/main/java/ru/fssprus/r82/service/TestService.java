@@ -18,6 +18,10 @@ public class TestService {
 		return testDao.getAll(fromId, toId);
 	}
 	
+	public List<Test> getAll() {
+		return testDao.getAll();
+	}
+	
 	public Test getById(Long id) {
 		return testDao.getById(id);
 	}
