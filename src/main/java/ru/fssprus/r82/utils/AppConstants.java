@@ -93,13 +93,6 @@ public class AppConstants {
 	public static final int DIALOG_TEST_CONSTRUCTOR_WIDTH = 900;
 	public static final int DIALOG_TEST_CONSTRUCTOR_HEIGHT = 700;
 	
-	// констакты Test
-	public static final int TEST_QUESTIONS_AMOUNT_MIN = 10;
-	public static final int TEST_QUESTIONS_AMOUNT_MAX = 1000;
-	public static final int TEST_TIME_MIN = 300;
-	public static final int TEST_TIME_MAX = 18000;
-	
-	
 	// Константы шрифтов
 	public static final Font RESULTDIALOG_TEXT_FONT = new Font("Courier New", Font.BOLD, 18);
 	public static final Font TESTDIALOG_HEADER_FONT = new Font("Courier New", Font.PLAIN, 20);
@@ -187,4 +180,53 @@ public class AppConstants {
 	
 	public static final String DIALOG_PASSOWRD_MANAGE_ABOUT_INFO = "<html><b>Назначение паролей для следующих разделов программы</b><br/>"
 			+ "<i>оставьте пустым, если пароль для доступа к разделу не требуется:</i></html>";
+	
+	
+	/*
+	 * VALIDATION CONSTANTS
+	 */
+	
+	/*
+	 * FOR TEST ENTITY
+	 */
+	public static final int VALID_TEST_QUESTIONS_AMOUNT_MIN = 10;
+	public static final int VALID_TEST_QUESTIONS_AMOUNT_MAX = 1000;
+	public static final int VALID_TEST_TIME_MIN = 300;
+	public static final int VALID_TEST_TIME_MAX = 18000;
+	
+	/*
+	 * FOR TESTSET ENTITY
+	 */
+	
+	public static final int VALID_TESTSET_NAME_SIZE_MIN = 5;
+	
+	
+	/*
+	 * VALIDATION MESSAGES CONSTANTS
+	 */
+	
+	/*
+	 * FOR TEST ENTITY
+	 */
+	
+	public static final String VALID_TEST_NAME_NOTNULL = "Поле НАЗВАНИЕ ТЕСТА НЕ должно быть пустым!";
+	public static final String VALID_TEST_NAME_SIZE = "Поле НАЗВАНИЕ ТЕСТА должно быть более 5 символов длиной!";
+	
+	public static final String VALID_TEST_TIME_NOTNULL = "Поле ВРЕМЯ ТЕСТА НЕ должно быть пустым!";
+	public static final String VALID_TEST_TIME_RANGE = "Поле ВРЕМЯ ТЕСТА, должно содержать значение в пределах" + "["
+			+ AppConstants.VALID_TEST_TIME_MIN + ";" + AppConstants.VALID_TEST_TIME_MAX + "]";
+	
+	public static final String VALID_TEST_AMOUNT_NOTNULL = "Поле КОЛИЧЕСТВО ВОПРОСОВ(ОБЩЕЕ) НЕ должно быть пустым!";
+	public static final String VALID_TEST_AMOUNT_RANGE = "Поле КОЛИЧЕСТВО ВОПРОСОВ(ОБЩЕЕ), должно содержать значение в пределах" + "["
+			+ AppConstants.VALID_TEST_QUESTIONS_AMOUNT_MIN + ";" + AppConstants.VALID_TEST_QUESTIONS_AMOUNT_MAX + "]";
+	public static final String VALID_TEST_TESTSET_SIZE_MIN = "Должен быть выбран хотябы 1 набор вопросов для теста!";
+	
+	/*
+	 * FOR TESTSET ENTITY
+	 */
+	
+	public static final String VALID_TESTSET_NAME_NOTNULL = "Поле НАЗВАНИЕ НАБОРА ВОПРОСОВ НЕ должно быть пустым!";
+	public static final String VALID_TESTSET_NAME_SIZE = "Поле НАЗВАНИЕ НАБОРА ВОПРОСОВ должно быть более 5 символов длиной!";
+	
+
 }

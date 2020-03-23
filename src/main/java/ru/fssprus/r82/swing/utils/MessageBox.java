@@ -128,4 +128,9 @@ public class MessageBox extends JOptionPane {
 	public static void showWrongAnswerListForQuestionErrorMessage(Component component) {
 		MessageBox.showMessageDialog(component, ERROR_WRONG_ANSWERS_SELECTED, null, JOptionPane.ERROR_MESSAGE);
 	}
+
+	public static void showTestNotValidErrorMessage(Component component, String errorMessage) {
+		MessageBox.showMessageDialog(component, errorMessage, null, JOptionPane.ERROR_MESSAGE);
+		
+	}
 }

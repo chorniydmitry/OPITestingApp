@@ -1,22 +1,25 @@
 package ru.fssprus.r82.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Range;
+
+import ru.fssprus.r82.utils.AppConstants;
 
 @Entity
 @Table(name = "tests_sets")
 public class TestSet extends Model {
-	@NotNull
-	@Min(5)
+
+	@NotNull(message = AppConstants.VALID_TESTSET_NAME_NOTNULL)
+	@Range(min = AppConstants.VALID_TESTSET_NAME_SIZE_MIN, message = AppConstants.VALID_TESTSET_NAME_SIZE)
 	@Column(name = "questionsamount")
 	private int questionsAmount;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "test_id")
 	private Test test;
@@ -51,7 +54,8 @@ public class TestSet extends Model {
 
 	@Override
 	public String toString() {
-		return "TestSet [questionsAmount=" + questionsAmount + ", test=" + test.getName() + ", questionset=" + questionset + "]";
+		return "TestSet [questionsAmount=" + questionsAmount + ", test=" + test.getName() + ", questionset="
+				+ questionset + "]";
 	}
 
 	@Override

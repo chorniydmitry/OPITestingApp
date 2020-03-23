@@ -5,6 +5,7 @@ package ru.fssprus.r82.swing.dialogs.testConstructor;
  */
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -38,22 +39,31 @@ public class TestConstructorDiaolg extends DialogWithPassword {
 
 	private static final String BTN_SAVE_CAPTION = "Проверить и сохранить";
 	private static final String BTN_CANCEL_CAPTION = "Отменить изменения";
-	
+
 	private static final String PANEL_TESTTABLE_CAPTION = "Список доступных вопросов";
-	
+
 	private static final String PANEL_SETLIST_CAPTION = "Редактирование наборов вопросов, входящих в тест";
-	
+
 	private static final String PANEL_TESTEDIT_CAPTION = "Редактирование теста";
-	
+
 	private static final String LBL_TESTNAME_CAPTION = "Название теста:";
 	private static final String LBL_QUESTIONAMOUNT_CAPTION = "Количество вопросов(общее):";
 	private static final String LBL_TESTTIME_CAPTION = "Время на тест(сек.):";
 	private static final String LBL_TESTISACTIVE_CAPTION = "Тест активен?:";
 
-	private static final int TABLE_LIST_HEIGHT = 300;
+	private static final String LBL_QS_CAPTION = "Наборы вопросов, которые входят в тест:";
+	private static final String LBL_AMOUNTFORQSET_CAPTION = "Количество вопросов на набор:";
+
+	private static final String LBL_TEST_IS_CORRECT_CAPTION = "Тест сформирован корретно";
+	private static final String LBL_TEST_IS_NOT_CORRECT_CAPTION = "Ошибки в формировании теста";
+
+	private static final Color LBL_TEST_IS_CORRECT_COLOR = new Color(0, 255, 0);
+	private static final Color LBL_TEST_IS_NOT_CORRECT_COLOR = new Color(255, 0, 0);
+
+	private static final int TABLE_LIST_HEIGHT = 275;
 	private static final int PANEL_LOWER_HEIGHT = 300;
 	private static final int PANEL_TESTEDIT_HEIGHT = 75;
-	private static final int PANEL_SETLIST_HEIGHT = 250;
+	private static final int PANEL_SETLIST_HEIGHT = 275;
 	private static final int BTN_SAVE_HEIGHT = 25;
 	public static final int MAXIMUM_OF_SETS = 10;
 
@@ -74,6 +84,11 @@ public class TestConstructorDiaolg extends DialogWithPassword {
 
 	private JGreenButton btnSave = new JGreenButton(BTN_SAVE_CAPTION);
 	private JGreenButton btnCancel = new JGreenButton(BTN_CANCEL_CAPTION);
+
+	private JLabel lblQS = new JLabel(LBL_QS_CAPTION);
+	private JLabel lblAmountForQSet = new JLabel(LBL_AMOUNTFORQSET_CAPTION);
+
+	private JLabel lblTestIsCorrect = new JLabel();
 
 	private ArrayList<JComboBox<String>> cbsSetNamesList = new ArrayList<>(MAXIMUM_OF_SETS);
 	private ArrayList<JSpinner> spnsSetAmountOfQuestionList = new ArrayList<>(MAXIMUM_OF_SETS);
@@ -101,7 +116,7 @@ public class TestConstructorDiaolg extends DialogWithPassword {
 	}
 
 	private void initComponents() {
-		
+
 		tblList = new TablePanel(true, false,
 				new TestListTableModel(AppConstants.TESTCONSTRUCTOR_TABLELIST_COL_WIDTHS_ARR,
 						AppConstants.TESTCONSTRUCTOR_TABLELIST_COL_CAPTIONS_ARR));
@@ -118,19 +133,20 @@ public class TestConstructorDiaolg extends DialogWithPassword {
 
 		btnSave.setPreferredSize(new Dimension(getWidth(), BTN_SAVE_HEIGHT));
 	}
-	
+
 	private void layoutTblList() {
 		tblList.setBorder(BorderFactory.createTitledBorder(PANEL_TESTTABLE_CAPTION));
-		
+
 		tblList.setPreferredSize(new Dimension(getWidth(), TABLE_LIST_HEIGHT));
 
 	}
+
 	private void layoutPnlTestEdit() {
-		spnQuestionsAmount = configureSpinner(0, AppConstants.TEST_QUESTIONS_AMOUNT_MAX, 0);
-		spnTestTime = configureSpinner(0, AppConstants.TEST_TIME_MAX, 0);
-		
+		spnQuestionsAmount = configureSpinner(0, AppConstants.VALID_TEST_QUESTIONS_AMOUNT_MAX, 0);
+		spnTestTime = configureSpinner(0, AppConstants.VALID_TEST_TIME_MAX, 0);
+
 		pnlTestEdit.setBorder(BorderFactory.createTitledBorder(PANEL_TESTEDIT_CAPTION));
-		
+
 		pnlTestEdit.setPreferredSize(new Dimension(getWidth(), PANEL_TESTEDIT_HEIGHT));
 
 		pnlTestEdit.add(lblTestName);
@@ -146,23 +162,27 @@ public class TestConstructorDiaolg extends DialogWithPassword {
 
 	private void layoutTableSetListComponents() {
 		pnlSetList.setLayout(new GridBagLayout());
+
+		pnlSetList.add(lblQS, new GridBagConstraints(0, 0, 2, 1, 1, 1, GridBagConstraints.WEST,
+				GridBagConstraints.HORIZONTAL, new Insets(0, 2, 2, 2), 1, 1));
 		
-		pnlSetList.setBorder(BorderFactory.createTitledBorder(PANEL_SETLIST_CAPTION));
-	
-		for (int i = 0; i < MAXIMUM_OF_SETS; i++) {
+		pnlSetList.add(lblAmountForQSet, new GridBagConstraints(2, 0, 2, 1, 1, 1, GridBagConstraints.WEST,
+				GridBagConstraints.HORIZONTAL, new Insets(0, 2, 2, 2), 1, 1));
+
+		for (int i = 1; i <= MAXIMUM_OF_SETS; i++) {
 			cbsSetNamesList.add(new JComboBox<String>());
 			spnsSetAmountOfQuestionList.add(configureSpinner(0, 0, 0));
-	
-			pnlSetList.add(cbsSetNamesList.get(i), new GridBagConstraints(0, i, 2, 1, 1, 1, GridBagConstraints.WEST,
+
+			pnlSetList.add(cbsSetNamesList.get(i-1), new GridBagConstraints(0, i, 2, 1, 1, 1, GridBagConstraints.WEST,
 					GridBagConstraints.HORIZONTAL, new Insets(0, 2, 2, 2), 1, 1));
-	
-			pnlSetList.add(spnsSetAmountOfQuestionList.get(i), new GridBagConstraints(2, i, 1, 1, 1, 1,
+
+			pnlSetList.add(spnsSetAmountOfQuestionList.get(i-1), new GridBagConstraints(2, i, 1, 1, 1, 1,
 					GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 2, 2, 2), 1, 1));
 		}
-	
-		pnlSetList.add(btnSave, new GridBagConstraints(0, MAXIMUM_OF_SETS, 1, 1, 1, 1, GridBagConstraints.WEST,
+
+		pnlSetList.add(btnSave, new GridBagConstraints(0, MAXIMUM_OF_SETS + 1, 1, 1, 1, 1, GridBagConstraints.WEST,
 				GridBagConstraints.HORIZONTAL, new Insets(0, 2, 2, 2), 1, 1));
-	
+
 		pnlSetList.setVisible(true);
 	}
 
@@ -263,7 +283,5 @@ public class TestConstructorDiaolg extends DialogWithPassword {
 	public void setBtnCancel(JGreenButton btnCancel) {
 		this.btnCancel = btnCancel;
 	}
-	
-	
 
 }

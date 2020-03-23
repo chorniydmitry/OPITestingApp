@@ -5,8 +5,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.JComboBox;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
+import javax.validation.Validator;
 
 import ru.fssprus.r82.entity.QuestionSet;
 import ru.fssprus.r82.entity.Test;
@@ -206,9 +211,68 @@ public class TestConstructorController extends CommonController<TestConstructorD
 		return retVal;
 	}
 
+	private boolean checkIfTotalQuestAmountIsNotCorrect() {
+		int totalAmount = (int) dialog.getSpnQuestionsAmount().getValue();
+		int testSetAmount = 0;
+
+		for (int i = 0; i < TestConstructorDiaolg.MAXIMUM_OF_SETS; i++)
+			testSetAmount += (int) dialog.getSpnsSetAmountOfQuestionList().get(i).getValue();
+
+		return totalAmount != testSetAmount;
+	}
+
+	private boolean checkIfQuestionsSetHasDuplicates() {
+		ArrayList<String> allreadySetArr = new ArrayList<>();
+		for (int i = 0; i < TestConstructorDiaolg.MAXIMUM_OF_SETS; i++) {
+			String current = (String) dialog.getCbsSetNamesList().get(i).getSelectedItem();
+			if (allreadySetArr.indexOf(current) != -1)
+				return false;
+			else {
+				allreadySetArr.add(current);
+			}
+		}
+
+		return false;
+	}
+
+	private ArrayList<String> validateForm() {
+		ArrayList<String> violations = new ArrayList<>();
+
+		if (checkIfQuestionsSetHasDuplicates()) {
+			violations.add("В списке наборов вопросов содержатся дубликаты!");
+		}
+
+		if (checkIfTotalQuestAmountIsNotCorrect()) {
+			violations.add("Общее количество вопросов не совпадает с суммой вопросов по наборам!");
+		}
+
+		return violations;
+	}
+
 	private boolean checkCurrentTest() {
-		// TODO СДЕЛАТЬ ВАЛИДАЦИЮ
-		return true;
+		String errorMessage = "";
+
+		ArrayList<String> formViolations = validateForm();
+		
+		for (String violation : formViolations)
+			errorMessage += violation + "\n";
+
+		updateCurrentTest();
+
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+
+		Set<ConstraintViolation<Test>> violations = validator.validate(currentTest);
+
+		if (violations.size() == 0 && formViolations.size() == 0)
+			return true;
+
+		for (ConstraintViolation<Test> violation : violations)
+			errorMessage += violation.getMessage() + "\n";
+
+		MessageBox.showTestNotValidErrorMessage(dialog, errorMessage);
+
+		return false;
 	}
 
 	@Override
@@ -254,7 +318,6 @@ public class TestConstructorController extends CommonController<TestConstructorD
 
 	@Override
 	public void save() {
-		updateCurrentTest();
 		saveCurrentTest();
 		loadExistingTests();
 		setEditing(false);

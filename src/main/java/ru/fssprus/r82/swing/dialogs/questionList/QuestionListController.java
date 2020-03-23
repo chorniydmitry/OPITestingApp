@@ -262,7 +262,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		return setToAdd;
 	}
 
-	//TODO
+	//TODO сделать нормальную валидацию
 	private boolean validateQuestionSave() {
 		// Валидация текста вопроса
 		// Длина текста вопроса слишком маленькая

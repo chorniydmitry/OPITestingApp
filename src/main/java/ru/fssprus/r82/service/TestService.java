@@ -5,7 +5,6 @@ import java.util.List;
 import ru.fssprus.r82.dao.TestDao;
 import ru.fssprus.r82.dao.impl.TestDatabaseDao;
 import ru.fssprus.r82.entity.Test;
-import ru.fssprus.r82.entity.TestSet;
 
 public class TestService {
 	private TestDao testDao = new TestDatabaseDao();
