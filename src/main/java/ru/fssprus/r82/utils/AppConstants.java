@@ -187,6 +187,13 @@ public class AppConstants {
 	 */
 	
 	/*
+	 * FOR TEST CONSTRUCTOR FORM
+	 */
+	
+	public static final String VALID_TEST_NAME_NOT_UNIQUE = "Тест с таким названием уже зарегистрирован в базе данных, поле ИМЯ ТЕСТА должно содержать уникальное значение!";
+	public static final String  VALID_QUESTIONSET_HAS_DUPLICATES = "В списке наборов вопросов содержатся дубликаты!";
+	public static final String VALID_TOTALAMOUNTOFQUESTIONS_WRONG = "Общее количество вопросов не совпадает с суммой вопросов по наборам!";
+	/*
 	 * FOR TEST ENTITY
 	 */
 	public static final int VALID_TEST_QUESTIONS_AMOUNT_MIN = 10;
@@ -212,8 +219,8 @@ public class AppConstants {
 	public static final String VALID_TEST_NAME_NOTNULL = "Поле НАЗВАНИЕ ТЕСТА НЕ должно быть пустым!";
 	public static final String VALID_TEST_NAME_SIZE = "Поле НАЗВАНИЕ ТЕСТА должно быть более 5 символов длиной!";
 	
-	public static final String VALID_TEST_TIME_NOTNULL = "Поле ВРЕМЯ ТЕСТА НЕ должно быть пустым!";
-	public static final String VALID_TEST_TIME_RANGE = "Поле ВРЕМЯ ТЕСТА, должно содержать значение в пределах" + "["
+	public static final String VALID_TEST_TIME_NOTNULL = "Поле ВРЕМЯ НА ТЕСТ(СЕК.) НЕ должно быть пустым!";
+	public static final String VALID_TEST_TIME_RANGE = "Поле ВРЕМЯ НА ТЕСТ(СЕК.), должно содержать значение в пределах" + "["
 			+ AppConstants.VALID_TEST_TIME_MIN + ";" + AppConstants.VALID_TEST_TIME_MAX + "]";
 	
 	public static final String VALID_TEST_AMOUNT_NOTNULL = "Поле КОЛИЧЕСТВО ВОПРОСОВ(ОБЩЕЕ) НЕ должно быть пустым!";

@@ -23,6 +23,7 @@ import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.table.TablePanelController;
 import ru.fssprus.r82.swing.table.UpdatableController;
 import ru.fssprus.r82.swing.utils.MessageBox;
+import ru.fssprus.r82.utils.AppConstants;
 
 /**
  * @author Chernyj Dmitry
@@ -32,7 +33,11 @@ import ru.fssprus.r82.swing.utils.MessageBox;
 public class TestConstructorController extends CommonController<TestConstructorDiaolg> implements UpdatableController {
 	private ArrayList<Test> testsOnScreen = new ArrayList<>();
 	private Test currentTest;
-	private boolean isReadyForSaving = false;
+
+	private static final int NONE = -1;
+	private static final int EDITING = 1;
+	private static final int CHECKING_FAILED = 2;
+	private static final int CHECKING_PASSED = 3;
 
 	private static final String EDITING_MESSAGE = "<<редактируется>>";
 
@@ -112,6 +117,7 @@ public class TestConstructorController extends CommonController<TestConstructorD
 		for (int i = 0; i < TestConstructorDiaolg.MAXIMUM_OF_SETS; i++) {
 			dialog.getSpnsSetAmountOfQuestionList().get(i).setValue(0);
 			dialog.getCbsSetNamesList().get(i).setSelectedIndex(0);
+			dialog.getLblsSetMaxAmountList().get(i).setText("");
 		}
 		dialog.getTfTestName().setText(null);
 		dialog.getSpnQuestionsAmount().setValue(0);
@@ -140,15 +146,17 @@ public class TestConstructorController extends CommonController<TestConstructorD
 		dialog.getTfTestName().setEnabled(isEditing);
 		dialog.getSpnTestTime().setEnabled(isEditing);
 		dialog.getCbTestIsActive().setEnabled(isEditing);
-		dialog.getBtnSave().setEnabled(true);
+		dialog.getBtnSave().setEnabled(isEditing);
 	}
 
 	private void doComboboxValueChangedAction(int index) {
 		QuestionSetService qsService = new QuestionSetService();
-		QuestionSet qSet = qsService.getByName(String.valueOf(dialog.getCbsSetNamesList().get(index).getSelectedItem()))
-				.get(0);
+		QuestionSet qSet = qsService.getUniqueByName(String.valueOf(dialog.getCbsSetNamesList().get(index).getSelectedItem()));
+		if(qSet == null) return;
+		
 		int amount = getAmountForSet(qSet);
 		dialog.changeSpinnerMax(dialog.getSpnsSetAmountOfQuestionList().get(index), amount);
+		dialog.getLblsSetMaxAmountList().get(index).setText(String.valueOf(amount));
 	}
 
 	private void doCheckAction() {
@@ -203,7 +211,7 @@ public class TestConstructorController extends CommonController<TestConstructorD
 			int amount = (Integer) (dialog.getSpnsSetAmountOfQuestionList().get(i).getValue());
 			if (qSetStr.isEmpty() || amount == 0)
 				continue;
-			QuestionSet questionSet = qSetService.getByName(qSetStr).get(0);
+			QuestionSet questionSet = qSetService.getUniqueByName(qSetStr);
 
 			retVal.put(questionSet, amount);
 		}
@@ -238,22 +246,40 @@ public class TestConstructorController extends CommonController<TestConstructorD
 	private ArrayList<String> validateForm() {
 		ArrayList<String> violations = new ArrayList<>();
 
+		if (checkIfQuestionNameIsNotUnique()) {
+			violations.add(AppConstants.VALID_TEST_NAME_NOT_UNIQUE);
+		}
+
 		if (checkIfQuestionsSetHasDuplicates()) {
-			violations.add("В списке наборов вопросов содержатся дубликаты!");
+			violations.add(AppConstants.VALID_QUESTIONSET_HAS_DUPLICATES);
 		}
 
 		if (checkIfTotalQuestAmountIsNotCorrect()) {
-			violations.add("Общее количество вопросов не совпадает с суммой вопросов по наборам!");
+			violations.add(AppConstants.VALID_TOTALAMOUNTOFQUESTIONS_WRONG);
 		}
 
 		return violations;
+	}
+
+	private boolean checkIfQuestionNameIsNotUnique() {
+		int currentTestIndex = testsOnScreen.indexOf(currentTest);
+		String nameToCheck = dialog.getTfTestName().getText();
+		
+		for(int i = 0; i < testsOnScreen.size(); i++) {
+			if(i == currentTestIndex) continue;
+			
+			if(testsOnScreen.get(i).getName().equalsIgnoreCase(nameToCheck)) 
+				return true;
+		}
+		
+		return false;
 	}
 
 	private boolean checkCurrentTest() {
 		String errorMessage = "";
 
 		ArrayList<String> formViolations = validateForm();
-		
+
 		for (String violation : formViolations)
 			errorMessage += violation + "\n";
 
@@ -264,15 +290,39 @@ public class TestConstructorController extends CommonController<TestConstructorD
 
 		Set<ConstraintViolation<Test>> violations = validator.validate(currentTest);
 
-		if (violations.size() == 0 && formViolations.size() == 0)
+		if (violations.size() == 0 && formViolations.size() == 0) {
+			updateTfStatus(CHECKING_PASSED);
 			return true;
+		}
 
 		for (ConstraintViolation<Test> violation : violations)
 			errorMessage += violation.getMessage() + "\n";
 
 		MessageBox.showTestNotValidErrorMessage(dialog, errorMessage);
 
+		updateTfStatus(CHECKING_FAILED);
 		return false;
+	}
+
+	private void updateTfStatus(int status) {
+		dialog.getLblTestIsCorrect().setVisible(true);
+		switch (status) {
+		case EDITING:
+			dialog.getLblTestIsCorrect().setText(TestConstructorDiaolg.LBL_TEST_IS_NOT_CHECKED_CAPTION);
+			dialog.getLblTestIsCorrect().setBackground(TestConstructorDiaolg.LBL_TEST_IS_NOT_CHECKED_COLOR);
+			break;
+		case CHECKING_FAILED:
+			dialog.getLblTestIsCorrect().setText(TestConstructorDiaolg.LBL_TEST_IS_NOT_CORRECT_CAPTION);
+			dialog.getLblTestIsCorrect().setBackground(TestConstructorDiaolg.LBL_TEST_IS_NOT_CORRECT_COLOR);
+			break;
+		case CHECKING_PASSED:
+			dialog.getLblTestIsCorrect().setText(TestConstructorDiaolg.LBL_TEST_IS_CORRECT_CAPTION);
+			dialog.getLblTestIsCorrect().setBackground(TestConstructorDiaolg.LBL_TEST_IS_CORRECT_COLOR);
+			break;
+
+		default:
+			dialog.getLblTestIsCorrect().setVisible(false);
+		}
 	}
 
 	@Override
@@ -286,7 +336,6 @@ public class TestConstructorController extends CommonController<TestConstructorD
 	@Override
 	public void selectionChanged(int index) {
 		doChangeSelectionAction(index);
-
 	}
 
 	@Override
@@ -306,18 +355,20 @@ public class TestConstructorController extends CommonController<TestConstructorD
 
 	@Override
 	public void addEntry(int index) {
+		updateTfStatus(EDITING);
 		setEditing(true);
 		addNewTest();
 	}
 
 	@Override
 	public void edit() {
+		updateTfStatus(EDITING);
 		setEditing(true);
-
 	}
 
 	@Override
 	public void save() {
+		updateTfStatus(NONE);
 		saveCurrentTest();
 		loadExistingTests();
 		setEditing(false);
@@ -326,6 +377,7 @@ public class TestConstructorController extends CommonController<TestConstructorD
 
 	@Override
 	public void cancel() {
+		updateTfStatus(NONE);
 		loadExistingTests();
 		setEditing(false);
 		clearLowerPanel();
@@ -335,6 +387,7 @@ public class TestConstructorController extends CommonController<TestConstructorD
 	public void delete(int index) {
 		boolean userConfirmed = MessageBox.showConfirmQuestionDelete(dialog);
 		if (userConfirmed) {
+			updateTfStatus(NONE);
 			TestService tServ = new TestService();
 			tServ.delete(currentTest);
 			loadExistingTests();

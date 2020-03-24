@@ -6,4 +6,6 @@ public interface TestDao extends ItemDao<Test> {
 	
 	public int countAll();
 
+	public Test getByName(String name);
+
 }

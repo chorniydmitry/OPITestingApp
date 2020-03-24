@@ -41,7 +41,7 @@ public class QuestionSetService {
 	
 	public QuestionSet getUniqueByName(String title) {
 		List<QuestionSet> specsByName = questionSetDao.getByTitle(-1, -1, title);
-		if(specsByName.size() == 0)
+		if(specsByName.size() == 0 || title.isEmpty())
 			return null;
 		return specsByName.get(0);
 	}

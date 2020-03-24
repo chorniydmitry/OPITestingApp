@@ -70,7 +70,7 @@ public class QuestionService {
 	public void save(Question questionToSave) {
 		QuestionSetService service = new QuestionSetService();
 
-		if (service.getByName(questionToSave.getQuestionSet().getName()).size() == 0)
+		if (service.getByName(questionToSave.getQuestionSet().getName()) == null)
 			service.save(questionToSave.getQuestionSet());
 
 		questionDao.add(questionToSave);
@@ -111,7 +111,7 @@ public class QuestionService {
 			String setName = question.getQuestionSet().getName();
 
 			QuestionSet set = null;
-			if (sService.getByName(setName).size() > 0)
+			if (sService.getByName(setName) != null)
 				set = sService.getByName(setName).get(0);
 			else {
 				set = new QuestionSet();

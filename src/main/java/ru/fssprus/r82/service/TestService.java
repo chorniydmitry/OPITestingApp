@@ -41,4 +41,8 @@ public class TestService {
 		testDao.update(test);
 	}
 
+	public Test getByName(String name) {
+		return testDao.getByName(name);
+	}
+
 }
