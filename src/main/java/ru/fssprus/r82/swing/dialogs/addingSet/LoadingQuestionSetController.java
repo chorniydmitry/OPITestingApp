@@ -52,7 +52,7 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 
 		if (!validateSpecTf()) {
 			MessageBox.showWrongSpecSpecifiedErrorDialog(dialog);
-			dialog.getAccbSpecName().requestFocus();
+			dialog.getCbSpecName().requestFocus();
 			return false;
 		}
 		
@@ -71,7 +71,7 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 	}
 	//TODO
 	private boolean validateSpecTf() {
-		if (dialog.getAccbSpecName().getSelectedItem().toString().isEmpty())
+		if (dialog.getCbSpecName().getSelectedItem().toString().isEmpty())
 			return false;
 		return true;
 	}
@@ -91,7 +91,7 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 	 */
 	private QuestionSet getQuestionSet() {
 		QuestionSet set = new QuestionSet();
-		set.setName(dialog.getAccbSpecName().getSelectedItem().toString());
+		set.setName(dialog.getCbSpecName().getSelectedItem().toString());
 		return set;
 	}
 

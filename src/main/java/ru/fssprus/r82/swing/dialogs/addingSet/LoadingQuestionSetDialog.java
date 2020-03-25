@@ -1,9 +1,6 @@
 package ru.fssprus.r82.swing.dialogs.addingSet;
 
-/**
- * @author Chernyj Dmitry
- *
- */
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -11,13 +8,13 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 
-import g.cope.swing.autocomplete.jcombobox.AutocompleteJComboBox;
-import g.cope.swing.autocomplete.jcombobox.StringSearchable;
 import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.swing.utils.JGreenButton;
@@ -25,111 +22,156 @@ import ru.fssprus.r82.utils.AppConstants;
 
 public class LoadingQuestionSetDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -4114441914928348354L;
-	
+
 	private static final String SECTION = AppConstants.QUESTION_LOAD_DIALOG;
 	private static final String TITLE = AppConstants.QUESTION_LOAD_TEXT;
 	private static final String ICON = AppConstants.QUESTION_LOAD_ICON;
-	
-	private static final String BTN_OPEN_CAPTION = "Открыть файл";
-	private static final String LBL_SPEC_NAME_CAPTION = "Специализация:";
-	private static final String BTN_LOAD_CAPTION = "Добавить";
-	
-	private JLabel lblMsg = new JLabel(AppConstants.DIALOG_LOADING_QUEST_SET_ABOUT_INFO);
-	
-	private JButton btnOpenTextFile = new JGreenButton(BTN_OPEN_CAPTION);
-	private JTextField tfFilePath = new JTextField();
-	private JLabel lblSpecName = new JLabel(LBL_SPEC_NAME_CAPTION);
-	private AutocompleteJComboBox accbSpecName = new AutocompleteJComboBox(null);
 
+	private JLabel lblMsg = new JLabel(AppConstants.DIALOG_LOADING_QUEST_SET_ABOUT_INFO);
+
+	private static final int TF_SIZE = 25;
+	private static final String PNL_ADD_NEW_SET_TITLE = "Создание нового набора вопросов";
+	private static final String LBL_NAMEOGNEWSET_CAPTION = "Название:";
+	private static final String BTN_SAVENEWSET_CAPTION = "Сохранить";
+
+	private static final String PNL_ADDQUESTIONSFROMFILE_TITLE = "Добавление вопросов в набор из файла";
+	private static final String LBL_SPEC_NAME_CAPTION = "Название набора вопросов:";
+	private static final String LBL_AMOUNTOFQUESTIONSINSET_CAPTION = "Вопросов в БД:";
+	private static final String LBL_ADDQUESTIONS_CAPTION = "Добавить вопросы:";
+	private static final String BTN_OPEN_CAPTION = "Открыть файл";
+	private static final String BTN_LOAD_CAPTION = "Добавить";
+
+	private static final String BTN_LOAD_TEMPLATE = "Открыть шаблон файла вопросов";
+
+	private JPanel pnlSetEditing = new JPanel();
+
+	private JPanel pnlAddNewSet = new JPanel();
+	private JLabel lblNameOfNewSet = new JLabel(LBL_NAMEOGNEWSET_CAPTION);
+	private JTextField tfNameOfNewTest = new JTextField(TF_SIZE);
+	private JButton btnSaveNewSet = new JButton(BTN_SAVENEWSET_CAPTION);
+
+	private JPanel pnlAddQuestionsFromFile = new JPanel();
+	private JLabel lblSpecName = new JLabel(LBL_SPEC_NAME_CAPTION);
+	private JComboBox<String> cbSpecName = new JComboBox<>();
+	private JLabel lblTotalQuestionsInSet = new JLabel(LBL_AMOUNTOFQUESTIONSINSET_CAPTION);
+	private JLabel lblTotalQuestionsInSetVal = new JLabel();
+	private JLabel lblAddQuestions = new JLabel(LBL_ADDQUESTIONS_CAPTION);
+	private JButton btnOpenTextFile = new JGreenButton(BTN_OPEN_CAPTION);
+	private JTextField tfFilePath = new JTextField(TF_SIZE);
 	private JButton btnLoadQuestionsSet = new JGreenButton(BTN_LOAD_CAPTION);
+
+	private JButton btnLoadSetFileTemplate = new JGreenButton(BTN_LOAD_TEMPLATE);
+
+	
+	private void layoutPnlSetEditing() {
+		layoutPnlAddNewSet();
+		layoutPnlAddQuestionsFromFile();
+		
+		pnlSetEditing.setLayout(new BorderLayout());
+		pnlSetEditing.add(pnlAddNewSet, BorderLayout.NORTH);
+		pnlSetEditing.add(pnlAddQuestionsFromFile, BorderLayout.SOUTH);
+	}
+	
+	private void layoutPnlAddNewSet() {
+		pnlAddNewSet.setBorder(new TitledBorder(PNL_ADD_NEW_SET_TITLE));
+		pnlAddNewSet.add(lblNameOfNewSet);
+		pnlAddNewSet.add(tfNameOfNewTest);
+		pnlAddNewSet.add(btnSaveNewSet);
+	}
+
+	private void layoutPnlAddQuestionsFromFile() {
+		pnlAddQuestionsFromFile.setBorder(new TitledBorder(PNL_ADDQUESTIONSFROMFILE_TITLE));
+		pnlAddQuestionsFromFile.setLayout(new GridBagLayout());
+
+		// 1 row
+		pnlAddQuestionsFromFile.add(lblSpecName, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.NORTH,
+				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
+
+		pnlAddQuestionsFromFile.add(cbSpecName, new GridBagConstraints(1, 0, GridBagConstraints.REMAINDER, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
+
+		pnlAddQuestionsFromFile.add(lblTotalQuestionsInSet, new GridBagConstraints(2, 0, 1, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
+
+		pnlAddQuestionsFromFile.add(lblTotalQuestionsInSetVal, new GridBagConstraints(3, 0, 1, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
+
+		// 2 row
+		pnlAddQuestionsFromFile.add(lblAddQuestions, new GridBagConstraints(0, 1, GridBagConstraints.REMAINDER, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
+
+		// 3 row
+		pnlAddQuestionsFromFile.add(btnOpenTextFile, new GridBagConstraints(0, 2, 1, 1, 1, 1, GridBagConstraints.NORTH,
+				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
+
+		pnlAddQuestionsFromFile.add(tfFilePath, new GridBagConstraints(1, 2, GridBagConstraints.REMAINDER, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
+
+		pnlAddQuestionsFromFile.add(btnLoadQuestionsSet, new GridBagConstraints(2, 2, 1, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
+
+	}
 
 	public LoadingQuestionSetDialog(int width, int height, JFrame parent) {
 		super(width, height, parent);
 	}
-	
+
 	@Override
 	public void layoutPanelTop() {
 		ImageIcon emblem = new ImageIcon(getClass().getResource(ICON));
 		super.layoutPanelTop(TITLE, emblem);
 	}
-	
+
 	@Override
 	public void init() {
-		initTfSpecNames();
+		initComponents();
 		super.init();
 	}
-	
+
+	private void initComponents() {
+		initTfSpecNames();
+		tfFilePath.setEditable(false);
+	}
+
 	@Override
 	protected String getSection() {
 		return SECTION;
 	}
-	
+
 	@Override
 	protected String getTitleText() {
 		return TITLE;
 	}
-	
+
 	@Override
 	protected void layoutDialog() {
-		JPanel contentPanel = getContentPanel();
-
-		contentPanel.setLayout(new GridBagLayout());
-
-		// gridx, gridy, gridwidth, gridheight, weightx, weighty, anchor, fill,
-		// insets(top, left, botom, right), ipadx, ipady
-
-		// 1st row
-		contentPanel.add(lblMsg, new GridBagConstraints(0, 0, GridBagConstraints.REMAINDER, 1, 0, 0, GridBagConstraints.CENTER,
-				GridBagConstraints.BOTH, new Insets(15, 5, 15, 5), 0, 0));
+		layoutPnlSetEditing();
 		
-		// 2nd row
-		contentPanel.add(btnOpenTextFile, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.NORTHWEST,
-				GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+		JPanel contentPanel = getContentPanel();
+		contentPanel.setLayout(new BorderLayout());
 
-		contentPanel.add(tfFilePath, new GridBagConstraints(1, 1, 3, 1, 1, 1, GridBagConstraints.NORTHWEST,
-				GridBagConstraints.HORIZONTAL, new Insets(10, 5, 5, 5), 0, 0));
+		contentPanel.add(lblMsg, BorderLayout.NORTH);
 
-		// 3rd row
-		contentPanel.add(lblSpecName, new GridBagConstraints(0, 2, 2, 1, 1, 0, GridBagConstraints.NORTHWEST,
-				GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 5), 0, 0));
+		contentPanel.add(pnlSetEditing, BorderLayout.CENTER);
 
-		// 4th row
-		contentPanel.add(accbSpecName, new GridBagConstraints(0, 3, 2, 1, 1, 0, GridBagConstraints.NORTHWEST,
-				GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 5), 0, 0));
-
-		// 5th row
-		contentPanel.add(btnLoadQuestionsSet, new GridBagConstraints(0, 4, GridBagConstraints.REMAINDER, 1, 0, 0,
-				GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-
+		contentPanel.add(btnLoadSetFileTemplate, BorderLayout.SOUTH);
 	}
-	
+
 	private void initTfSpecNames() {
 		QuestionSetService setService = new QuestionSetService();
-		
+
 		ArrayList<String> keywords = new ArrayList<String>();
 		setService.getAll().forEach((n) -> keywords.add(n.getName()));
-		
-		StringSearchable searchable = new StringSearchable(keywords);
-		setAccbSpecName(new AutocompleteJComboBox(searchable));
-		getAccbSpecName().addItem(null);
-		getAccbSpecName().setPrototypeDisplayValue(AppConstants.ACCP_SPEC_NAMES_PROTOTYPE_DISPLAY_VALUE);
-		keywords.forEach((n)-> getAccbSpecName().addItem(n));
+
+		keywords.forEach((n) -> cbSpecName.addItem(n));
 	}
-	
+
 	public JButton getBtnLoadQuestionsSet() {
 		return btnLoadQuestionsSet;
 	}
 
 	public void setBtnLoadQuestionsSet(JButton btnLoadQuestionsSet) {
 		this.btnLoadQuestionsSet = btnLoadQuestionsSet;
-	}
-	
-	public AutocompleteJComboBox getAccbSpecName() {
-		return accbSpecName;
-	}
-
-	public void setAccbSpecName(AutocompleteJComboBox accbSpecName) {
-		this.accbSpecName = accbSpecName;
 	}
 
 	public JButton getBtnOpenTextFile() {
@@ -146,5 +188,13 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 
 	public void setTfFilePath(JTextField tfFilePath) {
 		this.tfFilePath = tfFilePath;
+	}
+
+	public JComboBox<String> getCbSpecName() {
+		return cbSpecName;
+	}
+
+	public void setCbSpecName(JComboBox<String> cbSpecName) {
+		this.cbSpecName = cbSpecName;
 	}
 }

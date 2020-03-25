@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,8 +18,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import g.cope.swing.autocomplete.jcombobox.AutocompleteJComboBox;
-import g.cope.swing.autocomplete.jcombobox.StringSearchable;
 import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.swing.table.CommonTable;
@@ -78,7 +77,7 @@ public class QuestionListDialog extends DialogWithPassword {
 	private JButton btnEditQuestion = new JGreenButton(BTN_EDIT_CAPTION_RU);
 
 	private JLabel lblSpecName = new JLabel(LBL_SPECIFICATION_CAPTION_RU);
-	private AutocompleteJComboBox accbSpecNames = new AutocompleteJComboBox(null);
+	private JComboBox<String> cbSpecNames = new JComboBox<>();
 	
 	private TablePanel tablePanel;
 
@@ -129,11 +128,7 @@ public class QuestionListDialog extends DialogWithPassword {
 		ArrayList<String> keywords = new ArrayList<String>();
 		setService.getAll().forEach((n) -> keywords.add(n.getName()));
 		
-		StringSearchable searchable = new StringSearchable(keywords);
-		setAccbSpecNames(new AutocompleteJComboBox(searchable));
-		getAccbSpecNames().addItem(null);
-		getAccbSpecNames().setPrototypeDisplayValue(AppConstants.ACCP_SPEC_NAMES_PROTOTYPE_DISPLAY_VALUE);
-		keywords.forEach((n)-> getAccbSpecNames().addItem(n));
+		keywords.forEach((n)-> cbSpecNames.addItem(n));
 	}
 	
 	@Override
@@ -176,7 +171,7 @@ public class QuestionListDialog extends DialogWithPassword {
 		pnlQuestionEdit.add(lblSpecName, new GridBagConstraints(0, 1, 1, 1, 0, 0,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
-		pnlQuestionEdit.add(accbSpecNames, new GridBagConstraints(1, 1, 1, 1, 1, 1,
+		pnlQuestionEdit.add(cbSpecNames, new GridBagConstraints(1, 1, 1, 1, 1, 1,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
 		// cbLevelsList.size()+1 row
@@ -297,12 +292,12 @@ public class QuestionListDialog extends DialogWithPassword {
 		this.btnSaveQuestion = btnSaveQuestion;
 	}
 
-	public AutocompleteJComboBox getAccbSpecNames() {
-		return accbSpecNames;
+	public JComboBox<String> getCbSpecNames() {
+		return cbSpecNames;
 	}
 
-	public void setAccbSpecNames(AutocompleteJComboBox accbSpecNames) {
-		this.accbSpecNames = accbSpecNames;
+	public void setCbSpecNames(JComboBox<String> cbSpecNames) {
+		this.cbSpecNames = cbSpecNames;
 	}
 
 	public JTextField getTfId() {

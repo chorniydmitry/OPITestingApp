@@ -171,7 +171,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		questionEditing = block;
 		dialog.getTaQuestion().setEditable(!block);
 
-		dialog.getAccbSpecNames().setEditable(!block);
+		dialog.getCbSpecNames().setEditable(!block);
 
 		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
 			dialog.getTfAnsList().get(i).setEditable(!block);
@@ -192,7 +192,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		
 		dialog.getTaQuestion().setText(currentQuestion.getTitle());
 		
-		dialog.getAccbSpecNames().setSelectedItem(currentQuestion.getQuestionSet().getName());
+		dialog.getCbSpecNames().setSelectedItem(currentQuestion.getQuestionSet().getName());
 	}
 	
 	private void fillUIAnswers(int index, String title, boolean isSelected) {
@@ -208,7 +208,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 			dialog.getCbAnsList().get(i).setSelected(false);
 		}
 
-		dialog.getAccbSpecNames().setSelectedIndex(0);
+		dialog.getCbSpecNames().setSelectedIndex(0);
 	}
 	
 	
@@ -250,12 +250,12 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	private QuestionSet getQuestionSetFromQuestionEditUI() {
 		QuestionSetService setService = new QuestionSetService();
 
-		List<QuestionSet> sets = setService.getByName(dialog.getAccbSpecNames().getSelectedItem().toString());
+		List<QuestionSet> sets = setService.getByName(dialog.getCbSpecNames().getSelectedItem().toString());
 
 		QuestionSet setToAdd = null;
 		if (sets.size() == 0) {
 			setToAdd = new QuestionSet();
-			setToAdd.setName(String.valueOf(dialog.getAccbSpecNames().getSelectedItem()));
+			setToAdd.setName(String.valueOf(dialog.getCbSpecNames().getSelectedItem()));
 		} else {
 			setToAdd = sets.get(0);
 		}
@@ -297,7 +297,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		// ----------------
 		// Валидация спецализации
 		// Не заполнена специализация
-		if (dialog.getAccbSpecNames().getSelectedItem().toString().isEmpty())
+		if (dialog.getCbSpecNames().getSelectedItem().toString().isEmpty())
 			return false;
 
 		return true;
