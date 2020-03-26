@@ -29,13 +29,13 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 
 	private JLabel lblMsg = new JLabel(AppConstants.DIALOG_LOADING_QUEST_SET_ABOUT_INFO);
 
-	private static final int TF_SIZE = 25;
+	private static final int TF_SIZE = 50;
 	private static final String PNL_ADD_NEW_SET_TITLE = "Создание нового набора вопросов";
 	private static final String LBL_NAMEOGNEWSET_CAPTION = "Название:";
 	private static final String BTN_SAVENEWSET_CAPTION = "Сохранить";
 
 	private static final String PNL_ADDQUESTIONSFROMFILE_TITLE = "Добавление вопросов в набор из файла";
-	private static final String LBL_SPEC_NAME_CAPTION = "Название набора вопросов:";
+	private static final String LBL_SPEC_NAME_CAPTION = "Название набора:";
 	private static final String LBL_AMOUNTOFQUESTIONSINSET_CAPTION = "Вопросов в БД:";
 	private static final String LBL_ADDQUESTIONS_CAPTION = "Добавить вопросы:";
 	private static final String BTN_OPEN_CAPTION = "Открыть файл";
@@ -48,7 +48,7 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 	private JPanel pnlAddNewSet = new JPanel();
 	private JLabel lblNameOfNewSet = new JLabel(LBL_NAMEOGNEWSET_CAPTION);
 	private JTextField tfNameOfNewTest = new JTextField(TF_SIZE);
-	private JButton btnSaveNewSet = new JButton(BTN_SAVENEWSET_CAPTION);
+	private JButton btnSaveNewSet = new JGreenButton(BTN_SAVENEWSET_CAPTION);
 
 	private JPanel pnlAddQuestionsFromFile = new JPanel();
 	private JLabel lblSpecName = new JLabel(LBL_SPEC_NAME_CAPTION);
@@ -57,7 +57,7 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 	private JLabel lblTotalQuestionsInSetVal = new JLabel();
 	private JLabel lblAddQuestions = new JLabel(LBL_ADDQUESTIONS_CAPTION);
 	private JButton btnOpenTextFile = new JGreenButton(BTN_OPEN_CAPTION);
-	private JTextField tfFilePath = new JTextField(TF_SIZE);
+	private JTextField tfFilePath = new JTextField();
 	private JButton btnLoadQuestionsSet = new JGreenButton(BTN_LOAD_CAPTION);
 
 	private JButton btnLoadSetFileTemplate = new JGreenButton(BTN_LOAD_TEMPLATE);
@@ -84,31 +84,34 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 		pnlAddQuestionsFromFile.setLayout(new GridBagLayout());
 
 		// 1 row
-		pnlAddQuestionsFromFile.add(lblSpecName, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.NORTH,
-				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
+		pnlAddQuestionsFromFile.add(lblSpecName, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.WEST,
+				GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 1, 1));
 
-		pnlAddQuestionsFromFile.add(cbSpecName, new GridBagConstraints(1, 0, GridBagConstraints.REMAINDER, 1, 1, 1,
-				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
-
-		pnlAddQuestionsFromFile.add(lblTotalQuestionsInSet, new GridBagConstraints(2, 0, 1, 1, 1, 1,
-				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
-
-		pnlAddQuestionsFromFile.add(lblTotalQuestionsInSetVal, new GridBagConstraints(3, 0, 1, 1, 1, 1,
-				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
+		pnlAddQuestionsFromFile.add(cbSpecName, new GridBagConstraints(1, 0, 3, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 1, 1));
 
 		// 2 row
-		pnlAddQuestionsFromFile.add(lblAddQuestions, new GridBagConstraints(0, 1, GridBagConstraints.REMAINDER, 1, 1, 1,
-				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
-
+		
+		pnlAddQuestionsFromFile.add(lblTotalQuestionsInSet, new GridBagConstraints(2, 1, 1, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 1, 1));
+		
+		pnlAddQuestionsFromFile.add(lblTotalQuestionsInSetVal, new GridBagConstraints(3, 1, 1, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 1, 1));
+		
+		
 		// 3 row
-		pnlAddQuestionsFromFile.add(btnOpenTextFile, new GridBagConstraints(0, 2, 1, 1, 1, 1, GridBagConstraints.NORTH,
-				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
-
-		pnlAddQuestionsFromFile.add(tfFilePath, new GridBagConstraints(1, 2, GridBagConstraints.REMAINDER, 1, 1, 1,
+		pnlAddQuestionsFromFile.add(lblAddQuestions, new GridBagConstraints(0, 2, GridBagConstraints.REMAINDER, 1, 1, 1,
 				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
 
-		pnlAddQuestionsFromFile.add(btnLoadQuestionsSet, new GridBagConstraints(2, 2, 1, 1, 1, 1,
-				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
+		// 4 row
+		pnlAddQuestionsFromFile.add(btnOpenTextFile, new GridBagConstraints(0, 3, 1, 1, 1, 1, GridBagConstraints.NORTHWEST,
+				GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 1, 1));
+		
+		pnlAddQuestionsFromFile.add(tfFilePath, new GridBagConstraints(1, 3, 3, 1, 1, 1,
+				GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(0, 0, 10, 0), 1, 1));
+		
+		pnlAddQuestionsFromFile.add(btnLoadQuestionsSet, new GridBagConstraints(4, 3, 2, 1, 1, 1,
+				GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 1, 1));
 
 	}
 

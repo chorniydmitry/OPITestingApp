@@ -21,6 +21,7 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 
 	public LoadingQuestionSetController(LoadingQuestionSetDialog dialog) {
 		super(dialog);
+		init();
 	}
 
 	@Override
@@ -28,17 +29,32 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 		dialog.getBtnLoadQuestionsSet().addActionListener(listener -> doLoadQuestionSet());
 		dialog.getBtnOpenTextFile().addActionListener(listener -> doOpenTestFile());
 	}
+	
+	private void init() {
+		dialog.getBtnLoadQuestionsSet().setEnabled(false);
+	}
 
+
+	private void doOpenTestFile() {
+		SpreadsheetFileChooser chooser = new SpreadsheetFileChooser();
+		testFile = chooser.selectSpreadSheetFileToOpen();
+		if (testFile != null)
+			try {
+				dialog.getTfFilePath().setText(testFile.getCanonicalFile().getPath());
+				dialog.getBtnLoadQuestionsSet().setEnabled(true);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	}
 
 	private void doLoadQuestionSet() {
-		if(!validate())
-			return;
-
 		dialog.getBtnLoadQuestionsSet().setEnabled(false);
+		HashSet<Question> questionsParsed = getQuestionsParsed();
+		if(!validate() || questionsParsed == null)
+			return;
 
 		saveQuestionSetToDB(getQuestionsParsed());
 
-		dialog.getBtnLoadQuestionsSet().setEnabled(true);
 		
 		MessageBox.showReadyDialog(dialog);
 	}
@@ -81,8 +97,13 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 	 */
 	private HashSet<Question> getQuestionsParsed() {
 		SpreadSheetParser parser = new SpreadSheetParser();
-		
-		HashSet<Question> questions = parser.parse(testFile, getQuestionSet());
+		HashSet<Question> questions = null;
+		try {
+			MessageBox.showFileNotLoadedErrorDialog(dialog);
+			questions = parser.parse(testFile, getQuestionSet());
+		} catch(NullPointerException e) {
+			return null;
+		}
 		return questions;
 	}
 
@@ -93,17 +114,6 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 		QuestionSet set = new QuestionSet();
 		set.setName(dialog.getCbSpecName().getSelectedItem().toString());
 		return set;
-	}
-
-	private void doOpenTestFile() {
-		SpreadsheetFileChooser chooser = new SpreadsheetFileChooser();
-		testFile = chooser.selectSpreadSheetFileToOpen();
-		if (testFile != null)
-			try {
-				dialog.getTfFilePath().setText(testFile.getCanonicalFile().getPath());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 	}
 
 	private void saveQuestionSetToDB(HashSet<Question> questions) {
