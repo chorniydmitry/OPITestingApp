@@ -13,6 +13,8 @@ public class AppConstants {
 	// Константы разделов приложения
 	public static final int SECTIONS_AMOUNT = 8;
 	
+	public static final int DEFAULT_OFFSET = 10;
+	
 	public static final String QUESTION_LOAD_ICON = "/questionload.png";
 	public static final String ADMIN_ICON = "/admin.png";
 	public static final String CONFIG_ICON = "/config.png";
@@ -42,7 +44,7 @@ public class AppConstants {
 			ADMIN_DIALOG, CONFIG_DIALOG, QUESTION_EDIT_DIALOG, QUESTION_LOAD_DIALOG, TESTCONSTRUCTOR_DIALOG, 
 			MANAGE_PASSWORDS_DIALOG };
 
-	public static final String QUESTION_LOAD_TEXT = "Загрузка вопросов";
+	public static final String QUESTION_LOAD_TEXT = "Импорт вопросов";
 	public static final String ADMIN_TEXT = "Администрирование";
 	public static final String CONFIG_TEXT = "Конфигурация";
 	public static final String TESTCONSTRUCTOR_TEXT = "Конструктор тестов";
@@ -100,11 +102,11 @@ public class AppConstants {
 	public static final Font TESTDIALOG_ITEMS_FONT = new Font("Courier New", Font.PLAIN, 16);
 	public static final Font TOP_PANELS_TEXT_FONT = new Font("Courier New", Font.PLAIN, 22);
 	
-//	public static final Font RESULTDIALOG_TEXT_FONT = new Font("Times New Roman", Font.BOLD, 18);
-//	public static final Font TESTDIALOG_HEADER_FONT = new Font("Tahoma", Font.PLAIN, 20);
-//	public static final Font TESTDIALOG_QUESTION_FONT = new Font("Times New Roman", Font.PLAIN, 20);
-//	public static final Font TESTDIALOG_ITEMS_FONT = new Font("Times New Roman", Font.PLAIN, 16);
-//	public static final Font TOP_PANELS_TEXT_FONT = new Font("Tahoma", Font.PLAIN, 22);
+	//	public static final Font RESULTDIALOG_TEXT_FONT = new Font("Times New Roman", Font.BOLD, 18);
+	//	public static final Font TESTDIALOG_HEADER_FONT = new Font("Tahoma", Font.PLAIN, 20);
+	//	public static final Font TESTDIALOG_QUESTION_FONT = new Font("Times New Roman", Font.PLAIN, 20);
+	//	public static final Font TESTDIALOG_ITEMS_FONT = new Font("Times New Roman", Font.PLAIN, 16);
+	//	public static final Font TOP_PANELS_TEXT_FONT = new Font("Tahoma", Font.PLAIN, 22);
 	
 	// Размеры компонентов
 	public static final int MAINFRAME_BTN_WIDTHS = 250;
@@ -129,7 +131,6 @@ public class AppConstants {
 	public static final String QLDIALOG_PNL_QEDIT_BORDER_TITLE_RU = "Просмотр и редактирование вопроса";
 	
 	// StatisticsDialog константы
-	
 	public static final int[] STATDIALOG_TABLE_COL_WIDTHS_ARR = { 20, 250, 125, 75, 125, 50, 50, 50, 125};
 	public static final String[] STATDIALOG_TABLE_COL_CAPTIONS_ARR = {"#", "ФИО пользователя", "Набор вопросов", 
 			"Уровень", "Дата теста", "Время теста", 
@@ -143,7 +144,6 @@ public class AppConstants {
 	public static final int[] TESTCONSTRUCTOR_TABLECURRENT_COL_WIDTHS_ARR = { 450, 150 };
 	public static final String[] TESTCONSTRUCTOR_TABLECURRENT_COL_CAPTIONS_ARR = {"Название набора", "Количество вопросов"};
 	
-	
 	// Прочие константы
 	public static final String CONTENT_TYPE_HTML = "text/html";
 	public static final String PASSWORD_IS_SET_DEFAULT_MASK = "******";
@@ -153,7 +153,7 @@ public class AppConstants {
 	public static final int QUESTION_TEXT_MIN_LENGTH = 5;
 	public static final int MINIMUM_QUESTIONS_TO_INIT_TEST = 30;
 	public static final Color TABLE_SELECTION_COLOR = new Color(0x03a06c);
-			//new Color(0x0000ff);
+	//new Color(0x0000ff);
 	public static final Color FSSP_COLOR = new Color(0x03a06c);
 	public static final Color TOP_PANELS_TEXT_FONT_COLOR = new Color(0xffffff);
 	public static final int NO_ROW_SELECTED = -1;
@@ -174,32 +174,41 @@ public class AppConstants {
 	public static final String VALIDATION_SPECIFICATION_TITLE_SIZE = 
 			"Не верная длина названия специализации (должна быть от 2 до 2048 символов)";
 
-	public static final String DIALOG_LOADING_QUEST_SET_ABOUT_INFO = "<html><p width = 700>Данная форма предназначена для "
-			+ "импорта набора вопросов в базу данных приложения."
+	public static final String DIALOG_LOADING_QUEST_SET_ABOUT_INFO = "<html>"
+			+ "<style> body { margin: 10; "
+			+ "				  text-align: justify}" 
+			+ "   	   i, b { color : green}"
+			+ "</style>"
+			+ "<body>Данная форма предназначена для "
+			+ "импорта наборов вопросов в базу данных приложения."
 			+ "<br />"
-			+ "Для импорта вопросов необходимо создать набор вопросов в базе данных, с помошью формы "
+			+ "Для импорта вопросов необходимо создать набор вопросов в базе данных, с помошью панели "
 			+ "<i>Создание нового набора вопросов</i>, после чего выгрузить набор вопросов из файла, соответствующего "
-			+ "шаблону, с помощью формы <i>Добавление вопросов в набор из файла</i>. Можно загружать вопросы в набор "
+			+ "шаблону, с помощью панели <i>Добавление вопросов в набор из файла</i>. Можно загружать вопросы в набор "
 			+ "дополнительно(из другого или дополненного файла), при этом дубликаты вопросов добавляться не будут."
 			+ "<br />" 
-			+ "Так же в нижней части экрана расположена кнопка для выгрузки шаблона файла списка вопросов, которые "
+			+ "<br />"
+			+ "Также в нижней части экрана расположена кнопка для выгрузки шаблона файла списка вопросов, которые "
 			+ "принимает программа."
 			+ "<br />"
+			+ "Файл содержит следующие столбцы:"
 			+ "<ul>"
-			+ "<li>в поле <b>id</b> указывается уникальный id вопроса, поле можно оставить пустым.</li>" 
-			+ "<li>в поле <b>Номер</b> указывается порядковый номер вопроса, значение может быть любым, поле можно "
+			+ "<li>в столбце <b>id</b> указывается уникальный id вопроса, поле можно оставить пустым;</li>" 
+			+ "<li>в столбце <b>Номер</b> указывается порядковый номер вопроса, значение может быть любым, поле можно "
 			+ "оставить пустым;</li>"
-			+ "<li>в поле \"Формулировка вопроса\" указывается текст вопроса;"
+			+ "<li>в столбце <b>Формулировка вопроса</b> указывается текст вопроса."
 			+ "<br />"
 			+ "<br />"
-			+ "Далее чередуются поля <b>Ответ1..Ответ5, Правильный1?..Правильный5?</b>"
-			+ "<li>в полях <b>Ответ1..Ответ5</b> указываются возможные варианты ответа на данный вопрос</li>"
-			+ "<li>в полях <b>Правильный1?..Правильный5?</b> указывается правильный ли это ответ на поставленный "
-			+ "вопрос, необходимо указывать только значения 1 или 0, где 1 - правильный, 0 - не правильный</li>" + 
-			"</ul></p><html>";
+			+ "Далее чередуются столбцы <b>Ответ1</b>..<b>Ответ5</b>, <b>Правильный1?</b>..<b>Правильный5?</b>:"
+			+ "<li>в полях <b>Ответ1</b>..<b>Ответ5</b> указываются возможные варианты ответа на данный вопрос</li>"
+			+ "<li>в полях <b>Правильный1?</b>..<b>Правильный5?</b> указывается правильный ли это ответ на поставленный "
+			+ "вопрос, необходимо указывать только значения 1 или 0, где 1 - правильный, 0 - не правильный.</li>"  
+			+ "</ul></body><html>";
 	
-	public static final String DIALOG_PASSOWRD_MANAGE_ABOUT_INFO = "<html><b>Назначение паролей для следующих разделов программы</b><br/>"
-			+ "<i>оставьте пустым, если пароль для доступа к разделу не требуется:</i></html>";
+	public static final String DIALOG_PASSOWRD_MANAGE_ABOUT_INFO = "<html>Назначение паролей для следующих разделов "
+			+ "программы"
+			+ "<br/>"
+			+ "оставьте пустым, если пароль для доступа к разделу не требуется:</html>";
 	
 	
 	/*

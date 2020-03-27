@@ -41,7 +41,7 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 	private static final String BTN_OPEN_CAPTION = "Открыть файл";
 	private static final String BTN_LOAD_CAPTION = "Добавить";
 
-	private static final String BTN_LOAD_TEMPLATE = "Открыть шаблон файла вопросов";
+	private static final String BTN_LOAD_TEMPLATE = "Сохранить шаблон файла вопросов";
 
 	private JPanel pnlSetEditing = new JPanel();
 
@@ -58,7 +58,7 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 	private JLabel lblAddQuestions = new JLabel(LBL_ADDQUESTIONS_CAPTION);
 	private JButton btnOpenTextFile = new JGreenButton(BTN_OPEN_CAPTION);
 	private JTextField tfFilePath = new JTextField();
-	private JButton btnLoadQuestionsSet = new JGreenButton(BTN_LOAD_CAPTION);
+	private JButton btnImportQuestionsSet = new JGreenButton(BTN_LOAD_CAPTION);
 
 	private JButton btnLoadSetFileTemplate = new JGreenButton(BTN_LOAD_TEMPLATE);
 
@@ -110,7 +110,7 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 		pnlAddQuestionsFromFile.add(tfFilePath, new GridBagConstraints(1, 3, 3, 1, 1, 1,
 				GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(0, 0, 10, 0), 1, 1));
 		
-		pnlAddQuestionsFromFile.add(btnLoadQuestionsSet, new GridBagConstraints(4, 3, 2, 1, 1, 1,
+		pnlAddQuestionsFromFile.add(btnImportQuestionsSet, new GridBagConstraints(4, 3, 2, 1, 1, 1,
 				GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 1, 1));
 
 	}
@@ -169,12 +169,12 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 		keywords.forEach((n) -> cbSpecName.addItem(n));
 	}
 
-	public JButton getBtnLoadQuestionsSet() {
-		return btnLoadQuestionsSet;
+	public JButton getBtnImportQuestionsSet() {
+		return btnImportQuestionsSet;
 	}
 
-	public void setBtnLoadQuestionsSet(JButton btnLoadQuestionsSet) {
-		this.btnLoadQuestionsSet = btnLoadQuestionsSet;
+	public void setBtnImportQuestionsSet(JButton btnImportQuestionsSet) {
+		this.btnImportQuestionsSet = btnImportQuestionsSet;
 	}
 
 	public JButton getBtnOpenTextFile() {
@@ -199,5 +199,29 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 
 	public void setCbSpecName(JComboBox<String> cbSpecName) {
 		this.cbSpecName = cbSpecName;
+	}
+
+	public JTextField getTfNameOfNewTest() {
+		return tfNameOfNewTest;
+	}
+
+	public void setTfNameOfNewTest(JTextField tfNameOfNewTest) {
+		this.tfNameOfNewTest = tfNameOfNewTest;
+	}
+
+	public JButton getBtnSaveNewSet() {
+		return btnSaveNewSet;
+	}
+
+	public void setBtnSaveNewSet(JButton btnSaveNewSet) {
+		this.btnSaveNewSet = btnSaveNewSet;
+	}
+
+	public JButton getBtnLoadSetFileTemplate() {
+		return btnLoadSetFileTemplate;
+	}
+
+	public void setBtnLoadSetFileTemplate(JButton btnLoadSetFileTemplate) {
+		this.btnLoadSetFileTemplate = btnLoadSetFileTemplate;
 	}
 }

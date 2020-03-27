@@ -1,5 +1,6 @@
 package ru.fssprus.r82.swing.dialogs.addingSet;
 
+import java.awt.Desktop;
 /**
  * @author Chernyj Dmitry
  *
@@ -8,10 +9,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 
+import javax.swing.ImageIcon;
+
 import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.QuestionSet;
 import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
+import ru.fssprus.r82.swing.main.mainFrame.MainFrame;
 import ru.fssprus.r82.swing.utils.MessageBox;
 import ru.fssprus.r82.utils.spreadsheet.SpreadSheetParser;
 import ru.fssprus.r82.utils.spreadsheet.SpreadsheetFileChooser;
@@ -23,15 +27,48 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 		super(dialog);
 		init();
 	}
+	
+	private void init() {
+		dialog.getBtnImportQuestionsSet().setEnabled(false);
+	}
 
 	@Override
 	protected void setListeners() {
-		dialog.getBtnLoadQuestionsSet().addActionListener(listener -> doLoadQuestionSet());
+		dialog.getBtnImportQuestionsSet().addActionListener(listener -> doImportQuestionSet());
 		dialog.getBtnOpenTextFile().addActionListener(listener -> doOpenTestFile());
+		dialog.getBtnSaveNewSet().addActionListener(listener -> doSaveNewSet());
+		dialog.getBtnLoadSetFileTemplate().addActionListener(listener -> doLoadSetFileTemplate());
 	}
 	
-	private void init() {
-		dialog.getBtnLoadQuestionsSet().setEnabled(false);
+	private void doLoadSetFileTemplate() {
+		try {
+			
+	        //text file, should be opening in default text editor
+	        File file = new File(LoadingQuestionSetController.class.getResource("/set_template.xlsx").getFile());
+	        
+	        //first check if Desktop is supported by Platform or not
+	        if(!Desktop.isDesktopSupported()){
+	            System.out.println("Desktop is not supported");
+	            return;
+	        }
+	        
+	        Desktop desktop = Desktop.getDesktop();
+	        if(file.exists()) desktop.open(file);
+	        
+	        //let's try to open PDF file
+	        //file = new File("/Users/pankaj/java.pdf");
+	        //if(file.exists()) desktop.open(file);
+		} catch (IOException e) {
+			//TODO вывести в messagebox
+			
+		}
+	
+	
+	}
+
+	private Object doSaveNewSet() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
@@ -41,21 +78,20 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 		if (testFile != null)
 			try {
 				dialog.getTfFilePath().setText(testFile.getCanonicalFile().getPath());
-				dialog.getBtnLoadQuestionsSet().setEnabled(true);
+				dialog.getBtnImportQuestionsSet().setEnabled(true);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 	}
 
-	private void doLoadQuestionSet() {
-		dialog.getBtnLoadQuestionsSet().setEnabled(false);
+	private void doImportQuestionSet() {
+		dialog.getBtnImportQuestionsSet().setEnabled(false);
 		HashSet<Question> questionsParsed = getQuestionsParsed();
 		if(!validate() || questionsParsed == null)
 			return;
 
 		saveQuestionSetToDB(getQuestionsParsed());
 
-		
 		MessageBox.showReadyDialog(dialog);
 	}
 

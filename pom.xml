@@ -53,6 +53,7 @@
 					<include>app.properties</include>
 					<include>gerb-1920x1200.jpg</include>
 					<include>gerb-1600x900.jpg</include>
+					<include>set_template.xlsx</include>
 				</includes>
 			</resource>
 			<resource>
