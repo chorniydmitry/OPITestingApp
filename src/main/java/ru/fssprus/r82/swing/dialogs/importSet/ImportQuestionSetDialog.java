@@ -1,4 +1,4 @@
-package ru.fssprus.r82.swing.dialogs.addingSet;
+package ru.fssprus.r82.swing.dialogs.importSet;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
@@ -20,7 +20,7 @@ import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
-public class LoadingQuestionSetDialog extends DialogWithPassword {
+public class ImportQuestionSetDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -4114441914928348354L;
 
 	private static final String SECTION = AppConstants.QUESTION_LOAD_DIALOG;
@@ -37,6 +37,7 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 	private static final String PNL_ADDQUESTIONSFROMFILE_TITLE = "Добавление вопросов в набор из файла";
 	private static final String LBL_SPEC_NAME_CAPTION = "Название набора:";
 	private static final String LBL_AMOUNTOFQUESTIONSINSET_CAPTION = "Вопросов в БД:";
+	private static final String LBL_TIMESINTESTS_CAPTION = "Входит в тесты:";
 	private static final String LBL_ADDQUESTIONS_CAPTION = "Добавить вопросы:";
 	private static final String BTN_OPEN_CAPTION = "Открыть файл";
 	private static final String BTN_LOAD_CAPTION = "Добавить";
@@ -55,6 +56,9 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 	private JComboBox<String> cbSpecName = new JComboBox<>();
 	private JLabel lblTotalQuestionsInSet = new JLabel(LBL_AMOUNTOFQUESTIONSINSET_CAPTION);
 	private JLabel lblTotalQuestionsInSetVal = new JLabel();
+	private JLabel lblTimesInTest = new JLabel(LBL_TIMESINTESTS_CAPTION);
+	private JLabel lblTimesInTestVal = new JLabel();
+	
 	private JLabel lblAddQuestions = new JLabel(LBL_ADDQUESTIONS_CAPTION);
 	private JButton btnOpenTextFile = new JGreenButton(BTN_OPEN_CAPTION);
 	private JTextField tfFilePath = new JTextField();
@@ -87,7 +91,7 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 		pnlAddQuestionsFromFile.add(lblSpecName, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.WEST,
 				GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 1, 1));
 
-		pnlAddQuestionsFromFile.add(cbSpecName, new GridBagConstraints(1, 0, 3, 1, 1, 1,
+		pnlAddQuestionsFromFile.add(cbSpecName, new GridBagConstraints(1, 0, 5, 1, 1, 1,
 				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 1, 1));
 
 		// 2 row
@@ -96,6 +100,12 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 1, 1));
 		
 		pnlAddQuestionsFromFile.add(lblTotalQuestionsInSetVal, new GridBagConstraints(3, 1, 1, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 1, 1));
+		
+		pnlAddQuestionsFromFile.add(lblTimesInTest, new GridBagConstraints(4, 1, 1, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 1, 1));
+		
+		pnlAddQuestionsFromFile.add(lblTimesInTestVal, new GridBagConstraints(5, 1, 1, 1, 1, 1,
 				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 1, 1));
 		
 		
@@ -107,15 +117,15 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 		pnlAddQuestionsFromFile.add(btnOpenTextFile, new GridBagConstraints(0, 3, 1, 1, 1, 1, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 1, 1));
 		
-		pnlAddQuestionsFromFile.add(tfFilePath, new GridBagConstraints(1, 3, 3, 1, 1, 1,
+		pnlAddQuestionsFromFile.add(tfFilePath, new GridBagConstraints(1, 3, 5, 1, 1, 1,
 				GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(0, 0, 10, 0), 1, 1));
 		
-		pnlAddQuestionsFromFile.add(btnImportQuestionsSet, new GridBagConstraints(4, 3, 2, 1, 1, 1,
+		pnlAddQuestionsFromFile.add(btnImportQuestionsSet, new GridBagConstraints(6, 3, 2, 1, 1, 1,
 				GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 1, 1));
 
 	}
 
-	public LoadingQuestionSetDialog(int width, int height, JFrame parent) {
+	public ImportQuestionSetDialog(int width, int height, JFrame parent) {
 		super(width, height, parent);
 	}
 
@@ -132,7 +142,6 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 	}
 
 	private void initComponents() {
-		initTfSpecNames();
 		tfFilePath.setEditable(false);
 	}
 
@@ -160,14 +169,6 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 		contentPanel.add(btnLoadSetFileTemplate, BorderLayout.SOUTH);
 	}
 
-	private void initTfSpecNames() {
-		QuestionSetService setService = new QuestionSetService();
-
-		ArrayList<String> keywords = new ArrayList<String>();
-		setService.getAll().forEach((n) -> keywords.add(n.getName()));
-
-		keywords.forEach((n) -> cbSpecName.addItem(n));
-	}
 
 	public JButton getBtnImportQuestionsSet() {
 		return btnImportQuestionsSet;
@@ -224,4 +225,14 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 	public void setBtnLoadSetFileTemplate(JButton btnLoadSetFileTemplate) {
 		this.btnLoadSetFileTemplate = btnLoadSetFileTemplate;
 	}
+
+	public JLabel getLblTotalQuestionsInSetVal() {
+		return lblTotalQuestionsInSetVal;
+	}
+
+	public void setLblTotalQuestionsInSetVal(JLabel lblTotalQuestionsInSetVal) {
+		this.lblTotalQuestionsInSetVal = lblTotalQuestionsInSetVal;
+	}
+	
+	
 }

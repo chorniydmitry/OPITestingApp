@@ -6,10 +6,10 @@ package ru.fssprus.r82.swing.dialogs;
  */
 import javax.swing.JFrame;
 
-import ru.fssprus.r82.swing.dialogs.addingSet.LoadingQuestionSetController;
-import ru.fssprus.r82.swing.dialogs.addingSet.LoadingQuestionSetDialog;
 import ru.fssprus.r82.swing.dialogs.admin.AdminController;
 import ru.fssprus.r82.swing.dialogs.admin.AdminDialog;
+import ru.fssprus.r82.swing.dialogs.importSet.ImportQuestionSetController;
+import ru.fssprus.r82.swing.dialogs.importSet.ImportQuestionSetDialog;
 import ru.fssprus.r82.swing.dialogs.newTest.NewTestController;
 import ru.fssprus.r82.swing.dialogs.newTest.NewTestDialog;
 import ru.fssprus.r82.swing.dialogs.passwordManage.PasswordManageController;
@@ -58,7 +58,7 @@ public class DialogBuilder {
 	}
 
 	public static void showQuestionLoadingSetDialog() {
-		new LoadingQuestionSetController(new LoadingQuestionSetDialog(AppConstants.DIALOG_LOADING_QUESTION_SET_WIDTH,
+		new ImportQuestionSetController(new ImportQuestionSetDialog(AppConstants.DIALOG_LOADING_QUESTION_SET_WIDTH,
 				AppConstants.DIALOG_LOADING_QUESTION_SET_HEIGHT, parent));
 	}
 

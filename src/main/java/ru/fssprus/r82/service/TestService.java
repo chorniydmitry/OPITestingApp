@@ -4,6 +4,7 @@ import java.util.List;
 
 import ru.fssprus.r82.dao.TestDao;
 import ru.fssprus.r82.dao.impl.TestDatabaseDao;
+import ru.fssprus.r82.entity.QuestionSet;
 import ru.fssprus.r82.entity.Test;
 
 public class TestService {
@@ -43,6 +44,10 @@ public class TestService {
 
 	public Test getByName(String name) {
 		return testDao.getByName(name);
+	}
+	
+	public List<Test> countByQuestionSet(QuestionSet questionSet) {
+		return testDao.countByQuestionSet(questionSet);
 	}
 
 }

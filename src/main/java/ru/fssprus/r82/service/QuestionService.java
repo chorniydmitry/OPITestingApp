@@ -43,7 +43,7 @@ public class QuestionService {
 	}
 
 	public int getAmountByQuestionSet(QuestionSet set) {
-		return questionDao.countItemsByQuestionSet(set);
+		return questionDao.countByQuestionSet(set);
 	}
 
 	public int getAmountOfItems() {
@@ -140,6 +140,10 @@ public class QuestionService {
 
 	public int countByNameSpecListAndId(String name, Set<QuestionSet> sets, Long id) {
 		return questionDao.countByNameSetListAndID(name, sets, id);
+	}
+	
+	public int countByQuestionSet(QuestionSet questionSet) {
+		return questionDao.countByQuestionSet(questionSet);
 	}
 
 	public void delete(Question question) {

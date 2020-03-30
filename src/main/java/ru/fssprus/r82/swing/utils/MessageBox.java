@@ -5,6 +5,7 @@ package ru.fssprus.r82.swing.utils;
  *
  */
 import java.awt.Component;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -130,6 +131,15 @@ public class MessageBox extends JOptionPane {
 	}
 
 	public static void showTestNotValidErrorMessage(Component component, String errorMessage) {
+		MessageBox.showMessageDialog(component, errorMessage, null, JOptionPane.ERROR_MESSAGE);
+
+	}
+	
+	public static void showDefaultValidationFailedErrorMessage(Component component, ArrayList<String> violations) {
+		String errorMessage = "";
+		for(String viol: violations)
+			errorMessage += viol + "\n";
+		
 		MessageBox.showMessageDialog(component, errorMessage, null, JOptionPane.ERROR_MESSAGE);
 
 	}

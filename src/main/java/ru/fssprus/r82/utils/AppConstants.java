@@ -9,6 +9,9 @@ import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import javax.persistence.Column;
+import javax.validation.constraints.Size;
+
 public class AppConstants {
 	// Константы разделов приложения
 	public static final int SECTIONS_AMOUNT = 8;
@@ -264,5 +267,13 @@ public class AppConstants {
 	public static final String VALID_TESTSET_NAME_NOTNULL = "Поле НАЗВАНИЕ НАБОРА ВОПРОСОВ НЕ должно быть пустым!";
 	public static final String VALID_TESTSET_NAME_SIZE = "Поле НАЗВАНИЕ НАБОРА ВОПРОСОВ должно быть более 5 символов длиной!";
 	
-
+	/*
+	 * FOR QUESTION SET
+	 */
+	public static final String VALID_QUESTIONSET_NAME_NOTNULL = "Поле НАЗВАНИЕ НАБОРА НЕ должно быть пустым!";
+	public static final String VALID_QUESTIONSET_NAME_SIZE = "длина поля НАЗВАНИЕ НАБОРА не может быть меньше! "
+			+ "5 и больше 2048 символов.";
+	public static final String VALID_QUESTIONSET_NAME_UNIQUE = "Поле НАЗВАНИЕ НАБОРА должно быть уникальным"
+			+ "(в базе данных не должно содержаться записи с таким же значением)!";
+	
 }

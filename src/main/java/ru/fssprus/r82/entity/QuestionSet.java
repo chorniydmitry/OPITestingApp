@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import ru.fssprus.r82.utils.AppConstants;
+
 @Entity
 @Table(name = "questionset")
 public class QuestionSet extends Model {
@@ -24,13 +26,14 @@ public class QuestionSet extends Model {
 	private Set<Question> questionSets;
 
 	@NotNull
-	@Size(min=5)
-	@Column(name = "name", length = 2048, unique = true, nullable = false, updatable = false)
+	@Size(min=5, max=2048, message = AppConstants.VALID_QUESTIONSET_NAME_SIZE)
+	@Column(name = "name", unique = true, nullable = false, updatable = false)
 	private String name;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "questionset", fetch = FetchType.EAGER)
 	private Set<Result> resultList;
 	
+	//TODO УДАЛИТЬ???
 	@OneToMany(mappedBy = "questionset", cascade = CascadeType.ALL)
 	private Set<TestSet> testSets = new HashSet<>();
 

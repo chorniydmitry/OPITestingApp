@@ -42,10 +42,11 @@ public class SpreadsheetFileChooser {
 
 	private JFileChooser initFileChooser() {
 		JFileChooser fileChooser = new JFileChooser();
+		FileNameExtensionFilter filterXSLX = new FileNameExtensionFilter("XSLSX FILES", "xlsx", "xlsx");
 		FileNameExtensionFilter filterODS = new FileNameExtensionFilter("ODS FILES", "ods", "ods");
-		FileNameExtensionFilter filterXSLX = new FileNameExtensionFilter("XSLSX FILES", "xslx", "xlsx");
 		fileChooser.addChoosableFileFilter(filterODS);
 		fileChooser.addChoosableFileFilter(filterXSLX);
+		
 		fileChooser.setAcceptAllFileFilterUsed(false);
 
 		return fileChooser;
