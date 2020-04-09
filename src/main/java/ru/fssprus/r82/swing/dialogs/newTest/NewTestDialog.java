@@ -31,7 +31,7 @@ public class NewTestDialog extends DialogWithPassword {
 	private static final String LBL_NAME_TEXT = "Ваше имя:";
 	private static final String LBL_SURNAME_TEXT = "Ваша фамилия:";
 	private static final String LBL_SECONDNAME_TEXT = "Ваше отчество:";
-	private static final String LBL_SPECIFICATION_TEXT = "Специализация:";
+	private static final String LBL_SPECIFICATION_TEXT = "Название теста:";
 	private static final String BTN_BEGIN_CAPTION = "Начать";
 	private static final String BTN_CANCEL_CAPTION = "Отмена";
 	

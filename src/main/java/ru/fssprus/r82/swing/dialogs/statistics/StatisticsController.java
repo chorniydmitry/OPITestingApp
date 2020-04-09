@@ -207,31 +207,31 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 		updateTableAction();
 	}
 
-	public void convertAndAddToTable(List<Result> tests) {
-		for (int i = 0; i < tests.size(); i++) {
-			Result test = tests.get(i);
+	public void convertAndAddToTable(List<Result> results) {
+		for (int i = 0; i < results.size(); i++) {
+			Result result = results.get(i);
 
-			String userName = test.getUser().getSurname() + " " + test.getUser().getName() + " "
-					+ test.getUser().getSecondName();
-			String set = test.getQuestionSet().getName();
+			String userName = result.getUser().getSurname() + " " + result.getUser().getName() + " "
+					+ result.getUser().getSecondName();
+			String testName = result.getTest().getName();
 
-			Date testDate = test.getDate();
+			Date testDate = result.getDate();
 
 			String date = AppConstants.STATDIALOG_TABLE_DATE_FORMAT.format(testDate);
 
-			int testSecs = test.getTestingTime();
+			int testSecs = result.getTestingTime();
 
 			String testTime = String.valueOf(TimeUtils.stringTimes(testSecs));
 
-			String corrects = String.valueOf(test.getCorrectAnswers());
-			String percent = String.valueOf(test.getScore());
-			String result = test.getResult();
+			String corrects = String.valueOf(result.getCorrectAnswers());
+			String percent = String.valueOf(result.getScore());
+			String score = result.getResult();
 
-			Object[] row = { i + 1, userName, set, date, testTime, corrects, percent, result };
+			Object[] row = { i + 1, userName, testName, date, testTime, corrects, percent, score };
 
 			dialog.getTableModel().setRow(row, i);
 			dialog.getTableModel().setRowColor(i,
-					MarkCounter.countInColors(test.getTotalQuestions(), test.getCorrectAnswers()));
+					MarkCounter.countInColors(result.getTotalQuestions(), result.getCorrectAnswers()));
 
 			dialog.getTableModel().update();
 		}

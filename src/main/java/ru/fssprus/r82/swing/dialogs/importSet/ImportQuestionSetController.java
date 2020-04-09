@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -22,6 +23,7 @@ import javax.validation.ValidatorFactory;
 
 import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.QuestionSet;
+import ru.fssprus.r82.entity.Test;
 import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.service.TestService;
@@ -71,9 +73,7 @@ public class ImportQuestionSetController extends CommonController<ImportQuestion
 		int questionsInSet = new QuestionService().countByQuestionSet(qSet);
 		
 		dialog.getLblTotalQuestionsInSetVal().setText(String.valueOf(questionsInSet));
-		
-		System.out.println(new TestService().countByQuestionSet(qSet).size());
-		
+		dialog.getLblTimesInTestVal().setText(String.valueOf(new TestService().countByQuestionSet(qSet)));
 		
 	}
 

@@ -15,19 +15,19 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import ru.fssprus.r82.entity.QuestionSet;
+import ru.fssprus.r82.entity.Test;
 import ru.fssprus.r82.entity.User;
 import ru.fssprus.r82.service.QuestionSetService;
+import ru.fssprus.r82.service.TestService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.utils.testingTools.TestProcessBuilder;
 
 public class NewTestController extends CommonController<NewTestDialog> {
 
-	private static final String COMMON_TEXT = "Общие";
-
 	public NewTestController(NewTestDialog dialog) {
 		super(dialog);
-		loadSpecificationList();
+		loadTestList();
 	}
 
 	@Override
@@ -42,9 +42,9 @@ public class NewTestController extends CommonController<NewTestDialog> {
 		if (!validateFields())
 			return;
 
-		List<QuestionSet> sets = configureSpecsList();
+		Test test = new TestService().getByName(String.valueOf(dialog.getCbSpecification().getSelectedItem()));
 		
-		TestProcessBuilder tpBuilder = new TestProcessBuilder(sets, getUser());
+		TestProcessBuilder tpBuilder = new TestProcessBuilder(test, getUser());
 
 		DialogBuilder.showTestDialog(tpBuilder.buildTest());
 		
@@ -55,20 +55,6 @@ public class NewTestController extends CommonController<NewTestDialog> {
 		return new User(dialog.getTfName().getText(), dialog.getTfSurname().getText(), dialog.getTfSecondName().getText());
 	}
 
-	private List<QuestionSet> configureSpecsList() {
-		
-		String selectedSpecName = String.valueOf(dialog.getCbSpecification().getSelectedItem());
-		
-		QuestionSet selectedSpec = new QuestionSetService().getUniqueByName(selectedSpecName);
-		QuestionSet commonSpec = new QuestionSetService().getUniqueByName(COMMON_TEXT);
-		
-		List<QuestionSet> sets = new ArrayList<>();
-		sets.add(selectedSpec);
-		sets.add(commonSpec);
-
-		return sets;
-	}
-	
 	private void doCancel() {
 		dialog.dispose();
 	}
@@ -110,15 +96,13 @@ public class NewTestController extends CommonController<NewTestDialog> {
 
 	}
 
-	private void loadSpecificationList() {
-		QuestionSetService service = new QuestionSetService();
-		List<QuestionSet> setList = service.getAll();
+	private void loadTestList() {
+		TestService service = new TestService();
+		List<Test> setList = service.getAll();
 
 		dialog.getCbSpecification().addItem(null);
 
-		for (QuestionSet set : setList) {
-			if (set.getName().toUpperCase().equals(COMMON_TEXT.toUpperCase()))
-				continue;
+		for (Test set : setList) {
 			dialog.getCbSpecification().addItem(set.getName());
 		}
 	}

@@ -58,6 +58,7 @@ public class TimeUtils {
 		return min + ":" + sec;
 	}
 //TODO REMOVE THIS
+	/*
 	public static int getQuizzTimeSecByLevel() {
 		int timeSeconds = 300;
 		return timeSeconds;
@@ -66,5 +67,5 @@ public class TimeUtils {
 	public static int getQuizzTimeSecByLevel(int index) {
 		return getQuizzTimeSecByLevel();
 	}
-
+*/
 }

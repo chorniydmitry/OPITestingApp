@@ -46,7 +46,11 @@ public class TestService {
 		return testDao.getByName(name);
 	}
 	
-	public List<Test> countByQuestionSet(QuestionSet questionSet) {
+	public List<Test> getByQuestionSet(QuestionSet questionSet) {
+		return testDao.getByQuestionSet(questionSet);
+	}
+	
+	public int countByQuestionSet(QuestionSet questionSet) {
 		return testDao.countByQuestionSet(questionSet);
 	}
 

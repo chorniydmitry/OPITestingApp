@@ -49,8 +49,8 @@ public class Result extends Model {
 	
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name="questionset_id")
-	private QuestionSet questionset;
+	@JoinColumn(name="test_id")
+	private Test test;
 	
 	public Result() {
 		super();
@@ -108,12 +108,12 @@ public class Result extends Model {
 		this.totalQuestions = totalQuestions;
 	}
 
-	public QuestionSet getQuestionSet() {
-		return questionset;
+	public Test getTest() {
+		return test;
 	}
 
-	public void setQuestionSet(QuestionSet questionSet) {
-		this.questionset = questionSet;
+	public void setQuestionSet(Test test) {
+		this.test = test;
 	}
 
 	public String getResult() {

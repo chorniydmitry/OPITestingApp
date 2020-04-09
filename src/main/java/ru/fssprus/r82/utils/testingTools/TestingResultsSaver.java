@@ -27,8 +27,8 @@ public class TestingResultsSaver {
 		result.setResult(analiser.getMarkText());
 		result.setUser(getDBUser(testingProcess.getTestedUser()));
 
-		result.setQuestionSet(testingProcess.getQuestionSet());
-		result.setTestingTime(TimeUtils.getQuizzTimeSecByLevel() - timeLeft);
+		result.setQuestionSet(testingProcess.getTest());
+		result.setTestingTime(testingProcess.getTimeSec() - timeLeft);
 		result.setTotalQuestions(analiser.getTotalAmount());
 
 		ResultService service = new ResultService();

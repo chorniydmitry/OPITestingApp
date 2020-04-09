@@ -233,6 +233,13 @@ public class ImportQuestionSetDialog extends DialogWithPassword {
 	public void setLblTotalQuestionsInSetVal(JLabel lblTotalQuestionsInSetVal) {
 		this.lblTotalQuestionsInSetVal = lblTotalQuestionsInSetVal;
 	}
-	
+
+	public JLabel getLblTimesInTestVal() {
+		return lblTimesInTestVal;
+	}
+
+	public void setLblTimesInTestVal(JLabel lblTimesInTestVal) {
+		this.lblTimesInTestVal = lblTimesInTestVal;
+	}
 	
 }

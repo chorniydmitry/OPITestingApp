@@ -83,7 +83,7 @@ public class AppConstants {
 	public static final int DIALOG_WRONG_ANSWERS_WIDTH = 800;
 	public static final int DIALOG_WRONG_ANSWERS_HEIGHT = 700;
 	
-	public static final int DIALOG_NEW_TEST_WIDTH = 600;
+	public static final int DIALOG_NEW_TEST_WIDTH = 800;
 	public static final int DIALOG_NEW_TEST_HEIGHT = 300;
 	
 	public static final int DIALOG_ADMIN_WIDTH = 500;
@@ -134,9 +134,9 @@ public class AppConstants {
 	public static final String QLDIALOG_PNL_QEDIT_BORDER_TITLE_RU = "Просмотр и редактирование вопроса";
 	
 	// StatisticsDialog константы
-	public static final int[] STATDIALOG_TABLE_COL_WIDTHS_ARR = { 20, 250, 125, 75, 125, 50, 50, 50, 125};
+	public static final int[] STATDIALOG_TABLE_COL_WIDTHS_ARR = { 20, 250, 125, 125, 50, 50, 50, 125};
 	public static final String[] STATDIALOG_TABLE_COL_CAPTIONS_ARR = {"#", "ФИО пользователя", "Набор вопросов", 
-			"Уровень", "Дата теста", "Время теста", 
+			"Дата теста", "Время теста", 
 			"Верных ответов", "%", "Результат"};
 	public static final SimpleDateFormat STATDIALOG_TABLE_DATE_FORMAT = new SimpleDateFormat("dd MMMMM yyyy HH:mm", new Locale("ru", "RU"));
 	

@@ -53,8 +53,8 @@ public class TestDatabaseDao extends AbstractHibernateDao<Test> implements TestD
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Test> criteriaQuery = builder.createQuery(Test.class);
 
-			Root<Question> root = criteriaQuery.from(Question.class);
-			criteriaQuery.multiselect(root).where(builder.equal(root.get("name"), name));
+			Root<Test> root = criteriaQuery.from(Test.class);
+			criteriaQuery.select(root).where(builder.equal(root.get("name"), name));
 			Query<Test> query = session.createQuery(criteriaQuery);
 
 			test = query.getSingleResult();
@@ -70,8 +70,7 @@ public class TestDatabaseDao extends AbstractHibernateDao<Test> implements TestD
 	}
 
 	@Override
-	public List<Test> countByQuestionSet(QuestionSet set) {
-		int returnValue = 0;
+	public List<Test> getByQuestionSet(QuestionSet set) {
 		List<Test> custList = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -80,18 +79,49 @@ public class TestDatabaseDao extends AbstractHibernateDao<Test> implements TestD
 			Root<Test> test = query.from(Test.class);
 			Root<TestSet> testSet = query.from(TestSet.class);
 
-
 			TypedQuery<Test> typedQuery = session
-					.createQuery(query.select(test.get("testSets"))
-							.where(builder.equal(testSet.get("questionset"), set)));
+					.createQuery(query.select(test)
+							.where(builder.equal(testSet.get("questionset"), set),
+									builder.equal(testSet.get("test"), test)));
 
 			custList = typedQuery.getResultList();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
-			//return 0;
 		}
 		return custList;
+	}
+
+	@Override
+	public int countByQuestionSet(QuestionSet questionSet) {
+		int returnValue = 0;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Object> criteriaQuery = builder.createQuery();
+
+			Root<Test> test = criteriaQuery.from(Test.class);
+			Root<TestSet> testSet = criteriaQuery.from(TestSet.class);
+
+
+			List<Predicate> predicates = new ArrayList<Predicate>();
+
+			predicates.add(builder.equal(testSet.get("questionset"), questionSet));
+			predicates.add(builder.equal(testSet.get("test"), test));
+
+			criteriaQuery.select(builder.count(test));
+			criteriaQuery.where(predicates.toArray(new Predicate[] {}));
+
+			TypedQuery<Object> q = session.createQuery(criteriaQuery);
+			
+			returnValue = Integer.parseInt(q.getSingleResult().toString());
+
+			session.close();
+
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
+		return returnValue;
 	}
 
 }

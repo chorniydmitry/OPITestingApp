@@ -43,7 +43,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	private int currentIndex;
 
 	public TestController(TestDialog dialog, TestingProcess testingProcess) {
-		super(dialog, getTime(), dialog.getLblTimeLeftSec());
+		super(dialog, testingProcess.getTimeSec(), dialog.getLblTimeLeftSec());
 		this.testingProcess = testingProcess;
 
 		initVariables();
@@ -248,10 +248,6 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 		});
 	}
 
-//TODO REMOVE THIS
-	private static int getTime() {
-		return TimeUtils.getQuizzTimeSecByLevel();
-	}
 
 	public TestController(TestDialog dialog, int time) {
 		super(dialog, time, dialog.getLblTimeLeftSec());

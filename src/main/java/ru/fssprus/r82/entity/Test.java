@@ -45,6 +45,9 @@ public class Test extends Model {
 	@Range(min = AppConstants.VALID_TEST_QUESTIONS_AMOUNT_MIN, max = AppConstants.VALID_TEST_QUESTIONS_AMOUNT_MAX,  message = AppConstants.VALID_TEST_AMOUNT_RANGE)
 	@Column(name = "questionsamount")
 	private int amountOfQuestions;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "test", fetch = FetchType.EAGER)
+	private Set<Result> resultList;
 
 	public String getName() {
 		return name;

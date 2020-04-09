@@ -30,9 +30,6 @@ public class QuestionSet extends Model {
 	@Column(name = "name", unique = true, nullable = false, updatable = false)
 	private String name;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "questionset", fetch = FetchType.EAGER)
-	private Set<Result> resultList;
-	
 	//TODO УДАЛИТЬ???
 	@OneToMany(mappedBy = "questionset", cascade = CascadeType.ALL)
 	private Set<TestSet> testSets = new HashSet<>();
@@ -52,7 +49,7 @@ public class QuestionSet extends Model {
 
 	@Override
 	public String toString() {
-		return "QuestionSet [name=" + name + ", testList=" + resultList + "]";
+		return "QuestionSet [name=" + name + "]";
 	}
 
 	@Override
@@ -60,7 +57,6 @@ public class QuestionSet extends Model {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((resultList == null) ? 0 : resultList.hashCode());
 		return result;
 	}
 
@@ -77,11 +73,6 @@ public class QuestionSet extends Model {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
-			return false;
-		if (resultList == null) {
-			if (other.resultList != null)
-				return false;
-		} else if (!resultList.equals(other.resultList))
 			return false;
 		return true;
 	}

@@ -9,8 +9,10 @@ public interface TestDao extends ItemDao<Test> {
 	
 	public int countAll();
 	
-	public List<Test> countByQuestionSet(QuestionSet questionSet);
+	public List<Test> getByQuestionSet(QuestionSet questionSet);
 
 	public Test getByName(String name);
+
+	public int countByQuestionSet(QuestionSet questionSet);
 
 }

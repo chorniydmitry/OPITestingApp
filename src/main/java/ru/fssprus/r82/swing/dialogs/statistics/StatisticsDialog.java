@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import cherny.jdatepicker.JDatePicker;
+import chernyj.jdatepicker.JDatePicker;
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.swing.table.CommonTable;
 import ru.fssprus.r82.swing.table.CommonTableModel;
