@@ -21,7 +21,7 @@ import org.hibernate.query.Query;
 
 import ru.fssprus.r82.dao.ResultDao;
 import ru.fssprus.r82.entity.Result;
-import ru.fssprus.r82.entity.QuestionSet;
+import ru.fssprus.r82.entity.Test;
 import ru.fssprus.r82.entity.User;
 import ru.fssprus.r82.utils.HibernateUtil;
 
@@ -50,9 +50,8 @@ public class ResultDatabaseDao extends AbstractHibernateDao<Result> implements R
 	}
 
 	@Override
-	public List<Result> getByUserQuestionSetAndDate(int startPos, int endPos, Set<User> users,
-			Set<QuestionSet> sets, Date dateMore, Date dateLess, String result,
-			int scoreMore, int scoreLess) {
+	public List<Result> getByUserTestAndDate(int startPos, int endPos, Set<User> users, Set<Test> tests, Date dateMore,
+			Date dateLess, String result, int scoreMore, int scoreLess) {
 		List<Result> testList = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
@@ -66,8 +65,8 @@ public class ResultDatabaseDao extends AbstractHibernateDao<Result> implements R
 			if (users != null && users.size() > 0)
 				predicates.add(root.join("user").in(users));
 
-			if (sets != null && sets.size() > 0)
-				predicates.add(root.join("questionset").in(sets));
+			if (tests != null && tests.size() > 0)
+				predicates.add(root.join("test").in(tests));
 
 			if (dateMore != null)
 				predicates.add(builder.greaterThanOrEqualTo(root.get("date"), dateMore));
@@ -105,7 +104,7 @@ public class ResultDatabaseDao extends AbstractHibernateDao<Result> implements R
 	}
 
 	@Override
-	public int countByUserQuestionSetAndDate(Set<User> users, Set<QuestionSet> sets,
+	public int countByUserTestAndDate(Set<User> users, Set<Test> tests,
 			Date dateMore, Date dateLess, String result, int scoreMore, int scoreLess) {
 		int returnValue = 0;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -120,8 +119,8 @@ public class ResultDatabaseDao extends AbstractHibernateDao<Result> implements R
 			if (users != null && users.size() > 0)
 				predicates.add(root.join("user").in(users));
 
-			if (sets != null && sets.size() > 0)
-				predicates.add(root.join("questionset").in(sets));
+			if (tests != null && tests.size() > 0)
+				predicates.add(root.join("test").in(tests));
 
 			if (dateMore != null)
 				predicates.add(builder.greaterThanOrEqualTo(root.get("date"), dateMore));
@@ -152,4 +151,5 @@ public class ResultDatabaseDao extends AbstractHibernateDao<Result> implements R
 		}
 		return returnValue;
 	}
+
 }

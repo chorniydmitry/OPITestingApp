@@ -15,4 +15,6 @@ public interface TestDao extends ItemDao<Test> {
 
 	public int countByQuestionSet(QuestionSet questionSet);
 
+	public List<Test> getAllByName(String name);
+
 }

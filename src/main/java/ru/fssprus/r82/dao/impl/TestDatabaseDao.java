@@ -124,4 +124,27 @@ public class TestDatabaseDao extends AbstractHibernateDao<Test> implements TestD
 		return returnValue;
 	}
 
+	@Override
+	public List<Test> getAllByName(String name) {
+		List<Test> testList = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Test> criteriaQuery = builder.createQuery(Test.class);
+
+			Root<Test> root = criteriaQuery.from(Test.class);
+			criteriaQuery.select(root).where(builder.like(root.get("name"), "%" + name + "%"));
+
+			Query<Test> query = session.createQuery(criteriaQuery);
+
+			testList = query.getResultList();
+			
+			session.close();
+
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
+		return testList;
+	}
+
 }

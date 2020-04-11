@@ -15,7 +15,7 @@ public class CommonTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = -9209664050296683407L;
 
 	private static final String WRONG_COLUMN_INDEX_TEXT = "Не верный индекс столбца!";
-	private static final String WRONG_TABLE_DATA_TEXT = "Не правильные данные для добавления в таблицу!";
+	private static final String WRONG_TABLE_DATA_TEXT = "Не правильные данные для добавления в таблицу!(входящие поля х лимит столбцов в таблице)";
 
 	private String[] columnNames;
 	private int[] columnWidths;

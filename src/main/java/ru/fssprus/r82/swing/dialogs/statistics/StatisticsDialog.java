@@ -31,9 +31,8 @@ public class StatisticsDialog extends DialogWithPassword {
 	private static final String TITLE = AppConstants.STATISTICS_TEXT;
 	private static final String ICON = AppConstants.STATISTICS_ICON;
 
-	private static final String LBL_FIO_CAPTION = "Фамилия:";
-	private static final String LBL_SPEC_CAPTION = "Набор вопросов:";
-	private static final String LBL_LVL_CAPTION = "Уровень:";
+	private static final String LBL_FIO_CAPTION = "ФИО:";
+	private static final String LBL_SPEC_CAPTION = "Название теста:";
 	private static final String LBL_MARK_CAPTION = "Результат:";
 	private static final String LBL_DATE_CAPTION_LESS = "Дата МЕНЬШЕ:";
 	private static final String LBL_DATE_CAPTION_MORE = "Дата БОЛЬШЕ:";
@@ -53,8 +52,7 @@ public class StatisticsDialog extends DialogWithPassword {
 	private JPanel pnlFilterButtons = new JPanel();
 
 	private JLabel lblSurNamLast = new JLabel(LBL_FIO_CAPTION);
-	private JLabel lblQuestionSet = new JLabel(LBL_SPEC_CAPTION);
-	private JLabel lblLevel = new JLabel(LBL_LVL_CAPTION);
+	private JLabel lblTest = new JLabel(LBL_SPEC_CAPTION);
 	private JLabel lblMark = new JLabel(LBL_MARK_CAPTION);
 	private JLabel lblDateLess = new JLabel(LBL_DATE_CAPTION_LESS);
 	private JLabel lblDateMore = new JLabel(LBL_DATE_CAPTION_MORE);
@@ -68,7 +66,7 @@ public class StatisticsDialog extends DialogWithPassword {
 	private JTextField tfScoreMore = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 
 	private JComboBox<String> cbMarks = new JComboBox<>();
-	private JComboBox<String> cbSets = new JComboBox<>();
+	private JComboBox<String> cbTests = new JComboBox<>();
 	
 	private JGreenButton btnFilter = new JGreenButton(BTN_FILTER_CAPTION);
 	private JGreenButton btnClearFilters = new JGreenButton(BTN_CLEAR_CAPTION);
@@ -92,61 +90,58 @@ public class StatisticsDialog extends DialogWithPassword {
 
 	private void layoutFilterPanel() {
 		pnlFilter.setLayout(new GridBagLayout());
-
-		pnlFilter.add(lblSurNamLast, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
+		
+		pnlFilter.add(lblTest, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 
-		pnlFilter.add(tfSurNamLast, new GridBagConstraints(1, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
+		pnlFilter.add(cbTests, new GridBagConstraints(1, 0, 3, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
-
-		pnlFilter.add(lblQuestionSet, new GridBagConstraints(2, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
-				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
-
-		pnlFilter.add(cbSets, new GridBagConstraints(3, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
-				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
-
+		
 		//
-		
-		pnlFilter.add(lblScoreLess, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
-				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
-		
-		pnlFilter.add(tfScoreLess, new GridBagConstraints(1, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
+
+		pnlFilter.add(lblSurNamLast, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 
+		pnlFilter.add(tfSurNamLast, new GridBagConstraints(1, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
+				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
+		
 		pnlFilter.add(lblMark, new GridBagConstraints(2, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 
 		pnlFilter.add(cbMarks, new GridBagConstraints(3, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 2), 0, 0));
-		
-		//
-		
-		pnlFilter.add(lblScoreMore, new GridBagConstraints(0, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
-				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
-		
-		pnlFilter.add(tfScoreMore, new GridBagConstraints(1, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
-				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
-		
-		pnlFilter.add(lblLevel, new GridBagConstraints(2, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
-				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 
 		//
 		
-		pnlFilter.add(lblDateMore, new GridBagConstraints(0, 3, 1, 1, 0, 0, GridBagConstraints.CENTER,
+		pnlFilter.add(lblScoreLess, new GridBagConstraints(0, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 		
-		pnlFilter.add(dpDateMore, new GridBagConstraints(1, 3, 1, 1, 0, 0, GridBagConstraints.WEST,
+		pnlFilter.add(tfScoreLess, new GridBagConstraints(1, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
+				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
+		
+		pnlFilter.add(lblScoreMore, new GridBagConstraints(2, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
+				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
+		
+		pnlFilter.add(tfScoreMore, new GridBagConstraints(3, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
+				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
+		
+		//
+		
+		pnlFilter.add(lblDateMore, new GridBagConstraints(0, 4, 1, 1, 0, 0, GridBagConstraints.CENTER,
+				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
+		
+		pnlFilter.add(dpDateMore, new GridBagConstraints(1, 4, 1, 1, 0, 0, GridBagConstraints.WEST,
 				GridBagConstraints.NONE, new Insets(1, 1, 1, 1), 0, 0));
 		
-		pnlFilter.add(lblDateLess, new GridBagConstraints(2, 3, 1, 1, 0, 0, GridBagConstraints.CENTER,
+		pnlFilter.add(lblDateLess, new GridBagConstraints(2, 4, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 		
-		pnlFilter.add(dpDateLess, new GridBagConstraints(3, 3, 1, 1, 0, 0, GridBagConstraints.WEST,
+		pnlFilter.add(dpDateLess, new GridBagConstraints(3, 4, 1, 1, 0, 0, GridBagConstraints.WEST,
 				GridBagConstraints.NONE, new Insets(1, 1, 1, 1), 0, 0));
 		
 		//
 		
-		pnlFilter.add(pnlFilterButtons, new GridBagConstraints(0, 4, GridBagConstraints.REMAINDER, 1, 0, 0, GridBagConstraints.NORTH, 
+		pnlFilter.add(pnlFilterButtons, new GridBagConstraints(0, 5, GridBagConstraints.REMAINDER, 1, 0, 0, GridBagConstraints.NORTH, 
 				GridBagConstraints.HORIZONTAL, new Insets(1, 1, 1, 1), 0, 0));
 
 	}
@@ -202,12 +197,12 @@ public class StatisticsDialog extends DialogWithPassword {
 		this.tfSurNamLast = tfSurNamLast;
 	}
 
-	public JComboBox<String> getCbSets() {
-		return cbSets;
+	public JComboBox<String> getCbTests() {
+		return cbTests;
 	}
 
-	public void setCbSets(JComboBox<String> cbSets) {
-		this.cbSets = cbSets;
+	public void setCbTests(JComboBox<String> cbTests) {
+		this.cbTests = cbTests;
 	}
 
 	public JComboBox<String> getCbMarks() {

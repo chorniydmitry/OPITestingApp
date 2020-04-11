@@ -89,7 +89,7 @@ public class AppConstants {
 	public static final int DIALOG_ADMIN_WIDTH = 500;
 	public static final int DIALOG_ADMIN_HEIGHT = 300;
 	
-	public static final int DIALOG_STATISTICS_WIDTH = 1000;
+	public static final int DIALOG_STATISTICS_WIDTH = 800;
 	public static final int DIALOG_STATISTICS_HEIGHT = 600;
 
 	public static final int DIALOG_RESULTING_WIDTH = 600;

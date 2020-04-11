@@ -46,6 +46,10 @@ public class TestService {
 		return testDao.getByName(name);
 	}
 	
+	public List<Test> getAllByName(String name) {
+		return testDao.getAllByName(name);
+	}
+	
 	public List<Test> getByQuestionSet(QuestionSet questionSet) {
 		return testDao.getByQuestionSet(questionSet);
 	}

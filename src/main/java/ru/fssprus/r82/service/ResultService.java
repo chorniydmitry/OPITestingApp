@@ -6,8 +6,8 @@ import java.util.Set;
 
 import ru.fssprus.r82.dao.ResultDao;
 import ru.fssprus.r82.dao.impl.ResultDatabaseDao;
-import ru.fssprus.r82.entity.QuestionSet;
 import ru.fssprus.r82.entity.Result;
+import ru.fssprus.r82.entity.Test;
 import ru.fssprus.r82.entity.User;
 
 /**
@@ -35,22 +35,22 @@ public class ResultService {
 		resultDao.remove(test);
 	}
 
-	public List<Result> getByUserQuestionSetAndDate(Set<User> users, Set<QuestionSet> sets,
+	public List<Result> getByUserTestAndDate(Set<User> users, Set<Test> tests,
 			Date dateMore, Date dateLess, String result, int scoreMore, int scoreLess) {
-		return resultDao.getByUserQuestionSetAndDate(-1, -1, users, sets, dateMore, dateLess, result, scoreMore, scoreLess);
+		return resultDao.getByUserTestAndDate(-1, -1, users, tests, dateMore, dateLess, result, scoreMore, scoreLess);
 		
 	}
 
-	public List<Result> getByUserQuestionSetAndDate(int startX, int endX, Set<User> users,
-			Set<QuestionSet> sets, Date dateMore, Date dateLess, String result, int scoreMore,
+	public List<Result> getByUserTestAndDate(int startX, int endX, Set<User> users,
+			Set<Test> tests, Date dateMore, Date dateLess, String result, int scoreMore,
 			int scoreLess) {
-		return resultDao.getByUserQuestionSetAndDate(startX, endX, users, sets, dateMore, dateLess, result, scoreMore, scoreLess);
+		return resultDao.getByUserTestAndDate(startX, endX, users, tests, dateMore, dateLess, result, scoreMore, scoreLess);
 	}
 	
-	public int countByUserQuestionSetAndDate(Set<User> users,
-			Set<QuestionSet> sets, Date dateMore, Date dateLess, String result, int scoreMore,
+	public int countByUserTestAndDate(Set<User> users,
+			Set<Test> tests, Date dateMore, Date dateLess, String result, int scoreMore,
 			int scoreLess) {
-		return resultDao.countByUserQuestionSetAndDate(users, sets, dateMore, dateLess, result, scoreMore, scoreLess);
+		return resultDao.countByUserTestAndDate(users, tests, dateMore, dateLess, result, scoreMore, scoreLess);
 		
 	}
 	

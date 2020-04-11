@@ -17,11 +17,11 @@ import javax.swing.JTable;
 
 import ru.fssprus.r82.dao.ResultDao;
 import ru.fssprus.r82.dao.impl.ResultDatabaseDao;
-import ru.fssprus.r82.entity.QuestionSet;
 import ru.fssprus.r82.entity.Result;
+import ru.fssprus.r82.entity.Test;
 import ru.fssprus.r82.entity.User;
-import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.service.ResultService;
+import ru.fssprus.r82.service.TestService;
 import ru.fssprus.r82.service.UserService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.table.TablePanelController;
@@ -33,7 +33,11 @@ import ru.fssprus.r82.utils.TimeUtils;
 import ru.fssprus.r82.utils.Utils;
 import ru.fssprus.r82.utils.spreadsheet.SpreadSheetAdapter;
 import ru.fssprus.r82.utils.spreadsheet.SpreadsheetFileChooser;
-
+/*
+ * TODO: ПОИСК ТЕСТА
+ * СДЕЛАТЬ СТРОГИЙ ПОИСК ПО РЕЗУЛЬТАТУ
+ * ПОИСК ПО "УДОВЛЕТВОРИТЕЛЬНО" ВЫДАЕТ ТАКЖЕ "НЕ УДОВЛЕТВОРИТЕЛЬНО"
+ */
 /**
  * @author Chernyj Dmitry
  *
@@ -41,7 +45,6 @@ import ru.fssprus.r82.utils.spreadsheet.SpreadsheetFileChooser;
 public class StatisticsController extends CommonController<StatisticsDialog> implements UpdatableController {
 	private static final int ENTRIES_FOR_PAGE = AppConstants.TABLE_ROWS_LIMIT;
 	private static final String FROM_TEXT = " из ";
-	private static final String COMMON_TEXT = "Общие";
 	private int currentPage;
 	private int totalPages;
 
@@ -108,7 +111,7 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 
 	private void initCbs() {
 		initCbMarks();
-		initCbSets();
+		initCbTests();
 	}
 
 	private void initCbMarks() {
@@ -117,17 +120,15 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 			dialog.getCbMarks().addItem(mark);
 	}
 
-	private void initCbSets() {
-		QuestionSetService service = new QuestionSetService();
-		List<QuestionSet> setList = service.getAll();
+	private void initCbTests() {
+		TestService testService = new TestService();
+		List<Test> testList = testService.getAll();
 
-		dialog.getCbSets().addItem(null);
+		dialog.getCbTests().addItem(null);
 
-		for (QuestionSet set : setList) {
-			if (set.getName().toUpperCase().equals(COMMON_TEXT.toUpperCase()))
-				continue;
-			dialog.getCbSets().addItem(set.getName());
-		}
+		for (Test test : testList)
+			dialog.getCbTests().addItem(test.getName());
+
 	}
 
 	private void doFilterAction() {
@@ -143,15 +144,14 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 		return users;
 	}
 
-	private Set<QuestionSet> getSets() {
-		QuestionSetService setService = new QuestionSetService();
+	private Set<Test> getTests() {
+		TestService testService = new TestService();
 
-		Set<QuestionSet> sets = null;
-		if (dialog.getCbSets().getSelectedIndex() != -1) {
-			sets = new HashSet<>(setService.getByName(dialog.getCbSets().getSelectedItem().toString()));
-		}
+		Set<Test> tests = null;
+		if (dialog.getCbTests().getSelectedIndex() != -1)
+			tests = new HashSet<>(testService.getAllByName(dialog.getCbTests().getSelectedItem().toString()));
 
-		return sets;
+		return tests;
 	}
 
 	private Date getDateMore() {
@@ -184,12 +184,12 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 		ResultService resultService = new ResultService();
 
 		if (start != 0 || max != 0) {
-			return resultService.getByUserQuestionSetAndDate(start, max, getUsers(), getSets(),
+			return resultService.getByUserTestAndDate(start, max, getUsers(), getTests(),
 					getDateMore(), getDateLess(), getResult(), getScoreMore(), getScoreLess());
 			
 			
 		} else {
-			return resultService.getByUserQuestionSetAndDate(getUsers(), getSets(), getDateMore(),
+			return resultService.getByUserTestAndDate(getUsers(), getTests(), getDateMore(),
 					getDateLess(), getResult(), getScoreMore(), getScoreLess());
 		}
 	}
@@ -197,7 +197,7 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 	private void doClearFiltersAction() {
 
 		dialog.getTfSurNamLast().setText(null);
-		dialog.getCbSets().setSelectedIndex(0);
+		dialog.getCbTests().setSelectedIndex(0);
 		dialog.getCbMarks().setSelectedIndex(0);
 		dialog.getDpDateLess().clear();
 		dialog.getDpDateMore().clear();
@@ -252,7 +252,7 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 
 	private int countTotalPages() {
 		ResultDao testDao = new ResultDatabaseDao();
-		this.totalPages = testDao.countByUserQuestionSetAndDate(getUsers(), getSets(),
+		this.totalPages = testDao.countByUserTestAndDate(getUsers(), getTests(),
 				getDateMore(), getDateLess(), getResult(), getScoreMore(), getScoreLess()) / ENTRIES_FOR_PAGE + 1;
 		
 		return totalPages;
