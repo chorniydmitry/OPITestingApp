@@ -36,7 +36,6 @@ public class QuestionListDialog extends DialogWithPassword {
 	private static final String TITLE = AppConstants.QUESTION_EDIT_TEXT;
 	private static final String ICON = AppConstants.QUESTION_EDIT_ICON;
 	
-	private static final String ANSWER_TEXT = "Ответ ";
 	private static final String FILTER_PANEL_TITLE = "Панель фильтрации";
 	
 	public static final String LBL_ID_CAPTION_RU = "ID";
@@ -45,9 +44,6 @@ public class QuestionListDialog extends DialogWithPassword {
 	public static final String LBL_LEVELS_CAPTION_RU = "Сложность";
 	public static final String BTN_FILTER_CAPTION_RU = "Фильтр";
 	public static final String BTN_RESET_CAPTION_RU = "Сбросить";
-	public static final String BTN_DISCARD_Q_EDIT_CAPTION_RU = "Сбросить";
-	public static final String BTN_SAVE_CAPTION_RU = "Сохранить";
-	public static final String BTN_EDIT_CAPTION_RU = "Редактировать";
 
 	private JPanel pnlFilter = new JPanel();
 
@@ -64,21 +60,6 @@ public class QuestionListDialog extends DialogWithPassword {
 	private JGreenButton btnFilter = new JGreenButton(BTN_FILTER_CAPTION_RU);
 	private JGreenButton btnClearFilters = new JGreenButton(BTN_RESET_CAPTION_RU);
 
-	private JPanel pnlQuestionEdit = new JPanel();
-	private JTextArea taQuestion = new JTextArea();
-
-	private ArrayList<JTextField> tfAnsList = new ArrayList<>();
-	private ArrayList<JLabel> lblAnsList = new ArrayList<>();
-	private ArrayList<JCheckBox> cbAnsList = new ArrayList<>();
-
-
-	private JButton btnDiscardQuestionEditChanges = new JGreenButton(BTN_DISCARD_Q_EDIT_CAPTION_RU);
-	private JButton btnSaveQuestion = new JGreenButton(BTN_SAVE_CAPTION_RU);
-	private JButton btnEditQuestion = new JGreenButton(BTN_EDIT_CAPTION_RU);
-
-	private JLabel lblSpecName = new JLabel(LBL_SPECIFICATION_CAPTION_RU);
-	private JComboBox<String> cbSpecNames = new JComboBox<>();
-	
 	private TablePanel tablePanel;
 
 	public QuestionListDialog(int width, int height, JFrame parent) {
@@ -108,28 +89,17 @@ public class QuestionListDialog extends DialogWithPassword {
 		
 		contentPanel.add(pnlFilter, BorderLayout.NORTH);
 		contentPanel.add(tablePanel, BorderLayout.CENTER);
-		contentPanel.add(pnlQuestionEdit, BorderLayout.SOUTH);
 		
 		layoutPanelFilter();
 		
-		layoutPanelQuestionEdit();
 	}
 
 	@Override
 	public void init() {
 		initTable();
-		initTfSpecNames();
 		super.init();
 	}
 	
-	private void initTfSpecNames() {
-		QuestionSetService setService = new QuestionSetService();
-		
-		ArrayList<String> keywords = new ArrayList<String>();
-		setService.getAll().forEach((n) -> keywords.add(n.getName()));
-		
-		keywords.forEach((n)-> cbSpecNames.addItem(n));
-	}
 	
 	@Override
 	protected String getSection() {
@@ -141,64 +111,6 @@ public class QuestionListDialog extends DialogWithPassword {
 		return TITLE;
 	}
 
-	private void layoutPanelQuestionEdit() {
-		pnlQuestionEdit.setLayout(new GridBagLayout());
-
-		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
-			lblAnsList.add(new JLabel(ANSWER_TEXT + (i + 1)));
-			tfAnsList.add(new JTextField());
-			cbAnsList.add(new JCheckBox());
-		}
-
-		taQuestion.setWrapStyleWord(true);
-		taQuestion.setLineWrap(true);
-		// taQuestion.setPreferredSize(new Dimension(this.getWidth(), 80));
-		JScrollPane scrollPane = new JScrollPane(taQuestion);
-
-		pnlQuestionEdit.setBorder(BorderFactory.createTitledBorder(AppConstants.QLDIALOG_PNL_QEDIT_BORDER_TITLE_RU));
-
-		// gridx, gridy, gridwidth, gridheight, weightx, weighty, anchor, fill,
-		// insets(top, left, botom, right), ipadx, ipady
-
-		// 1st .. cbLevelsList.size() row
-		pnlQuestionEdit.add(scrollPane, new GridBagConstraints(0, 0, 2, 1, 1, 1,
-				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-
-		pnlQuestionEdit.add(scrollPane, new GridBagConstraints(0, 0, 2, 1, 1, 1,
-				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-
-		//
-		pnlQuestionEdit.add(lblSpecName, new GridBagConstraints(0, 1, 1, 1, 0, 0,
-				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-
-		pnlQuestionEdit.add(cbSpecNames, new GridBagConstraints(1, 1, 1, 1, 1, 1,
-				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-
-		// cbLevelsList.size()+1 row
-		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
-			pnlQuestionEdit.add(lblAnsList.get(i), new GridBagConstraints(0, 1 + 1 + i, 1, 1, 0, 0,
-					GridBagConstraints.WEST, GridBagConstraints.CENTER, new Insets(0, 0, 0, 0), 0, 0));
-
-			pnlQuestionEdit.add(tfAnsList.get(i), new GridBagConstraints(1, 1 + 1 + i, 1, 1, 1, 0,
-					GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-
-			pnlQuestionEdit.add(cbAnsList.get(i), new GridBagConstraints(2, 1 + 1 + i, 1, 1, 0, 0,
-					GridBagConstraints.WEST, GridBagConstraints.CENTER, new Insets(0, 0, 0, 0), 0, 0));
-		}
-
-		// last row
-		pnlQuestionEdit.add(btnDiscardQuestionEditChanges, new GridBagConstraints(0, 1 + 2 + AppConstants.MAX_ANSWERS_AMOUNT, 1, 1, 0, 0,
-				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-
-		pnlQuestionEdit.add(btnSaveQuestion, new GridBagConstraints(1, 1 + 2 + AppConstants.MAX_ANSWERS_AMOUNT, 1, 1, 0, 0,
-				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-		
-		pnlQuestionEdit.add(btnEditQuestion, new GridBagConstraints(2, 1 + 2 + AppConstants.MAX_ANSWERS_AMOUNT, 1, 1, 0, 0,
-				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-		
-		pnlQuestionEdit.setVisible(true);
-
-	}
 
 	private void layoutPanelFilter() {
 		pnlFilter.setLayout(new GridBagLayout());
@@ -252,54 +164,6 @@ public class QuestionListDialog extends DialogWithPassword {
 		this.btnFilter = btnFilter;
 	}
 
-	public JTextArea getTaQuestion() {
-		return taQuestion;
-	}
-
-	public void setTaQuestion(JTextArea taQuestion) {
-		this.taQuestion = taQuestion;
-	}
-
-	public ArrayList<JTextField> getTfAnsList() {
-		return tfAnsList;
-	}
-
-	public void setTfAnsList(ArrayList<JTextField> tfAnsList) {
-		this.tfAnsList = tfAnsList;
-	}
-
-	public ArrayList<JCheckBox> getCbAnsList() {
-		return cbAnsList;
-	}
-
-	public void setCbAnsList(ArrayList<JCheckBox> cbAnsList) {
-		this.cbAnsList = cbAnsList;
-	}
-
-	public JButton getBtnDiscardQuestionEditChanges() {
-		return btnDiscardQuestionEditChanges;
-	}
-
-	public void setBtnDiscardQuestionEditChanges(JButton btnDiscardQuestionEditChanges) {
-		this.btnDiscardQuestionEditChanges = btnDiscardQuestionEditChanges;
-	}
-
-	public JButton getBtnSaveQuestion() {
-		return btnSaveQuestion;
-	}
-
-	public void setBtnSave(JButton btnSaveQuestion) {
-		this.btnSaveQuestion = btnSaveQuestion;
-	}
-
-	public JComboBox<String> getCbSpecNames() {
-		return cbSpecNames;
-	}
-
-	public void setCbSpecNames(JComboBox<String> cbSpecNames) {
-		this.cbSpecNames = cbSpecNames;
-	}
-
 	public JTextField getTfId() {
 		return tfId;
 	}
@@ -338,14 +202,6 @@ public class QuestionListDialog extends DialogWithPassword {
 
 	public void setBtnClearFilters(JGreenButton btnClearFilters) {
 		this.btnClearFilters = btnClearFilters;
-	}
-
-	public JButton getBtnEditQuestion() {
-		return btnEditQuestion;
-	}
-
-	public void setBtnEditQuestion(JButton btnEditQuestion) {
-		this.btnEditQuestion = btnEditQuestion;
 	}
 
 	public TablePanel getTabPanel() {

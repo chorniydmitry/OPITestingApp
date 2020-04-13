@@ -71,8 +71,12 @@ public class AppConstants {
 	public static final int DIALOG_LOADING_QUESTION_SET_WIDTH = 800;
 	public static final int DIALOG_LOADING_QUESTION_SET_HEIGHT = 600;
 	
-	public static final int DIALOG_QUESTUIN_EDIT_WIDTH = 1000;
-	public static final int DIALOG_QUESTUIN_EDIT_HEIGHT = 700;
+	public static final int DIALOG_QUESTION_LIST_WIDTH = 1000;
+	public static final int DIALOG_QUESTION_LIST_HEIGHT = 700;
+	
+	public static final int DIALOG_QUESTION_EDIT_WIDTH = 1000;
+	public static final int DIALOG_QUESTION_EDIT_HEIGHT = 700;
+	
 	
 	public static final int DIALOG_MANAGE_PASSWORDS_WIDTH = 600;
 	public static final int DIALOG_MANAGE_PASSWORDS_HEIGHT = 400;

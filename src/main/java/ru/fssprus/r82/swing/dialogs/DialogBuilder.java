@@ -6,6 +6,7 @@ package ru.fssprus.r82.swing.dialogs;
  */
 import javax.swing.JFrame;
 
+import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.swing.dialogs.admin.AdminController;
 import ru.fssprus.r82.swing.dialogs.admin.AdminDialog;
 import ru.fssprus.r82.swing.dialogs.importSet.ImportQuestionSetController;
@@ -14,6 +15,8 @@ import ru.fssprus.r82.swing.dialogs.newTest.NewTestController;
 import ru.fssprus.r82.swing.dialogs.newTest.NewTestDialog;
 import ru.fssprus.r82.swing.dialogs.passwordManage.PasswordManageController;
 import ru.fssprus.r82.swing.dialogs.passwordManage.PasswordManageDialog;
+import ru.fssprus.r82.swing.dialogs.questionEdit.QuestionEditController;
+import ru.fssprus.r82.swing.dialogs.questionEdit.QuestionEditDialog;
 import ru.fssprus.r82.swing.dialogs.questionList.QuestionListController;
 import ru.fssprus.r82.swing.dialogs.questionList.QuestionListDialog;
 import ru.fssprus.r82.swing.dialogs.resulting.ResultingController;
@@ -63,8 +66,13 @@ public class DialogBuilder {
 	}
 
 	public static void showQuestionListDialog() {
-		new QuestionListController(new QuestionListDialog(AppConstants.DIALOG_QUESTUIN_EDIT_WIDTH,
-				AppConstants.DIALOG_QUESTUIN_EDIT_HEIGHT, parent));
+		new QuestionListController(new QuestionListDialog(AppConstants.DIALOG_QUESTION_LIST_WIDTH,
+				AppConstants.DIALOG_QUESTION_LIST_HEIGHT, parent));
+	}
+	
+	public static void showQuestionEditDialog(Question questionToEdit) {
+		new QuestionEditController(new QuestionEditDialog(AppConstants.DIALOG_QUESTION_EDIT_WIDTH,
+				AppConstants.DIALOG_QUESTION_EDIT_HEIGHT, null),questionToEdit);
 	}
 
 	public static void showPasswordManageDialog() {

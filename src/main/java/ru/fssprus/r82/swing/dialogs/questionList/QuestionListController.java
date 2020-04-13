@@ -11,6 +11,7 @@ import ru.fssprus.r82.entity.QuestionSet;
 import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
+import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.swing.table.TablePanelController;
 import ru.fssprus.r82.swing.table.UpdatableController;
 import ru.fssprus.r82.swing.utils.MessageBox;
@@ -39,7 +40,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		TablePanelController tablePanelController = new TablePanelController(dialog.getTabPanel());
 		tablePanelController.setSubscriber(this);
 
-		blockQuestionEditPanel(true);
+//		blockQuestionEditPanel(true);
 
 		updateDialog();
 	}
@@ -47,42 +48,26 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	@Override
 	protected void setListeners() {
 		dialog.getBtnFilter().addActionListener(listener -> updateDialog());
-		dialog.getBtnDiscardQuestionEditChanges().addActionListener(listener -> doDiscardChangesAction());
-		dialog.getBtnEditQuestion().addActionListener(listener -> doEditAction());
+		//dialog.getBtnDiscardQuestionEditChanges().addActionListener(listener -> doDiscardChangesAction());
+		//dialog.getBtnEditQuestion().addActionListener(listener -> doEditAction());
 		dialog.getBtnClearFilters().addActionListener(listener -> doClearFiltersAction());
-		dialog.getBtnSaveQuestion().addActionListener(listener -> doSaveQuestionAction());
+		//dialog.getBtnSaveQuestion().addActionListener(listener -> doSaveQuestionAction());
 	}
 
-	private void doEditAction() {
-		if (dialog.getTable().getLastSelectedIndex() == AppConstants.NO_ROW_SELECTED)
-			return;
-		if (questionEditing) {
-			blockQuestionEditPanel(false);
-		} else {
-			blockQuestionEditPanel(true);
-		}
-	}
+//	private void doEditAction() {
+//		if (dialog.getTable().getLastSelectedIndex() == AppConstants.NO_ROW_SELECTED)
+//			return;
+//		if (questionEditing) {
+//			blockQuestionEditPanel(false);
+//		} else {
+//			blockQuestionEditPanel(true);
+//		}
+//	}
 
-	private void doSaveQuestionAction() {
-		if (!validateQuestionSave()) {
-			MessageBox.showWrongQuestionSpecifiedErrorDialog(dialog);
-			return;
-		}
 
-		QuestionService service = new QuestionService();
-		Question questionToSave = configureQuestionFromQuestionEditUI();
-
-		if (questionToSave.getId() == null)
-			service.save(questionToSave);
-		else
-			service.update(questionToSave.getId(), questionToSave);
-
-		updateDialog();
-		blockQuestionEditPanel(true);
-	}
 
 	private void doClearFiltersAction() {
-		clearQuestionEditPanelContents();
+	//	clearQuestionEditPanelContents();
 		dialog.getTable().unselectAll();
 
 		dialog.getTfId().setText(null);
@@ -94,7 +79,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	}
 
 	private void doDiscardChangesAction() {
-		clearQuestionEditPanelContents();
+	//	clearQuestionEditPanelContents();
 		showQuestion(currentQuestion);
 	}
 
@@ -113,7 +98,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	}
 	
 	private void updateDialog() {
-		clearQuestionEditPanelContents();
+//		clearQuestionEditPanelContents();
 		updatePageInfo();
 		updateTable();
 	}
@@ -167,143 +152,40 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		return this.totalPages = totalQuestions / ENTRIES_FOR_PAGE + 1;
 	}
 
-	private void blockQuestionEditPanel(boolean block) {
-		questionEditing = block;
-		dialog.getTaQuestion().setEditable(!block);
-
-		dialog.getCbSpecNames().setEditable(!block);
-
-		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
-			dialog.getTfAnsList().get(i).setEditable(!block);
-			dialog.getCbAnsList().get(i).setEnabled(!block);
-		}
-		dialog.getBtnSaveQuestion().setEnabled(!block);
-		dialog.getBtnDiscardQuestionEditChanges().setEnabled(!block);
-	}
-	
-	private void setAnswersToUI(Question question) {
-		List<Answer> answers = new ArrayList<Answer>(question.getAnswers());
-		answers.forEach((n)->
-		fillUIAnswers(answers.indexOf(n), n.getTitle(), n.getIsCorrect()));
-	}
+//	private void blockQuestionEditPanel(boolean block) {
+//		questionEditing = block;
+//		dialog.getTaQuestion().setEditable(!block);
+//
+//		dialog.getCbSpecNames().setEditable(!block);
+//
+//		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
+//			dialog.getTfAnsList().get(i).setEditable(!block);
+//			dialog.getCbAnsList().get(i).setEnabled(!block);
+//		}
+//		dialog.getBtnSaveQuestion().setEnabled(!block);
+//		dialog.getBtnDiscardQuestionEditChanges().setEnabled(!block);
+//	}
 	
 	private void showQuestion(Question currentQuestion) {
-		setAnswersToUI(currentQuestion);
+//TODO OPEN QUESTIONEDITDIALOG?
+//		setAnswersToUI(currentQuestion);
 		
-		dialog.getTaQuestion().setText(currentQuestion.getTitle());
-		
-		dialog.getCbSpecNames().setSelectedItem(currentQuestion.getQuestionSet().getName());
+//		dialog.getTaQuestion().setText(currentQuestion.getTitle());
+//		
+//		dialog.getCbSpecNames().setSelectedItem(currentQuestion.getQuestionSet().getName());
 	}
 	
-	private void fillUIAnswers(int index, String title, boolean isSelected) {
-		dialog.getTfAnsList().get(index).setText(title);
-		dialog.getTfAnsList().get(index).setCaretPosition(0);
-		dialog.getCbAnsList().get(index).setSelected(isSelected);
-	}
-
-	private void clearQuestionEditPanelContents() {
-		dialog.getTaQuestion().setText(null);
-		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
-			dialog.getTfAnsList().get(i).setText(null);
-			dialog.getCbAnsList().get(i).setSelected(false);
-		}
-
-		dialog.getCbSpecNames().setSelectedIndex(0);
-	}
+//	private void clearQuestionEditPanelContents() {
+//		dialog.getTaQuestion().setText(null);
+//		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
+//			dialog.getTfAnsList().get(i).setText(null);
+//			dialog.getCbAnsList().get(i).setSelected(false);
+//		}
+//
+//		dialog.getCbSpecNames().setSelectedIndex(0);
+//	}
 	
 	
-	private List<Answer> getAnswersFromQuestionEditUI(Question question) {
-		List<Answer> answers = new ArrayList<Answer>();
-		for (int i = 0; i < dialog.getTfAnsList().size(); i++) {
-			String ansText = dialog.getTfAnsList().get(i).getText();
-			if (!ansText.isEmpty()) {
-				Answer answer = new Answer();
-				answer.setQuestion(question);
-				answer.setTitle(ansText);
-				answer.setIsCorrect(dialog.getCbAnsList().get(i).isSelected());
-
-				answers.add(answer);
-			}
-		}
-		return answers;
-	}
-	
-	private String qetQuestionTitleFromQuestionEditUI() {
-		return dialog.getTaQuestion().getText();
-	}
-
-	private Question configureQuestionFromQuestionEditUI() {
-		Question question = new Question();
-
-		if (currentQuestion.getId() != null)
-			question.setId(currentQuestion.getId());
-
-		question.setTitle(qetQuestionTitleFromQuestionEditUI());
-
-		question.setAnswers(new HashSet<Answer>(getAnswersFromQuestionEditUI(question)));
-
-		question.setQuestionSet(getQuestionSetFromQuestionEditUI());
-
-		return question;
-	}
-
-	private QuestionSet getQuestionSetFromQuestionEditUI() {
-		QuestionSetService setService = new QuestionSetService();
-
-		List<QuestionSet> sets = setService.getByName(dialog.getCbSpecNames().getSelectedItem().toString());
-
-		QuestionSet setToAdd = null;
-		if (sets.size() == 0) {
-			setToAdd = new QuestionSet();
-			setToAdd.setName(String.valueOf(dialog.getCbSpecNames().getSelectedItem()));
-		} else {
-			setToAdd = sets.get(0);
-		}
-		return setToAdd;
-	}
-
-	//TODO сделать нормальную валидацию
-	private boolean validateQuestionSave() {
-		// Валидация текста вопроса
-		// Длина текста вопроса слишком маленькая
-		if (dialog.getTaQuestion().getText().length() < AppConstants.QUESTION_TEXT_MIN_LENGTH)
-			return false;
-
-		// ----------------
-		// Валидация ответов
-		boolean isAnyAnswerAsCorrectSelected = false;
-		int amountOfAnswers = 0;
-		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
-			String currAnswer = dialog.getTfAnsList().get(i).getText();
-
-			if (!currAnswer.isEmpty()) {
-				amountOfAnswers++;
-				// Пустой вопрос помечен как верный
-			} else if (dialog.getCbAnsList().get(i).isSelected()) {
-				return false;
-			}
-
-			if (dialog.getCbAnsList().get(i).isSelected())
-				isAnyAnswerAsCorrectSelected = true;
-		}
-		// Не заполнено минимальное количество ответов
-		if (amountOfAnswers < AppConstants.MIN_ANSWERS_AMOUNT)
-			return false;
-
-		// Ни один из ответов не помечен как верный
-		if (!isAnyAnswerAsCorrectSelected)
-			return false;
-
-		// ----------------
-		// Валидация спецализации
-		// Не заполнена специализация
-		if (dialog.getCbSpecNames().getSelectedItem().toString().isEmpty())
-			return false;
-
-		return true;
-
-	}
-
 	private Set<QuestionSet> parseSets(String setsText) {
 		if (!setsText.isEmpty()) {
 			QuestionSetService setService = new QuestionSetService();
@@ -344,14 +226,14 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 
 		questionsOnScreenList.add(q);
 
-		dialog.getBtnEditQuestion().doClick();
+//		dialog.getBtnEditQuestion().doClick();
 	}
 
 	@Override
 	public void selectionChanged(int index) {
 		if (index >= questionsOnScreenList.size())
 			addBlankQuestion();
-		clearQuestionEditPanelContents();
+//		clearQuestionEditPanelContents();
 		currentQuestion = questionsOnScreenList.get(index);
 		doDiscardChangesAction();
 
@@ -362,7 +244,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		if (currentPage + 1 < totalPages)
 			currentPage++;
 		updateDialog();
-		blockQuestionEditPanel(true);
+//		blockQuestionEditPanel(true);
 	}
 
 	@Override
@@ -370,7 +252,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		if (currentPage > 0)
 			currentPage--;
 		updateDialog();
-		blockQuestionEditPanel(true);
+//		blockQuestionEditPanel(true);
 	}
 
 	@Override
@@ -400,6 +282,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	@Override
 	public void edit() {
 		// TODO Auto-generated method stub
+		DialogBuilder.showQuestionEditDialog(currentQuestion);
 		
 	}
 
