@@ -57,9 +57,13 @@ public class TestDialog extends CommonDialog {
 	private JLabel lblTimeLeftSec = new JLabel();
 
 	private boolean isPaused = false;
+	
+	private JFrame mainFrame;
 
 	public TestDialog(int width, int height, JFrame parent) {
 		super(width, height, parent);
+		
+		mainFrame = parent;
 	}
 
 	@Override
@@ -262,6 +266,10 @@ public class TestDialog extends CommonDialog {
 
 	public void setTaQuestionText(JTextArea taQuestionText) {
 		this.taQuestionText = taQuestionText;
+	}
+
+	public JFrame getMainFrame() {
+		return mainFrame;
 	}
 	
 }

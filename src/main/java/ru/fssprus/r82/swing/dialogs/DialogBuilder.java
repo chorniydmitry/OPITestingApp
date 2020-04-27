@@ -72,7 +72,7 @@ public class DialogBuilder {
 	
 	public static void showQuestionEditDialog(Question questionToEdit) {
 		new QuestionEditController(new QuestionEditDialog(AppConstants.DIALOG_QUESTION_EDIT_WIDTH,
-				AppConstants.DIALOG_QUESTION_EDIT_HEIGHT, null),questionToEdit);
+				AppConstants.DIALOG_QUESTION_EDIT_HEIGHT, parent), questionToEdit);
 	}
 
 	public static void showPasswordManageDialog() {

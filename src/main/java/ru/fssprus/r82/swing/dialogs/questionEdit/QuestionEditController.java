@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import javax.swing.JComboBox;
+
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.QuestionSet;
@@ -13,19 +15,18 @@ import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.utils.MessageBox;
 import ru.fssprus.r82.utils.AppConstants;
 
-public class QuestionEditController extends CommonController<QuestionEditDialog>{
+public class QuestionEditController extends CommonController<QuestionEditDialog> {
 	
-	private QuestionEditDialog dialog;
 	private Question questionToEdit;
 	
 	public QuestionEditController(QuestionEditDialog dialog, Question questionToEdit) {
 		super(dialog);
-		initTfSpecNames();
 		
 		this.questionToEdit = questionToEdit;
-		
+//		
 		loadQuestion();
-
+//		
+		initTfSpecNames();
 	}
 
 	@Override
@@ -40,15 +41,9 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 		ArrayList<String> keywords = new ArrayList<String>();
 		setService.getAll().forEach((n) -> keywords.add(n.getName()));
 		
-		System.out.println(keywords.size());
-		
-		keywords.forEach((n)-> 
-		dialog.getCbSpecNames().
-		addItem(
-				n));
-		
-		dialog.revalidate();
-		dialog.repaint();
+		for (String string : keywords) {
+			dialog.getCbSpecNames().addItem(string);
+		}
 	}
 	
 	private void loadQuestion() {

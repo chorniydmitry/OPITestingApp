@@ -60,7 +60,7 @@ public class QuestionEditDialog extends CommonDialog{
 
 		taQuestion.setWrapStyleWord(true);
 		taQuestion.setLineWrap(true);
-		// taQuestion.setPreferredSize(new Dimension(this.getWidth(), 80));
+		taQuestion.setPreferredSize(new Dimension(this.getWidth(), 300));
 		JScrollPane scrollPane = new JScrollPane(taQuestion);
 
 		pnlQuestionEdit.setBorder(BorderFactory.createTitledBorder(AppConstants.QLDIALOG_PNL_QEDIT_BORDER_TITLE_RU));
@@ -84,6 +84,8 @@ public class QuestionEditDialog extends CommonDialog{
 
 		// cbLevelsList.size()+1 row
 		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
+			
+			tfAnsList.get(i).setPreferredSize(new Dimension(this.getWidth()-50, 100));
 			pnlQuestionEdit.add(lblAnsList.get(i), new GridBagConstraints(0, 1 + 1 + i, 1, 1, 0, 0,
 					GridBagConstraints.WEST, GridBagConstraints.CENTER, new Insets(0, 0, 0, 0), 0, 0));
 

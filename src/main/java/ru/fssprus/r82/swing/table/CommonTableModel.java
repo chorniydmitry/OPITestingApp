@@ -140,7 +140,7 @@ public class CommonTableModel extends AbstractTableModel {
 
 		return data;
 	}
-
+	
 	public void update() {
 		fireTableDataChanged();
 	}

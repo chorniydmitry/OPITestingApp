@@ -47,7 +47,6 @@ public class Application {
 			@Override
 			public void run() {
 				MainFrame mainFrame = new MainFrame();
-				CheatingStopper.create(mainFrame);
 				DialogBuilder.setParent(mainFrame);
 			}
 
