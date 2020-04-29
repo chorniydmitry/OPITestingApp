@@ -33,9 +33,19 @@ public abstract class CommonDialog extends JDialog {
 	private JLabel lblEmblem = new JLabel();
 	private JLabel lblTitle = new JLabel();
 	private JGreenButton btnClose = new JGreenButton(BTN_CLOSE_CAPTION);
+	
+	public CommonDialog(int width, int height, JFrame parent, boolean isModal) {
+		super(parent, isModal);
+		initDialog(width, height);
 
+	}
+	
 	public CommonDialog(int width, int height, JFrame parent) {
-		super(parent);
+		super(parent, false);
+		initDialog(width, height);
+	}
+	
+	private void initDialog(int width, int height){
 		setSize(new Dimension(width, height));
 		setUndecorated(true);
 		getRootPane().setBorder(BorderFactory.createLineBorder(AppConstants.FSSP_COLOR));

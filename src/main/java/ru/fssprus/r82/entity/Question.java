@@ -20,22 +20,22 @@ import javax.validation.constraints.Size;
 import ru.fssprus.r82.utils.AppConstants;
 
 @Entity
-@Table(name="question")
+@Table(name = "question")
 public class Question extends Model {
-	@NotNull
-    @ManyToOne
-    @JoinColumn(name="questionset_id") 
-    private QuestionSet questionset;
-	
-	@NotNull
-	@Size(min=AppConstants.QUESTION_TEXT_MIN_LENGTH)
-	@Column(name="title", length=2096)
+	@NotNull(message = AppConstants.VALID_QUEST_QUESTIONSET_NOTNULL)
+	@ManyToOne
+	@JoinColumn(name = "questionset_id")
+	private QuestionSet questionset;
+
+	@NotNull(message = AppConstants.VALID_QUEST_NAME_NOTNULL)
+	@Size(min = AppConstants.QUESTION_TEXT_MIN_LENGTH, message = AppConstants.VALID_QUEST_NAME_SIZE)
+	@Column(name = "title", length = 2096)
 	private String title;
-	
-	@Size(min=AppConstants.MIN_ANSWERS_AMOUNT, max=AppConstants.MAX_ANSWERS_AMOUNT)
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="question", fetch = FetchType.EAGER)
+
+	@Size(min = AppConstants.MIN_ANSWERS_AMOUNT, max = AppConstants.MAX_ANSWERS_AMOUNT, message = AppConstants.VALID_QUEST_ANSWERS_AMOUNT)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "question", fetch = FetchType.EAGER)
 	private Set<Answer> answers;
-	
+
 	public String getTitle() {
 		return title;
 	}
@@ -55,11 +55,10 @@ public class Question extends Model {
 	public QuestionSet getQuestionSet() {
 		return questionset;
 	}
-	
+
 	public void setQuestionSet(QuestionSet questionSet) {
 		this.questionset = questionSet;
 	}
-	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -92,5 +91,5 @@ public class Question extends Model {
 	public String toString() {
 		return "Question [title=" + title + ", answers=" + answers + ", questionSet=" + questionset + "]";
 	}
-	
+
 }

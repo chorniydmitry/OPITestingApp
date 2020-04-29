@@ -246,7 +246,7 @@ public class TestConstructorController extends CommonController<TestConstructorD
 	private ArrayList<String> validateForm() {
 		ArrayList<String> violations = new ArrayList<>();
 
-		if (checkIfQuestionNameIsNotUnique()) {
+		if (checkIfTestNameIsNotUnique()) {
 			violations.add(AppConstants.VALID_TEST_NAME_NOT_UNIQUE);
 		}
 
@@ -261,7 +261,7 @@ public class TestConstructorController extends CommonController<TestConstructorD
 		return violations;
 	}
 
-	private boolean checkIfQuestionNameIsNotUnique() {
+	private boolean checkIfTestNameIsNotUnique() {
 		int currentTestIndex = testsOnScreen.indexOf(currentTest);
 		String nameToCheck = dialog.getTfTestName().getText();
 		
@@ -298,7 +298,7 @@ public class TestConstructorController extends CommonController<TestConstructorD
 		for (ConstraintViolation<Test> violation : violations)
 			errorMessage += violation.getMessage() + "\n";
 
-		MessageBox.showTestNotValidErrorMessage(dialog, errorMessage);
+		MessageBox.showValidationFaildMessage(dialog, errorMessage);
 
 		updateTfStatus(CHECKING_FAILED);
 		return false;

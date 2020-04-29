@@ -3,117 +3,147 @@ package ru.fssprus.r82.swing.dialogs.questionEdit;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
-import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.swing.dialogs.CommonDialog;
 import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
-public class QuestionEditDialog extends CommonDialog{
-	
-	private static final long serialVersionUID = -5920884439809017250L;
-	public static final String BTN_SAVE_CAPTION_RU = "Сохранить";
-	public static final String BTN_CANCEL_CAPTION_RU = "Отменить и выйти";
-	public static final String LBL_SPECIFICATION_CAPTION_RU = "Набор вопросов";
-	private static final String ANSWER_TEXT = "Ответ ";
-	
-	private ArrayList<JTextField> tfAnsList = new ArrayList<>();
-	private ArrayList<JLabel> lblAnsList = new ArrayList<>();
-	private ArrayList<JCheckBox> cbAnsList = new ArrayList<>();
-	
-	private JButton btnSaveQuestion = new JGreenButton(BTN_SAVE_CAPTION_RU);
-	private JButton btnCancel = new JGreenButton(BTN_CANCEL_CAPTION_RU);
+public class QuestionEditDialog extends CommonDialog {
 
-	private JLabel lblSpecName = new JLabel(LBL_SPECIFICATION_CAPTION_RU);
-	private JComboBox<String> cbSpecNames = new JComboBox<>();
-	
+	private static final long serialVersionUID = -5920884439809017250L;
+	private static final String BTN_SAVE_CAPTION = "Сохранить изменения";
+	private static final String BTN_CANCEL_CAPTION = "Отменить и выйти";
+	private static final String LBL_SPECIFICATION_CAPTION = "Входит в набор вопросов:";
+	private static final String LBL_ANS_TEXT_CAPTION = "Формулировка ответа:";
+	private static final String LBL_QUEST_TEXT_CAPTION = "Формулировка вопроса:";
+	private static final String LBL_ANS_ISCORRECT_CAPTION = "Верный?";
+
+	private static final String ANSWER_TEXT = "Ответ #";
+	private static final int TA_ANS_HEIGHT = 70;
+	private static final int TA_ANS_MARGIN = 150;
+
+	private static final int TA_QUEST_HEIGHT = 100;
+	private static final int TA_QUEST_MARGIN = 10;
+
+	private JLabel lblQuestText = new JLabel(LBL_QUEST_TEXT_CAPTION);
+
+	private JLabel lblAnsText = new JLabel(LBL_ANS_TEXT_CAPTION);
+	private JLabel lblAnsIsCorrect = new JLabel(LBL_ANS_ISCORRECT_CAPTION);
+
+	private ArrayList<JLabel> lblAnsList = new ArrayList<>(AppConstants.MAX_ANSWERS_AMOUNT);
+	private ArrayList<JTextArea> taAnsList = new ArrayList<>(AppConstants.MAX_ANSWERS_AMOUNT);
+	private ArrayList<JCheckBox> cbAnsList = new ArrayList<>(AppConstants.MAX_ANSWERS_AMOUNT);
+
+	private JButton btnSaveQuestion = new JGreenButton(BTN_SAVE_CAPTION);
+	private JButton btnCancel = new JGreenButton(BTN_CANCEL_CAPTION);
+
+	private JLabel lblAvailibleSetName = new JLabel(LBL_SPECIFICATION_CAPTION);
+	private JComboBox<String> cbAvailibleSetNames = new JComboBox<>();
+
 	private JTextArea taQuestion = new JTextArea();
-	
+
 	private JPanel pnlQuestionEdit = new JPanel();
-	
+	private JPanel pnlAnswers = new JPanel();
+	private JPanel pnlButtons = new JPanel();
+
 	public QuestionEditDialog(int width, int height, JFrame parent) {
 		super(width, height, parent);
+		layoutPanelAnswers();
+		layoutPanelButtons();
+		layoutPanelQuestionEdit();
 	}
 	
-	private void layoutPanelQuestionEdit() {
-		pnlQuestionEdit.setLayout(new GridBagLayout());
+
+	private void layoutPanelButtons() {
+		pnlButtons.setLayout(new GridLayout(1,2,2,2));
+		pnlButtons.add(btnCancel);
+		pnlButtons.add(btnSaveQuestion);
+	}
+	
+	private void layoutPanelAnswers() {
+		pnlAnswers.setLayout(new GridBagLayout());
+
+		pnlAnswers.add(lblAnsText, new GridBagConstraints(1, 0, 1, 1, 1, 1, GridBagConstraints.SOUTH,
+				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
+
+		pnlAnswers.add(lblAnsIsCorrect, new GridBagConstraints(2, 0, 1, 1, 1, 1, GridBagConstraints.SOUTH,
+				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
 
 		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
-			lblAnsList.add(new JLabel(ANSWER_TEXT + (i + 1)));
-			tfAnsList.add(new JTextField());
-			cbAnsList.add(new JCheckBox());
-		}
+			JTextArea ta = new JTextArea();
+			ta.setWrapStyleWord(true);
+			ta.setLineWrap(true);
+			ta.setPreferredSize(new Dimension(getWidth() - TA_ANS_MARGIN, TA_ANS_HEIGHT));
 
+			JScrollPane scrollPane = new JScrollPane(ta);
+			taAnsList.add(ta);
+
+			JLabel lbl = new JLabel(ANSWER_TEXT + String.valueOf(i + 1));
+			lblAnsList.add(lbl);
+
+			JCheckBox cb = new JCheckBox();
+			cbAnsList.add(cb);
+
+			pnlAnswers.add(lbl, new GridBagConstraints(0, i + 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
+					GridBagConstraints.VERTICAL, new Insets(0, 0, 0, 0), 1, 1));
+
+			pnlAnswers.add(scrollPane, new GridBagConstraints(1, i + 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
+					GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 1, 1));
+
+			pnlAnswers.add(cb, new GridBagConstraints(2, i + 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
+					GridBagConstraints.VERTICAL, new Insets(0, 0, 0, 0), 1, 1));
+
+		}
+	}
+
+	private void layoutPanelQuestionEdit() {
 		taQuestion.setWrapStyleWord(true);
 		taQuestion.setLineWrap(true);
-		taQuestion.setPreferredSize(new Dimension(this.getWidth(), 300));
+		taQuestion.setPreferredSize(
+				new Dimension(AppConstants.DIALOG_QUESTION_EDIT_WIDTH - TA_QUEST_MARGIN, TA_QUEST_HEIGHT));
+
 		JScrollPane scrollPane = new JScrollPane(taQuestion);
 
-		pnlQuestionEdit.setBorder(BorderFactory.createTitledBorder(AppConstants.QLDIALOG_PNL_QEDIT_BORDER_TITLE_RU));
+		pnlQuestionEdit.setLayout(new GridBagLayout());
 
-		// gridx, gridy, gridwidth, gridheight, weightx, weighty, anchor, fill,
-		// insets(top, left, botom, right), ipadx, ipady
+		pnlQuestionEdit.add(lblQuestText, new GridBagConstraints(0, 0, GridBagConstraints.REMAINDER, 1, 1, 1,
+				GridBagConstraints.WEST, GridBagConstraints.VERTICAL, new Insets(0, 2, 0, 2), 1, 1));
 
-		// 1st .. cbLevelsList.size() row
-		pnlQuestionEdit.add(scrollPane, new GridBagConstraints(0, 0, 2, 1, 1, 1,
-				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+		pnlQuestionEdit.add(scrollPane, new GridBagConstraints(0, 1, GridBagConstraints.REMAINDER, 1, 1, 1,
+				GridBagConstraints.CENTER, GridBagConstraints.VERTICAL, new Insets(0, 2, 0, 2), 1, 1));
 
-		pnlQuestionEdit.add(scrollPane, new GridBagConstraints(0, 0, 2, 1, 1, 1,
-				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+		pnlQuestionEdit.add(lblAvailibleSetName, new GridBagConstraints(0, 2, 1, 1, 1, 1, GridBagConstraints.WEST,
+				GridBagConstraints.HORIZONTAL, new Insets(0, 2, 0, 2), 1, 1));
 
-		//
-		pnlQuestionEdit.add(lblSpecName, new GridBagConstraints(0, 1, 1, 1, 0, 0,
-				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+		pnlQuestionEdit.add(cbAvailibleSetNames, new GridBagConstraints(0, 3, GridBagConstraints.REMAINDER, 1, 1, 1,
+				GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 2, 0, 2), 1, 1));
 
-		pnlQuestionEdit.add(cbSpecNames, new GridBagConstraints(1, 1, 1, 1, 1, 1,
-				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-
-		// cbLevelsList.size()+1 row
-		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
-			
-			tfAnsList.get(i).setPreferredSize(new Dimension(this.getWidth()-50, 100));
-			pnlQuestionEdit.add(lblAnsList.get(i), new GridBagConstraints(0, 1 + 1 + i, 1, 1, 0, 0,
-					GridBagConstraints.WEST, GridBagConstraints.CENTER, new Insets(0, 0, 0, 0), 0, 0));
-
-			pnlQuestionEdit.add(tfAnsList.get(i), new GridBagConstraints(1, 1 + 1 + i, 1, 1, 1, 0,
-					GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-
-			pnlQuestionEdit.add(cbAnsList.get(i), new GridBagConstraints(2, 1 + 1 + i, 1, 1, 0, 0,
-					GridBagConstraints.WEST, GridBagConstraints.CENTER, new Insets(0, 0, 0, 0), 0, 0));
-		}
-
-		// last row
-		pnlQuestionEdit.add(btnSaveQuestion, new GridBagConstraints(1, 1 + 2 + AppConstants.MAX_ANSWERS_AMOUNT, 1, 1, 0, 0,
-				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+		pnlQuestionEdit.add(pnlAnswers, new GridBagConstraints(0, 4, GridBagConstraints.REMAINDER, 1, 1, 1,
+				GridBagConstraints.CENTER, GridBagConstraints.VERTICAL, new Insets(0, 2, 0, 2), 1, 1));
 		
-		pnlQuestionEdit.add(btnCancel, new GridBagConstraints(2, 1 + 2 + AppConstants.MAX_ANSWERS_AMOUNT, 1, 1, 0, 0,
-				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-		
-		pnlQuestionEdit.setVisible(true);
+		pnlQuestionEdit.add(pnlButtons, new GridBagConstraints(0, 5, GridBagConstraints.REMAINDER, 1, 1, 1,
+				GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 2, 0, 2), 1, 1));
 
 	}
-	
-	
-	public ArrayList<JTextField> getTfAnsList() {
-		return tfAnsList;
+
+	public ArrayList<JLabel> getLblAnsList() {
+		return lblAnsList;
 	}
 
-	public void setTfAnsList(ArrayList<JTextField> tfAnsList) {
-		this.tfAnsList = tfAnsList;
+	public void setLblAnsList(ArrayList<JLabel> lblAnsList) {
+		this.lblAnsList = lblAnsList;
 	}
 
 	public ArrayList<JCheckBox> getCbAnsList() {
@@ -123,7 +153,7 @@ public class QuestionEditDialog extends CommonDialog{
 	public void setCbAnsList(ArrayList<JCheckBox> cbAnsList) {
 		this.cbAnsList = cbAnsList;
 	}
-	
+
 	public JTextArea getTaQuestion() {
 		return taQuestion;
 	}
@@ -131,7 +161,6 @@ public class QuestionEditDialog extends CommonDialog{
 	public void setTaQuestion(JTextArea taQuestion) {
 		this.taQuestion = taQuestion;
 	}
-
 
 	public JButton getBtnSaveQuestion() {
 		return btnSaveQuestion;
@@ -141,14 +170,13 @@ public class QuestionEditDialog extends CommonDialog{
 		this.btnSaveQuestion = btnSaveQuestion;
 	}
 
-	public JComboBox<String> getCbSpecNames() {
-		return cbSpecNames;
+	public JComboBox<String> getCbAvailibleSetNames() {
+		return cbAvailibleSetNames;
 	}
 
-	public void setCbSpecNames(JComboBox<String> cbSpecNames) {
-		this.cbSpecNames = cbSpecNames;
+	public void setCbAvailibleSetNames(JComboBox<String> cbAvailibleSetNames) {
+		this.cbAvailibleSetNames = cbAvailibleSetNames;
 	}
-	
 
 	public JButton getBtnCancel() {
 		return btnCancel;
@@ -160,11 +188,16 @@ public class QuestionEditDialog extends CommonDialog{
 
 	@Override
 	protected void layoutDialog() {
-		layoutPanelQuestionEdit();
-		
-		this.add(pnlQuestionEdit);
+		getContentPanel().add(pnlQuestionEdit);
 	}
 
+	public ArrayList<JTextArea> getTaAnsList() {
+		return taAnsList;
+	}
+
+	public void setTaAnsList(ArrayList<JTextArea> taAnsList) {
+		this.taAnsList = taAnsList;
+	}
 
 	@Override
 	protected String getSection() {
@@ -172,18 +205,16 @@ public class QuestionEditDialog extends CommonDialog{
 		return null;
 	}
 
-
 	@Override
 	protected String getTitleText() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-
 	@Override
 	protected void layoutPanelTop() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

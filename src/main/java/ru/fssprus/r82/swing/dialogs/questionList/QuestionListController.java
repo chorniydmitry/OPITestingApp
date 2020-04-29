@@ -278,15 +278,15 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 
 	@Override
 	public void addEntry(int index) {
-		// TODO Auto-generated method stub
+		DialogBuilder.showQuestionEditDialog(null);
+		dialog.dispose();
 		
 	}
 
 	@Override
 	public void edit() {
-		// TODO Auto-generated method stub
 		DialogBuilder.showQuestionEditDialog(currentQuestion);
-		
+		dialog.dispose();
 	}
 
 	@Override
