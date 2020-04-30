@@ -1,6 +1,7 @@
 package ru.fssprus.r82.dao.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -217,6 +218,38 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 	}
 
 	@Override
+	public Set<Question> getByNameAnswersAndQuestionSet(String name, Set<Answer> answers, QuestionSet set) {
+		Set<Question> questionList = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Question> criteriaQuery = builder.createQuery(Question.class);
+
+			Root<Question> root = criteriaQuery.from(Question.class);
+
+			List<Predicate> predicates = new ArrayList<Predicate>();
+			
+			predicates.add(builder.equal(root.get("title"), name));
+			
+			predicates.add(builder.equal(root.get("questionset"), set));
+			
+			predicates.add(root.joinSet("answers").in(answers));
+			
+			criteriaQuery.select(root).where(predicates.toArray(new Predicate[] {}));
+
+			Query<Question> query = session.createQuery(criteriaQuery);
+
+			questionList = new HashSet<>(query.getResultList());
+
+			session.close();
+
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
+		return questionList;
+	}
+
+	@Override
 	public List<Question> getByNameAndQuestionSetList(String name, Set<QuestionSet> sets) {
 		List<Question> questionList = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -244,7 +277,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 	public List<Question> getByNameSetListAndID(int startPos, int endPos, String name, Set<QuestionSet> sets, Long id) {
 		List<Question> questionList = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			
+
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Question> criteriaQuery = builder.createQuery(Question.class);
 
@@ -266,9 +299,9 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			criteriaQuery.select(root).where(predicates.toArray(new Predicate[] {}));
 
 			Query<Question> query = session.createQuery(criteriaQuery);
-			
+
 			if (!(endPos == -1) || !(startPos == -1)) {
-				
+
 				query.setFirstResult(startPos);
 				query.setMaxResults(endPos);
 			}
@@ -282,7 +315,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 		}
 		return questionList;
 	}
-	
+
 	@Override
 	public int countByQuestionSet(QuestionSet set) {
 		int returnValue = 0;
@@ -311,7 +344,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 	public int countByNameSetListAndID(String name, Set<QuestionSet> sets, Long id) {
 		int returnValue = 0;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			
+
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Object> criteriaQuery = builder.createQuery();
 
@@ -334,7 +367,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			criteriaQuery.where(predicates.toArray(new Predicate[] {}));
 
 			TypedQuery<Object> q = session.createQuery(criteriaQuery);
-			
+
 			returnValue = Integer.parseInt(q.getSingleResult().toString());
 
 			session.close();

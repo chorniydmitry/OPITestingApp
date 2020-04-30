@@ -19,6 +19,9 @@ public class MessageBox extends JOptionPane {
 	private static final long serialVersionUID = -2426219006577522299L;
 
 	private static final String READY = "Готово!";
+	private static final String ERROR_VALIDATION_HEADER = "ПРОБЛЕМЫ С ВАЛИДАЦИЕЙ ФОРМЫ";
+	private static final String ERROR_COMMON_HEADER = "ОШИБКА";
+	
 	private static final String ERROR_FILE_NOT_LOAD = "Ошибка при открытии файла! Если файл выбран верно и содержит "
 			+ "набор вопросов, возможно этот файл не соответствует шаблону! Загрузить шаблон можно по нажатию на "
 			+ "соответствующую кнопку внизу экрана!";
@@ -73,7 +76,6 @@ public class MessageBox extends JOptionPane {
 		panel.add(label);
 		panel.add(pass);
 		String[] options = new String[] { "OK", "Отменить" };
-		System.out.println(component.getClass());
 
 		int option = JOptionPane.showOptionDialog(component, panel, PASSWORD_INPUT_TITLE, JOptionPane.NO_OPTION,
 				JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
@@ -131,7 +133,11 @@ public class MessageBox extends JOptionPane {
 	}
 
 	public static void showValidationFaildMessage(Component component, String errorMessage) {
-		MessageBox.showMessageDialog(component, errorMessage, null, JOptionPane.ERROR_MESSAGE);
+		MessageBox.showMessageDialog(component, errorMessage, ERROR_VALIDATION_HEADER, JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public static void showCommonErrorMessage(Component component, String errorMessage) {
+		MessageBox.showMessageDialog(component, errorMessage, ERROR_COMMON_HEADER, JOptionPane.ERROR_MESSAGE);
 
 	}
 	

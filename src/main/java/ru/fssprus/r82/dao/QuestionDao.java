@@ -23,6 +23,8 @@ public interface QuestionDao extends ItemDao<Question> {
 	
 	public List<Question> getByNameAndQuestionSet(String name, QuestionSet set);
 	
+	public Set<Question> getByNameAnswersAndQuestionSet(String name, Set<Answer> answers, QuestionSet set);
+	
 	public int countItemsByQuestionSet(QuestionSet set);
 	
 	public int getAmountOfItems();

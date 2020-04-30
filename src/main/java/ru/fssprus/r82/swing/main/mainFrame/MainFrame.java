@@ -2,7 +2,6 @@ package ru.fssprus.r82.swing.main.mainFrame;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;

@@ -9,9 +9,6 @@ import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import javax.persistence.Column;
-import javax.validation.constraints.Size;
-
 public class AppConstants {
 	// Константы разделов приложения
 	public static final int SECTIONS_AMOUNT = 8;
@@ -73,7 +70,7 @@ public class AppConstants {
 	public static final int DIALOG_QUESTION_LIST_HEIGHT = 700;
 
 	public static final int DIALOG_QUESTION_EDIT_WIDTH = 800;
-	public static final int DIALOG_QUESTION_EDIT_HEIGHT = 600;
+	public static final int DIALOG_QUESTION_EDIT_HEIGHT = 768;
 
 	public static final int DIALOG_MANAGE_PASSWORDS_WIDTH = 600;
 	public static final int DIALOG_MANAGE_PASSWORDS_HEIGHT = 400;

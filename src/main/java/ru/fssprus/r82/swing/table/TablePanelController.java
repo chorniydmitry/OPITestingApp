@@ -1,8 +1,6 @@
 package ru.fssprus.r82.swing.table;
 
 import javax.swing.ListSelectionModel;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.Utils;
@@ -18,16 +16,16 @@ public class TablePanelController {
 	private UpdatableController subscriberController;
 	private boolean isEditing = false;
 	private boolean isReadyToSave = false;
-	
+
 	public TablePanelController(TablePanel tablePanel) {
 		this.tablePanel = tablePanel;
 		this.table = tablePanel.getTable();
 
 		setListeners();
-		
+
 		init();
 	}
-	
+
 	private void init() {
 		tablePanel.getBtnDelete().setEnabled(false);
 		tablePanel.getBtnEditAndSave().setEnabled(false);
@@ -36,10 +34,18 @@ public class TablePanelController {
 	}
 
 	private void setListeners() {
-		tablePanel.getBtnAdd().addActionListener(listener -> doAddAction());
-		tablePanel.getBtnDelete().addActionListener(listener -> doDeleteAction());
-		tablePanel.getBtnEditAndSave().addActionListener(listener -> doEditOrSaveAction());
-		tablePanel.getBtnCancel().addActionListener(listener -> doCancelAction());
+		if(tablePanel.isPanelTopShowing()) {
+			tablePanel.getBtnAdd().addActionListener(listener -> doAddAction());
+			tablePanel.getBtnDelete().addActionListener(listener -> doDeleteAction());
+			tablePanel.getBtnEditAndSave().addActionListener(listener -> doEditOrSaveAction());
+			tablePanel.getBtnCancel().addActionListener(listener -> doCancelAction());
+		}
+		
+		if (tablePanel.isPanelBottomShowing()) {
+			tablePanel.getBtnNext().addActionListener(listener -> doNextAction());
+			tablePanel.getBtnPrevious().addActionListener(listener -> doPreviousAction());
+			tablePanel.getTfPage().addActionListener(listener -> doChangePageAction());
+		}
 
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setSelectionForeground(AppConstants.TABLE_SELECTION_COLOR);
@@ -51,42 +57,42 @@ public class TablePanelController {
 	private void doTableRowChangedAction() {
 		if (table.getSelectedRows().length > 0) {
 			int[] selectedRow = table.getSelectedRows();
-			
+
 			table.setLastSelectedIndex(selectedRow[0]);
 			subscriberController.selectionChanged(selectedRow[0]);
 		}
-		
-		 updateButtons();
+
+		updateButtons();
 
 	}
-	
+
 	private void updateButtons() {
 		tablePanel.getBtnAdd().setEnabled(!isEditing);
-		
+
 		updateBtnDelete();
-		
+
 		updateButtonEditAndSave();
-		 
+
 		boolean isBtnCancelVisible = isEditing ? true : false;
 		tablePanel.getBtnCancel().setVisible(isBtnCancelVisible);
-		
+
 		table.setEnabled(!isEditing);
 		tablePanel.getTable().getTabModel().setEditing(isEditing);
 	}
-	
+
 	private void updateBtnDelete() {
-		if(table.getSelectedRow() == CommonTable.NO_ROWS_SELECTED)
+		if (table.getSelectedRow() == CommonTable.NO_ROWS_SELECTED)
 			tablePanel.getBtnDelete().setEnabled(false);
 		else {
 			tablePanel.getBtnDelete().setEnabled(!isEditing);
 		}
 	}
-	
+
 	private void updateButtonEditAndSave() {
 		String textForBtnEditAndSave = isEditing ? TablePanel.BTN_SAVE_CAPTION : TablePanel.BTN_EDIT_CAPTION;
 		tablePanel.getBtnEditAndSave().setText(textForBtnEditAndSave);
 		tablePanel.getBtnEditAndSave().setEnabled(!isEditing);
-		if(isEditing && !isReadyToSave || table.getSelectedRow() == CommonTable.NO_ROWS_SELECTED) {
+		if (isEditing && !isReadyToSave || table.getSelectedRow() == CommonTable.NO_ROWS_SELECTED) {
 			tablePanel.getBtnEditAndSave().setEnabled(false);
 		}
 	}
@@ -94,34 +100,35 @@ public class TablePanelController {
 	private void doAddAction() {
 		table.unselectAll();
 		table.getTabModel().uncolorAll();
-		
+
 		tablePanel.addRow(new Object[table.getTabModel().getColumnCount()]);
 		tablePanel.getTable().scrollTableDown();
 		this.subscriberController.addEntry(table.getRowCount());
-		
+
 		isEditing = true;
 		updateButtons();
 	}
 
 	private void doDeleteAction() {
 		int lastSelectedIndex = table.getLastSelectedIndex();
-		
-		if (lastSelectedIndex >= 0 && lastSelectedIndex <= table.getRowCount()) 
+
+		if (lastSelectedIndex >= 0 && lastSelectedIndex <= table.getRowCount())
 			subscriberController.delete(lastSelectedIndex);
-			
+
 		table.unselectAll();
 		isEditing = false;
 	}
 
 	private void doEditOrSaveAction() {
-		//BTN_SAVE_CAPTION
-		if(tablePanel.getBtnEditAndSave().getText() == TablePanel.BTN_EDIT_CAPTION) {
+		// BTN_SAVE_CAPTION
+		if (tablePanel.getBtnEditAndSave().getText() == TablePanel.BTN_EDIT_CAPTION) {
 			isEditing = true;
 			updateButtons();
 			subscriberController.edit();
 			return;
-	
-		} if(tablePanel.getBtnEditAndSave().getText() == TablePanel.BTN_SAVE_CAPTION) {
+
+		}
+		if (tablePanel.getBtnEditAndSave().getText() == TablePanel.BTN_SAVE_CAPTION) {
 			isEditing = false;
 			updateButtons();
 			subscriberController.save();
@@ -137,12 +144,12 @@ public class TablePanelController {
 
 	private void doChangePageAction() {
 		table.unselectAll();
-		if(Utils.isNumeric(tablePanel.getTfPage().getText()))
+		if (Utils.isNumeric(tablePanel.getTfPage().getText()))
 			subscriberController.goToPage(Integer.parseInt(tablePanel.getTfPage().getText()));
 		else {
 			tablePanel.getTfPage().setText("");
 		}
-		
+
 	}
 
 	private void doPreviousAction() {
@@ -179,5 +186,5 @@ public class TablePanelController {
 	public void setReadyToSave(boolean isReadyToSave) {
 		this.isReadyToSave = isReadyToSave;
 	}
-	
+
 }

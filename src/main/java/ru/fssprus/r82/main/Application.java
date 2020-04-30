@@ -11,9 +11,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import javax.swing.SwingUtilities;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -22,12 +19,10 @@ import javax.validation.ValidatorFactory;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
 
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Password;
 import ru.fssprus.r82.entity.Question;
-import ru.fssprus.r82.entity.QuestionSet;
 import ru.fssprus.r82.entity.Test;
 import ru.fssprus.r82.entity.TestSet;
 import ru.fssprus.r82.service.AnswerService;
@@ -36,7 +31,6 @@ import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.service.TestService;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.swing.main.mainFrame.MainFrame;
-import ru.fssprus.r82.utils.CheatingStopper;
 import ru.fssprus.r82.utils.CryptWithMD5;
 import ru.fssprus.r82.utils.HibernateUtil;
 

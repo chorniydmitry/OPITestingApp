@@ -1,6 +1,5 @@
 package ru.fssprus.r82.swing.dialogs.questionEdit;
 
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -23,6 +22,7 @@ import ru.fssprus.r82.utils.AppConstants;
 public class QuestionEditDialog extends CommonDialog {
 
 	private static final long serialVersionUID = -5920884439809017250L;
+	private static final String BTN_ADD_IMAGE_CAPTION = "Добавить изображение";
 	private static final String BTN_SAVE_CAPTION = "Сохранить изменения";
 	private static final String BTN_CANCEL_CAPTION = "Отменить и выйти";
 	private static final String LBL_SPECIFICATION_CAPTION = "Входит в набор вопросов:";
@@ -31,13 +31,15 @@ public class QuestionEditDialog extends CommonDialog {
 	private static final String LBL_ANS_ISCORRECT_CAPTION = "Верный?";
 
 	private static final String ANSWER_TEXT = "Ответ #";
-	private static final int TA_ANS_HEIGHT = 70;
-	private static final int TA_ANS_MARGIN = 150;
+	private static final int TA_ANS_COLUMNS = 60;
+	private static final int TA_ANS_ROWS = 5;
 
-	private static final int TA_QUEST_HEIGHT = 100;
-	private static final int TA_QUEST_MARGIN = 10;
+	private static final int TA_QUEST_COLUMNS = 70;
+	private static final int TA_QUEST_ROWS = 15;
 
 	private JLabel lblQuestText = new JLabel(LBL_QUEST_TEXT_CAPTION);
+	
+	private JButton btnAddImage = new JGreenButton(BTN_ADD_IMAGE_CAPTION);
 
 	private JLabel lblAnsText = new JLabel(LBL_ANS_TEXT_CAPTION);
 	private JLabel lblAnsIsCorrect = new JLabel(LBL_ANS_ISCORRECT_CAPTION);
@@ -52,7 +54,7 @@ public class QuestionEditDialog extends CommonDialog {
 	private JLabel lblAvailibleSetName = new JLabel(LBL_SPECIFICATION_CAPTION);
 	private JComboBox<String> cbAvailibleSetNames = new JComboBox<>();
 
-	private JTextArea taQuestion = new JTextArea();
+	private JTextArea taQuestion = new JTextArea(TA_QUEST_ROWS, TA_QUEST_COLUMNS);
 
 	private JPanel pnlQuestionEdit = new JPanel();
 	private JPanel pnlAnswers = new JPanel();
@@ -67,7 +69,7 @@ public class QuestionEditDialog extends CommonDialog {
 	
 
 	private void layoutPanelButtons() {
-		pnlButtons.setLayout(new GridLayout(1,2,2,2));
+		pnlButtons.setLayout(new GridLayout(1, 2, 2, 2));
 		pnlButtons.add(btnCancel);
 		pnlButtons.add(btnSaveQuestion);
 	}
@@ -82,10 +84,10 @@ public class QuestionEditDialog extends CommonDialog {
 				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
 
 		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
-			JTextArea ta = new JTextArea();
+			JTextArea ta = new JTextArea(TA_ANS_ROWS, TA_ANS_COLUMNS);
 			ta.setWrapStyleWord(true);
 			ta.setLineWrap(true);
-			ta.setPreferredSize(new Dimension(getWidth() - TA_ANS_MARGIN, TA_ANS_HEIGHT));
+			
 
 			JScrollPane scrollPane = new JScrollPane(ta);
 			taAnsList.add(ta);
@@ -111,30 +113,31 @@ public class QuestionEditDialog extends CommonDialog {
 	private void layoutPanelQuestionEdit() {
 		taQuestion.setWrapStyleWord(true);
 		taQuestion.setLineWrap(true);
-		taQuestion.setPreferredSize(
-				new Dimension(AppConstants.DIALOG_QUESTION_EDIT_WIDTH - TA_QUEST_MARGIN, TA_QUEST_HEIGHT));
-
+		
 		JScrollPane scrollPane = new JScrollPane(taQuestion);
 
 		pnlQuestionEdit.setLayout(new GridBagLayout());
 
 		pnlQuestionEdit.add(lblQuestText, new GridBagConstraints(0, 0, GridBagConstraints.REMAINDER, 1, 1, 1,
 				GridBagConstraints.WEST, GridBagConstraints.VERTICAL, new Insets(0, 2, 0, 2), 1, 1));
+		
+		pnlQuestionEdit.add(btnAddImage, new GridBagConstraints(0, 1, GridBagConstraints.REMAINDER, 1, 1, 1,
+				GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 2, 0, 2), 1, 1));
 
-		pnlQuestionEdit.add(scrollPane, new GridBagConstraints(0, 1, GridBagConstraints.REMAINDER, 1, 1, 1,
-				GridBagConstraints.CENTER, GridBagConstraints.VERTICAL, new Insets(0, 2, 0, 2), 1, 1));
+		pnlQuestionEdit.add(scrollPane, new GridBagConstraints(0, 2, GridBagConstraints.REMAINDER, 1, 1, 1,
+				GridBagConstraints.WEST, GridBagConstraints.VERTICAL, new Insets(0, 2, 0, 2), 1, 1));
 
-		pnlQuestionEdit.add(lblAvailibleSetName, new GridBagConstraints(0, 2, 1, 1, 1, 1, GridBagConstraints.WEST,
+		pnlQuestionEdit.add(lblAvailibleSetName, new GridBagConstraints(0, 3, 1, 1, 1, 1, GridBagConstraints.WEST,
 				GridBagConstraints.HORIZONTAL, new Insets(0, 2, 0, 2), 1, 1));
 
-		pnlQuestionEdit.add(cbAvailibleSetNames, new GridBagConstraints(0, 3, GridBagConstraints.REMAINDER, 1, 1, 1,
+		pnlQuestionEdit.add(cbAvailibleSetNames, new GridBagConstraints(0, 4, GridBagConstraints.REMAINDER, 1, 1, 1,
 				GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 2, 0, 2), 1, 1));
 
-		pnlQuestionEdit.add(pnlAnswers, new GridBagConstraints(0, 4, GridBagConstraints.REMAINDER, 1, 1, 1,
+		pnlQuestionEdit.add(pnlAnswers, new GridBagConstraints(0, 5, GridBagConstraints.REMAINDER, 1, 1, 1,
 				GridBagConstraints.CENTER, GridBagConstraints.VERTICAL, new Insets(0, 2, 0, 2), 1, 1));
 		
-		pnlQuestionEdit.add(pnlButtons, new GridBagConstraints(0, 5, GridBagConstraints.REMAINDER, 1, 1, 1,
-				GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 2, 0, 2), 1, 1));
+		pnlQuestionEdit.add(pnlButtons, new GridBagConstraints(0, 6, GridBagConstraints.REMAINDER, 1, 1, 1,
+				GridBagConstraints.SOUTH, GridBagConstraints.BOTH, new Insets(0, 2, 0, 2), 1, 1));
 
 	}
 
@@ -197,6 +200,15 @@ public class QuestionEditDialog extends CommonDialog {
 
 	public void setTaAnsList(ArrayList<JTextArea> taAnsList) {
 		this.taAnsList = taAnsList;
+	}
+	
+	public JButton getBtnAddImage() {
+		return btnAddImage;
+	}
+
+
+	public void setBtnAddImage(JButton btnAddImage) {
+		this.btnAddImage = btnAddImage;
 	}
 
 	@Override

@@ -13,7 +13,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -23,7 +22,6 @@ import javax.validation.ValidatorFactory;
 
 import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.QuestionSet;
-import ru.fssprus.r82.entity.Test;
 import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.service.TestService;

@@ -18,7 +18,6 @@ import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.swing.utils.MessageBox;
-import ru.fssprus.r82.utils.AppConstants;
 
 public class QuestionEditController extends CommonController<QuestionEditDialog> {
 
@@ -30,7 +29,7 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 		this.questionToEdit = questionToEdit;
 		
 		fillCbsWithAvailibleSets();
-		
+			
 		loadQuestion();
 	}
 
@@ -38,6 +37,7 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 	protected void setListeners() {
 		dialog.getBtnCancel().addActionListener(l -> btnCancelAction());
 		dialog.getBtnSaveQuestion().addActionListener(l -> btnSaveAction());
+		dialog.getBtnAddImage().addActionListener(l -> btnAddImageAction());
 	}
 
 	private void btnCancelAction() {
@@ -52,9 +52,22 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 
 		QuestionService qService = new QuestionService();
 		if (checkQuestionToSave()) {
-			qService.update(questionToEdit.getId(), questionToEdit);
+			System.out.println(questionToEdit.getId());
+			
+			if(questionToEdit.getId() != null)
+				qService.update(questionToEdit.getId(), questionToEdit);
+			else qService.save(questionToEdit);
+			
+			dialog.dispose();
+			
 			DialogBuilder.showQuestionListDialog();
+			
 		}
+	}
+
+	//TODO:
+	private void btnAddImageAction() {
+		MessageBox.showCommonErrorMessage(dialog, "Функционал пока не доступен!");
 	}
 
 	private void fillCbsWithAvailibleSets() {
@@ -126,7 +139,6 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 		return sets.size() == 0 ? null : sets.get(0); 
 	}
 
-	// CHEKING
 	private boolean checkQuestionToSave() {
 		String errorMessage = "";
 
@@ -164,92 +176,6 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 			allViolations.addAll(validator.validate(ans));
 
 		return allViolations;
-	}
-
-	// ------------------------------------------
-
-	private void checkAnswers() {
-		List<Answer> answers = getAnswersFromQuestionEditUI();
-		answers.forEach(a -> System.out.println(a));
-
-		Question question = answers.get(0).getQuestion();
-		System.out.println(question);
-	}
-
-	// OLD UNCHECKED BELOW
-
-	// TODO сделать нормальную валидацию
-	private boolean validateQuestionSave() {
-		// Валидация текста вопроса
-		// Длина текста вопроса слишком маленькая
-		if (dialog.getTaQuestion().getText().length() < AppConstants.QUESTION_TEXT_MIN_LENGTH)
-			return false;
-
-		// ----------------
-		// Валидация ответов
-		boolean isAnyAnswerAsCorrectSelected = false;
-		int amountOfAnswers = 0;
-		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
-			String currAnswer = dialog.getTaAnsList().get(i).getText();
-
-			if (!currAnswer.isEmpty()) {
-				amountOfAnswers++;
-				// Пустой вопрос помечен как верный
-			} else if (dialog.getCbAnsList().get(i).isSelected()) {
-				return false;
-			}
-
-			if (dialog.getCbAnsList().get(i).isSelected())
-				isAnyAnswerAsCorrectSelected = true;
-		}
-		// Не заполнено минимальное количество ответов
-		if (amountOfAnswers < AppConstants.MIN_ANSWERS_AMOUNT)
-			return false;
-
-		// Ни один из ответов не помечен как верный
-		if (!isAnyAnswerAsCorrectSelected)
-			return false;
-
-		// ----------------
-		// Валидация спецализации
-		// Не заполнена специализация
-		if (dialog.getCbAvailibleSetNames().getSelectedItem().toString().isEmpty())
-			return false;
-
-		return true;
-
-	}
-
-	private Question configureQuestionFromQuestionEditUI() {
-		Question question = new Question();
-
-		if (questionToEdit.getId() != null)
-			question.setId(questionToEdit.getId());
-
-		question.setTitle(qetQuestionTitleFromQuestionEditUI());
-
-		question.setAnswers(new HashSet<Answer>(getAnswersFromQuestionEditUI()));
-
-		question.setQuestionSet(getQuestionSetFromQuestionEditUI());
-
-		return question;
-	}
-
-	private void doSaveQuestionAction() {
-		if (!validateQuestionSave()) {
-			MessageBox.showWrongQuestionSpecifiedErrorDialog(dialog);
-			return;
-		}
-
-		QuestionService service = new QuestionService();
-		Question questionToSave = configureQuestionFromQuestionEditUI();
-
-		if (questionToSave.getId() == null)
-			service.save(questionToSave);
-		else
-			service.update(questionToSave.getId(), questionToSave);
-
-		// blockQuestionEditPanel(true);
 	}
 
 }

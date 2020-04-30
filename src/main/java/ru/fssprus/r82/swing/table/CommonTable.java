@@ -146,4 +146,36 @@ public class CommonTable extends JTable {
 		}
 	}
 
+
+	public Color getForeground() {
+		return foreground;
+	}
+
+	public void setForeground(Color foreground) {
+		this.foreground = foreground;
+	}
+
+	public Color getForegroundSelected() {
+		return foregroundSelected;
+	}
+
+	public void setForegroundSelected(Color foregroundSelected) {
+		this.foregroundSelected = foregroundSelected;
+	}
+
+	public Color getBackground() {
+		return background;
+	}
+
+	public void setBackground(Color background) {
+		this.background = background;
+	}
+
+	public Color getBackgroundSelected() {
+		return backgroundSelected;
+	}
+
+	public void setBackgroundSelected(Color backgroundSelected) {
+		this.backgroundSelected = backgroundSelected;
+	}
 }

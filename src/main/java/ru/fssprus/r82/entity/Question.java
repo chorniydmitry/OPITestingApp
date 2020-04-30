@@ -60,6 +60,18 @@ public class Question extends Model {
 		this.questionset = questionSet;
 	}
 
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((answers == null) ? 0 : answers.hashCode());
+		result = prime * result + ((questionset == null) ? 0 : questionset.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		return result;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

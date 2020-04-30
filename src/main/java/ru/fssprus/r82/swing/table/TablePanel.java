@@ -252,4 +252,21 @@ public class TablePanel extends JPanel {
 	public void setTable(CommonTable commonTable) {
 		this.table = commonTable;
 	}
+
+	public boolean isPanelTopShowing() {
+		return isPanelTopShowing;
+	}
+
+	public void setPanelTopShowing(boolean isPanelTopShowing) {
+		this.isPanelTopShowing = isPanelTopShowing;
+	}
+
+	public boolean isPanelBottomShowing() {
+		return isPanelBottomShowing;
+	}
+
+	public void setPanelBottomShowing(boolean isPanelBottomShowing) {
+		this.isPanelBottomShowing = isPanelBottomShowing;
+	}
+	
 }

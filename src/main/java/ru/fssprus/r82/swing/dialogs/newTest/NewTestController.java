@@ -5,7 +5,6 @@ package ru.fssprus.r82.swing.dialogs.newTest;
  *
  */
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -14,10 +13,8 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import ru.fssprus.r82.entity.QuestionSet;
 import ru.fssprus.r82.entity.Test;
 import ru.fssprus.r82.entity.User;
-import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.service.TestService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;

@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.jopendocument.dom.template.statements.ForEach;
+
 import ru.fssprus.r82.dao.QuestionDao;
 import ru.fssprus.r82.dao.impl.QuestionDatabaseDao;
 import ru.fssprus.r82.entity.Answer;
@@ -61,11 +63,23 @@ public class QuestionService {
 	public List<Question> getAll(int startPos, int endPos) {
 		return questionDao.getAll(startPos, endPos);
 	}
-
-	public void addFilteringExistant(HashSet<Question> questions) {
-		for (Question question : questions)
-			addFilteringExistant(question);
+	
+	public Set<Question> getByNameAnswersAndQuestionSet(String name, Set<Answer> answers, QuestionSet set) {
+		return questionDao.getByNameAnswersAndQuestionSet(name, answers, set);
 	}
+	
+	//TODO DODODO
+	public void addAll(HashSet<Question> questions) {
+		for (Question question : questions) {
+			questionDao.getByNameAnswersAndQuestionSet(question.getTitle(), question.getAnswers(), question.getQuestionSet());
+			
+		}
+	}
+
+//	public void addFilteringExistant(HashSet<Question> questions) {
+//		for (Question question : questions)
+//			addFilteringExistant(question);
+//	}
 
 	public void save(Question questionToSave) {
 		QuestionSetService service = new QuestionSetService();
@@ -75,7 +89,8 @@ public class QuestionService {
 
 		questionDao.add(questionToSave);
 	}
-
+	
+//FIXME
 	public void update(Long id, Question questionModified) {
 		Question question = questionDao.getById(id);
 		AnswerService ansService = new AnswerService();
@@ -91,37 +106,37 @@ public class QuestionService {
 	}
 
 //FIXME вынести
-	public void addFilteringExistant(Question question) {
-		List<Question> questionsFound = questionDao.getByTitle(-1, -1, question.getTitle());
-
-		int AnsOverlaps = 0;
-		// Если в БД уже есть вопрос с такой формулировкой
-		if (questionsFound.size() > 0) {
-			// проверяем, совпадают ли ответы
-			for (Answer answerFound : questionsFound.get(0).getAnswers()) {
-				for (Answer answerQuest : question.getAnswers()) {
-					if (answerQuest.getTitle().equals(answerFound.getTitle()))
-						AnsOverlaps++;
-				}
-			}
-		}
-
-		if (AnsOverlaps != question.getAnswers().size()) {
-			QuestionSetService sService = new QuestionSetService();
-			String setName = question.getQuestionSet().getName();
-
-			QuestionSet set = null;
-			if (sService.getByName(setName) != null)
-				set = sService.getByName(setName).get(0);
-			else {
-				set = new QuestionSet();
-				set.setName(setName);
-			}
-
-			question.setQuestionSet(set);
-			save(question);
-		}
-	}
+//	public void addFilteringExistant(Question question) {
+//		List<Question> questionsFound = questionDao.getByTitle(-1, -1, question.getTitle());
+//
+//		int ansOverlaps = 0;
+//		// Если в БД уже есть вопрос с такой формулировкой
+//		if (questionsFound.size() > 0) {
+//			// проверяем, совпадают ли ответы
+//			for (Answer answerFound : questionsFound.get(0).getAnswers()) {
+//				for (Answer answerQuest : question.getAnswers()) {
+//					if (answerQuest.getTitle().equals(answerFound.getTitle()))
+//						ansOverlaps++;
+//				}
+//			}
+//		}
+//
+//		if (ansOverlaps != question.getAnswers().size()) {
+//			QuestionSetService sService = new QuestionSetService();
+//			String setName = question.getQuestionSet().getName();
+//
+//			QuestionSet set = null;
+//			if (sService.getByName(setName) != null)
+//				set = sService.getByName(setName).get(0);
+//			else {
+//				set = new QuestionSet();
+//				set.setName(setName);
+//			}
+//
+//			question.setQuestionSet(set);
+//			save(question);
+//		}
+//	}
 
 	public int countAll() {
 		return questionDao.getAmountOfItems();

@@ -1,6 +1,5 @@
 package ru.fssprus.r82.swing.dialogs.questionList;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,7 +11,6 @@ import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
-import ru.fssprus.r82.swing.table.MultilineCellRenderer;
 import ru.fssprus.r82.swing.table.TablePanelController;
 import ru.fssprus.r82.swing.table.UpdatableController;
 import ru.fssprus.r82.swing.utils.MessageBox;
@@ -31,7 +29,6 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	private List<Question> questionsOnScreenList;
 
 	private Question currentQuestion = null;
-	private boolean questionEditing = false;
 
 	private int totalQuestions;
 
