@@ -152,7 +152,7 @@ public abstract class AbstractHibernateDao<T extends Model> {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-			session.update(model);
+			session.merge(model);
 			session.flush();
 			transaction.commit();
 		} catch (HibernateException e) {

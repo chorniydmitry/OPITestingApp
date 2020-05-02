@@ -240,6 +240,7 @@ public class AppConstants {
 			+ MIN_ANSWERS_AMOUNT + " ... " + MAX_ANSWERS_AMOUNT + "]";
 	public static final String VALID_QUEST_QUESTIONSET_NOTNULL = "Для вопроса не выбран набор вопросов, новый набор вопросов можно предворительно создать в соответствующей форме!";
 	public static final String VALID_QUEST_ANSWERS_AMOUNT = "Для вопроса должно быть как минимум " + MIN_ANSWERS_AMOUNT + ", но не более " + MAX_ANSWERS_AMOUNT + " заполненных ответов!";
+	public static final String VALID_QUEST_NO_CORRECT_ANSWER = "Для вопроса должен быть выбран по крайней мере один правильный ответ!";
 	
 	/*
 	 * FOR ANSWER ENTITY

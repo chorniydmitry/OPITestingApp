@@ -1,10 +1,17 @@
 package ru.fssprus.r82.swing.dialogs.questionEdit;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -18,6 +25,7 @@ import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.swing.utils.MessageBox;
+import ru.fssprus.r82.utils.AppConstants;
 
 public class QuestionEditController extends CommonController<QuestionEditDialog> {
 
@@ -27,9 +35,9 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 		super(dialog);
 
 		this.questionToEdit = questionToEdit;
-		
+
 		fillCbsWithAvailibleSets();
-			
+
 		loadQuestion();
 	}
 
@@ -47,29 +55,72 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 
 	private void btnSaveAction() {
 		questionToEdit.setAnswers(new HashSet<>(getAnswersFromQuestionEditUI()));
+		
+		System.out.println(getAnswersFromQuestionEditUI().size());
+		System.out.println(questionToEdit.getAnswers().size());
+		
+		
 		questionToEdit.setTitle(qetQuestionTitleFromQuestionEditUI());
 		questionToEdit.setQuestionSet(getQuestionSetFromQuestionEditUI());
 
 		QuestionService qService = new QuestionService();
 		if (checkQuestionToSave()) {
-			System.out.println(questionToEdit.getId());
-			
-			if(questionToEdit.getId() != null)
-				qService.update(questionToEdit.getId(), questionToEdit);
-			else qService.save(questionToEdit);
-			
+
+			if (questionToEdit.getId() != null)
+				qService.update(questionToEdit);
+			else
+				qService.save(questionToEdit);
+
 			dialog.dispose();
-			
+
 			DialogBuilder.showQuestionListDialog();
-			
+
 		}
 	}
 
-	//TODO:
-	private void btnAddImageAction() {
-		MessageBox.showCommonErrorMessage(dialog, "Функционал пока не доступен!");
-	}
+	// TODO:
+	private void btnAddImageAction(){
+		//MessageBox.showCommonErrorMessage(dialog, "Функционал пока не доступен!");
+		int caretPos = dialog.getTaQuestion().getCaretPosition();
+		String currentText = dialog.getTaQuestion().getText();
 
+		File fileSelected = selectImageFile();
+		File newFile = copySelectedFile(fileSelected);
+		
+		String fileTag = "<img src=\""+newFile.getAbsolutePath()+"\">";
+		
+		StringBuffer buffer = new StringBuffer(currentText);
+		buffer.insert(caretPos, fileTag);
+		
+		dialog.getTaQuestion().setText(buffer.toString());
+		
+	   
+	}
+	 
+	private File selectImageFile() {
+		JFileChooser fChooser = new JFileChooser();
+		fChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		fChooser.setMultiSelectionEnabled(false);
+		fChooser.setAcceptAllFileFilterUsed(false);
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG, PNG and GIF images", "jpg", "jpeg", "png", "gif");
+		fChooser.addChoosableFileFilter(filter);
+		int selection = fChooser.showOpenDialog(dialog);
+		if (selection == JFileChooser.APPROVE_OPTION) {
+			return fChooser.getSelectedFile();
+		} else return null;
+	}
+	
+	private File copySelectedFile(File selectedFile) {
+		try {
+			File toSaveFile = new File("images/quest_illustration_" + System.currentTimeMillis() + "." + selectedFile.getName().split("\\.")[1]);
+			Files.copy(selectedFile.toPath(), toSaveFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			return toSaveFile;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	private void fillCbsWithAvailibleSets() {
 		QuestionSetService setService = new QuestionSetService();
 		List<QuestionSet> questionSets = setService.getAll();
@@ -81,17 +132,19 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 	}
 
 	private void loadQuestion() {
-		if(questionToEdit == null)
+		if (questionToEdit == null)
 			configuteBlankQuestion();
+		
+		System.out.println(questionToEdit);
 		dialog.getTaQuestion().setText(questionToEdit.getTitle());
 		setAnswersToUI(questionToEdit);
 		setQuestionSetToUI();
 	}
-	
+
 	private void configuteBlankQuestion() {
 		questionToEdit = new Question();
 		questionToEdit.setAnswers(new HashSet<>());
-		questionToEdit.setQuestionSet(new QuestionSet());;
+		questionToEdit.setQuestionSet(new QuestionSet());
 	}
 
 	private void setQuestionSetToUI() {
@@ -133,10 +186,10 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 	private QuestionSet getQuestionSetFromQuestionEditUI() {
 		QuestionSetService setService = new QuestionSetService();
 
-		List<QuestionSet> sets = setService.getByName(
-				String.valueOf(dialog.getCbAvailibleSetNames().getSelectedItem()));
+		List<QuestionSet> sets = setService
+				.getByName(String.valueOf(dialog.getCbAvailibleSetNames().getSelectedItem()));
 
-		return sets.size() == 0 ? null : sets.get(0); 
+		return sets.size() == 0 ? null : sets.get(0);
 	}
 
 	private boolean checkQuestionToSave() {
@@ -161,8 +214,20 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 		for (ConstraintViolation<Answer> violation : answersViolations)
 			errorMessage += violation.getMessage() + "\n";
 
+		errorMessage += "\n";
+
+		if (!checkIfCorrectAnswerIsSet())
+			errorMessage += AppConstants.VALID_QUEST_NO_CORRECT_ANSWER + "\n";
+
 		MessageBox.showValidationFaildMessage(dialog, errorMessage);
 
+		return false;
+	}
+
+	private boolean checkIfCorrectAnswerIsSet() {
+		for (JCheckBox cb : dialog.getCbAnsList())
+			if (cb.isSelected())
+				return true;
 		return false;
 	}
 

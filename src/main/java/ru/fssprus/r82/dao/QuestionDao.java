@@ -23,7 +23,7 @@ public interface QuestionDao extends ItemDao<Question> {
 	
 	public List<Question> getByNameAndQuestionSet(String name, QuestionSet set);
 	
-	public Set<Question> getByNameAnswersAndQuestionSet(String name, Set<Answer> answers, QuestionSet set);
+	public List<Question> getByNameAnswersAndQuestionSet(String name, Set<Answer> answers, QuestionSet set);
 	
 	public int countItemsByQuestionSet(QuestionSet set);
 	
@@ -36,6 +36,8 @@ public interface QuestionDao extends ItemDao<Question> {
 	public List<Question> getByNameSetListAndID(int startPos, int endPos, String name, Set<QuestionSet> sets, Long id);
 	
 	public int countByNameSetListAndID(String name, Set<QuestionSet> sets, Long id);
+
+	public boolean hasDuplicates(Question question);
 	
 	
 

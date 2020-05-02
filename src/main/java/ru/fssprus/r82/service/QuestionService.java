@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.jopendocument.dom.template.statements.ForEach;
-
 import ru.fssprus.r82.dao.QuestionDao;
 import ru.fssprus.r82.dao.impl.QuestionDatabaseDao;
 import ru.fssprus.r82.entity.Answer;
@@ -64,79 +62,30 @@ public class QuestionService {
 		return questionDao.getAll(startPos, endPos);
 	}
 	
-	public Set<Question> getByNameAnswersAndQuestionSet(String name, Set<Answer> answers, QuestionSet set) {
+	public List<Question> getByNameAnswersAndQuestionSet(String name, Set<Answer> answers, QuestionSet set) {
 		return questionDao.getByNameAnswersAndQuestionSet(name, answers, set);
 	}
 	
-	//TODO DODODO
-	public void addAll(HashSet<Question> questions) {
+	public void addAllNoDuplicates(HashSet<Question> questions) {
 		for (Question question : questions) {
-			questionDao.getByNameAnswersAndQuestionSet(question.getTitle(), question.getAnswers(), question.getQuestionSet());
-			
+			System.out.println(":::::"+question);
+			if(!questionDao.hasDuplicates(question))
+				questionDao.add(question);
 		}
 	}
 
-//	public void addFilteringExistant(HashSet<Question> questions) {
-//		for (Question question : questions)
-//			addFilteringExistant(question);
-//	}
-
 	public void save(Question questionToSave) {
-		QuestionSetService service = new QuestionSetService();
-
-		if (service.getByName(questionToSave.getQuestionSet().getName()) == null)
-			service.save(questionToSave.getQuestionSet());
-
 		questionDao.add(questionToSave);
 	}
 	
-//FIXME
-	public void update(Long id, Question questionModified) {
-		Question question = questionDao.getById(id);
+	public void update(Question questionModified) {
+		Question question = questionDao.getById(questionModified.getId());
 		AnswerService ansService = new AnswerService();
-		if (question == null)
-			question = new Question();
-
-		question.getAnswers().forEach((n) -> ansService.delete(n));
+		question.getAnswers().forEach((n)-> ansService.delete(n));
 		question.setAnswers(new HashSet<Answer>(questionModified.getAnswers()));
-		question.setQuestionSet(questionModified.getQuestionSet());
-		question.setTitle(questionModified.getTitle());
-
-		questionDao.update(question);
+		
+		questionDao.update(questionModified);
 	}
-
-//FIXME вынести
-//	public void addFilteringExistant(Question question) {
-//		List<Question> questionsFound = questionDao.getByTitle(-1, -1, question.getTitle());
-//
-//		int ansOverlaps = 0;
-//		// Если в БД уже есть вопрос с такой формулировкой
-//		if (questionsFound.size() > 0) {
-//			// проверяем, совпадают ли ответы
-//			for (Answer answerFound : questionsFound.get(0).getAnswers()) {
-//				for (Answer answerQuest : question.getAnswers()) {
-//					if (answerQuest.getTitle().equals(answerFound.getTitle()))
-//						ansOverlaps++;
-//				}
-//			}
-//		}
-//
-//		if (ansOverlaps != question.getAnswers().size()) {
-//			QuestionSetService sService = new QuestionSetService();
-//			String setName = question.getQuestionSet().getName();
-//
-//			QuestionSet set = null;
-//			if (sService.getByName(setName) != null)
-//				set = sService.getByName(setName).get(0);
-//			else {
-//				set = new QuestionSet();
-//				set.setName(setName);
-//			}
-//
-//			question.setQuestionSet(set);
-//			save(question);
-//		}
-//	}
 
 	public int countAll() {
 		return questionDao.getAmountOfItems();

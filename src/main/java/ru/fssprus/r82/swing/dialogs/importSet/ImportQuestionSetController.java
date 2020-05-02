@@ -158,7 +158,7 @@ public class ImportQuestionSetController extends CommonController<ImportQuestion
 		if(!validateSetFileOpenning() || questionsParsed == null)
 			return;
 
-		saveQuestionSetToDB(getQuestionsParsed());
+		saveQuestionSetToDB(questionsParsed);
 
 		MessageBox.showReadyDialog(dialog);
 	}
@@ -215,14 +215,14 @@ public class ImportQuestionSetController extends CommonController<ImportQuestion
 	 * @return
 	 */
 	private QuestionSet getQuestionSet() {
-		QuestionSet set = new QuestionSet();
-		set.setName(dialog.getCbSpecName().getSelectedItem().toString());
+		String title = dialog.getCbSpecName().getSelectedItem().toString();
+		QuestionSet set = new QuestionSetService().getUniqueByName(title);
 		return set;
 	}
 
 	private void saveQuestionSetToDB(HashSet<Question> questions) {
 		QuestionService qService = new QuestionService();
-		qService.addFilteringExistant(questions);
+		qService.addAllNoDuplicates(questions);
 	}
 
 }

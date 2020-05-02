@@ -218,7 +218,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 	}
 
 	@Override
-	public Set<Question> getByNameAnswersAndQuestionSet(String name, Set<Answer> answers, QuestionSet set) {
+	public List<Question> getByNameAnswersAndQuestionSet(String name, Set<Answer> answers, QuestionSet set) {
 		Set<Question> questionList = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
@@ -228,13 +228,13 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			Root<Question> root = criteriaQuery.from(Question.class);
 
 			List<Predicate> predicates = new ArrayList<Predicate>();
-			
+
 			predicates.add(builder.equal(root.get("title"), name));
-			
+
 			predicates.add(builder.equal(root.get("questionset"), set));
-			
+
 			predicates.add(root.joinSet("answers").in(answers));
-			
+
 			criteriaQuery.select(root).where(predicates.toArray(new Predicate[] {}));
 
 			Query<Question> query = session.createQuery(criteriaQuery);
@@ -243,10 +243,17 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 
 			session.close();
 
-		} catch (HibernateException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			return new ArrayList<>();
 		}
-		return questionList;
+		return new ArrayList<>(questionList);
+	}
+
+	@Override
+	public boolean hasDuplicates(Question question) {
+		return getByNameAnswersAndQuestionSet(question.getTitle(), question.getAnswers(), question.getQuestionSet())
+				.size() > 0 ? true : false;
 	}
 
 	@Override
