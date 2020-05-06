@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import ru.fssprus.r82.swing.dialogs.CommonDialog;
 import ru.fssprus.r82.swing.utils.JGreenButton;
@@ -40,6 +41,8 @@ public class QuestionEditDialog extends CommonDialog {
 	private JLabel lblQuestText = new JLabel(LBL_QUEST_TEXT_CAPTION);
 	
 	private JButton btnAddImage = new JGreenButton(BTN_ADD_IMAGE_CAPTION);
+	
+	private JTextField tfImageLink = new JTextField(50);
 
 	private JLabel lblAnsText = new JLabel(LBL_ANS_TEXT_CAPTION);
 	private JLabel lblAnsIsCorrect = new JLabel(LBL_ANS_ISCORRECT_CAPTION);
@@ -121,7 +124,10 @@ public class QuestionEditDialog extends CommonDialog {
 		pnlQuestionEdit.add(lblQuestText, new GridBagConstraints(0, 0, GridBagConstraints.REMAINDER, 1, 1, 1,
 				GridBagConstraints.WEST, GridBagConstraints.VERTICAL, new Insets(0, 2, 0, 2), 1, 1));
 		
-		pnlQuestionEdit.add(btnAddImage, new GridBagConstraints(0, 1, GridBagConstraints.REMAINDER, 1, 1, 1,
+		pnlQuestionEdit.add(btnAddImage, new GridBagConstraints(0, 1, 1, 1, 1, 1,
+				GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 2, 0, 2), 1, 1));
+		
+		pnlQuestionEdit.add(tfImageLink, new GridBagConstraints(1, 1, GridBagConstraints.REMAINDER, 1, 1, 1,
 				GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 2, 0, 2), 1, 1));
 
 		pnlQuestionEdit.add(scrollPane, new GridBagConstraints(0, 2, GridBagConstraints.REMAINDER, 1, 1, 1,
@@ -229,4 +235,14 @@ public class QuestionEditDialog extends CommonDialog {
 
 	}
 
+
+	public JTextField getTfImageLink() {
+		return tfImageLink;
+	}
+
+
+	public void setTfImageLink(JTextField tfImageLink) {
+		this.tfImageLink = tfImageLink;
+	}
+	
 }

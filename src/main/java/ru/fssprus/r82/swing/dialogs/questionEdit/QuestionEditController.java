@@ -1,6 +1,7 @@
 package ru.fssprus.r82.swing.dialogs.questionEdit;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -27,6 +28,7 @@ import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.swing.utils.MessageBox;
 import ru.fssprus.r82.utils.AppConstants;
 
+//TODO DELETE UNUSED FILE BY FILELINK
 public class QuestionEditController extends CommonController<QuestionEditDialog> {
 
 	private Question questionToEdit;
@@ -55,17 +57,15 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 
 	private void btnSaveAction() {
 		questionToEdit.setAnswers(new HashSet<>(getAnswersFromQuestionEditUI()));
-		
-		System.out.println(getAnswersFromQuestionEditUI().size());
-		System.out.println(questionToEdit.getAnswers().size());
-		
-		
+
 		questionToEdit.setTitle(qetQuestionTitleFromQuestionEditUI());
 		questionToEdit.setQuestionSet(getQuestionSetFromQuestionEditUI());
 
 		QuestionService qService = new QuestionService();
 		if (checkQuestionToSave()) {
 
+			if(new File(dialog.getTfImageLink().getText()).exists())
+				questionToEdit.setImageLink(dialog.getTfImageLink().getText());
 			if (questionToEdit.getId() != null)
 				qService.update(questionToEdit);
 			else
@@ -79,40 +79,37 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 	}
 
 	// TODO:
-	private void btnAddImageAction(){
-		//MessageBox.showCommonErrorMessage(dialog, "Функционал пока не доступен!");
-		int caretPos = dialog.getTaQuestion().getCaretPosition();
-		String currentText = dialog.getTaQuestion().getText();
-
+	private void btnAddImageAction() {
 		File fileSelected = selectImageFile();
 		File newFile = copySelectedFile(fileSelected);
+
+		int width = AppConstants.DIALOG_TEST_WIDTH - 2 * AppConstants.QUESTION_TEXT_SIDE_INDENTS;
+
+		//String fileTag = "<img src=\"file:" + newFile.getAbsolutePath() + "\" width=\"" + width + "\"/>";
+		String fileTag = newFile.getPath();
 		
-		String fileTag = "<img src=\""+newFile.getAbsolutePath()+"\">";
-		
-		StringBuffer buffer = new StringBuffer(currentText);
-		buffer.insert(caretPos, fileTag);
-		
-		dialog.getTaQuestion().setText(buffer.toString());
-		
-	   
+		dialog.getTfImageLink().setText(fileTag);
 	}
-	 
+
 	private File selectImageFile() {
 		JFileChooser fChooser = new JFileChooser();
 		fChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		fChooser.setMultiSelectionEnabled(false);
 		fChooser.setAcceptAllFileFilterUsed(false);
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG, PNG and GIF images", "jpg", "jpeg", "png", "gif");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG, PNG and GIF images", "jpg", "jpeg", "png",
+				"gif");
 		fChooser.addChoosableFileFilter(filter);
 		int selection = fChooser.showOpenDialog(dialog);
 		if (selection == JFileChooser.APPROVE_OPTION) {
 			return fChooser.getSelectedFile();
-		} else return null;
+		} else
+			return null;
 	}
-	
+
 	private File copySelectedFile(File selectedFile) {
 		try {
-			File toSaveFile = new File("images/quest_illustration_" + System.currentTimeMillis() + "." + selectedFile.getName().split("\\.")[1]);
+			File toSaveFile = new File("images/quest_illustration_" + System.currentTimeMillis() + "."
+					+ selectedFile.getName().split("\\.")[1]);
 			Files.copy(selectedFile.toPath(), toSaveFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 			return toSaveFile;
 		} catch (IOException e) {
@@ -120,7 +117,7 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 			return null;
 		}
 	}
-	
+
 	private void fillCbsWithAvailibleSets() {
 		QuestionSetService setService = new QuestionSetService();
 		List<QuestionSet> questionSets = setService.getAll();
@@ -134,9 +131,9 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 	private void loadQuestion() {
 		if (questionToEdit == null)
 			configuteBlankQuestion();
-		
-		System.out.println(questionToEdit);
+
 		dialog.getTaQuestion().setText(questionToEdit.getTitle());
+		dialog.getTfImageLink().setText(questionToEdit.getImageLink());
 		setAnswersToUI(questionToEdit);
 		setQuestionSetToUI();
 	}

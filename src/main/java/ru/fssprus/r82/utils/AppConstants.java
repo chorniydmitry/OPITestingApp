@@ -76,7 +76,7 @@ public class AppConstants {
 	public static final int DIALOG_MANAGE_PASSWORDS_HEIGHT = 400;
 
 	public static final int DIALOG_TEST_WIDTH = 1000;
-	public static final int DIALOG_TEST_HEIGHT = 700;
+	public static final int DIALOG_TEST_HEIGHT = 768;
 
 	public static final int DIALOG_WRONG_ANSWERS_WIDTH = 800;
 	public static final int DIALOG_WRONG_ANSWERS_HEIGHT = 700;
@@ -95,6 +95,8 @@ public class AppConstants {
 
 	public static final int DIALOG_TEST_CONSTRUCTOR_WIDTH = 900;
 	public static final int DIALOG_TEST_CONSTRUCTOR_HEIGHT = 700;
+	
+	public static final int QUESTION_TEXT_SIDE_INDENTS = 50;
 
 	// Константы шрифтов
 	public static final Font RESULTDIALOG_TEXT_FONT = new Font("Courier New", Font.BOLD, 18);

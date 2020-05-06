@@ -1,11 +1,13 @@
 package ru.fssprus.r82.swing.dialogs.test;
 
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 
 import com.hp.gagawa.java.elements.Html;
@@ -18,8 +20,8 @@ import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.CheatingStopper;
 import ru.fssprus.r82.utils.Utils;
-import ru.fssprus.r82.utils.testingTools.TestingProcessAnaliser;
 import ru.fssprus.r82.utils.testingTools.TestingProcess;
+import ru.fssprus.r82.utils.testingTools.TestingProcessAnaliser;
 import ru.fssprus.r82.utils.testingTools.TestingResultsSaver;
 
 /**
@@ -36,7 +38,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	private static final String ANS_P_STYLE_WIDTH = "width: ";
 	private static final String ANS_P_STYLE_PX = " px";
 	private static final String HTML_ARGUMENT_TO_REMOVE = "xmlns";
-	
+
 	private TestingProcess testingProcess;
 	private List<Question> questionList;
 
@@ -45,27 +47,40 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	public TestController(TestDialog dialog, TestingProcess testingProcess) {
 		super(dialog, testingProcess.getTimeSec(), dialog.getLblTimeLeftSec());
 		this.testingProcess = testingProcess;
-		
+
 		CheatingStopper.create(dialog.getMainFrame());
 
 		initVariables();
-		showCurrentQuestionAndAnswers();
-		
+		showCurrentQuestionImageAndAnswers();
+
 		dialog.setFocusable(true);
 		dialog.requestFocusInWindow();
 		dialog.addKeyListener(this);
 	}
-	
+
+	private ImageIcon resizeImage(ImageIcon img) {
+		Image image = img.getImage(); 
+
+		int newWidth = dialog.countWidth();
+		int newHeight = dialog.countWidth() * img.getIconHeight() / img.getIconWidth();
+
+		Image newimg = image.getScaledInstance(newWidth, newHeight, java.awt.Image.SCALE_SMOOTH);
+
+		System.out.println("RESIZING...");
+		return new ImageIcon(newimg);
+	}
+
 	private void initVariables() {
 		questionList = new ArrayList<>(testingProcess.getQuestionsAndAnswersGiven().keySet());
 		currentIndex = 0;
 	}
 
-	private void showCurrentQuestionAndAnswers() {
+	private void showCurrentQuestionImageAndAnswers() {
 		resetCheckBoxes();
 		showQuestion(questionList.get(currentIndex));
+		showImage();
 		showAnswers();
-		
+
 		dialog.requestFocus();
 		update();
 	}
@@ -74,32 +89,40 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 		dialog.getLblQuestionInfo().setText(QUESTION_NUM_TEXT + (currentIndex + 1) + OF_TEXT + questionList.size());
 
 		dialog.getTaQuestionText().setText(questionToShow.getTitle());
+		
+
 	}
 	
+	private void showImage() {
+		if(questionList.get(currentIndex).getImageLink() != null)
+			dialog.getLblImage().setIcon(resizeImage(new ImageIcon(questionList.get(currentIndex).getImageLink())));
+		else {
+			dialog.getLblImage().setIcon(null);
+		}
+	}
+
 	private void showAnswers() {
 		List<Answer> ansList = new ArrayList<>(questionList.get(currentIndex).getAnswers());
 		for (Answer ans : ansList) {
-		
 
-			dialog.getCbAnswers().get(ansList.indexOf(ans))
-					.setText(generateHTMLText(ans));
+			dialog.getCbAnswers().get(ansList.indexOf(ans)).setText(generateHTMLText(ans));
 
 			checkIfAlreadySelected(ans, ansList);
 		}
 
 		hideNotShowingAnswers(ansList.size());
 	}
-		
+
 	private String generateHTMLText(Answer answer) {
 		final int ansWidth = dialog.getWidth() - ANSWER_OFFSET;
-		
+
 		Html html = new Html();
 		P p = new P();
 		p.setStyle(ANS_P_STYLE_WIDTH + ansWidth + ANS_P_STYLE_PX);
 		p.appendText(answer.getTitle());
 		html.appendChild(p);
 		html.removeAttribute(HTML_ARGUMENT_TO_REMOVE);
-		
+
 		return html.write();
 	}
 
@@ -153,13 +176,13 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	}
 
 	private int findNextUnansweredIndex() {
-		for(Entry<Question, List<Answer>> entry : testingProcess.getQuestionsAndAnswersGiven().entrySet()) {
-			if(entry.getValue().size() == 0)
+		for (Entry<Question, List<Answer>> entry : testingProcess.getQuestionsAndAnswersGiven().entrySet()) {
+			if (entry.getValue().size() == 0)
 				return questionList.indexOf(entry.getKey());
 		}
 		return AppConstants.NO_INDEX_SELECTED;
 	}
-	
+
 	private boolean isUnckeckedLeft() {
 		return !(findNextUnansweredIndex() == AppConstants.NO_INDEX_SELECTED);
 	}
@@ -175,8 +198,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	}
 
 	private void doNumAction(int num) {
-		dialog.getCbAnswers().get(num - 1).setSelected(
-				!dialog.getCbAnswers().get(num - 1).isSelected());
+		dialog.getCbAnswers().get(num - 1).setSelected(!dialog.getCbAnswers().get(num - 1).isSelected());
 	}
 
 	private void goToQuestion(int questionIndex) {
@@ -186,7 +208,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 		}
 
 		currentIndex = questionIndex;
-		showCurrentQuestionAndAnswers();
+		showCurrentQuestionImageAndAnswers();
 	}
 
 	private void update() {
@@ -221,7 +243,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	private List<Answer> getAnswersByIndexes(List<Integer> indexes) {
 		if (indexes == null || indexes.size() == 0)
 			return null;
-		
+
 		List<Answer> answers = new ArrayList<Answer>();
 
 		for (int index : indexes) {
@@ -229,7 +251,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 				break;
 			answers.add(new ArrayList<Answer>(questionList.get(currentIndex).getAnswers()).get(index));
 		}
-		
+
 		return answers;
 
 	}
@@ -239,19 +261,18 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 			@Override
 			public void windowClosed(java.awt.event.WindowEvent windowEvent) {
 				setUserChoise();
-				
+
 				TestingProcessAnaliser tpAnaliser = new TestingProcessAnaliser(testingProcess);
 				tpAnaliser.analize();
-				
+
 				new TestingResultsSaver().saveResultsToDB(getTimeLeft(), tpAnaliser);
-				
+
 				CheatingStopper.stop();
-				
+
 				DialogBuilder.showResultingDialog(tpAnaliser);
 			}
 		});
 	}
-
 
 	public TestController(TestDialog dialog, int time) {
 		super(dialog, time, dialog.getLblTimeLeftSec());
@@ -260,7 +281,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	@Override
 	public void keyTyped(KeyEvent e) {
 	}
-	
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (Utils.isNumeric(String.valueOf(e.getKeyChar()))) {
@@ -276,7 +297,6 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-
 
 	}
 

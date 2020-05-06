@@ -35,6 +35,9 @@ public class Question extends Model {
 	@Size(min = AppConstants.MIN_ANSWERS_AMOUNT, max = AppConstants.MAX_ANSWERS_AMOUNT, message = AppConstants.VALID_QUEST_ANSWERS_AMOUNT)
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "question", fetch = FetchType.EAGER)
 	private Set<Answer> answers;
+	
+	@Column(name = "image_link")
+	private String imageLink;
 
 	public String getTitle() {
 		return title;
@@ -60,13 +63,20 @@ public class Question extends Model {
 		this.questionset = questionSet;
 	}
 
+	public String getImageLink() {
+		return imageLink;
+	}
 
+	public void setImageLink(String imageLink) {
+		this.imageLink = imageLink;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((answers == null) ? 0 : answers.hashCode());
+		result = prime * result + ((imageLink == null) ? 0 : imageLink.hashCode());
 		result = prime * result + ((questionset == null) ? 0 : questionset.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
@@ -86,6 +96,11 @@ public class Question extends Model {
 				return false;
 		} else if (!answers.equals(other.answers))
 			return false;
+		if (imageLink == null) {
+			if (other.imageLink != null)
+				return false;
+		} else if (!imageLink.equals(other.imageLink))
+			return false;
 		if (questionset == null) {
 			if (other.questionset != null)
 				return false;
@@ -101,7 +116,8 @@ public class Question extends Model {
 
 	@Override
 	public String toString() {
-		return "Question [title=" + title + ", answers=" + answers + ", questionSet=" + questionset + "]";
+		return "Question [title=" + title + ", answers=" + answers + ", imageLink=" + imageLink + "]";
 	}
-
+	
+	
 }
