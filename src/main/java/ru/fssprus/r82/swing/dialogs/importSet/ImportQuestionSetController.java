@@ -53,7 +53,7 @@ public class ImportQuestionSetController extends CommonController<ImportQuestion
 		ArrayList<String> keywords = new ArrayList<String>();
 		setService.getAll().forEach((n) -> keywords.add(n.getName()));
 
-		keywords.forEach((n) -> dialog.getCbSpecName().addItem(n));
+		keywords.forEach((n) -> dialog.getCbSetName().addItem(n));
 	}
 
 	@Override
@@ -62,11 +62,16 @@ public class ImportQuestionSetController extends CommonController<ImportQuestion
 		dialog.getBtnOpenTextFile().addActionListener(listener -> doOpenTestFile());
 		dialog.getBtnSaveNewSet().addActionListener(listener -> doSaveNewSet());
 		dialog.getBtnLoadSetFileTemplate().addActionListener(listener -> doLoadSetFileTemplate());
-		dialog.getCbSpecName().addActionListener(listener -> doSwitchQuestionSet());
+		dialog.getCbSetName().addActionListener(listener -> doSwitchQuestionSet());
+		dialog.getBtnDeleteSet().addActionListener(listener -> doDeleteSet());
 	}
 	
+	private void doDeleteSet() {
+		MessageBox.showConfirmSetDelete(dialog);
+	}
+
 	private void doSwitchQuestionSet() {
-		QuestionSet qSet = new QuestionSetService().getUniqueByName(String.valueOf(dialog.getCbSpecName().getSelectedItem()));
+		QuestionSet qSet = new QuestionSetService().getUniqueByName(String.valueOf(dialog.getCbSetName().getSelectedItem()));
 
 		int questionsInSet = new QuestionService().countByQuestionSet(qSet);
 		
@@ -172,7 +177,7 @@ public class ImportQuestionSetController extends CommonController<ImportQuestion
 
 		if (!validateSpecTf()) {
 			MessageBox.showWrongSpecSpecifiedErrorDialog(dialog);
-			dialog.getCbSpecName().requestFocus();
+			dialog.getCbSetName().requestFocus();
 			return false;
 		}
 		
@@ -191,7 +196,7 @@ public class ImportQuestionSetController extends CommonController<ImportQuestion
 	}
 	//TODO
 	private boolean validateSpecTf() {
-		if (dialog.getCbSpecName().getSelectedItem().toString().isEmpty())
+		if (dialog.getCbSetName().getSelectedItem().toString().isEmpty())
 			return false;
 		return true;
 	}
@@ -215,7 +220,7 @@ public class ImportQuestionSetController extends CommonController<ImportQuestion
 	 * @return
 	 */
 	private QuestionSet getQuestionSet() {
-		String title = dialog.getCbSpecName().getSelectedItem().toString();
+		String title = dialog.getCbSetName().getSelectedItem().toString();
 		QuestionSet set = new QuestionSetService().getUniqueByName(title);
 		return set;
 	}

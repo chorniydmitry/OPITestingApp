@@ -22,9 +22,9 @@ import ru.fssprus.r82.utils.AppConstants;
 public class PasswordManageDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -4879337467270588965L;
 	
-	private static final String SECTION = AppConstants.MANAGE_PASSWORDS_DIALOG;
-	private static final String TITLE = AppConstants.MANAGE_PASSWORDS_TEXT;
-	private static final String ICON = AppConstants.MANAGE_PASSWORDS_ICON;
+	private static final String SECTION = AppConstants.PASSWORD_MANAGE_DIALOG;
+	private static final String TITLE = AppConstants.PASSWORD_MANAGE_TEXT;
+	private static final String ICON = AppConstants.PASSWORD_MANAGE_ICON;
 	
 	private static final String CAPT_CHANGE = "Сменить";
 

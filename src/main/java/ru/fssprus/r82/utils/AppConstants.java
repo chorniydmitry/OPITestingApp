@@ -15,77 +15,82 @@ public class AppConstants {
 
 	public static final int DEFAULT_OFFSET = 10;
 
-	public static final String QUESTION_LOAD_ICON = "/questionload.png";
 	public static final String ADMIN_ICON = "/admin.png";
-	public static final String CONFIG_ICON = "/config.png";
-	public static final String TESTCONSTRUCTOR_ICON = "/config.png";
+	public static final String IMPORT_QUESTIONSET_ICON = "/questionload.png";
 	public static final String NEW_TEST_ICON = "/newtest.png";
-	public static final String MANAGE_PASSWORDS_ICON = "/password.png";
+	public static final String PASSWORD_MANAGE_ICON = "/password.png";
 	public static final String QUESTION_EDIT_ICON = "/questionedit.png";
+	public static final String QUESTION_LIST_ICON = "/questionlist.png";
 	public static final String RESULTING_ICON = "/result.png";
 	public static final String STATISTICS_ICON = "/statistics.png";
 	public static final String TEST_ICON = "/quizz.png";
+	public static final String TESTCONSTRUCTOR_ICON = "/config.png";
 	public static final String WRONG_ANSWERS_ICON = "/wronganswers.png";
 	public static final String EXIT_ICON = "/exit.png";
+	public static final String CONFIG_ICON = "/config.png";
 
-	public static final String QUESTION_LOAD_DIALOG = "LoadingQuestionSetDialog";
+
 	public static final String ADMIN_DIALOG = "AdminDialog";
-	public static final String CONFIG_DIALOG = "ConfigDialog";
-	public static final String TESTCONSTRUCTOR_DIALOG = "TestConstructorDialog";
+	public static final String IMPORT_QUESTIONSET_DIALOG = "ImportQuestionSetDialog";
 	public static final String NEW_TEST_DIALOG = "NewTestDialog";
-	public static final String MANAGE_PASSWORDS_DIALOG = "PasswordManageDialog";
-	public static final String QUESTION_EDIT_DIALOG = "QuestionListDialog";
+	public static final String PASSWORD_MANAGE_DIALOG = "PasswordManageDialog";
+	public static final String QUESTION_EDIT_DIALOG = "QuestionEditDialog";
+	public static final String QUESTION_LIST_DIALOG = "QuestionListDialog";
 	public static final String RESULTING_DIALOG = "ResultingDialog";
 	public static final String STATISTICS_DIALOG = "StatisticsDialog";
 	public static final String TEST_DIALOG = "TestDialog";
+	public static final String TESTCONSTRUCTOR_DIALOG = "TestConstructorDialog";
 	public static final String WRONG_ANSWERS_DIALOG = "WrongAnswersDialog";
-
+	public static final String CONFIG_DIALOG = "ConfigDialog";
+	
 	public static final String[] DIALOG_WITH_PASSWORDS_ARR = { NEW_TEST_DIALOG, STATISTICS_DIALOG, ADMIN_DIALOG,
-			CONFIG_DIALOG, QUESTION_EDIT_DIALOG, QUESTION_LOAD_DIALOG, TESTCONSTRUCTOR_DIALOG,
-			MANAGE_PASSWORDS_DIALOG };
+			CONFIG_DIALOG, QUESTION_EDIT_DIALOG, IMPORT_QUESTIONSET_DIALOG, TESTCONSTRUCTOR_DIALOG,
+			PASSWORD_MANAGE_DIALOG };
 
-	public static final String QUESTION_LOAD_TEXT = "Импорт вопросов";
 	public static final String ADMIN_TEXT = "Администрирование";
-	public static final String CONFIG_TEXT = "Конфигурация";
-	public static final String TESTCONSTRUCTOR_TEXT = "Конструктор тестов";
+	public static final String IMPORT_QUESTIONSET_TEXT = "Импорт вопросов";
 	public static final String NEW_TEST_TEXT = "Новый тест";
-	public static final String MANAGE_PASSWORDS_TEXT = "Редактор паролей";
-	public static final String QUESTION_EDIT_TEXT = "Редактор вопросов";
+	public static final String PASSWORD_MANAGE_TEXT = "Редакторование паролей";
+	public static final String QUESTION_EDIT_TEXT = "Редактирование вопроса";
+	public static final String QUESTION_LIST_TEXT = "Список вопросов";
 	public static final String RESULTING_TEXT = "Результаты тестирования";
 	public static final String STATISTICS_TEXT = "Статистика";
 	public static final String TEST_TEXT = "Тестирование";
+	public static final String TESTCONSTRUCTOR_TEXT = "Конструктор тестов";
 	public static final String WRONG_ANSWERS_TEXT = "Не правильные ответы";
+	public static final String CONFIG_TEXT = "Конфигурация";
+	
 
 	public static final String[] DIALOG_WITH_PASSWORDS_TEXT_ARR = { TEST_TEXT, STATISTICS_TEXT, ADMIN_TEXT, CONFIG_TEXT,
-			QUESTION_EDIT_TEXT, QUESTION_LOAD_TEXT, TESTCONSTRUCTOR_TEXT, MANAGE_PASSWORDS_TEXT };
+			QUESTION_EDIT_TEXT, IMPORT_QUESTIONSET_TEXT, TESTCONSTRUCTOR_TEXT, PASSWORD_MANAGE_TEXT };
 
 	// Размеры окон
+	public static final int DIALOG_ADMIN_WIDTH = 500;
+	public static final int DIALOG_ADMIN_HEIGHT = 300;
+	
+	public static final int DIALOG_IMPORTQUESTIONSET_WIDTH = 1000;
+	public static final int DIALOG_IMPORTQUESTIONSET_HEIGHT = 700;
+	
+	public static final int DIALOG_NEW_TEST_WIDTH = 800;
+	public static final int DIALOG_NEW_TEST_HEIGHT = 300;
+	
+	public static final int DIALOG_PASSWORDMANAGE_WIDTH = 600;
+	public static final int DIALOG_PASSWORDMANAGE_HEIGHT = 400;
+	
+	public static final int DIALOG_QUESTIONEDIT_WIDTH = 800;
+	public static final int DIALOG_QUESTIONEDIT_HEIGHT = 750;
+	
 	public static final int DIALOG_CONFIG_WIDTH = 800;
 	public static final int DIALOG_CONFIG_HEIGHT = 600;
 
 	public static final int DIALOG_LOADING_QUESTION_SET_WIDTH = 800;
 	public static final int DIALOG_LOADING_QUESTION_SET_HEIGHT = 600;
 
-	public static final int DIALOG_QUESTION_LIST_WIDTH = 1000;
-	public static final int DIALOG_QUESTION_LIST_HEIGHT = 700;
-
-	public static final int DIALOG_QUESTION_EDIT_WIDTH = 800;
-	public static final int DIALOG_QUESTION_EDIT_HEIGHT = 768;
-
-	public static final int DIALOG_MANAGE_PASSWORDS_WIDTH = 600;
-	public static final int DIALOG_MANAGE_PASSWORDS_HEIGHT = 400;
-
 	public static final int DIALOG_TEST_WIDTH = 1000;
 	public static final int DIALOG_TEST_HEIGHT = 768;
 
 	public static final int DIALOG_WRONG_ANSWERS_WIDTH = 800;
 	public static final int DIALOG_WRONG_ANSWERS_HEIGHT = 700;
-
-	public static final int DIALOG_NEW_TEST_WIDTH = 800;
-	public static final int DIALOG_NEW_TEST_HEIGHT = 300;
-
-	public static final int DIALOG_ADMIN_WIDTH = 500;
-	public static final int DIALOG_ADMIN_HEIGHT = 300;
 
 	public static final int DIALOG_STATISTICS_WIDTH = 800;
 	public static final int DIALOG_STATISTICS_HEIGHT = 600;
@@ -104,17 +109,6 @@ public class AppConstants {
 	public static final Font TESTDIALOG_QUESTION_FONT = new Font("Courier New", Font.PLAIN, 20);
 	public static final Font TESTDIALOG_ITEMS_FONT = new Font("Courier New", Font.PLAIN, 16);
 	public static final Font TOP_PANELS_TEXT_FONT = new Font("Courier New", Font.PLAIN, 22);
-
-	// public static final Font RESULTDIALOG_TEXT_FONT = new Font("Times New Roman",
-	// Font.BOLD, 18);
-	// public static final Font TESTDIALOG_HEADER_FONT = new Font("Tahoma",
-	// Font.PLAIN, 20);
-	// public static final Font TESTDIALOG_QUESTION_FONT = new Font("Times New
-	// Roman", Font.PLAIN, 20);
-	// public static final Font TESTDIALOG_ITEMS_FONT = new Font("Times New Roman",
-	// Font.PLAIN, 16);
-	// public static final Font TOP_PANELS_TEXT_FONT = new Font("Tahoma",
-	// Font.PLAIN, 22);
 
 	// Размеры компонентов
 	public static final int MAINFRAME_BTN_WIDTHS = 250;

@@ -1,6 +1,5 @@
 package ru.fssprus.r82.swing.dialogs.test;
 
-import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -57,19 +56,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 		dialog.requestFocusInWindow();
 		dialog.addKeyListener(this);
 	}
-
-	private ImageIcon resizeImage(ImageIcon img) {
-		Image image = img.getImage(); 
-
-		int newWidth = dialog.countWidth();
-		int newHeight = dialog.countWidth() * img.getIconHeight() / img.getIconWidth();
-
-		Image newimg = image.getScaledInstance(newWidth, newHeight, java.awt.Image.SCALE_SMOOTH);
-
-		System.out.println("RESIZING...");
-		return new ImageIcon(newimg);
-	}
-
+	
 	private void initVariables() {
 		questionList = new ArrayList<>(testingProcess.getQuestionsAndAnswersGiven().keySet());
 		currentIndex = 0;
@@ -95,7 +82,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	
 	private void showImage() {
 		if(questionList.get(currentIndex).getImageLink() != null)
-			dialog.getLblImage().setIcon(resizeImage(new ImageIcon(questionList.get(currentIndex).getImageLink())));
+			dialog.getLblImage().setIcon(Utils.resizeImage(new ImageIcon(questionList.get(currentIndex).getImageLink()), dialog.countWidth()));
 		else {
 			dialog.getLblImage().setIcon(null);
 		}

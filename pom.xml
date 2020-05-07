@@ -60,6 +60,7 @@
 				<directory>src/main/resources/icons</directory>
 				<includes>
 					<include>questionload.png</include>
+					<include>questionlist.png</include>
 					<include>admin.png</include>
 					<include>config.png</include>
 					<include>newtest.png</include>

@@ -29,6 +29,7 @@ public class MessageBox extends JOptionPane {
 	private static final String PASSWORD_INPUT_TITLE = "Ввод пароля";
 	private static final String PASSWORD_INPUT_MESSAGE = "Введите пароль:";
 	private static final String CONFIRM_QUESTION_DELETE = "Будет удалена выбранная запись из базы данных. Продолжить?";
+	private static final String CONFIRM_SET_DELETE = "Будет удален выбранный набор, а так же связанные с ним вопросы \nи ссылки вхождения данного набора в тесты(если такие имеются). Продолжить?";
 	private static final String TABLE_EDITING_ENTRY_NOT_SAVED = "Редактируемая запись в таблице не была сохранена, сохранить запись"
 			+ "перед продолжением?";
 	private static final String ERROR_WRONG_QUESTION_SPECIFIED = "Не верно заполнен вопрос для добавления в базу данных!\n\n"
@@ -90,14 +91,22 @@ public class MessageBox extends JOptionPane {
 		return JOptionPane.showOptionDialog(component, TABLE_EDITING_ENTRY_NOT_SAVED, null, JOptionPane.YES_NO_OPTION,
 				JOptionPane.INFORMATION_MESSAGE, null, new Object[] { "Да", "Нет", "Отмена" }, "Да");
 	}
-
-	public static boolean showConfirmQuestionDelete(Component component) {
-		int result = JOptionPane.showOptionDialog(component, CONFIRM_QUESTION_DELETE, null, JOptionPane.YES_NO_OPTION,
+	
+	public static boolean showConfirmDialog(Component component, String message) {
+		int result = JOptionPane.showOptionDialog(component, message, null, JOptionPane.YES_NO_OPTION,
 				JOptionPane.INFORMATION_MESSAGE, null, new Object[] { "Да", "Нет" }, "Да");
 
 		if (result == JOptionPane.YES_OPTION)
 			return true;
 		return false;
+	}
+
+	public static boolean showConfirmQuestionDelete(Component component) {
+		return showConfirmDialog(component, CONFIRM_QUESTION_DELETE);
+	}
+	
+	public static boolean showConfirmSetDelete(Component component) {
+		return showConfirmDialog(component, CONFIRM_SET_DELETE);
 	}
 
 	public static void showWrongQuestionSpecifiedErrorDialog(Component component) {

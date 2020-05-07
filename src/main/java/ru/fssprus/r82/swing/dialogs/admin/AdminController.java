@@ -28,7 +28,7 @@ public class AdminController extends CommonController<AdminDialog> {
 
 	private void doOpenQuestionLoagingDialog() {
 		dialog.dispose();
-		DialogBuilder.showQuestionLoadingSetDialog();
+		DialogBuilder.showImportQuestionSetDialog();
 		
 	}
 

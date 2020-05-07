@@ -45,9 +45,9 @@ public class DialogBuilder {
 		new AdminController(new AdminDialog(AppConstants.DIALOG_ADMIN_WIDTH, AppConstants.DIALOG_ADMIN_HEIGHT, parent));
 	}
 
-	public static void showStatisticsDialog() {
-		new StatisticsController(new StatisticsDialog(AppConstants.DIALOG_STATISTICS_WIDTH,
-				AppConstants.DIALOG_STATISTICS_HEIGHT, parent));
+	public static void showImportQuestionSetDialog() {
+		new ImportQuestionSetController(new ImportQuestionSetDialog(AppConstants.DIALOG_LOADING_QUESTION_SET_WIDTH,
+				AppConstants.DIALOG_LOADING_QUESTION_SET_HEIGHT, parent));
 	}
 
 	public static void showNewTestDialog() {
@@ -55,29 +55,29 @@ public class DialogBuilder {
 				new NewTestDialog(AppConstants.DIALOG_NEW_TEST_WIDTH, AppConstants.DIALOG_NEW_TEST_HEIGHT, parent));
 	}
 
-	public static void showTestDialog(TestingProcess testingProcess) {
-		new TestController(new TestDialog(AppConstants.DIALOG_TEST_WIDTH, AppConstants.DIALOG_TEST_HEIGHT, parent),
-				testingProcess);
+	public static void showPasswordManageDialog() {
+		new PasswordManageController(new PasswordManageDialog(AppConstants.DIALOG_PASSWORDMANAGE_WIDTH,
+				AppConstants.DIALOG_PASSWORDMANAGE_HEIGHT, parent));
 	}
 
-	public static void showQuestionLoadingSetDialog() {
-		new ImportQuestionSetController(new ImportQuestionSetDialog(AppConstants.DIALOG_LOADING_QUESTION_SET_WIDTH,
-				AppConstants.DIALOG_LOADING_QUESTION_SET_HEIGHT, parent));
+	public static void showQuestionEditDialog(Question questionToEdit) {
+		new QuestionEditController(new QuestionEditDialog(AppConstants.DIALOG_QUESTIONEDIT_WIDTH,
+				AppConstants.DIALOG_QUESTIONEDIT_HEIGHT, parent), questionToEdit);
 	}
 
 	public static void showQuestionListDialog() {
-		new QuestionListController(new QuestionListDialog(AppConstants.DIALOG_QUESTION_LIST_WIDTH,
-				AppConstants.DIALOG_QUESTION_LIST_HEIGHT, parent));
-	}
-	
-	public static void showQuestionEditDialog(Question questionToEdit) {
-		new QuestionEditController(new QuestionEditDialog(AppConstants.DIALOG_QUESTION_EDIT_WIDTH,
-				AppConstants.DIALOG_QUESTION_EDIT_HEIGHT, parent), questionToEdit);
+		new QuestionListController(new QuestionListDialog(AppConstants.DIALOG_IMPORTQUESTIONSET_WIDTH,
+				AppConstants.DIALOG_IMPORTQUESTIONSET_HEIGHT, parent));
 	}
 
-	public static void showPasswordManageDialog() {
-		new PasswordManageController(new PasswordManageDialog(AppConstants.DIALOG_MANAGE_PASSWORDS_WIDTH,
-				AppConstants.DIALOG_MANAGE_PASSWORDS_HEIGHT, parent));
+	public static void showStatisticsDialog() {
+		new StatisticsController(new StatisticsDialog(AppConstants.DIALOG_STATISTICS_WIDTH,
+				AppConstants.DIALOG_STATISTICS_HEIGHT, parent));
+	}
+
+	public static void showTestDialog(TestingProcess testingProcess) {
+		new TestController(new TestDialog(AppConstants.DIALOG_TEST_WIDTH, AppConstants.DIALOG_TEST_HEIGHT, parent),
+				testingProcess);
 	}
 
 	public static void showWrongAnswersDialog(int wrongAnswersAmount, String text) {

@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -21,8 +22,13 @@ import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class QuestionEditDialog extends CommonDialog {
-
+	
 	private static final long serialVersionUID = -5920884439809017250L;
+	
+	private static final String SECTION = AppConstants.QUESTION_EDIT_ICON;
+	private static final String TITLE = AppConstants.QUESTION_EDIT_TEXT;
+	private static final String ICON = AppConstants.QUESTION_EDIT_ICON;
+	
 	private static final String BTN_ADD_IMAGE_CAPTION = "Добавить изображение";
 	private static final String BTN_SAVE_CAPTION = "Сохранить изменения";
 	private static final String BTN_CANCEL_CAPTION = "Отменить и выйти";
@@ -36,7 +42,7 @@ public class QuestionEditDialog extends CommonDialog {
 	private static final int TA_ANS_ROWS = 5;
 
 	private static final int TA_QUEST_COLUMNS = 70;
-	private static final int TA_QUEST_ROWS = 15;
+	private static final int TA_QUEST_ROWS = 10;
 
 	private JLabel lblQuestText = new JLabel(LBL_QUEST_TEXT_CAPTION);
 	
@@ -219,20 +225,18 @@ public class QuestionEditDialog extends CommonDialog {
 
 	@Override
 	protected String getSection() {
-		// TODO Auto-generated method stub
-		return null;
+		return SECTION;
 	}
 
 	@Override
 	protected String getTitleText() {
-		// TODO Auto-generated method stub
-		return null;
+		return TITLE;
 	}
 
 	@Override
 	protected void layoutPanelTop() {
-		// TODO Auto-generated method stub
-
+		ImageIcon emblem = new ImageIcon(getClass().getResource(ICON));
+		super.layoutPanelTop(TITLE, emblem);
 	}
 
 

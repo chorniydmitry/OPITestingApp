@@ -21,9 +21,9 @@ import ru.fssprus.r82.utils.AppConstants;
 public class ImportQuestionSetDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -4114441914928348354L;
 
-	private static final String SECTION = AppConstants.QUESTION_LOAD_DIALOG;
-	private static final String TITLE = AppConstants.QUESTION_LOAD_TEXT;
-	private static final String ICON = AppConstants.QUESTION_LOAD_ICON;
+	private static final String SECTION = AppConstants.IMPORT_QUESTIONSET_DIALOG;
+	private static final String TITLE = AppConstants.IMPORT_QUESTIONSET_TEXT;
+	private static final String ICON = AppConstants.IMPORT_QUESTIONSET_ICON;
 
 	private JLabel lblMsg = new JLabel(AppConstants.DIALOG_LOADING_QUEST_SET_ABOUT_INFO);
 
@@ -41,6 +41,8 @@ public class ImportQuestionSetDialog extends DialogWithPassword {
 	private static final String BTN_LOAD_CAPTION = "Добавить";
 
 	private static final String BTN_LOAD_TEMPLATE = "Сохранить шаблон файла вопросов";
+	
+	private static final String BTN_DELETE_SET_CAPTION = "Удалить";
 
 	private JPanel pnlSetEditing = new JPanel();
 
@@ -51,7 +53,7 @@ public class ImportQuestionSetDialog extends DialogWithPassword {
 
 	private JPanel pnlAddQuestionsFromFile = new JPanel();
 	private JLabel lblSpecName = new JLabel(LBL_SPEC_NAME_CAPTION);
-	private JComboBox<String> cbSpecName = new JComboBox<>();
+	private JComboBox<String> cbSetName = new JComboBox<>();
 	private JLabel lblTotalQuestionsInSet = new JLabel(LBL_AMOUNTOFQUESTIONSINSET_CAPTION);
 	private JLabel lblTotalQuestionsInSetVal = new JLabel();
 	private JLabel lblTimesInTest = new JLabel(LBL_TIMESINTESTS_CAPTION);
@@ -64,6 +66,7 @@ public class ImportQuestionSetDialog extends DialogWithPassword {
 
 	private JButton btnLoadSetFileTemplate = new JGreenButton(BTN_LOAD_TEMPLATE);
 
+	private JButton btnDeleteSet = new JGreenButton(BTN_DELETE_SET_CAPTION);
 	
 	private void layoutPnlSetEditing() {
 		layoutPnlAddNewSet();
@@ -89,8 +92,12 @@ public class ImportQuestionSetDialog extends DialogWithPassword {
 		pnlAddQuestionsFromFile.add(lblSpecName, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.WEST,
 				GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 1, 1));
 
-		pnlAddQuestionsFromFile.add(cbSpecName, new GridBagConstraints(1, 0, 5, 1, 1, 1,
+		pnlAddQuestionsFromFile.add(cbSetName, new GridBagConstraints(1, 0, 5, 1, 1, 1,
 				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 1, 1));
+		
+		pnlAddQuestionsFromFile.add(btnDeleteSet, new GridBagConstraints(7, 0, 5, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 1, 1));
+		
 
 		// 2 row
 		
@@ -192,12 +199,12 @@ public class ImportQuestionSetDialog extends DialogWithPassword {
 		this.tfFilePath = tfFilePath;
 	}
 
-	public JComboBox<String> getCbSpecName() {
-		return cbSpecName;
+	public JComboBox<String> getCbSetName() {
+		return cbSetName;
 	}
 
-	public void setCbSpecName(JComboBox<String> cbSpecName) {
-		this.cbSpecName = cbSpecName;
+	public void setCbSetName(JComboBox<String> cbSetName) {
+		this.cbSetName = cbSetName;
 	}
 
 	public JTextField getTfNameOfNewTest() {
@@ -239,5 +246,12 @@ public class ImportQuestionSetDialog extends DialogWithPassword {
 	public void setLblTimesInTestVal(JLabel lblTimesInTestVal) {
 		this.lblTimesInTestVal = lblTimesInTestVal;
 	}
-	
+
+	public JButton getBtnDeleteSet() {
+		return btnDeleteSet;
+	}
+
+	public void setBtnDeleteSet(JButton btnDeleteSet) {
+		this.btnDeleteSet = btnDeleteSet;
+	}
 }

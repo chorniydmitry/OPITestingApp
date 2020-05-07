@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import com.hp.gagawa.java.elements.Br;
 import com.hp.gagawa.java.elements.H1;
 import com.hp.gagawa.java.elements.Html;
+import com.hp.gagawa.java.elements.Img;
 import com.hp.gagawa.java.elements.Li;
 import com.hp.gagawa.java.elements.P;
 import com.hp.gagawa.java.elements.Ul;
@@ -45,7 +46,7 @@ public class TestingProcessAnaliser {
 		initVariables();
 
 	}
-	
+
 	private void initVariables() {
 		wrongAnswers = new HashMap<>();
 		userAnswers = testingProcess.getQuestionsAndAnswersGiven();
@@ -94,14 +95,21 @@ public class TestingProcessAnaliser {
 		html.appendChild(new Br());
 
 		for (Entry<Question, List<Answer>> entry : wrongAnswers.entrySet()) {
-			
+
 			html.appendChild(new P().appendText(WRONGS_HTML_QUESTION_BOLD_TEXT).setStyle(HTML_STYLE_BOLD));
-			
+
 			html.appendText(entry.getKey().getTitle());
+			
+			html.appendChild(new Br());
+
+			html.appendChild(
+					new Img(null, "file:" + System.getProperty("user.dir") + "/" + entry.getKey().getImageLink()));
+
+			html.appendChild(new Br());
 			
 			html.appendChild(new P().appendText(printChosenWrongAnswers(entry.getValue())));
 			html.appendChild(new P().appendText(printCorrectAnswers(entry.getKey())));
-			
+
 			html.appendChild(new P().appendText(DELIMETER_DASHES_TEXT));
 
 		}

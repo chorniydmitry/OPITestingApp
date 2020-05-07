@@ -26,9 +26,9 @@ import ru.fssprus.r82.utils.AppConstants;
  */
 public class QuestionListDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -8319908967500731744L;
-	private static final String SECTION = AppConstants.QUESTION_EDIT_DIALOG;
-	private static final String TITLE = AppConstants.QUESTION_EDIT_TEXT;
-	private static final String ICON = AppConstants.QUESTION_EDIT_ICON;
+	private static final String SECTION = AppConstants.QUESTION_LIST_DIALOG;
+	private static final String TITLE = AppConstants.QUESTION_LIST_TEXT;
+	private static final String ICON = AppConstants.QUESTION_LIST_ICON;
 	
 	private static final String FILTER_PANEL_TITLE = "Панель фильтрации";
 	
