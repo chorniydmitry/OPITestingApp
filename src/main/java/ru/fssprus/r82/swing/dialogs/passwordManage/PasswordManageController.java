@@ -28,7 +28,7 @@ public class PasswordManageController extends CommonController<PasswordManageDia
 		List<Password> passwordsSet = passService.getAll();
 
 		for (Password pass : passwordsSet) {
-			for (int i = 0; i < AppConstants.SECTIONS_AMOUNT; i++) {
+			for (int i = 0; i < AppConstants.PASSWORDED_SECTIONS_AMOUNT; i++) {
 				if (pass.getSectionName().equals(dialog.getPfList().get(i).getName())) {
 					dialog.getPfList().get(i).setText(AppConstants.PASSWORD_IS_SET_DEFAULT_MASK);
 					dialog.getBtnList().get(i).setEnabled(false);
@@ -38,7 +38,7 @@ public class PasswordManageController extends CommonController<PasswordManageDia
 	}
 	
 	private void doAction(ActionEvent e) {
-		for (int i = 0; i < AppConstants.SECTIONS_AMOUNT; i++) {
+		for (int i = 0; i < AppConstants.PASSWORDED_SECTIONS_AMOUNT; i++) {
 			if (e.getSource() == dialog.getBtnList().get(i)) {
 				String section = dialog.getBtnList().get(i).getName();
 				int passLength = dialog.getPfList().get(i).getPassword().length;
@@ -70,7 +70,7 @@ public class PasswordManageController extends CommonController<PasswordManageDia
 
 	@Override
 	protected void setListeners() {
-		for (int i = 0; i < AppConstants.SECTIONS_AMOUNT; i++) {
+		for (int i = 0; i < AppConstants.PASSWORDED_SECTIONS_AMOUNT; i++) {
 			dialog.getBtnList().get(i).addActionListener(listener -> doAction(listener));
 			dialog.getPfList().get(i).getDocument().addDocumentListener(this);
 		}
@@ -78,14 +78,14 @@ public class PasswordManageController extends CommonController<PasswordManageDia
 
 	@Override
 	public void insertUpdate(DocumentEvent e) {
-		for (int i = 0; i < AppConstants.SECTIONS_AMOUNT; i++)
+		for (int i = 0; i < AppConstants.PASSWORDED_SECTIONS_AMOUNT; i++)
 			if (e.getDocument() == dialog.getPfList().get(i).getDocument())
 				dialog.getBtnList().get(i).setEnabled(true);
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
-		for (int i = 0; i < AppConstants.SECTIONS_AMOUNT; i++)
+		for (int i = 0; i < AppConstants.PASSWORDED_SECTIONS_AMOUNT; i++)
 			if (e.getDocument() == dialog.getPfList().get(i).getDocument())
 				dialog.getBtnList().get(i).setEnabled(true);
 
@@ -93,7 +93,7 @@ public class PasswordManageController extends CommonController<PasswordManageDia
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
-		for (int i = 0; i < AppConstants.SECTIONS_AMOUNT; i++)
+		for (int i = 0; i < AppConstants.PASSWORDED_SECTIONS_AMOUNT; i++)
 			if (e.getDocument() == dialog.getPfList().get(i).getDocument())
 				dialog.getBtnList().get(i).setEnabled(true);
 	}

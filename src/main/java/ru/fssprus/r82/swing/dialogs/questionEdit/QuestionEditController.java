@@ -83,7 +83,7 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 		File fileSelected = selectImageFile();
 		File newFile = copySelectedFile(fileSelected);
 
-		int width = AppConstants.DIALOG_TEST_WIDTH - 2 * AppConstants.QUESTION_TEXT_SIDE_INDENTS;
+		int width = AppConstants.TEST_DIALOG_WIDTH - 2 * AppConstants.QUESTION_TEXT_SIDE_INDENTS;
 
 		//String fileTag = "<img src=\"file:" + newFile.getAbsolutePath() + "\" width=\"" + width + "\"/>";
 		String fileTag = newFile.getPath();

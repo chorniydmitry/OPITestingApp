@@ -25,9 +25,9 @@ public class QuestionEditDialog extends CommonDialog {
 	
 	private static final long serialVersionUID = -5920884439809017250L;
 	
-	private static final String SECTION = AppConstants.QUESTION_EDIT_ICON;
-	private static final String TITLE = AppConstants.QUESTION_EDIT_TEXT;
-	private static final String ICON = AppConstants.QUESTION_EDIT_ICON;
+	private static final String SECTION = AppConstants.QUESTIONEDIT_ICON;
+	private static final String TITLE = AppConstants.QUESTIONEDIT_TEXT;
+	private static final String ICON = AppConstants.QUESTIONEDIT_ICON;
 	
 	private static final String BTN_ADD_IMAGE_CAPTION = "Добавить изображение";
 	private static final String BTN_SAVE_CAPTION = "Сохранить изменения";

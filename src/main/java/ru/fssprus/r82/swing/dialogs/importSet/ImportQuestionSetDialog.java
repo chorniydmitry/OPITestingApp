@@ -21,9 +21,9 @@ import ru.fssprus.r82.utils.AppConstants;
 public class ImportQuestionSetDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -4114441914928348354L;
 
-	private static final String SECTION = AppConstants.IMPORT_QUESTIONSET_DIALOG;
-	private static final String TITLE = AppConstants.IMPORT_QUESTIONSET_TEXT;
-	private static final String ICON = AppConstants.IMPORT_QUESTIONSET_ICON;
+	private static final String SECTION = AppConstants.IMPORTQUESTIONSET_DIALOG;
+	private static final String TITLE = AppConstants.IMPORTQUESTIONSET_TEXT;
+	private static final String ICON = AppConstants.IMPORTQUESTIONSET_ICON;
 
 	private JLabel lblMsg = new JLabel(AppConstants.DIALOG_LOADING_QUEST_SET_ABOUT_INFO);
 

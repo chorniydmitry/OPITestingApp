@@ -21,9 +21,9 @@ import ru.fssprus.r82.utils.AppConstants;
  */
 public class WrongAnswersDialog extends CommonDialog {
 	private static final long serialVersionUID = 3594882748640500638L;
-	private static final String SECTION = AppConstants.WRONG_ANSWERS_DIALOG;
-	private static final String TITLE = AppConstants.WRONG_ANSWERS_TEXT;
-	private static final String ICON = AppConstants.WRONG_ANSWERS_ICON;
+	private static final String SECTION = AppConstants.WRONGANSWERS_DIALOG;
+	private static final String TITLE = AppConstants.WRONGANSWERS_TEXT;
+	private static final String ICON = AppConstants.WRONGANSWERS_ICON;
 	
 	private static final String BTN_CLOSE_CAPTION = "Закрыть";
 	

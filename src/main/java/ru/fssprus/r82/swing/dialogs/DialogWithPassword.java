@@ -27,7 +27,7 @@ public abstract class DialogWithPassword extends CommonDialog {
 	private boolean checkaccess(String section) {
 		PasswordService passService = new PasswordService();
 
-		String inputedPass = MessageBox.showInputPasswordDialog(this);
+		String inputedPass = MessageBox.showInputPasswordDialog(null);
 
 		boolean accessAllowed = passService.checkPassword(getSection(),
 				CryptWithMD5.cryptWithMD5(inputedPass));

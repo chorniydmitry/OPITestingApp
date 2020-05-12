@@ -22,9 +22,9 @@ import ru.fssprus.r82.utils.AppConstants;
 public class PasswordManageDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -4879337467270588965L;
 	
-	private static final String SECTION = AppConstants.PASSWORD_MANAGE_DIALOG;
-	private static final String TITLE = AppConstants.PASSWORD_MANAGE_TEXT;
-	private static final String ICON = AppConstants.PASSWORD_MANAGE_ICON;
+	private static final String SECTION = AppConstants.PASSWORDMANAGE_DIALOG;
+	private static final String TITLE = AppConstants.PASSWORDMANAGE_TEXT;
+	private static final String ICON = AppConstants.PASSWORDMANAGE_ICON;
 	
 	private static final String CAPT_CHANGE = "Сменить";
 
@@ -61,7 +61,7 @@ public class PasswordManageDialog extends DialogWithPassword {
 	}
 	
 	private void initAndFillComponentsList() {
-		for(int i = 0; i < AppConstants.SECTIONS_AMOUNT; i++) {
+		for(int i = 0; i < AppConstants.DIALOG_WITH_PASSWORDS_ARR.length; i++) {
 			JLabel lbl = new JLabel(AppConstants.DIALOG_WITH_PASSWORDS_TEXT_ARR[i]);
 			lblList.add(lbl);
 			
@@ -88,7 +88,7 @@ public class PasswordManageDialog extends DialogWithPassword {
 		contentPanel.add(lblInfo, new GridBagConstraints(0, 0, GridBagConstraints.REMAINDER, 1, 1, 1, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(10, 10, 10, 10), 0, 0));
 
-		for(int i = 0; i < AppConstants.SECTIONS_AMOUNT; i++) {
+		for(int i = 0; i < AppConstants.DIALOG_WITH_PASSWORDS_ARR.length; i++) {
 			contentPanel.add(lblList.get(i), new GridBagConstraints(0, (i + 1), 1, 1, 0.2, 1, GridBagConstraints.CENTER,
 					GridBagConstraints.HORIZONTAL, new Insets(2, 10, 10, 2), 0, 0));
 

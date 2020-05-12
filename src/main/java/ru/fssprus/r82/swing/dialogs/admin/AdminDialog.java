@@ -26,7 +26,7 @@ public class AdminDialog extends DialogWithPassword {
 	private static final String BTN_PASSWORDS_CAPTION = "Установка паролей";
 	private static final String BTN_QEDIT_CAPTION = "Редактор вопросов";
 	private static final String BTN_TCOSTRUCTOR = "Редактор тестов";
-	private static final String BTN_QLOAD_CAPTION = "Импорт наборов вопросов";
+	private static final String BTN_QLOAD_CAPTION = "Редактор наборов вопросов";
 	
 	private JButton btnQuestionLoad = new JGreenButton(BTN_QLOAD_CAPTION);
 	private JButton btnQuestionEdit = new JGreenButton(BTN_QEDIT_CAPTION);

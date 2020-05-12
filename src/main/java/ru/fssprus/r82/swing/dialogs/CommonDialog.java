@@ -46,8 +46,8 @@ public abstract class CommonDialog extends JDialog {
 	}
 	
 	private void initDialog(int width, int height){
-		setSize(new Dimension(width, height));
 		setUndecorated(true);
+		setSize(new Dimension(width, height));
 		getRootPane().setBorder(BorderFactory.createLineBorder(AppConstants.FSSP_COLOR));
 
 		add(pnlTop, BorderLayout.NORTH);

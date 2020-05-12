@@ -11,96 +11,115 @@ import java.util.Locale;
 
 public class AppConstants {
 	// Константы разделов приложения
-	public static final int SECTIONS_AMOUNT = 8;
+	public static final int PASSWORDED_SECTIONS_AMOUNT = 7;
 
 	public static final int DEFAULT_OFFSET = 10;
 
 	public static final String ADMIN_ICON = "/admin.png";
-	public static final String IMPORT_QUESTIONSET_ICON = "/questionload.png";
-	public static final String NEW_TEST_ICON = "/newtest.png";
-	public static final String PASSWORD_MANAGE_ICON = "/password.png";
-	public static final String QUESTION_EDIT_ICON = "/questionedit.png";
-	public static final String QUESTION_LIST_ICON = "/questionlist.png";
+	public static final String IMPORTQUESTIONSET_ICON = "/questionload.png";
+	public static final String NEWTEST_ICON = "/newtest.png";
+	public static final String PASSWORDMANAGE_ICON = "/password.png";
+	public static final String QUESTIONEDIT_ICON = "/questionedit.png";
+	public static final String QUESTIONLIST_ICON = "/questionlist.png";
 	public static final String RESULTING_ICON = "/result.png";
 	public static final String STATISTICS_ICON = "/statistics.png";
 	public static final String TEST_ICON = "/quizz.png";
 	public static final String TESTCONSTRUCTOR_ICON = "/config.png";
-	public static final String WRONG_ANSWERS_ICON = "/wronganswers.png";
+	public static final String WRONGANSWERS_ICON = "/wronganswers.png";
 	public static final String EXIT_ICON = "/exit.png";
+	//TODO: UNUSED
 	public static final String CONFIG_ICON = "/config.png";
 
 
 	public static final String ADMIN_DIALOG = "AdminDialog";
-	public static final String IMPORT_QUESTIONSET_DIALOG = "ImportQuestionSetDialog";
-	public static final String NEW_TEST_DIALOG = "NewTestDialog";
-	public static final String PASSWORD_MANAGE_DIALOG = "PasswordManageDialog";
-	public static final String QUESTION_EDIT_DIALOG = "QuestionEditDialog";
-	public static final String QUESTION_LIST_DIALOG = "QuestionListDialog";
+	public static final String IMPORTQUESTIONSET_DIALOG = "ImportQuestionSetDialog";
+	public static final String NEWTEST_DIALOG = "NewTestDialog";
+	public static final String PASSWORDMANAGE_DIALOG = "PasswordManageDialog";
+	public static final String QUESTIONEDIT_DIALOG = "QuestionEditDialog";
+	public static final String QUESTIONLIST_DIALOG = "QuestionListDialog";
 	public static final String RESULTING_DIALOG = "ResultingDialog";
 	public static final String STATISTICS_DIALOG = "StatisticsDialog";
 	public static final String TEST_DIALOG = "TestDialog";
 	public static final String TESTCONSTRUCTOR_DIALOG = "TestConstructorDialog";
-	public static final String WRONG_ANSWERS_DIALOG = "WrongAnswersDialog";
+	public static final String WRONGANSWERS_DIALOG = "WrongAnswersDialog";
+	//TODO: UNSUSED
 	public static final String CONFIG_DIALOG = "ConfigDialog";
 	
-	public static final String[] DIALOG_WITH_PASSWORDS_ARR = { NEW_TEST_DIALOG, STATISTICS_DIALOG, ADMIN_DIALOG,
-			CONFIG_DIALOG, QUESTION_EDIT_DIALOG, IMPORT_QUESTIONSET_DIALOG, TESTCONSTRUCTOR_DIALOG,
-			PASSWORD_MANAGE_DIALOG };
+
 
 	public static final String ADMIN_TEXT = "Администрирование";
-	public static final String IMPORT_QUESTIONSET_TEXT = "Импорт вопросов";
-	public static final String NEW_TEST_TEXT = "Новый тест";
-	public static final String PASSWORD_MANAGE_TEXT = "Редакторование паролей";
-	public static final String QUESTION_EDIT_TEXT = "Редактирование вопроса";
-	public static final String QUESTION_LIST_TEXT = "Список вопросов";
+	public static final String IMPORTQUESTIONSET_TEXT = "Импорт вопросов";
+	public static final String NEWTEST_TEXT = "Новый тест";
+	public static final String PASSWORDMANAGE_TEXT = "Редакторование паролей";
+	public static final String QUESTIONEDIT_TEXT = "Редактирование вопроса";
+	public static final String QUESTIONLIST_TEXT = "Список вопросов";
 	public static final String RESULTING_TEXT = "Результаты тестирования";
 	public static final String STATISTICS_TEXT = "Статистика";
 	public static final String TEST_TEXT = "Тестирование";
 	public static final String TESTCONSTRUCTOR_TEXT = "Конструктор тестов";
-	public static final String WRONG_ANSWERS_TEXT = "Не правильные ответы";
+	public static final String WRONGANSWERS_TEXT = "Не правильные ответы";
+	//TODO: UNSUSED
 	public static final String CONFIG_TEXT = "Конфигурация";
 	
 
-	public static final String[] DIALOG_WITH_PASSWORDS_TEXT_ARR = { TEST_TEXT, STATISTICS_TEXT, ADMIN_TEXT, CONFIG_TEXT,
-			QUESTION_EDIT_TEXT, IMPORT_QUESTIONSET_TEXT, TESTCONSTRUCTOR_TEXT, PASSWORD_MANAGE_TEXT };
+	public static final String[] DIALOG_WITH_PASSWORDS_TEXT_ARR = { 
+			TEST_TEXT, 
+			STATISTICS_TEXT,
+			ADMIN_TEXT, 
+			IMPORTQUESTIONSET_TEXT,
+			PASSWORDMANAGE_TEXT,
+			QUESTIONLIST_TEXT,
+			TESTCONSTRUCTOR_TEXT, 
+			 };
+	
+	public static final String[] DIALOG_WITH_PASSWORDS_ARR = { 
+			NEWTEST_DIALOG, 
+			STATISTICS_DIALOG,
+			ADMIN_DIALOG,
+			IMPORTQUESTIONSET_DIALOG,
+			QUESTIONLIST_DIALOG, 
+			PASSWORDMANAGE_DIALOG,
+			TESTCONSTRUCTOR_DIALOG,
+			 };
 
 	// Размеры окон
-	public static final int DIALOG_ADMIN_WIDTH = 500;
-	public static final int DIALOG_ADMIN_HEIGHT = 300;
+	public static final int ADMIN_DIALOG_WIDTH = 500;
+	public static final int ADMIN_DIALOG_HEIGHT = 300;
 	
-	public static final int DIALOG_IMPORTQUESTIONSET_WIDTH = 1000;
-	public static final int DIALOG_IMPORTQUESTIONSET_HEIGHT = 700;
+	public static final int IMPORTQUESTIONSET_DIALOG_WIDTH = 800;
+	public static final int IMPORTQUESTIONSET_DIALOG_HEIGHT = 600;
 	
-	public static final int DIALOG_NEW_TEST_WIDTH = 800;
-	public static final int DIALOG_NEW_TEST_HEIGHT = 300;
+	public static final int NEWTEST_DIALOG_WIDTH = 800;
+	public static final int NEWTEST_DIALOG_HEIGHT = 300;
 	
-	public static final int DIALOG_PASSWORDMANAGE_WIDTH = 600;
-	public static final int DIALOG_PASSWORDMANAGE_HEIGHT = 400;
+	public static final int PASSWORDMANAGE_DIALOG_WIDTH = 600;
+	public static final int PASSWORDMANAGE_DIALOG_HEIGHT = 400;
 	
-	public static final int DIALOG_QUESTIONEDIT_WIDTH = 800;
-	public static final int DIALOG_QUESTIONEDIT_HEIGHT = 750;
+	public static final int QUESTIONEDIT_DIALOG_WIDTH = 800;
+	public static final int QUESTIONEDIT_DIALOG_HEIGHT = 750;
 	
+	public static final int QUESTIONLIST_DIALOG_WIDTH = 1000;
+	public static final int QUESTIONLIST_DIALOG_HEIGHT = 700;
+	
+	public static final int RESULTING_DIALOG_WIDTH = 600;
+	public static final int RESULTING_DIALOG_HEIGHT = 300;
+	
+	public static final int STATISTICS_DIALOG_WIDTH = 900;
+	public static final int STATISTICS_DIALOG_HEIGHT = 600;
+	
+	public static final int TEST_DIALOG_WIDTH = 1000;
+	public static final int TEST_DIALOG_HEIGHT = 700;
+	
+	public static final int TESTCONSTRUCTOR_DIALOG_WIDTH = 900;
+	public static final int TESTCONSTRUCTOR_DIALOG_HEIGHT = 700;
+
+	public static final int WRONGANSWERS_DIALOG_WIDTH = 800;
+	public static final int WRONGANSWERS_DIALOG_HEIGHT = 700;
+	
+	// TODO: UNUSED	
 	public static final int DIALOG_CONFIG_WIDTH = 800;
 	public static final int DIALOG_CONFIG_HEIGHT = 600;
 
-	public static final int DIALOG_LOADING_QUESTION_SET_WIDTH = 800;
-	public static final int DIALOG_LOADING_QUESTION_SET_HEIGHT = 600;
-
-	public static final int DIALOG_TEST_WIDTH = 1000;
-	public static final int DIALOG_TEST_HEIGHT = 768;
-
-	public static final int DIALOG_WRONG_ANSWERS_WIDTH = 800;
-	public static final int DIALOG_WRONG_ANSWERS_HEIGHT = 700;
-
-	public static final int DIALOG_STATISTICS_WIDTH = 800;
-	public static final int DIALOG_STATISTICS_HEIGHT = 600;
-
-	public static final int DIALOG_RESULTING_WIDTH = 600;
-	public static final int DIALOG_RESULTING_HEIGHT = 300;
-
-	public static final int DIALOG_TEST_CONSTRUCTOR_WIDTH = 900;
-	public static final int DIALOG_TEST_CONSTRUCTOR_HEIGHT = 700;
-	
 	public static final int QUESTION_TEXT_SIDE_INDENTS = 50;
 
 	// Константы шрифтов
@@ -132,7 +151,7 @@ public class AppConstants {
 	public static final String QLDIALOG_PNL_QEDIT_BORDER_TITLE_RU = "Просмотр и редактирование вопроса";
 
 	// StatisticsDialog константы
-	public static final int[] STATDIALOG_TABLE_COL_WIDTHS_ARR = { 20, 250, 125, 125, 50, 50, 50, 125 };
+	public static final int[] STATDIALOG_TABLE_COL_WIDTHS_ARR = { 20, 250, 150, 125, 50, 50, 50, 175 };
 	public static final String[] STATDIALOG_TABLE_COL_CAPTIONS_ARR = { "#", "ФИО пользователя", "Набор вопросов",
 			"Дата теста", "Время теста", "Верных ответов", "%", "Результат" };
 	public static final SimpleDateFormat STATDIALOG_TABLE_DATE_FORMAT = new SimpleDateFormat("dd MMMMM yyyy HH:mm",
