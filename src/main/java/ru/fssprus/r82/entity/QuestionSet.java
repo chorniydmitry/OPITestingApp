@@ -31,7 +31,7 @@ public class QuestionSet extends Model {
 	private String name;
 
 	//TODO УДАЛИТЬ???
-	@OneToMany(mappedBy = "questionset", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "questionset", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<TestSet> testSets = new HashSet<>();
 
 	public String getName() {

@@ -82,6 +82,9 @@ public class AppConstants {
 			TESTCONSTRUCTOR_DIALOG,
 			 };
 
+	public static final int IMAGE_PREVIEW_WIDTH = 200;
+	public static final int IMAGE_PREVIEW_HEIGHT = 150;
+	
 	// Размеры окон
 	public static final int ADMIN_DIALOG_WIDTH = 500;
 	public static final int ADMIN_DIALOG_HEIGHT = 300;
@@ -240,7 +243,7 @@ public class AppConstants {
 	 * FOR TESTSET ENTITY
 	 */
 
-	public static final int VALID_TESTSET_NAME_SIZE_MIN = 5;
+	public static final int VALID_TESTSET_QUESTIONS_SIZE_MIN = 5;
 
 	/*
 	 * VALIDATION MESSAGES CONSTANTS
@@ -285,7 +288,7 @@ public class AppConstants {
 	 */
 
 	public static final String VALID_TESTSET_NAME_NOTNULL = "Поле НАЗВАНИЕ НАБОРА ВОПРОСОВ НЕ должно быть пустым!";
-	public static final String VALID_TESTSET_NAME_SIZE = "Поле НАЗВАНИЕ НАБОРА ВОПРОСОВ должно быть более 5 символов длиной!";
+	public static final String VALID_TESTSET_QUESTIONS_SIZE = "Минимальное количество вопросов в наборе для добавления\nв тест должно быть больше 5!";
 
 	/*
 	 * FOR QUESTION SET

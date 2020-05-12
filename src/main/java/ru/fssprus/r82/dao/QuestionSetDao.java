@@ -14,5 +14,6 @@ public interface QuestionSetDao extends ItemDao<QuestionSet> {
 	public List<QuestionSet> getByTitle(int startPos, int endPos, String title);
 	
 	public List<QuestionSet> getByQuestion(int startPos, int endPos, Question questions);
+
 	
 }

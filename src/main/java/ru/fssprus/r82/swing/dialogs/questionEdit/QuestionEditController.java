@@ -1,7 +1,14 @@
 package ru.fssprus.r82.swing.dialogs.questionEdit;
 
+import java.awt.Dimension;
+import java.awt.FileDialog;
+import java.awt.Frame;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
-
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -9,9 +16,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.SwingWorker;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -25,6 +37,7 @@ import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
+import ru.fssprus.r82.swing.utils.JImageFileChooser;
 import ru.fssprus.r82.swing.utils.MessageBox;
 import ru.fssprus.r82.utils.AppConstants;
 
@@ -32,6 +45,7 @@ import ru.fssprus.r82.utils.AppConstants;
 public class QuestionEditController extends CommonController<QuestionEditDialog> {
 
 	private Question questionToEdit;
+	private File fileToSave;
 
 	public QuestionEditController(QuestionEditDialog dialog, Question questionToEdit) {
 		super(dialog);
@@ -64,7 +78,7 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 		QuestionService qService = new QuestionService();
 		if (checkQuestionToSave()) {
 
-			if(new File(dialog.getTfImageLink().getText()).exists())
+			if (new File(dialog.getTfImageLink().getText()).exists())
 				questionToEdit.setImageLink(dialog.getTfImageLink().getText());
 			if (questionToEdit.getId() != null)
 				qService.update(questionToEdit);
@@ -80,31 +94,20 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 
 	// TODO:
 	private void btnAddImageAction() {
-		File fileSelected = selectImageFile();
+		JImageFileChooser jIFC = new JImageFileChooser();
+		File fileSelected = jIFC.selectImageFile(dialog);
+
 		File newFile = copySelectedFile(fileSelected);
 
 		int width = AppConstants.TEST_DIALOG_WIDTH - 2 * AppConstants.QUESTION_TEXT_SIDE_INDENTS;
 
-		//String fileTag = "<img src=\"file:" + newFile.getAbsolutePath() + "\" width=\"" + width + "\"/>";
+		// String fileTag = "<img src=\"file:" + newFile.getAbsolutePath() + "\"
+		// width=\"" + width + "\"/>";
 		String fileTag = newFile.getPath();
-		
+
 		dialog.getTfImageLink().setText(fileTag);
 	}
 
-	private File selectImageFile() {
-		JFileChooser fChooser = new JFileChooser();
-		fChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		fChooser.setMultiSelectionEnabled(false);
-		fChooser.setAcceptAllFileFilterUsed(false);
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG, PNG and GIF images", "jpg", "jpeg", "png",
-				"gif");
-		fChooser.addChoosableFileFilter(filter);
-		int selection = fChooser.showOpenDialog(dialog);
-		if (selection == JFileChooser.APPROVE_OPTION) {
-			return fChooser.getSelectedFile();
-		} else
-			return null;
-	}
 
 	private File copySelectedFile(File selectedFile) {
 		try {

@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -67,7 +68,15 @@ public class ImportQuestionSetController extends CommonController<ImportQuestion
 	}
 	
 	private void doDeleteSet() {
-		MessageBox.showConfirmSetDelete(dialog);
+		boolean toDelete = MessageBox.showConfirmSetDelete(dialog);
+		
+		if(!toDelete)
+			return;
+		
+		QuestionSetService qsService = new QuestionSetService();
+		QuestionSet setToDelete = qsService.getByName(dialog.getCbSetName().getSelectedItem().toString()).get(0);
+		
+		qsService.delete(setToDelete);
 	}
 
 	private void doSwitchQuestionSet() {

@@ -1,5 +1,6 @@
 package ru.fssprus.r82.swing.dialogs.testConstructor;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -85,29 +86,6 @@ public class TestConstructorController extends CommonController<TestConstructorD
 		dialog.getTblList().update();
 	}
 
-	private void doChangeSelectionAction(int index) {
-		currentTest = testsOnScreen.get(index);
-
-		clearLowerPanel();
-
-		List<TestSet> testSets = new ArrayList<>(testsOnScreen.get(index).getTestSets());
-		for (TestSet testSet : testSets) {
-			String questionSetName = testSet.getQuestionSet().getName();
-			int amountOfQuestions = testSet.getQuestionsAmount();
-			int i = testSets.indexOf(testSet);
-			int maxForSet = getAmountForSet(testSet.getQuestionSet());
-
-			dialog.changeSpinnerMax(dialog.getSpnsSetAmountOfQuestionList().get(i), maxForSet);
-			dialog.getSpnsSetAmountOfQuestionList().get(i).setValue(amountOfQuestions);
-			dialog.getCbsSetNamesList().get(i).setSelectedItem(questionSetName);
-		}
-
-		dialog.getTfTestName().setText(currentTest.getName());
-		dialog.getSpnQuestionsAmount().setValue(currentTest.getAmountOfQuestions());
-		dialog.getSpnTestTime().setValue(currentTest.getTestTimeSec());
-		dialog.getCbTestIsActive().setSelected(currentTest.isActive());
-	}
-
 	private int getAmountForSet(QuestionSet qSet) {
 		QuestionService qServ = new QuestionService();
 		return qServ.getAmountByQuestionSet(qSet);
@@ -149,11 +127,37 @@ public class TestConstructorController extends CommonController<TestConstructorD
 		dialog.getBtnSave().setEnabled(isEditing);
 	}
 
-	private void doComboboxValueChangedAction(int index) {
+	private void doChangeSelectionAction(int index) {
+		currentTest = testsOnScreen.get(index);
+
+		clearLowerPanel();
+
+		List<TestSet> testSets = new ArrayList<>(testsOnScreen.get(index).getTestSets());
+		for (TestSet testSet : testSets) {
+			String questionSetName = testSet.getQuestionSet().getName();
+			int amountOfQuestions = testSet.getQuestionsAmount();
+			int i = testSets.indexOf(testSet);
+			int maxForSet = getAmountForSet(testSet.getQuestionSet());
+
+			dialog.changeSpinnerMax(dialog.getSpnsSetAmountOfQuestionList().get(i), maxForSet);
+			dialog.getSpnsSetAmountOfQuestionList().get(i).setValue(amountOfQuestions);
+			dialog.getCbsSetNamesList().get(i).setSelectedItem(questionSetName);
+		}
+
+		dialog.getTfTestName().setText(currentTest.getName());
+		dialog.getSpnQuestionsAmount().setValue(currentTest.getAmountOfQuestions());
+		dialog.getSpnTestTime().setValue(currentTest.getTestTimeSec());
+		dialog.getCbTestIsActive().setSelected(currentTest.isActive());
+	}
+
+	private void doComboboxItemChangedAction(int index) {
+
 		QuestionSetService qsService = new QuestionSetService();
-		QuestionSet qSet = qsService.getUniqueByName(String.valueOf(dialog.getCbsSetNamesList().get(index).getSelectedItem()));
-		if(qSet == null) return;
-		
+		QuestionSet qSet = qsService
+				.getUniqueByName(String.valueOf(dialog.getCbsSetNamesList().get(index).getSelectedItem()));
+		if (qSet == null)
+			return;
+
 		int amount = getAmountForSet(qSet);
 		dialog.changeSpinnerMax(dialog.getSpnsSetAmountOfQuestionList().get(index), amount);
 		dialog.getLblsSetMaxAmountList().get(index).setText(String.valueOf(amount));
@@ -229,17 +233,22 @@ public class TestConstructorController extends CommonController<TestConstructorD
 		return totalAmount != testSetAmount;
 	}
 
-	private boolean checkIfQuestionsSetHasDuplicates() {
-		ArrayList<String> allreadySetArr = new ArrayList<>();
-		for (int i = 0; i < TestConstructorDiaolg.MAXIMUM_OF_SETS; i++) {
-			String current = (String) dialog.getCbsSetNamesList().get(i).getSelectedItem();
-			if (allreadySetArr.indexOf(current) != -1)
-				return false;
-			else {
-				allreadySetArr.add(current);
+	private boolean checkIfCbHasDublicates() {
+		int size = dialog.getCbsSetNamesList().size();
+	
+		for (int i = 0; i < size; i++) {
+			int itemI = dialog.getCbsSetNamesList().get(i).getSelectedIndex();
+			for (int j = 0; j < size; j++) {
+				
+				int itemJ = dialog.getCbsSetNamesList().get(j).getSelectedIndex();
+	
+				if (i == j || itemI == 0 || itemJ == 0)
+					continue;
+				
+				if(itemI == itemJ)
+					return true;
 			}
 		}
-
 		return false;
 	}
 
@@ -250,29 +259,46 @@ public class TestConstructorController extends CommonController<TestConstructorD
 			violations.add(AppConstants.VALID_TEST_NAME_NOT_UNIQUE);
 		}
 
-		if (checkIfQuestionsSetHasDuplicates()) {
+		if (checkIfCbHasDublicates()) {
 			violations.add(AppConstants.VALID_QUESTIONSET_HAS_DUPLICATES);
 		}
 
 		if (checkIfTotalQuestAmountIsNotCorrect()) {
 			violations.add(AppConstants.VALID_TOTALAMOUNTOFQUESTIONS_WRONG);
 		}
-
+		
 		return violations;
 	}
 
 	private boolean checkIfTestNameIsNotUnique() {
 		int currentTestIndex = testsOnScreen.indexOf(currentTest);
 		String nameToCheck = dialog.getTfTestName().getText();
-		
-		for(int i = 0; i < testsOnScreen.size(); i++) {
-			if(i == currentTestIndex) continue;
-			
-			if(testsOnScreen.get(i).getName().equalsIgnoreCase(nameToCheck)) 
+
+		for (int i = 0; i < testsOnScreen.size(); i++) {
+			if (i == currentTestIndex)
+				continue;
+
+			if (testsOnScreen.get(i).getName().equalsIgnoreCase(nameToCheck))
 				return true;
 		}
-		
+
 		return false;
+	}
+
+	private Set<ConstraintViolation<TestSet>> getTestSetsViolations() {
+		Validator validator = getValidator();
+		Set<ConstraintViolation<TestSet>> violations = new HashSet<ConstraintViolation<TestSet>>();
+
+		for (TestSet ts : currentTest.getTestSets())
+			violations.addAll(validator.validate(ts));
+
+		return violations;
+	}
+
+	private Validator getValidator() {
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		return factory.getValidator();
+
 	}
 
 	private boolean checkCurrentTest() {
@@ -285,26 +311,30 @@ public class TestConstructorController extends CommonController<TestConstructorD
 
 		updateCurrentTest();
 
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		Validator validator = factory.getValidator();
+		Validator validator = getValidator();
 
 		Set<ConstraintViolation<Test>> violations = validator.validate(currentTest);
+		Set<ConstraintViolation<TestSet>> violationsTestSet = getTestSetsViolations();
+		
 
-		if (violations.size() == 0 && formViolations.size() == 0) {
-			updateTfStatus(CHECKING_PASSED);
+		if (violations.size() == 0 && formViolations.size() == 0 && violationsTestSet.size() == 0) {
+			updateTfStatus(CHECKING_PASSED, 0);
 			return true;
 		}
 
 		for (ConstraintViolation<Test> violation : violations)
 			errorMessage += violation.getMessage() + "\n";
 
+		for (ConstraintViolation<TestSet> violation : violationsTestSet)
+			errorMessage += violation.getMessage() + "\n";
+
 		MessageBox.showValidationFaildMessage(dialog, errorMessage);
 
-		updateTfStatus(CHECKING_FAILED);
+		updateTfStatus(CHECKING_FAILED, (violations.size() + violationsTestSet.size() + formViolations.size()));
 		return false;
 	}
 
-	private void updateTfStatus(int status) {
+	private void updateTfStatus(int status, int errors) {
 		dialog.getLblTestIsCorrect().setVisible(true);
 		switch (status) {
 		case EDITING:
@@ -312,7 +342,7 @@ public class TestConstructorController extends CommonController<TestConstructorD
 			dialog.getLblTestIsCorrect().setBackground(TestConstructorDiaolg.LBL_TEST_IS_NOT_CHECKED_COLOR);
 			break;
 		case CHECKING_FAILED:
-			dialog.getLblTestIsCorrect().setText(TestConstructorDiaolg.LBL_TEST_IS_NOT_CORRECT_CAPTION);
+			dialog.getLblTestIsCorrect().setText(TestConstructorDiaolg.LBL_TEST_IS_NOT_CORRECT_CAPTION + ": " + errors);
 			dialog.getLblTestIsCorrect().setBackground(TestConstructorDiaolg.LBL_TEST_IS_NOT_CORRECT_COLOR);
 			break;
 		case CHECKING_PASSED:
@@ -328,7 +358,7 @@ public class TestConstructorController extends CommonController<TestConstructorD
 	@Override
 	protected void setListeners() {
 		for (JComboBox<String> cb : dialog.getCbsSetNamesList()) {
-			cb.addItemListener(l -> doComboboxValueChangedAction(dialog.getCbsSetNamesList().indexOf(cb)));
+			cb.addItemListener(l -> doComboboxItemChangedAction(dialog.getCbsSetNamesList().indexOf(cb)));
 		}
 		dialog.getBtnSave().addActionListener(l -> doCheckAction());
 	}
@@ -355,20 +385,20 @@ public class TestConstructorController extends CommonController<TestConstructorD
 
 	@Override
 	public void addEntry(int index) {
-		updateTfStatus(EDITING);
+		updateTfStatus(EDITING, 0);
 		setEditing(true);
 		addNewTest();
 	}
 
 	@Override
 	public void edit() {
-		updateTfStatus(EDITING);
+		updateTfStatus(EDITING, 0);
 		setEditing(true);
 	}
 
 	@Override
 	public void save() {
-		updateTfStatus(NONE);
+		updateTfStatus(NONE, 0);
 		saveCurrentTest();
 		loadExistingTests();
 		setEditing(false);
@@ -377,7 +407,7 @@ public class TestConstructorController extends CommonController<TestConstructorD
 
 	@Override
 	public void cancel() {
-		updateTfStatus(NONE);
+		updateTfStatus(NONE, 0);
 		loadExistingTests();
 		setEditing(false);
 		clearLowerPanel();
@@ -387,7 +417,7 @@ public class TestConstructorController extends CommonController<TestConstructorD
 	public void delete(int index) {
 		boolean userConfirmed = MessageBox.showConfirmQuestionDelete(dialog);
 		if (userConfirmed) {
-			updateTfStatus(NONE);
+			updateTfStatus(NONE, 0);
 			TestService tServ = new TestService();
 			tServ.delete(currentTest);
 			loadExistingTests();

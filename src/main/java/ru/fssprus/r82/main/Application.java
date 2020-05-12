@@ -1,9 +1,4 @@
 package ru.fssprus.r82.main;
-
-/**
- * @author Chernyj Dmitry
- *
- */
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -33,6 +28,11 @@ import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.swing.main.mainFrame.MainFrame;
 import ru.fssprus.r82.utils.CryptWithMD5;
 import ru.fssprus.r82.utils.HibernateUtil;
+
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 
 public class Application {
 

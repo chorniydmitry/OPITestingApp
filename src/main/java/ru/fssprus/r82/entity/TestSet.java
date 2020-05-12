@@ -16,7 +16,7 @@ import ru.fssprus.r82.utils.AppConstants;
 public class TestSet extends Model {
 
 	@NotNull(message = AppConstants.VALID_TESTSET_NAME_NOTNULL)
-	@Range(min = AppConstants.VALID_TESTSET_NAME_SIZE_MIN, message = AppConstants.VALID_TESTSET_NAME_SIZE)
+	@Range(min = AppConstants.VALID_TESTSET_QUESTIONS_SIZE_MIN, message = AppConstants.VALID_TESTSET_QUESTIONS_SIZE)
 	@Column(name = "questionsamount")
 	private int questionsAmount;
 
@@ -25,7 +25,7 @@ public class TestSet extends Model {
 	private Test test;
 
 	@ManyToOne
-	@JoinColumn(name = "questionset_id")
+	@JoinColumn(name = "questionset_id", unique=true)
 	private QuestionSet questionset;
 
 	public int getQuestionsAmount() {
