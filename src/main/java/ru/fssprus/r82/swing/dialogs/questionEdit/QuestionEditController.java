@@ -1,14 +1,6 @@
 package ru.fssprus.r82.swing.dialogs.questionEdit;
 
-import java.awt.Dimension;
-import java.awt.FileDialog;
-import java.awt.Frame;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -16,15 +8,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.SwingWorker;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -41,7 +26,6 @@ import ru.fssprus.r82.swing.utils.JImageFileChooser;
 import ru.fssprus.r82.swing.utils.MessageBox;
 import ru.fssprus.r82.utils.AppConstants;
 
-//TODO DELETE UNUSED FILE BY FILELINK
 public class QuestionEditController extends CommonController<QuestionEditDialog> {
 
 	private Question questionToEdit;
@@ -75,11 +59,10 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 		questionToEdit.setTitle(qetQuestionTitleFromQuestionEditUI());
 		questionToEdit.setQuestionSet(getQuestionSetFromQuestionEditUI());
 
+		checkAndSaveFile();
+
 		QuestionService qService = new QuestionService();
 		if (checkQuestionToSave()) {
-
-			if (new File(dialog.getTfImageLink().getText()).exists())
-				questionToEdit.setImageLink(dialog.getTfImageLink().getText());
 			if (questionToEdit.getId() != null)
 				qService.update(questionToEdit);
 			else
@@ -90,35 +73,45 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 			DialogBuilder.showQuestionListDialog();
 
 		}
+
+	}
+
+	private void checkAndSaveFile() {
+		if (fileToSave == null)
+			return;
+		
+		String oldImageLink = questionToEdit.getImageLink();
+
+		if (oldImageLink != null && !oldImageLink.isEmpty())
+			deleteUnusedFile();
+
+		File toSaveFile = new File(
+				"images/quest_illustration_" + System.currentTimeMillis() + "." + fileToSave.getName().split("\\.")[1]);
+		try {
+			Files.copy(fileToSave.toPath(), toSaveFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			MessageBox.showErrorMessage(dialog.getParent(), AppConstants.CANNOT_SAVEFILE_ERROR);
+			e.printStackTrace();
+			return;
+		}
+		
+		questionToEdit.setImageLink(toSaveFile.toString());
+
+	}
+
+	private void deleteUnusedFile() {
+		File f = new File(questionToEdit.getImageLink());
+		f.delete();
 	}
 
 	// TODO:
 	private void btnAddImageAction() {
 		JImageFileChooser jIFC = new JImageFileChooser();
-		File fileSelected = jIFC.selectImageFile(dialog);
+		fileToSave = jIFC.selectImageFile(dialog.getParent());
 
-		File newFile = copySelectedFile(fileSelected);
-
-		int width = AppConstants.TEST_DIALOG_WIDTH - 2 * AppConstants.QUESTION_TEXT_SIDE_INDENTS;
-
-		// String fileTag = "<img src=\"file:" + newFile.getAbsolutePath() + "\"
-		// width=\"" + width + "\"/>";
-		String fileTag = newFile.getPath();
+		String fileTag = fileToSave.getPath();
 
 		dialog.getTfImageLink().setText(fileTag);
-	}
-
-
-	private File copySelectedFile(File selectedFile) {
-		try {
-			File toSaveFile = new File("images/quest_illustration_" + System.currentTimeMillis() + "."
-					+ selectedFile.getName().split("\\.")[1]);
-			Files.copy(selectedFile.toPath(), toSaveFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-			return toSaveFile;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 
 	private void fillCbsWithAvailibleSets() {
@@ -207,17 +200,17 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 		}
 
 		for (ConstraintViolation<Question> violation : violations)
-			errorMessage += violation.getMessage() + "\n";
+			errorMessage += violation.getMessage() + AppConstants.EOL;
 
-		errorMessage += "\n";
+		errorMessage += AppConstants.EOL;
 
 		for (ConstraintViolation<Answer> violation : answersViolations)
-			errorMessage += violation.getMessage() + "\n";
+			errorMessage += violation.getMessage() + AppConstants.EOL;
 
-		errorMessage += "\n";
+		errorMessage += AppConstants.EOL;
 
 		if (!checkIfCorrectAnswerIsSet())
-			errorMessage += AppConstants.VALID_QUEST_NO_CORRECT_ANSWER + "\n";
+			errorMessage += AppConstants.VALID_QUEST_NO_CORRECT_ANSWER + AppConstants.EOL;
 
 		MessageBox.showValidationFaildMessage(dialog, errorMessage);
 

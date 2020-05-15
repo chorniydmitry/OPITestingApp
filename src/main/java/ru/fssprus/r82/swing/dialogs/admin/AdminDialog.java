@@ -14,7 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
-import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class AdminDialog extends DialogWithPassword {
@@ -27,11 +26,13 @@ public class AdminDialog extends DialogWithPassword {
 	private static final String BTN_QEDIT_CAPTION = "Редактор вопросов";
 	private static final String BTN_TCOSTRUCTOR = "Редактор тестов";
 	private static final String BTN_QLOAD_CAPTION = "Редактор наборов вопросов";
+	private static final String BTN_LOOK_CAPTION = "Редактор внешнего вида";
 	
-	private JButton btnQuestionLoad = new JGreenButton(BTN_QLOAD_CAPTION);
-	private JButton btnQuestionEdit = new JGreenButton(BTN_QEDIT_CAPTION);
-	private JButton btnTestConstructor = new JGreenButton(BTN_TCOSTRUCTOR);
-	private JButton btnPasswords = new JGreenButton(BTN_PASSWORDS_CAPTION);
+	private JButton btnQuestionLoad = new JButton(BTN_QLOAD_CAPTION);
+	private JButton btnQuestionEdit = new JButton(BTN_QEDIT_CAPTION);
+	private JButton btnTestConstructor = new JButton(BTN_TCOSTRUCTOR);
+	private JButton btnPasswords = new JButton(BTN_PASSWORDS_CAPTION);
+	private JButton btnLook = new JButton(BTN_LOOK_CAPTION);
 	
 	public AdminDialog(int width, int height, JFrame parent) {
 		super(width, height, parent);
@@ -58,6 +59,9 @@ public class AdminDialog extends DialogWithPassword {
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 10, 10));
 		
 		contentPanel.add(btnPasswords, new GridBagConstraints(0, 3, GridBagConstraints.REMAINDER, 1, 1, 1,
+				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 10, 10));
+		
+		contentPanel.add(btnLook, new GridBagConstraints(0, 4, GridBagConstraints.REMAINDER, 1, 1, 1,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 10, 10));
 	}
 	
@@ -101,6 +105,14 @@ public class AdminDialog extends DialogWithPassword {
 
 	public void setBtnTestConstructor(JButton btnTestConstructor) {
 		this.btnTestConstructor = btnTestConstructor;
+	}
+
+	public JButton getBtnLook() {
+		return btnLook;
+	}
+
+	public void setBtnLook(JButton btnLook) {
+		this.btnLook = btnLook;
 	}
 	
 	

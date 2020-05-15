@@ -1,6 +1,7 @@
 package ru.fssprus.r82.swing.dialogs.importSet;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -15,7 +16,6 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
-import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class ImportQuestionSetDialog extends DialogWithPassword {
@@ -49,7 +49,7 @@ public class ImportQuestionSetDialog extends DialogWithPassword {
 	private JPanel pnlAddNewSet = new JPanel();
 	private JLabel lblNameOfNewSet = new JLabel(LBL_NAMEOGNEWSET_CAPTION);
 	private JTextField tfNameOfNewTest = new JTextField(TF_SIZE);
-	private JButton btnSaveNewSet = new JGreenButton(BTN_SAVENEWSET_CAPTION);
+	private JButton btnSaveNewSet = new JButton(BTN_SAVENEWSET_CAPTION);
 
 	private JPanel pnlAddQuestionsFromFile = new JPanel();
 	private JLabel lblSpecName = new JLabel(LBL_SPEC_NAME_CAPTION);
@@ -60,13 +60,13 @@ public class ImportQuestionSetDialog extends DialogWithPassword {
 	private JLabel lblTimesInTestVal = new JLabel();
 	
 	private JLabel lblAddQuestions = new JLabel(LBL_ADDQUESTIONS_CAPTION);
-	private JButton btnOpenTextFile = new JGreenButton(BTN_OPEN_CAPTION);
+	private JButton btnOpenTextFile = new JButton(BTN_OPEN_CAPTION);
 	private JTextField tfFilePath = new JTextField();
-	private JButton btnImportQuestionsSet = new JGreenButton(BTN_LOAD_CAPTION);
+	private JButton btnImportQuestionsSet = new JButton(BTN_LOAD_CAPTION);
 
-	private JButton btnLoadSetFileTemplate = new JGreenButton(BTN_LOAD_TEMPLATE);
+	private JButton btnLoadSetFileTemplate = new JButton(BTN_LOAD_TEMPLATE);
 
-	private JButton btnDeleteSet = new JGreenButton(BTN_DELETE_SET_CAPTION);
+	private JButton btnDeleteSet = new JButton(BTN_DELETE_SET_CAPTION);
 	
 	private void layoutPnlSetEditing() {
 		layoutPnlAddNewSet();
@@ -79,6 +79,7 @@ public class ImportQuestionSetDialog extends DialogWithPassword {
 	
 	private void layoutPnlAddNewSet() {
 		pnlAddNewSet.setBorder(new TitledBorder(PNL_ADD_NEW_SET_TITLE));
+		pnlAddNewSet.setBackground(Color.LIGHT_GRAY);
 		pnlAddNewSet.add(lblNameOfNewSet);
 		pnlAddNewSet.add(tfNameOfNewTest);
 		pnlAddNewSet.add(btnSaveNewSet);

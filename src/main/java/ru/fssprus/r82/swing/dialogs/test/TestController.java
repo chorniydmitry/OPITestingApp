@@ -18,6 +18,7 @@ import ru.fssprus.r82.swing.dialogs.ControllerWithTimer;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.CheatingStopper;
+import ru.fssprus.r82.utils.ImageUtils;
 import ru.fssprus.r82.utils.Utils;
 import ru.fssprus.r82.utils.testingTools.TestingProcess;
 import ru.fssprus.r82.utils.testingTools.TestingProcessAnaliser;
@@ -82,7 +83,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	
 	private void showImage() {
 		if(questionList.get(currentIndex).getImageLink() != null)
-			dialog.getLblImage().setIcon(Utils.resizeImage(new ImageIcon(questionList.get(currentIndex).getImageLink()), dialog.countWidth()));
+			dialog.getLblImage().setIcon(ImageUtils.resizeImage(new ImageIcon(questionList.get(currentIndex).getImageLink()), dialog.countWidth()));
 		else {
 			dialog.getLblImage().setIcon(null);
 		}

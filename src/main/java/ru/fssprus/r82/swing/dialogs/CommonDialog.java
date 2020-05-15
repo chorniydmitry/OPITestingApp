@@ -13,12 +13,12 @@ import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 public abstract class CommonDialog extends JDialog {
@@ -32,7 +32,7 @@ public abstract class CommonDialog extends JDialog {
 	private JPanel pnlContent = new JPanel();
 	private JLabel lblEmblem = new JLabel();
 	private JLabel lblTitle = new JLabel();
-	private JGreenButton btnClose = new JGreenButton(BTN_CLOSE_CAPTION);
+	private JButton btnClose = new JButton(BTN_CLOSE_CAPTION);
 	
 	public CommonDialog(int width, int height, JFrame parent, boolean isModal) {
 		super(parent, isModal);
@@ -112,7 +112,7 @@ public abstract class CommonDialog extends JDialog {
 		return pnlTop;
 	}
 
-	protected JGreenButton getBtnClose() {
+	protected JButton getBtnClose() {
 		return btnClose;
 	}
 

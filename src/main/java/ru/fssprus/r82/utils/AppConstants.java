@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class AppConstants {
+	public static final String EOL = "\n";
+	
 	// Константы разделов приложения
 	public static final int PASSWORDED_SECTIONS_AMOUNT = 7;
 
@@ -115,6 +117,9 @@ public class AppConstants {
 	
 	public static final int TESTCONSTRUCTOR_DIALOG_WIDTH = 900;
 	public static final int TESTCONSTRUCTOR_DIALOG_HEIGHT = 700;
+	
+	public static final int UIDESIGNER_DIALOG_WIDTH = 500;
+	public static final int UIDESIGNER_DIALOG_HEIGHT = 500;
 
 	public static final int WRONGANSWERS_DIALOG_WIDTH = 800;
 	public static final int WRONGANSWERS_DIALOG_HEIGHT = 700;
@@ -220,6 +225,12 @@ public class AppConstants {
 			+ "программы" + "<br/>" + "оставьте пустым, если пароль для доступа к разделу не требуется:</html>";
 
 	/*
+	 * ERROR MESSAGE CONSTANTS
+	 */
+
+	 public static final String ERROR_ICON_NOT_LOADED = "Файл изображения не может быть загружен!\nПроверьте целостность дистрибуива программы!";
+	
+	/*
 	 * VALIDATION CONSTANTS
 	 */
 
@@ -298,5 +309,7 @@ public class AppConstants {
 			+ "5 и больше 2048 символов.";
 	public static final String VALID_QUESTIONSET_NAME_UNIQUE = "Поле НАЗВАНИЕ НАБОРА должно быть уникальным"
 			+ "(в базе данных не должно содержаться записи с таким же значением)!";
+
+	public static final String CANNOT_SAVEFILE_ERROR = "Невозможно создать файл!";
 
 }

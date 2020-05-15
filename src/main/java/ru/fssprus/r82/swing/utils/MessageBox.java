@@ -145,7 +145,7 @@ public class MessageBox extends JOptionPane {
 		MessageBox.showMessageDialog(component, errorMessage, ERROR_VALIDATION_HEADER, JOptionPane.ERROR_MESSAGE);
 	}
 	
-	public static void showCommonErrorMessage(Component component, String errorMessage) {
+	public static void showErrorMessage(Component component, String errorMessage) {
 		MessageBox.showMessageDialog(component, errorMessage, ERROR_COMMON_HEADER, JOptionPane.ERROR_MESSAGE);
 
 	}

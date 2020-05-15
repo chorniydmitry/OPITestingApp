@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,7 +20,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import ru.fssprus.r82.swing.dialogs.CommonDialog;
-import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.Utils;
 
@@ -48,16 +46,16 @@ public class TestDialog extends CommonDialog {
 	private JPanel pnlQuizzControll = new JPanel();
 	private JPanel pnlQuestAndAnswers = new JPanel();
 	private JPanel pnlAnswers = new JPanel();
-	private JButton btnNextUnanswered = new JGreenButton(BTN_TO_NEXT_CAPTION);
-	private JButton btnFinish = new JGreenButton(BTN_FINISH_CAPTION);
+	private JButton btnNextUnanswered = new JButton(BTN_TO_NEXT_CAPTION);
+	private JButton btnFinish = new JButton(BTN_FINISH_CAPTION);
 
 	private JLabel lblQuestionInfo = new JLabel();
 	private JTextArea taQuestionText = new JTextArea();
 	private ArrayList<JCheckBox> cbAnswers = new ArrayList<JCheckBox>(AMT_RAD_BUTTONS);
 
 	private JPanel pnlDown = new JPanel();
-	private JButton btnNext = new JGreenButton(BTN_NEXT_CAPTION);
-	private JButton btnPrevious = new JGreenButton(BTN_PREVIOUS_CAPTION);
+	private JButton btnNext = new JButton(BTN_NEXT_CAPTION);
+	private JButton btnPrevious = new JButton(BTN_PREVIOUS_CAPTION);
 	private JLabel lblTimeLeftSec = new JLabel();
 
 	private boolean isPaused = false;

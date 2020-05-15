@@ -1,16 +1,18 @@
 package ru.fssprus.r82.swing.main.mainFrame;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
 
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.swing.utils.ImagePanel;
-import ru.fssprus.r82.swing.utils.JGreenButton;
 
 /**
  * @author Chernyj Dmitry
@@ -25,10 +27,10 @@ public class MainFrame extends JFrame {
 	private static final String BTN_EXIT_CAPTION = "Выход";
 	private static final ImageIcon BACKGROUND_IMAGE = new ImageIcon(MainFrame.class.getResource("/gerb-1600x900.jpg"));
 
-	private JButton btnTest = new JGreenButton(BTN_TESTING_CAPTION);
-	private JButton btnAdmin = new JGreenButton(BTN_ADMIN_CAPTION);
-	private JButton btnStatistics = new JGreenButton(BTN_STATISTICS_CAPTION);
-	private JButton btnExit = new JGreenButton(BTN_EXIT_CAPTION);
+	private JButton btnTest = new JButton(BTN_TESTING_CAPTION);
+	private JButton btnAdmin = new JButton(BTN_ADMIN_CAPTION);
+	private JButton btnStatistics = new JButton(BTN_STATISTICS_CAPTION);
+	private JButton btnExit = new JButton(BTN_EXIT_CAPTION);
 	
 	private ImagePanel contentPane = new ImagePanel(BACKGROUND_IMAGE);
 

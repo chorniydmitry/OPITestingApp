@@ -10,8 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import ru.fssprus.r82.swing.utils.JGreenButton;
-
 /**
  * @author Chernyj Dmitry
  *
@@ -129,21 +127,21 @@ public class TablePanel extends JPanel {
 	
 	private void initComponents() {
 		if(isPanelTopShowing) {
-			btnAdd = new JGreenButton(BTN_ADD_CAPTION);
-			btnDelete = new JGreenButton(BTN_REMOVE_CAPTION);
-			btnEditAndSave = new JGreenButton(BTN_EDIT_CAPTION);
-			btnCancel = new JGreenButton(BTN_CANCEL_CAPTION);
+			btnAdd = new JButton(BTN_ADD_CAPTION);
+			btnDelete = new JButton(BTN_REMOVE_CAPTION);
+			btnEditAndSave = new JButton(BTN_EDIT_CAPTION);
+			btnCancel = new JButton(BTN_CANCEL_CAPTION);
 			pnlTop = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		}
 		scrollPane = new JScrollPane(table);
 		
 		if(isPanelBottomShowing) {
-			btnNext = new JGreenButton(BTN_NEXT_CAPTION);
+			btnNext = new JButton(BTN_NEXT_CAPTION);
 			lblPage = new JLabel(LBL_PAGE_CAPTION);
 			tfPage = new JTextField(TF_PAGE_LENGTH);
 			tfPage.setText(TF_PAGE_DEF_TEXT);
 			lblPagesTotal = new JLabel(LBL_PAGES_TOTAL_DEF_TEXT);
-			btnPrevious = new JGreenButton(BTN_PREVIOUS_CAPTION);
+			btnPrevious = new JButton(BTN_PREVIOUS_CAPTION);
 			pnlBottom = new JPanel();
 		}
 			

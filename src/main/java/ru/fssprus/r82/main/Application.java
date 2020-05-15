@@ -1,12 +1,24 @@
 package ru.fssprus.r82.main;
+
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.Font;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.swing.JButton;
 import javax.swing.SwingUtilities;
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.LineBorder;
+import javax.swing.plaf.FontUIResource;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -26,6 +38,7 @@ import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.service.TestService;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.swing.main.mainFrame.MainFrame;
+import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.CryptWithMD5;
 import ru.fssprus.r82.utils.HibernateUtil;
 
@@ -116,45 +129,44 @@ public class Application {
 			System.out.println(stringBuilder.toString());
 		}
 	}
-	
+
 	public static void testTestCreation2() {
-		
+
 		QuestionSetService qsServ = new QuestionSetService();
 		TestService tServ = new TestService();
-		
+
 		Test test = new Test();
-		
+
 		test.setActive(true);
 		test.setAmountOfQuestions(20);
 		test.setName("ПЕРВЫЙ ТЕСТОВЫЙ ТЕСТ");
 		test.setTestTimeSec(300);
-		
+
 		Set<TestSet> testSets = new HashSet<>();
 		TestSet testSet1 = new TestSet();
 		testSet1.setQuestionsAmount(10);
 		testSet1.setQuestionSet(qsServ.getByID(7L));
 		testSet1.setTest(test);
 		testSets.add(testSet1);
-		
+
 		TestSet testSet2 = new TestSet();
 		testSet2.setQuestionsAmount(5);
 		testSet2.setQuestionSet(qsServ.getByID(8L));
 		testSet2.setTest(test);
 		testSets.add(testSet2);
-		
+
 		TestSet testSet3 = new TestSet();
 		testSet3.setQuestionsAmount(5);
 		testSet3.setQuestionSet(qsServ.getByID(9L));
 		testSet3.setTest(test);
 		testSets.add(testSet3);
-		
-		
+
 		test.setTestSets(testSets);
-		
+
 		tServ.add(test);
-		
+
 	}
-	
+
 	public static void testTestUpdationg() {
 		TestService testServ = new TestService();
 		Test test = testServ.getById(4L);
@@ -162,73 +174,69 @@ public class Application {
 		test.setName("ПЕРВЫЙ ТЕСТ ИЗМЕНЕННЫЙ");
 		System.out.println(test.getName());
 		testServ.update(test);
-		
+
 		test = testServ.getById(4L);
 		System.out.println(test.getName());
-		
-		//testServ.delete(test);
-		
+
+		// testServ.delete(test);
+
 	}
-	
-	
+
 	public static void testTestCreation() {
 		QuestionSetService qsServ = new QuestionSetService();
-		
+
 		Test test1 = new Test();
 		test1.setTestTimeSec(400);
 		test1.setAmountOfQuestions(30);
 		test1.setName("ПЕРВЫЙ ТЕСТ");
 		test1.setActive(true);
-		
+
 		Test test2 = new Test();
 		test2.setName("ВТОРОЙ ТЕСТ");
-		
-		
+
 		TestSet testSet1 = new TestSet();
 		testSet1.setQuestionsAmount(new Integer(10));
 		testSet1.setQuestionSet(qsServ.getByID(1L));
 		testSet1.setTest(test1);
-		
-		
+
 		TestSet testSet2 = new TestSet();
 		testSet2.setQuestionsAmount(new Integer(20));
 		testSet2.setQuestionSet(qsServ.getByID(2L));
 		testSet2.setTest(test1);
-		
+
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			session.save(testSet1);
 			session.save(testSet2);
-			
+
 			session.close();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}
-		
-		
-		//testServ.add(test1);
+
+		// testServ.add(test1);
 	}
-	
+
 	public static void testTestExtractionFromDB() {
 		TestService testServ = new TestService();
-		
+
 		Test test = testServ.getById(1L);
-		
+
 		Set<TestSet> testSets = test.getTestSets();
-		
+
 		for (TestSet testSet : testSets) {
-			System.out.println(testSet.getTest().getName() + " " + testSet.getQuestionsAmount() + " " + testSet.getQuestionSet().getName());
+			System.out.println(testSet.getTest().getName() + " " + testSet.getQuestionsAmount() + " "
+					+ testSet.getQuestionSet().getName());
 		}
-		
+
 		System.out.println(test.getName());
 	}
-	
 
 	public static void main(String[] args) throws IOException {
 
-		//Configuration configuration = new Configuration();
-		
-		//configuration.configure(Application.class.getResource("hibernate.cfg.xml"));
+		// Configuration configuration = new Configuration();
+
+		// configuration.configure(Application.class.getResource("hibernate.cfg.xml"));
 
 //		Flyway flyway = Flyway.configure().dataSource(configuration.getProperty("connection.url"), 
 //				configuration.getProperty("connection.username"), 
@@ -242,13 +250,25 @@ public class Application {
 		// newPassForConfigure();
 
 		// testValidation();
-		//testCreation2();
-		//testTestCreation2();
-		//testTestExtractionFromDB();
-		//testTestUpdationg();
+		// testCreation2();
+		// testTestCreation2();
+		// testTestExtractionFromDB();
+		// testTestUpdationg();
+//		System.out.println("start");
+//		Enumeration<Object> a = UIManager.getDefaults().keys();
+//		
+//		
+//		for(Entry<Object, Object> entry :UIManager.getDefaults().entrySet()) {
+//			System.out.println(entry.getKey() + " > " + entry.getValue());
+//		}
+//		
+//
+//		System.out.println("end");
+
+		configureUIManager();
 		appStart();
-		
-		//testTestCreation2();
+
+		// testTestCreation2();
 
 		// } catch (HibernateException e) {
 		// e.printStackTrace();
@@ -256,5 +276,45 @@ public class Application {
 		// } finally {
 		// HibernateUtil.getSessionFactory().getCurrentSession().close();
 		// }
+	}
+
+	private static void configureUIManager() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+		UIManager.put("TitledBorder.border", new LineBorder(AppConstants.FSSP_COLOR, 1));
+		UIManager.put("TitledBorder.titleColor", AppConstants.FSSP_COLOR);
+
+		UIManager.put("Button.background", AppConstants.FSSP_COLOR);
+		UIManager.put("Button.foreground", Color.WHITE);
+		UIManager.put("Button.disabledToolBarBorderBackground", Color.ORANGE);
+
+		UIManager.put("Button.disabled", Color.DARK_GRAY);
+		configureDefaultFont();
+		localizeDialogs();
+	}
+
+	private static void configureDefaultFont() {
+		FontUIResource f = new FontUIResource(new Font("Tahoma", 0, 12));
+		Enumeration<Object> keys = UIManager.getDefaults().keys();
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			Object value = UIManager.get(key);
+			if (value instanceof FontUIResource) {
+				FontUIResource orig = (FontUIResource) value;
+				Font font = new Font(f.getFontName(), orig.getStyle(), f.getSize());
+				UIManager.put(key, new FontUIResource(font));
+			}
+		}
+	}
+	
+	private static void localizeDialogs() {
+		UIManager.put("OptionPane.yesButtonText", "Да");
+		UIManager.put("OptionPane.noButtonText", "Нет");
+		UIManager.put("OptionPane.cancelButtonText", "Отмена");
+		UIManager.put("OptionPane.okButtonText", "Готово");
 	}
 }

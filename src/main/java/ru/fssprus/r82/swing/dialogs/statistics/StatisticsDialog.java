@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,7 +19,6 @@ import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.swing.table.CommonTable;
 import ru.fssprus.r82.swing.table.CommonTableModel;
 import ru.fssprus.r82.swing.table.TablePanel;
-import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 /**
@@ -68,10 +68,10 @@ public class StatisticsDialog extends DialogWithPassword {
 	private JComboBox<String> cbMarks = new JComboBox<>();
 	private JComboBox<String> cbTests = new JComboBox<>();
 	
-	private JGreenButton btnFilter = new JGreenButton(BTN_FILTER_CAPTION);
-	private JGreenButton btnClearFilters = new JGreenButton(BTN_CLEAR_CAPTION);
-	private JGreenButton btnPrint = new JGreenButton(BTN_PRINT_CAPTION);
-	private JGreenButton btnExportSheet = new JGreenButton(BTN_EXPORT_CAPTION);
+	private JButton btnFilter = new JButton(BTN_FILTER_CAPTION);
+	private JButton btnClearFilters = new JButton(BTN_CLEAR_CAPTION);
+	private JButton btnPrint = new JButton(BTN_PRINT_CAPTION);
+	private JButton btnExportSheet = new JButton(BTN_EXPORT_CAPTION);
 
 	public StatisticsDialog(int width, int heigth, JFrame parent) {
 		super(width, heigth, parent);
@@ -213,19 +213,19 @@ public class StatisticsDialog extends DialogWithPassword {
 		this.cbMarks = tfMarks;
 	}
 
-	public JGreenButton getBtnFilter() {
+	public JButton getBtnFilter() {
 		return btnFilter;
 	}
 
-	public void setBtnFilter(JGreenButton btnFilter) {
+	public void setBtnFilter(JButton btnFilter) {
 		this.btnFilter = btnFilter;
 	}
 
-	public JGreenButton getBtnClearFilters() {
+	public JButton getBtnClearFilters() {
 		return btnClearFilters;
 	}
 
-	public void setBtnClearFilters(JGreenButton btnClearFilters) {
+	public void setBtnClearFilters(JButton btnClearFilters) {
 		this.btnClearFilters = btnClearFilters;
 	}
 
@@ -261,11 +261,11 @@ public class StatisticsDialog extends DialogWithPassword {
 		this.tfScoreMore = tfScoreMore;
 	}
 
-	public JGreenButton getBtnPrint() {
+	public JButton getBtnPrint() {
 		return btnPrint;
 	}
 
-	public JGreenButton getBtnExportSheet() {
+	public JButton getBtnExportSheet() {
 		return btnExportSheet;
 	}
 	

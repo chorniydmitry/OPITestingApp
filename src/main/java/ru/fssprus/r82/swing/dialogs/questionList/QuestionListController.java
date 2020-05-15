@@ -40,47 +40,24 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		
 		dialog.getTable().setColumnMultiline(1, true);
 
-//		blockQuestionEditPanel(true);
-
 		updateDialog();
 	}
 
 	@Override
 	protected void setListeners() {
 		dialog.getBtnFilter().addActionListener(listener -> updateDialog());
-		//dialog.getBtnDiscardQuestionEditChanges().addActionListener(listener -> doDiscardChangesAction());
-		//dialog.getBtnEditQuestion().addActionListener(listener -> doEditAction());
 		dialog.getBtnClearFilters().addActionListener(listener -> doClearFiltersAction());
-		//dialog.getBtnSaveQuestion().addActionListener(listener -> doSaveQuestionAction());
 	}
-
-//	private void doEditAction() {
-//		if (dialog.getTable().getLastSelectedIndex() == AppConstants.NO_ROW_SELECTED)
-//			return;
-//		if (questionEditing) {
-//			blockQuestionEditPanel(false);
-//		} else {
-//			blockQuestionEditPanel(true);
-//		}
-//	}
-
 
 
 	private void doClearFiltersAction() {
-	//	clearQuestionEditPanelContents();
 		dialog.getTable().unselectAll();
 
 		dialog.getTfId().setText(null);
 		dialog.getTfQuestionName().setText(null);
 		dialog.getTfSpecs().setText(null);
-		dialog.getTfLevels().setText(null);
 
 		updateDialog();
-	}
-
-	private void doDiscardChangesAction() {
-	//	clearQuestionEditPanelContents();
-		showQuestion(currentQuestion);
 	}
 
 	private int getLimitStart() {
@@ -98,7 +75,6 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	}
 	
 	private void updateDialog() {
-//		clearQuestionEditPanelContents();
 		updatePageInfo();
 		updateTable();
 	}
@@ -152,40 +128,6 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		return this.totalPages = totalQuestions / ENTRIES_FOR_PAGE + 1;
 	}
 
-//	private void blockQuestionEditPanel(boolean block) {
-//		questionEditing = block;
-//		dialog.getTaQuestion().setEditable(!block);
-//
-//		dialog.getCbSpecNames().setEditable(!block);
-//
-//		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
-//			dialog.getTfAnsList().get(i).setEditable(!block);
-//			dialog.getCbAnsList().get(i).setEnabled(!block);
-//		}
-//		dialog.getBtnSaveQuestion().setEnabled(!block);
-//		dialog.getBtnDiscardQuestionEditChanges().setEnabled(!block);
-//	}
-	
-	private void showQuestion(Question currentQuestion) {
-//TODO OPEN QUESTIONEDITDIALOG?
-//		setAnswersToUI(currentQuestion);
-		
-//		dialog.getTaQuestion().setText(currentQuestion.getTitle());
-//		
-//		dialog.getCbSpecNames().setSelectedItem(currentQuestion.getQuestionSet().getName());
-	}
-	
-//	private void clearQuestionEditPanelContents() {
-//		dialog.getTaQuestion().setText(null);
-//		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
-//			dialog.getTfAnsList().get(i).setText(null);
-//			dialog.getCbAnsList().get(i).setSelected(false);
-//		}
-//
-//		dialog.getCbSpecNames().setSelectedIndex(0);
-//	}
-	
-	
 	private Set<QuestionSet> parseSets(String setsText) {
 		if (!setsText.isEmpty()) {
 			QuestionSetService setService = new QuestionSetService();
@@ -225,18 +167,13 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		q.setQuestionSet(new QuestionSet());
 
 		questionsOnScreenList.add(q);
-
-//		dialog.getBtnEditQuestion().doClick();
 	}
 
 	@Override
 	public void selectionChanged(int index) {
 		if (index >= questionsOnScreenList.size())
 			addBlankQuestion();
-//		clearQuestionEditPanelContents();
 		currentQuestion = questionsOnScreenList.get(index);
-		doDiscardChangesAction();
-
 	}
 
 	@Override
@@ -244,7 +181,6 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		if (currentPage + 1 < totalPages)
 			currentPage++;
 		updateDialog();
-//		blockQuestionEditPanel(true);
 	}
 
 	@Override
@@ -252,7 +188,6 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		if (currentPage > 0)
 			currentPage--;
 		updateDialog();
-//		blockQuestionEditPanel(true);
 	}
 
 	@Override
@@ -288,13 +223,9 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 
 	@Override
 	public void save() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void cancel() {
-		// TODO Auto-generated method stub
-		
+	public void cancel() {	
 	}
 }

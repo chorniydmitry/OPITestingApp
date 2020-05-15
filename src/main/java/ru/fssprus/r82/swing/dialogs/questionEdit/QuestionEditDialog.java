@@ -18,7 +18,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import ru.fssprus.r82.swing.dialogs.CommonDialog;
-import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class QuestionEditDialog extends CommonDialog {
@@ -46,7 +45,7 @@ public class QuestionEditDialog extends CommonDialog {
 
 	private JLabel lblQuestText = new JLabel(LBL_QUEST_TEXT_CAPTION);
 	
-	private JButton btnAddImage = new JGreenButton(BTN_ADD_IMAGE_CAPTION);
+	private JButton btnAddImage = new JButton(BTN_ADD_IMAGE_CAPTION);
 	
 	private JTextField tfImageLink = new JTextField(50);
 
@@ -57,8 +56,8 @@ public class QuestionEditDialog extends CommonDialog {
 	private ArrayList<JTextArea> taAnsList = new ArrayList<>(AppConstants.MAX_ANSWERS_AMOUNT);
 	private ArrayList<JCheckBox> cbAnsList = new ArrayList<>(AppConstants.MAX_ANSWERS_AMOUNT);
 
-	private JButton btnSaveQuestion = new JGreenButton(BTN_SAVE_CAPTION);
-	private JButton btnCancel = new JGreenButton(BTN_CANCEL_CAPTION);
+	private JButton btnSaveQuestion = new JButton(BTN_SAVE_CAPTION);
+	private JButton btnCancel = new JButton(BTN_CANCEL_CAPTION);
 
 	private JLabel lblAvailibleSetName = new JLabel(LBL_SPECIFICATION_CAPTION);
 	private JComboBox<String> cbAvailibleSetNames = new JComboBox<>();

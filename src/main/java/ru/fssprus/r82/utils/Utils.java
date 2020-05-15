@@ -1,6 +1,8 @@
 package ru.fssprus.r82.utils;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
 
 import javax.swing.ImageIcon;
 
@@ -25,18 +27,6 @@ public class Utils {
 			MessageBox.showAppConfigFileNotFoundOrCorrupted(null);
 		}
 		return 0;
-	}
-	
-	public static ImageIcon resizeImage(ImageIcon img, int newWidth) {
-		Image image = img.getImage(); 
-
-		if(img.getIconWidth() < newWidth)
-			return img;
-		int newHeight = newWidth * img.getIconHeight() / img.getIconWidth();
-
-		Image newimg = image.getScaledInstance(newWidth, newHeight, java.awt.Image.SCALE_SMOOTH);
-
-		return new ImageIcon(newimg);
 	}
 	
 	public static int countTestDialogTaQuestionHeight(int height) {

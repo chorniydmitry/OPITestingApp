@@ -1,6 +1,5 @@
 package ru.fssprus.r82.swing.dialogs.testConstructor;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,8 +10,8 @@ import java.util.Set;
 import javax.swing.JComboBox;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
-import javax.validation.ValidatorFactory;
 import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import ru.fssprus.r82.entity.QuestionSet;
 import ru.fssprus.r82.entity.Test;

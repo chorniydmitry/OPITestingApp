@@ -6,13 +6,13 @@ import java.awt.Insets;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
-import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 /**
@@ -32,7 +32,7 @@ public class PasswordManageDialog extends DialogWithPassword {
 	
 	private ArrayList<JLabel> lblList = new ArrayList<>();
 	private ArrayList<JPasswordField> pfList = new ArrayList<>();
-	private ArrayList<JGreenButton> btnList = new ArrayList<>();
+	private ArrayList<JButton> btnList = new ArrayList<>();
 
 	public PasswordManageDialog(int width, int height, JFrame parent) {
 		super(width, height, parent);
@@ -69,7 +69,7 @@ public class PasswordManageDialog extends DialogWithPassword {
 			pf.setName(AppConstants.DIALOG_WITH_PASSWORDS_ARR[i]);
 			pfList.add(pf);
 			
-			JGreenButton btn = new JGreenButton(CAPT_CHANGE);
+			JButton btn = new JButton(CAPT_CHANGE);
 			btn.setName(AppConstants.DIALOG_WITH_PASSWORDS_ARR[i]);
 			btn.setEnabled(false);
 			btnList.add(btn);
@@ -101,11 +101,11 @@ public class PasswordManageDialog extends DialogWithPassword {
 
 	}
 
-	public ArrayList<JGreenButton> getBtnList() {
+	public ArrayList<JButton> getBtnList() {
 		return btnList;
 	}
 
-	public void setBtnList(ArrayList<JGreenButton> btnList) {
+	public void setBtnList(ArrayList<JButton> btnList) {
 		this.btnList = btnList;
 	}
 

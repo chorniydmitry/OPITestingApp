@@ -7,6 +7,8 @@ package ru.fssprus.r82.swing.dialogs;
 import javax.swing.JFrame;
 
 import ru.fssprus.r82.entity.Question;
+import ru.fssprus.r82.swing.dialogs.UIDesginer.UIDesignerController;
+import ru.fssprus.r82.swing.dialogs.UIDesginer.UIDesignerDialog;
 import ru.fssprus.r82.swing.dialogs.admin.AdminController;
 import ru.fssprus.r82.swing.dialogs.admin.AdminDialog;
 import ru.fssprus.r82.swing.dialogs.importSet.ImportQuestionSetController;
@@ -94,6 +96,11 @@ public class DialogBuilder {
 	public static void showTestConstructorDialog() {
 		new TestConstructorController(new TestConstructorDiaolg(AppConstants.TESTCONSTRUCTOR_DIALOG_WIDTH,
 				AppConstants.TESTCONSTRUCTOR_DIALOG_HEIGHT, parent));
+	}
+	
+	public static void showUIDesignerDialog() {
+		new UIDesignerController(new UIDesignerDialog(AppConstants.UIDESIGNER_DIALOG_WIDTH,
+				AppConstants.UIDESIGNER_DIALOG_HEIGHT, parent));
 	}
 
 }

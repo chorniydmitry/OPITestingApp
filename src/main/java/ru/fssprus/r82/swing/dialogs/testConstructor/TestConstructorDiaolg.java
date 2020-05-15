@@ -15,6 +15,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -27,7 +28,6 @@ import javax.swing.SpinnerNumberModel;
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.swing.table.TablePanel;
 import ru.fssprus.r82.swing.table.TestListTableModel;
-import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class TestConstructorDiaolg extends DialogWithPassword {
@@ -82,7 +82,7 @@ public class TestConstructorDiaolg extends DialogWithPassword {
 	private JSpinner spnTestTime = new JSpinner();
 	private JCheckBox cbTestIsActive = new JCheckBox();
 
-	private JGreenButton btnSave = new JGreenButton(BTN_SAVE_CAPTION);
+	private JButton btnSave = new JButton(BTN_SAVE_CAPTION);
 
 	private JLabel lblQS = new JLabel(LBL_QS_CAPTION);
 	private JLabel lblAmountForQSet = new JLabel(LBL_AMOUNTFORQSET_CAPTION);
@@ -233,11 +233,11 @@ public class TestConstructorDiaolg extends DialogWithPassword {
 		this.tblList = tblList;
 	}
 
-	public JGreenButton getBtnSave() {
+	public JButton getBtnSave() {
 		return btnSave;
 	}
 
-	public void setBtnSave(JGreenButton btnSave) {
+	public void setBtnSave(JButton btnSave) {
 		this.btnSave = btnSave;
 	}
 

@@ -17,7 +17,6 @@ import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.swing.table.CommonTable;
 import ru.fssprus.r82.swing.table.CommonTableModel;
 import ru.fssprus.r82.swing.table.TablePanel;
-import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 /**
@@ -34,8 +33,7 @@ public class QuestionListDialog extends DialogWithPassword {
 	
 	public static final String LBL_ID_CAPTION_RU = "ID";
 	public static final String LBL_QUESTION_NAME_CAPTION_RU = "Текст вопроса";
-	public static final String LBL_SPECIFICATION_CAPTION_RU = "Специализация";
-	public static final String LBL_LEVELS_CAPTION_RU = "Сложность";
+	public static final String LBL_SPECIFICATION_CAPTION_RU = "Набор";
 	public static final String BTN_FILTER_CAPTION_RU = "Фильтр";
 	public static final String BTN_RESET_CAPTION_RU = "Сбросить";
 
@@ -44,15 +42,13 @@ public class QuestionListDialog extends DialogWithPassword {
 	private JLabel lblId = new JLabel(LBL_ID_CAPTION_RU);
 	private JLabel lblQuestionName = new JLabel(LBL_QUESTION_NAME_CAPTION_RU);
 	private JLabel lblSpecs = new JLabel(LBL_SPECIFICATION_CAPTION_RU);
-	private JLabel lblLevels = new JLabel(LBL_LEVELS_CAPTION_RU);
 
 	private JTextField tfId = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 	private JTextField tfQuestionName = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 	private JTextField tfSpecs = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
-	private JTextField tfLevels = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 	
-	private JGreenButton btnFilter = new JGreenButton(BTN_FILTER_CAPTION_RU);
-	private JGreenButton btnClearFilters = new JGreenButton(BTN_RESET_CAPTION_RU);
+	private JButton btnFilter = new JButton(BTN_FILTER_CAPTION_RU);
+	private JButton btnClearFilters = new JButton(BTN_RESET_CAPTION_RU);
 
 	private TablePanel tablePanel;
 
@@ -139,12 +135,8 @@ public class QuestionListDialog extends DialogWithPassword {
 
 		pnlFilter.add(tfSpecs, new GridBagConstraints(1, 1, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 				new Insets(0, 0, 0, 0), 0, 0));
-
-		pnlFilter.add(lblLevels, new GridBagConstraints(2, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
-				GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-
-		pnlFilter.add(tfLevels, new GridBagConstraints(3, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
-				GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+		
+		// EMPTY SPACE
 
 		pnlFilter.setVisible(true);
 	}
@@ -154,7 +146,7 @@ public class QuestionListDialog extends DialogWithPassword {
 		return btnFilter;
 	}
 
-	public void setBtnFilter(JGreenButton btnFilter) {
+	public void setBtnFilter(JButton btnFilter) {
 		this.btnFilter = btnFilter;
 	}
 
@@ -182,19 +174,11 @@ public class QuestionListDialog extends DialogWithPassword {
 		this.tfSpecs = tfSpecs;
 	}
 
-	public JTextField getTfLevels() {
-		return tfLevels;
-	}
-
-	public void setTfLevels(JTextField tfLevels) {
-		this.tfLevels = tfLevels;
-	}
-
 	public JButton getBtnClearFilters() {
 		return btnClearFilters;
 	}
 
-	public void setBtnClearFilters(JGreenButton btnClearFilters) {
+	public void setBtnClearFilters(JButton btnClearFilters) {
 		this.btnClearFilters = btnClearFilters;
 	}
 

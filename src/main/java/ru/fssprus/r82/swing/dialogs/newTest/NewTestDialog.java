@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
-import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 /**
@@ -46,8 +45,8 @@ public class NewTestDialog extends DialogWithPassword {
 	private JTextField tfSecondName = new JTextField();
 	private JComboBox<String> cbSpecification = new JComboBox<String>();
 	
-	private JButton btnBegin = new JGreenButton(BTN_BEGIN_CAPTION);
-	private JButton btnCancel = new JGreenButton(BTN_CANCEL_CAPTION);
+	private JButton btnBegin = new JButton(BTN_BEGIN_CAPTION);
+	private JButton btnCancel = new JButton(BTN_CANCEL_CAPTION);
 	
 	public NewTestDialog(int width, int height, JFrame parent) {
 		super(width, height, parent);

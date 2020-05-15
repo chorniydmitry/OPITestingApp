@@ -71,6 +71,7 @@
 					<include>quizz.png</include>
 					<include>wronganswers.png</include>
 					<include>exit.png</include>
+					<include>edit.png</include>
 				</includes>
 			</resource>
 		</resources>
