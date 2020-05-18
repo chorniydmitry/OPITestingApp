@@ -39,8 +39,10 @@ import ru.fssprus.r82.service.TestService;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.swing.main.mainFrame.MainFrame;
 import ru.fssprus.r82.utils.AppConstants;
+import ru.fssprus.r82.utils.ApplicationConfiguration;
 import ru.fssprus.r82.utils.CryptWithMD5;
 import ru.fssprus.r82.utils.HibernateUtil;
+import ru.fssprus.r82.utils.UIManagerConfigurator;
 
 /**
  * @author Chernyj Dmitry
@@ -265,7 +267,7 @@ public class Application {
 //
 //		System.out.println("end");
 
-		configureUIManager();
+		UIManagerConfigurator.configure();
 		appStart();
 
 		// testTestCreation2();
@@ -278,43 +280,4 @@ public class Application {
 		// }
 	}
 
-	private static void configureUIManager() {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
-		}
-		UIManager.put("TitledBorder.border", new LineBorder(AppConstants.FSSP_COLOR, 1));
-		UIManager.put("TitledBorder.titleColor", AppConstants.FSSP_COLOR);
-
-		UIManager.put("Button.background", AppConstants.FSSP_COLOR);
-		UIManager.put("Button.foreground", Color.WHITE);
-		UIManager.put("Button.disabledToolBarBorderBackground", Color.ORANGE);
-
-		UIManager.put("Button.disabled", Color.DARK_GRAY);
-		configureDefaultFont();
-		localizeDialogs();
-	}
-
-	private static void configureDefaultFont() {
-		FontUIResource f = new FontUIResource(new Font("Tahoma", 0, 12));
-		Enumeration<Object> keys = UIManager.getDefaults().keys();
-		while (keys.hasMoreElements()) {
-			Object key = keys.nextElement();
-			Object value = UIManager.get(key);
-			if (value instanceof FontUIResource) {
-				FontUIResource orig = (FontUIResource) value;
-				Font font = new Font(f.getFontName(), orig.getStyle(), f.getSize());
-				UIManager.put(key, new FontUIResource(font));
-			}
-		}
-	}
-	
-	private static void localizeDialogs() {
-		UIManager.put("OptionPane.yesButtonText", "Да");
-		UIManager.put("OptionPane.noButtonText", "Нет");
-		UIManager.put("OptionPane.cancelButtonText", "Отмена");
-		UIManager.put("OptionPane.okButtonText", "Готово");
-	}
 }

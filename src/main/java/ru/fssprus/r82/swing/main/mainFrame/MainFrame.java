@@ -21,10 +21,10 @@ import ru.fssprus.r82.swing.utils.ImagePanel;
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = -354084726011189758L;
 	
-	private static final String BTN_TESTING_CAPTION = "Тестирование";
-	private static final String BTN_ADMIN_CAPTION = "Администрирование";
-	private static final String BTN_STATISTICS_CAPTION = "Статистика";
-	private static final String BTN_EXIT_CAPTION = "Выход";
+	private static final String BTN_TESTING_CAPTION = "ТЕСТИРОВАНИЕ";
+	private static final String BTN_ADMIN_CAPTION = "АДМИНИСТРИРОВАНИЕ";
+	private static final String BTN_STATISTICS_CAPTION = "СТАТИСТИКА";
+	private static final String BTN_EXIT_CAPTION = "ВЫХОД";
 	private static final ImageIcon BACKGROUND_IMAGE = new ImageIcon(MainFrame.class.getResource("/gerb-1600x900.jpg"));
 
 	private JButton btnTest = new JButton(BTN_TESTING_CAPTION);

@@ -1,8 +1,8 @@
 package ru.fssprus.r82.swing.table;
 
+
 import javax.swing.ListSelectionModel;
 
-import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.Utils;
 
 /**
@@ -48,7 +48,6 @@ public class TablePanelController {
 		}
 
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setSelectionForeground(AppConstants.TABLE_SELECTION_COLOR);
 		ListSelectionModel cellSelectionModel = table.getSelectionModel();
 
 		cellSelectionModel.addListSelectionListener(listener -> doTableRowChangedAction());

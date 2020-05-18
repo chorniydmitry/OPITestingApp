@@ -8,7 +8,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.Set;
 
 public class ApplicationConfiguration {
 	private static class AppConfigHolder {
@@ -25,9 +27,13 @@ public class ApplicationConfiguration {
 	}
 
 	private ApplicationConfiguration() {
-
 	}
 
+	
+	public static Set<Entry<Object, Object>> getAll() {
+		return AppConfigHolder.PROPS.entrySet();
+	}
+	
 	public static String getItem(String key) {
 		return AppConfigHolder.PROPS.getProperty(key);
 	}

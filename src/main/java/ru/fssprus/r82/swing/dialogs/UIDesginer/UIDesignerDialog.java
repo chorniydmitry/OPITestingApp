@@ -28,8 +28,6 @@ public class UIDesignerDialog extends CommonDialog {
 	public UIDesignerDialog(int width, int height, JFrame parent) {
 		super(width, height, parent);
 		
-		
-		
 	}
 	
 

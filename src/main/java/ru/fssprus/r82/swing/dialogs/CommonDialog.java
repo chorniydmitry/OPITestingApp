@@ -5,6 +5,7 @@ package ru.fssprus.r82.swing.dialogs;
  *
  */
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -20,12 +21,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import ru.fssprus.r82.utils.AppConstants;
+import ru.fssprus.r82.utils.ApplicationConfiguration;
 
 public abstract class CommonDialog extends JDialog {
 	private static final long serialVersionUID = -933522897356606777L;
 
 	private static final int EMBLEM_LEFT_INSET = 20;
 	private static final String BTN_CLOSE_CAPTION = "X";
+	
+	private static final Color BACKGROUND_COLOR = new Color(Integer.parseInt(ApplicationConfiguration.getItem("color.main"), 16));
 
 	protected boolean accesGained = false;
 	private JPanel pnlTop = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -48,7 +52,7 @@ public abstract class CommonDialog extends JDialog {
 	private void initDialog(int width, int height){
 		setUndecorated(true);
 		setSize(new Dimension(width, height));
-		getRootPane().setBorder(BorderFactory.createLineBorder(AppConstants.FSSP_COLOR));
+		getRootPane().setBorder(BorderFactory.createLineBorder(BACKGROUND_COLOR));
 
 		add(pnlTop, BorderLayout.NORTH);
 		add(pnlContent, BorderLayout.CENTER);
@@ -56,7 +60,7 @@ public abstract class CommonDialog extends JDialog {
 
 	private void initTopPanel() {
 		pnlTop.setPreferredSize(new Dimension(this.getWidth(), AppConstants.TOP_PANEL_HEIGHT));
-		pnlTop.setBackground(AppConstants.FSSP_COLOR);
+		pnlTop.setBackground(BACKGROUND_COLOR);
 
 		pnlTop.setLayout(new GridBagLayout());
 
@@ -77,7 +81,8 @@ public abstract class CommonDialog extends JDialog {
 	}
 
 	private void initLblTitle() {
-		lblTitle.setForeground(AppConstants.TOP_PANELS_TEXT_FONT_COLOR);
+		Color tableSelectionForeground = new Color(Integer.parseInt(ApplicationConfiguration.getItem("color.header.text"), 16));
+		lblTitle.setForeground(tableSelectionForeground);
 		lblTitle.setFont(AppConstants.TOP_PANELS_TEXT_FONT);
 	}
 

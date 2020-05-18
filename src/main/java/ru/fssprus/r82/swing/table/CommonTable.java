@@ -11,6 +11,7 @@ import javax.swing.JTextArea;
 import javax.swing.table.TableCellRenderer;
 
 import ru.fssprus.r82.utils.AppConstants;
+import ru.fssprus.r82.utils.ApplicationConfiguration;
 
 /**
  * @author Chernyj Dmitry
@@ -19,6 +20,8 @@ import ru.fssprus.r82.utils.AppConstants;
 public class CommonTable extends JTable {
 	private static final long serialVersionUID = 1281533315206385819L;
 	public static final int NO_ROWS_SELECTED = -1;
+	
+	private static final int HEX = 16;
 
 	private CommonTableModel tabModel;
 
@@ -26,10 +29,11 @@ public class CommonTable extends JTable {
 
 	private boolean[] columnMultiline;
 	
-	private Color foreground = Color.BLACK;
-	private Color foregroundSelected = AppConstants.TABLE_SELECTION_COLOR;
-	private Color background = Color.WHITE;
-	private Color backgroundSelected = Color.LIGHT_GRAY;
+	private Color foregroundSelected = new Color(Integer.parseInt(ApplicationConfiguration.getItem("color.Table.selectionForeground"), HEX));
+	private Color backgroundSelected = new Color(Integer.parseInt(ApplicationConfiguration.getItem("color.Table.selectionBackground"), HEX));
+	private Color foreground = new Color(Integer.parseInt(ApplicationConfiguration.getItem("color.Table.Foreground"), HEX));
+	private Color background = new Color(Integer.parseInt(ApplicationConfiguration.getItem("color.Table.Background"), HEX));
+	
 
 	public CommonTable(CommonTableModel tabModel) {
 		initTableModel(tabModel);

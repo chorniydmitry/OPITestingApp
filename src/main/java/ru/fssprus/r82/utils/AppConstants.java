@@ -46,8 +46,6 @@ public class AppConstants {
 	public static final String WRONGANSWERS_DIALOG = "WrongAnswersDialog";
 	//TODO: UNSUSED
 	public static final String CONFIG_DIALOG = "ConfigDialog";
-	
-
 
 	public static final String ADMIN_TEXT = "Администрирование";
 	public static final String IMPORTQUESTIONSET_TEXT = "Импорт вопросов";
@@ -138,7 +136,7 @@ public class AppConstants {
 	public static final Font TOP_PANELS_TEXT_FONT = new Font("Courier New", Font.PLAIN, 22);
 
 	// Размеры компонентов
-	public static final int MAINFRAME_BTN_WIDTHS = 250;
+	public static final int MAINFRAME_BTN_WIDTHS = 275;
 	public static final int MAINFRAME_BTN_HEIGHTS = 60;
 
 	public static final int TESTDIALOG_LBL_QUESTION_INFO_HEIGHT = 30;
@@ -182,10 +180,9 @@ public class AppConstants {
 	public static final int MIN_ANSWERS_AMOUNT = 2;
 	public static final int QUESTION_TEXT_MIN_LENGTH = 5;
 	public static final int MINIMUM_QUESTIONS_TO_INIT_TEST = 30;
-	public static final Color TABLE_SELECTION_COLOR = new Color(0x03a06c);
 	// new Color(0x0000ff);
-	public static final Color FSSP_COLOR = new Color(0x03a06c);
-	public static final Color TOP_PANELS_TEXT_FONT_COLOR = new Color(0xffffff);
+	//public static final Color FSSP_COLOR = new Color(0x03a06c);
+//	public static final Color TOP_PANELS_TEXT_FONT_COLOR = new Color(0xffffff);
 	public static final int NO_ROW_SELECTED = -1;
 	public static final int NO_INDEX_SELECTED = -1;
 
@@ -202,7 +199,7 @@ public class AppConstants {
 	public static final String VALIDATION_SPECIFICATION_TITLE_SIZE = "Не верная длина названия специализации (должна быть от 2 до 2048 символов)";
 
 	public static final String DIALOG_LOADING_QUEST_SET_ABOUT_INFO = "<html>" + "<style> body { margin: 10; "
-			+ "				  text-align: justify}" + "   	   i, b { color : green}" + "</style>"
+			+ "				  text-align: justify}" + "   	   i, b { color : #" + ApplicationConfiguration.getItem("color.main")+"}" + "</style>"
 			+ "<body>Данная форма предназначена для " + "импорта наборов вопросов в базу данных приложения." + "<br />"
 			+ "Для импорта вопросов необходимо создать набор вопросов в базе данных, с помошью панели "
 			+ "<i>Создание нового набора вопросов</i>, после чего выгрузить набор вопросов из файла, соответствующего "
