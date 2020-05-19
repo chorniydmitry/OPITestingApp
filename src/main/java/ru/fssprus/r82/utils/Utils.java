@@ -1,13 +1,5 @@
 package ru.fssprus.r82.utils;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.awt.image.WritableRaster;
-
-import javax.swing.ImageIcon;
-
-import ru.fssprus.r82.swing.utils.MessageBox;
-
 /**
  * @author Chernyj Dmitry
  *
@@ -16,19 +8,6 @@ public class Utils {
 
 	private static final double MAX_PERCENT = 100.0;
 
-	public static int countMinimumCommonQuestionsForLevel(String level) {
-		try {
-		int amount = Integer.parseInt(ApplicationConfiguration.getItem(level + ".num"));
-		int commons = Integer.parseInt(ApplicationConfiguration.getItem(level + ".common.percent"));
-		
-		return (int) (amount * (commons / MAX_PERCENT));
-		
-		} catch(Exception e) {
-			MessageBox.showAppConfigFileNotFoundOrCorrupted(null);
-		}
-		return 0;
-	}
-	
 	public static int countTestDialogTaQuestionHeight(int height) {
 		return (2 * (height - 60) / 3) - 160;
 	}
@@ -45,11 +24,6 @@ public class Utils {
 		return amountOfQuestions - commonQuestsAmount;
 	}
 
-	//TODO REMOVE THIS
-	public static int countMinimumCommonQuestionsForLevel() {
-		return 5;
-	}
-	
 	public static boolean isNumeric(Object num) {
 		String strNum = String.valueOf(num);
 		try {

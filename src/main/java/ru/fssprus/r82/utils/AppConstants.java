@@ -1,130 +1,124 @@
 package ru.fssprus.r82.utils;
 
+import java.awt.Color;
 /**
  * @author Chernyj Dmitry
  *
  */
-import java.awt.Color;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class AppConstants {
-	public static final String EOL = "\n";
 	
+	private AppConstants() {
+		
+	}
+
+	public static class Dialogs {
+		public static final String ADMIN_ICON = "/admin.png";
+		public static final String IMPORTQUESTIONSET_ICON = "/questionload.png";
+		public static final String NEWTEST_ICON = "/newtest.png";
+		public static final String PASSWORDMANAGE_ICON = "/password.png";
+		public static final String QUESTIONEDIT_ICON = "/questionedit.png";
+		public static final String QUESTIONLIST_ICON = "/questionlist.png";
+		public static final String RESULTING_ICON = "/result.png";
+		public static final String STATISTICS_ICON = "/statistics.png";
+		public static final String TEST_ICON = "/quizz.png";
+		public static final String TESTCONSTRUCTOR_ICON = "/config.png";
+		public static final String WRONGANSWERS_ICON = "/wronganswers.png";
+		public static final String EXIT_ICON = "/exit.png";
+		// TODO: UNUSED
+		public static final String CONFIG_ICON = "/config.png";
+
+		public static final String ADMIN_DIALOG = "AdminDialog";
+		public static final String IMPORTQUESTIONSET_DIALOG = "ImportQuestionSetDialog";
+		public static final String NEWTEST_DIALOG = "NewTestDialog";
+		public static final String PASSWORDMANAGE_DIALOG = "PasswordManageDialog";
+		public static final String QUESTIONEDIT_DIALOG = "QuestionEditDialog";
+		public static final String QUESTIONLIST_DIALOG = "QuestionListDialog";
+		public static final String RESULTING_DIALOG = "ResultingDialog";
+		public static final String STATISTICS_DIALOG = "StatisticsDialog";
+		public static final String TEST_DIALOG = "TestDialog";
+		public static final String TESTCONSTRUCTOR_DIALOG = "TestConstructorDialog";
+		public static final String WRONGANSWERS_DIALOG = "WrongAnswersDialog";
+		// TODO: UNSUSED
+		public static final String CONFIG_DIALOG = "ConfigDialog";
+
+		public static final String ADMIN_TEXT = "АДМИНИСТРИРОВАНИЕ";
+		public static final String IMPORTQUESTIONSET_TEXT = "Импорт вопросов";
+		public static final String NEWTEST_TEXT = "ТЕСТИРОВАНИЕ";
+		public static final String PASSWORDMANAGE_TEXT = "Редакторование паролей";
+		public static final String QUESTIONEDIT_TEXT = "Редактирование вопроса";
+		public static final String QUESTIONLIST_TEXT = "Список вопросов";
+		public static final String RESULTING_TEXT = "Результаты тестирования";
+		public static final String STATISTICS_TEXT = "СТАТИСТИКА";
+		public static final String TEST_TEXT = "Тестирование";
+		public static final String TESTCONSTRUCTOR_TEXT = "Конструктор тестов";
+		public static final String WRONGANSWERS_TEXT = "Не правильные ответы";
+		// TODO: UNSUSED
+		public static final String CONFIG_TEXT = "Конфигурация";
+
+		public static final String[] DIALOG_WITH_PASSWORDS_TEXT_ARR = { NEWTEST_TEXT, STATISTICS_TEXT, ADMIN_TEXT,
+				IMPORTQUESTIONSET_TEXT, PASSWORDMANAGE_TEXT, QUESTIONLIST_TEXT, TEST_TEXT, TESTCONSTRUCTOR_TEXT, };
+
+		public static final String[] DIALOG_WITH_PASSWORDS_ARR = { NEWTEST_DIALOG, STATISTICS_DIALOG, ADMIN_DIALOG,
+				IMPORTQUESTIONSET_DIALOG, QUESTIONLIST_DIALOG, PASSWORDMANAGE_DIALOG, TEST_DIALOG,
+				TESTCONSTRUCTOR_DIALOG, };
+
+		// Размеры окон
+		public static final int ADMIN_DIALOG_WIDTH = 500;
+		public static final int ADMIN_DIALOG_HEIGHT = 300;
+
+		public static final int IMPORTQUESTIONSET_DIALOG_WIDTH = 800;
+		public static final int IMPORTQUESTIONSET_DIALOG_HEIGHT = 600;
+
+		public static final int NEWTEST_DIALOG_WIDTH = 800;
+		public static final int NEWTEST_DIALOG_HEIGHT = 300;
+
+		public static final int PASSWORDMANAGE_DIALOG_WIDTH = 600;
+		public static final int PASSWORDMANAGE_DIALOG_HEIGHT = 400;
+
+		public static final int QUESTIONEDIT_DIALOG_WIDTH = 800;
+		public static final int QUESTIONEDIT_DIALOG_HEIGHT = 750;
+
+		public static final int QUESTIONLIST_DIALOG_WIDTH = 1000;
+		public static final int QUESTIONLIST_DIALOG_HEIGHT = 700;
+
+		public static final int RESULTING_DIALOG_WIDTH = 600;
+		public static final int RESULTING_DIALOG_HEIGHT = 300;
+
+		public static final int STATISTICS_DIALOG_WIDTH = 900;
+		public static final int STATISTICS_DIALOG_HEIGHT = 600;
+
+		public static final int TEST_DIALOG_WIDTH = 1000;
+		public static final int TEST_DIALOG_HEIGHT = 700;
+
+		public static final int TESTCONSTRUCTOR_DIALOG_WIDTH = 900;
+		public static final int TESTCONSTRUCTOR_DIALOG_HEIGHT = 700;
+
+		public static final int UIDESIGNER_DIALOG_WIDTH = 500;
+		public static final int UIDESIGNER_DIALOG_HEIGHT = 500;
+
+		public static final int WRONGANSWERS_DIALOG_WIDTH = 800;
+		public static final int WRONGANSWERS_DIALOG_HEIGHT = 700;
+
+		// TODO: UNUSED
+		public static final int DIALOG_CONFIG_WIDTH = 800;
+		public static final int DIALOG_CONFIG_HEIGHT = 600;
+
+	}
+
+	public static final String EOL = "\n";
+	public static final int HEX = 16;
+
 	// Константы разделов приложения
 	public static final int PASSWORDED_SECTIONS_AMOUNT = 7;
 
 	public static final int DEFAULT_OFFSET = 10;
 
-	public static final String ADMIN_ICON = "/admin.png";
-	public static final String IMPORTQUESTIONSET_ICON = "/questionload.png";
-	public static final String NEWTEST_ICON = "/newtest.png";
-	public static final String PASSWORDMANAGE_ICON = "/password.png";
-	public static final String QUESTIONEDIT_ICON = "/questionedit.png";
-	public static final String QUESTIONLIST_ICON = "/questionlist.png";
-	public static final String RESULTING_ICON = "/result.png";
-	public static final String STATISTICS_ICON = "/statistics.png";
-	public static final String TEST_ICON = "/quizz.png";
-	public static final String TESTCONSTRUCTOR_ICON = "/config.png";
-	public static final String WRONGANSWERS_ICON = "/wronganswers.png";
-	public static final String EXIT_ICON = "/exit.png";
-	//TODO: UNUSED
-	public static final String CONFIG_ICON = "/config.png";
-
-
-	public static final String ADMIN_DIALOG = "AdminDialog";
-	public static final String IMPORTQUESTIONSET_DIALOG = "ImportQuestionSetDialog";
-	public static final String NEWTEST_DIALOG = "NewTestDialog";
-	public static final String PASSWORDMANAGE_DIALOG = "PasswordManageDialog";
-	public static final String QUESTIONEDIT_DIALOG = "QuestionEditDialog";
-	public static final String QUESTIONLIST_DIALOG = "QuestionListDialog";
-	public static final String RESULTING_DIALOG = "ResultingDialog";
-	public static final String STATISTICS_DIALOG = "StatisticsDialog";
-	public static final String TEST_DIALOG = "TestDialog";
-	public static final String TESTCONSTRUCTOR_DIALOG = "TestConstructorDialog";
-	public static final String WRONGANSWERS_DIALOG = "WrongAnswersDialog";
-	//TODO: UNSUSED
-	public static final String CONFIG_DIALOG = "ConfigDialog";
-
-	public static final String ADMIN_TEXT = "Администрирование";
-	public static final String IMPORTQUESTIONSET_TEXT = "Импорт вопросов";
-	public static final String NEWTEST_TEXT = "Новый тест";
-	public static final String PASSWORDMANAGE_TEXT = "Редакторование паролей";
-	public static final String QUESTIONEDIT_TEXT = "Редактирование вопроса";
-	public static final String QUESTIONLIST_TEXT = "Список вопросов";
-	public static final String RESULTING_TEXT = "Результаты тестирования";
-	public static final String STATISTICS_TEXT = "Статистика";
-	public static final String TEST_TEXT = "Тестирование";
-	public static final String TESTCONSTRUCTOR_TEXT = "Конструктор тестов";
-	public static final String WRONGANSWERS_TEXT = "Не правильные ответы";
-	//TODO: UNSUSED
-	public static final String CONFIG_TEXT = "Конфигурация";
-	
-
-	public static final String[] DIALOG_WITH_PASSWORDS_TEXT_ARR = { 
-			TEST_TEXT, 
-			STATISTICS_TEXT,
-			ADMIN_TEXT, 
-			IMPORTQUESTIONSET_TEXT,
-			PASSWORDMANAGE_TEXT,
-			QUESTIONLIST_TEXT,
-			TESTCONSTRUCTOR_TEXT, 
-			 };
-	
-	public static final String[] DIALOG_WITH_PASSWORDS_ARR = { 
-			NEWTEST_DIALOG, 
-			STATISTICS_DIALOG,
-			ADMIN_DIALOG,
-			IMPORTQUESTIONSET_DIALOG,
-			QUESTIONLIST_DIALOG, 
-			PASSWORDMANAGE_DIALOG,
-			TESTCONSTRUCTOR_DIALOG,
-			 };
-
 	public static final int IMAGE_PREVIEW_WIDTH = 200;
 	public static final int IMAGE_PREVIEW_HEIGHT = 150;
-	
-	// Размеры окон
-	public static final int ADMIN_DIALOG_WIDTH = 500;
-	public static final int ADMIN_DIALOG_HEIGHT = 300;
-	
-	public static final int IMPORTQUESTIONSET_DIALOG_WIDTH = 800;
-	public static final int IMPORTQUESTIONSET_DIALOG_HEIGHT = 600;
-	
-	public static final int NEWTEST_DIALOG_WIDTH = 800;
-	public static final int NEWTEST_DIALOG_HEIGHT = 300;
-	
-	public static final int PASSWORDMANAGE_DIALOG_WIDTH = 600;
-	public static final int PASSWORDMANAGE_DIALOG_HEIGHT = 400;
-	
-	public static final int QUESTIONEDIT_DIALOG_WIDTH = 800;
-	public static final int QUESTIONEDIT_DIALOG_HEIGHT = 750;
-	
-	public static final int QUESTIONLIST_DIALOG_WIDTH = 1000;
-	public static final int QUESTIONLIST_DIALOG_HEIGHT = 700;
-	
-	public static final int RESULTING_DIALOG_WIDTH = 600;
-	public static final int RESULTING_DIALOG_HEIGHT = 300;
-	
-	public static final int STATISTICS_DIALOG_WIDTH = 900;
-	public static final int STATISTICS_DIALOG_HEIGHT = 600;
-	
-	public static final int TEST_DIALOG_WIDTH = 1000;
-	public static final int TEST_DIALOG_HEIGHT = 700;
-	
-	public static final int TESTCONSTRUCTOR_DIALOG_WIDTH = 900;
-	public static final int TESTCONSTRUCTOR_DIALOG_HEIGHT = 700;
-	
-	public static final int UIDESIGNER_DIALOG_WIDTH = 500;
-	public static final int UIDESIGNER_DIALOG_HEIGHT = 500;
-
-	public static final int WRONGANSWERS_DIALOG_WIDTH = 800;
-	public static final int WRONGANSWERS_DIALOG_HEIGHT = 700;
-	
-	// TODO: UNUSED	
-	public static final int DIALOG_CONFIG_WIDTH = 800;
-	public static final int DIALOG_CONFIG_HEIGHT = 600;
 
 	public static final int QUESTION_TEXT_SIDE_INDENTS = 50;
 
@@ -181,7 +175,7 @@ public class AppConstants {
 	public static final int QUESTION_TEXT_MIN_LENGTH = 5;
 	public static final int MINIMUM_QUESTIONS_TO_INIT_TEST = 30;
 	// new Color(0x0000ff);
-	//public static final Color FSSP_COLOR = new Color(0x03a06c);
+	// public static final Color FSSP_COLOR = new Color(0x03a06c);
 //	public static final Color TOP_PANELS_TEXT_FONT_COLOR = new Color(0xffffff);
 	public static final int NO_ROW_SELECTED = -1;
 	public static final int NO_INDEX_SELECTED = -1;
@@ -199,7 +193,8 @@ public class AppConstants {
 	public static final String VALIDATION_SPECIFICATION_TITLE_SIZE = "Не верная длина названия специализации (должна быть от 2 до 2048 символов)";
 
 	public static final String DIALOG_LOADING_QUEST_SET_ABOUT_INFO = "<html>" + "<style> body { margin: 10; "
-			+ "				  text-align: justify}" + "   	   i, b { color : #" + ApplicationConfiguration.getItem("color.main")+"}" + "</style>"
+			+ "				  text-align: justify}" + "   	   i, b { color : #"
+			+ ApplicationConfiguration.getItem("color.main") + "}" + "</style>"
 			+ "<body>Данная форма предназначена для " + "импорта наборов вопросов в базу данных приложения." + "<br />"
 			+ "Для импорта вопросов необходимо создать набор вопросов в базе данных, с помошью панели "
 			+ "<i>Создание нового набора вопросов</i>, после чего выгрузить набор вопросов из файла, соответствующего "
@@ -225,8 +220,8 @@ public class AppConstants {
 	 * ERROR MESSAGE CONSTANTS
 	 */
 
-	 public static final String ERROR_ICON_NOT_LOADED = "Файл изображения не может быть загружен!\nПроверьте целостность дистрибуива программы!";
-	
+	public static final String ERROR_ICON_NOT_LOADED = "Файл изображения не может быть загружен!\nПроверьте целостность дистрибуива программы!";
+
 	/*
 	 * VALIDATION CONSTANTS
 	 */
@@ -265,9 +260,10 @@ public class AppConstants {
 	public static final String VALID_QUEST_ANS_AMOUNT = "Количество заполненных ответов на вопросы должно быть в пределах ["
 			+ MIN_ANSWERS_AMOUNT + " ... " + MAX_ANSWERS_AMOUNT + "]";
 	public static final String VALID_QUEST_QUESTIONSET_NOTNULL = "Для вопроса не выбран набор вопросов, новый набор вопросов можно предворительно создать в соответствующей форме!";
-	public static final String VALID_QUEST_ANSWERS_AMOUNT = "Для вопроса должно быть как минимум " + MIN_ANSWERS_AMOUNT + ", но не более " + MAX_ANSWERS_AMOUNT + " заполненных ответов!";
+	public static final String VALID_QUEST_ANSWERS_AMOUNT = "Для вопроса должно быть как минимум " + MIN_ANSWERS_AMOUNT
+			+ ", но не более " + MAX_ANSWERS_AMOUNT + " заполненных ответов!";
 	public static final String VALID_QUEST_NO_CORRECT_ANSWER = "Для вопроса должен быть выбран по крайней мере один правильный ответ!";
-	
+
 	/*
 	 * FOR ANSWER ENTITY
 	 */
@@ -308,5 +304,20 @@ public class AppConstants {
 			+ "(в базе данных не должно содержаться записи с таким же значением)!";
 
 	public static final String CANNOT_SAVEFILE_ERROR = "Невозможно создать файл!";
+	
+	public static Color COLOR_TOPPANEL_FOREGROUND = new Color(0x000000);
+	public static Color COLOR_TOPPANEL_BACKGROUND = new Color(0xffffff);
+	
+	static {
+		try {
+			COLOR_TOPPANEL_BACKGROUND = new Color(
+					Integer.parseInt(ApplicationConfiguration.getItem("color.topPanel.background"), HEX));
+			COLOR_TOPPANEL_FOREGROUND = new Color(
+					Integer.parseInt(ApplicationConfiguration.getItem("color.topPanel.foreground"), HEX));
+			
+		} catch(Exception e) {
+			//TODO:
+		}
+	}
 
 }

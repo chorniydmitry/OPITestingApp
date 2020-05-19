@@ -1,24 +1,13 @@
 package ru.fssprus.r82.main;
 
-import java.awt.Button;
-import java.awt.Color;
-import java.awt.Font;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.swing.JButton;
 import javax.swing.SwingUtilities;
-import javax.swing.UIDefaults;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.LineBorder;
-import javax.swing.plaf.FontUIResource;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -36,13 +25,11 @@ import ru.fssprus.r82.service.AnswerService;
 import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.service.TestService;
-import ru.fssprus.r82.swing.dialogs.DialogBuilder;
-import ru.fssprus.r82.swing.main.mainFrame.MainFrame;
-import ru.fssprus.r82.utils.AppConstants;
-import ru.fssprus.r82.utils.ApplicationConfiguration;
+import ru.fssprus.r82.ui.dialogs.DialogBuilder;
+import ru.fssprus.r82.ui.main.mainFrame.MainFrame;
+import ru.fssprus.r82.ui.utils.UIManagerConfigurator;
 import ru.fssprus.r82.utils.CryptWithMD5;
 import ru.fssprus.r82.utils.HibernateUtil;
-import ru.fssprus.r82.utils.UIManagerConfigurator;
 
 /**
  * @author Chernyj Dmitry

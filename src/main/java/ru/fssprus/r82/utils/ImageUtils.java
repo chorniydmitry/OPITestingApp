@@ -6,11 +6,12 @@ import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-import ru.fssprus.r82.swing.utils.MessageBox;
+import ru.fssprus.r82.ui.utils.MessageBox;
 
 public class ImageUtils {
 
@@ -31,6 +32,17 @@ public class ImageUtils {
         }
         return image;
     }
+	
+	public static ImageIcon getColoredImageIcon(InputStream imageStream, Color color) {
+		try {
+			BufferedImage image = ImageIO.read(imageStream);
+			BufferedImage coloredImage = ImageUtils.colorImage(image, color);
+			return new ImageIcon(coloredImage);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	public static ImageIcon colorImage(File imageFile, Color color) {
 		BufferedImage buffImage;

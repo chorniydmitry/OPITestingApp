@@ -9,7 +9,7 @@ import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.Test;
 import ru.fssprus.r82.entity.User;
-import ru.fssprus.r82.swing.utils.MessageBox;
+import ru.fssprus.r82.ui.utils.MessageBox;
 
 /**
  * @author Chernyj Dmitry

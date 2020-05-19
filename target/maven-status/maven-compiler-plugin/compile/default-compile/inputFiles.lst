@@ -2,6 +2,7 @@
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/entity/TestSet.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/entity/Answer.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/swing/dialogs/importSet/ImportQuestionSetDialog.java
+/home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/utils/UIManagerConfigurator.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/swing/dialogs/test/TestDialog.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/service/TestService.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/swing/dialogs/statistics/StatisticsController.java
@@ -24,6 +25,7 @@
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/utils/spreadsheet/SpreadSheetParser.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/utils/spreadsheet/SpreadsheetFileChooser.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/service/QuestionSetService.java
+/home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/utils/ImageUtils.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/dao/impl/PasswordDatabaseDao.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/utils/testingTools/TestingProcess.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/swing/dialogs/wrongAnswers/WrongAnswersController.java
@@ -44,6 +46,7 @@
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/validation/QuestionCheck.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/service/AnswerService.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/dao/QuestionSetDao.java
+/home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/swing/utils/JImageFileChooser.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/dao/impl/AnswerDatabaseDao.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/dao/impl/TestDatabaseDao.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/service/QuestionService.java
@@ -58,6 +61,7 @@
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/entity/Test.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/swing/dialogs/passwordManage/PasswordManageDialog.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/swing/dialogs/DialogBuilder.java
+/home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/swing/dialogs/UIDesginer/UIDesignerController.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/utils/CryptWithMD5.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/swing/dialogs/newTest/NewTestController.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/entity/Model.java
@@ -71,6 +75,7 @@
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/dao/AnswerDao.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/dao/TestDao.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/main/Application.java
+/home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/swing/dialogs/UIDesginer/UIDesignerDialog.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/swing/dialogs/newTest/NewTestDialog.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/entity/Question.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/dao/impl/AbstractHibernateDao.java
@@ -87,4 +92,3 @@
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/swing/table/MultilineCellRenderer.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/swing/dialogs/testConstructor/TestConstructorDiaolg.java
 /home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/swing/dialogs/questionEdit/QuestionEditDialog.java
-/home/dmitry/eclipse/OPITestingApp/OPITestingApp/src/main/java/ru/fssprus/r82/swing/utils/JGreenButton.java

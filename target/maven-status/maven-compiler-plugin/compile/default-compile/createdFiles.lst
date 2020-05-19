@@ -1,4 +1,5 @@
 ru/fssprus/r82/entity/TestSet.class
+ru/fssprus/r82/swing/dialogs/UIDesginer/UIDesignerController.class
 ru/fssprus/r82/dao/UserDao.class
 ru/fssprus/r82/dao/impl/UserDatabaseDao.class
 ru/fssprus/r82/swing/dialogs/admin/AdminController.class
@@ -26,6 +27,7 @@ ru/fssprus/r82/dao/impl/AnswerDatabaseDao.class
 ru/fssprus/r82/swing/dialogs/passwordManage/PasswordManageDialog.class
 ru/fssprus/r82/validation/QuestionValidator.class
 ru/fssprus/r82/entity/User.class
+ru/fssprus/r82/utils/UIManagerConfigurator.class
 ru/fssprus/r82/swing/dialogs/testConstructor/TestConstructorController.class
 ru/fssprus/r82/main/Application$1.class
 ru/fssprus/r82/swing/dialogs/CommonDialog.class
@@ -34,7 +36,8 @@ ru/fssprus/r82/swing/dialogs/CommonController$1.class
 ru/fssprus/r82/utils/testingTools/TestingProcessAnaliser.class
 ru/fssprus/r82/swing/table/MultilineCellRenderer.class
 ru/fssprus/r82/swing/table/TestListTableModel.class
-ru/fssprus/r82/swing/utils/JGreenButton.class
+ru/fssprus/r82/swing/utils/JImageFileChooser$1$1.class
+ru/fssprus/r82/utils/AppConstants$Dialogs.class
 ru/fssprus/r82/utils/testingTools/TestProcessBuilder.class
 ru/fssprus/r82/utils/AppConstants.class
 ru/fssprus/r82/utils/spreadsheet/SpreadsheetFileChooser.class
@@ -43,6 +46,7 @@ ru/fssprus/r82/entity/Test.class
 ru/fssprus/r82/swing/utils/ImagePanel.class
 ru/fssprus/r82/swing/dialogs/newTest/NewTestController.class
 ru/fssprus/r82/swing/dialogs/admin/AdminDialog.class
+ru/fssprus/r82/swing/utils/JImageFileChooser$1.class
 ru/fssprus/r82/entity/Result.class
 ru/fssprus/r82/utils/Utils.class
 ru/fssprus/r82/utils/HibernateUtil.class
@@ -70,6 +74,8 @@ ru/fssprus/r82/dao/impl/QuestionDatabaseDao.class
 ru/fssprus/r82/utils/testingTools/TestingProcess.class
 ru/fssprus/r82/service/AnswerService.class
 ru/fssprus/r82/entity/Model.class
+ru/fssprus/r82/swing/utils/JImageFileChooser.class
+ru/fssprus/r82/swing/dialogs/UIDesginer/UIDesignerDialog.class
 ru/fssprus/r82/swing/dialogs/questionEdit/QuestionEditDialog.class
 ru/fssprus/r82/dao/impl/AbstractHibernateDao.class
 ru/fssprus/r82/entity/Answer.class
@@ -96,5 +102,6 @@ ru/fssprus/r82/swing/dialogs/test/TestDialog.class
 ru/fssprus/r82/swing/dialogs/DialogWithPassword.class
 ru/fssprus/r82/swing/dialogs/wrongAnswers/WrongAnswersDialog.class
 ru/fssprus/r82/swing/dialogs/DialogBuilder.class
+ru/fssprus/r82/utils/ImageUtils.class
 ru/fssprus/r82/utils/testingTools/TestingResultsSaver.class
 ru/fssprus/r82/dao/AnswerDao.class
