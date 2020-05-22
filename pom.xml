@@ -51,8 +51,6 @@
 				<directory>src/main/resources</directory>
 				<includes>
 					<include>app.properties</include>
-					<include>gerb-1920x1200.jpg</include>
-					<include>gerb-1600x900.jpg</include>
 					<include>set_template.xlsx</include>
 				</includes>
 			</resource>
@@ -85,11 +83,16 @@
 
 	</repositories>
 	<dependencies>
+
+
 		<dependency>
 			<groupId>JDatePicker</groupId>
 			<artifactId>JDatePicker</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/lib/JDatePicker.jar</systemPath>
 		</dependency>
+
 		<!-- <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> 
 			<version>5.1.36</version> </dependency> -->
 		<dependency>
@@ -117,7 +120,6 @@
 			<artifactId>flyway-core</artifactId>
 			<version>5.2.4</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>org.apache.poi</groupId>

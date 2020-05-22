@@ -1,6 +1,7 @@
 package ru.fssprus.r82.ui.dialogs.statistics;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -14,12 +15,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import cherny.jdatepicker.JDatePicker;
+import chernyj.jdatepicker.JDatePicker;
 import ru.fssprus.r82.ui.dialogs.DialogWithPassword;
 import ru.fssprus.r82.ui.table.CommonTable;
 import ru.fssprus.r82.ui.table.CommonTableModel;
 import ru.fssprus.r82.ui.table.TablePanel;
 import ru.fssprus.r82.utils.AppConstants;
+import ru.fssprus.r82.utils.ApplicationConfiguration;
 
 /**
  * @author Chernyj Dmitry
@@ -167,6 +169,11 @@ public class StatisticsDialog extends DialogWithPassword {
 
 	@Override
 	protected void layoutDialog() {
+		dpDateMore.setPrimaryColor(new Color(Integer.parseInt(ApplicationConfiguration.getItem("color.main"), 16)));
+		dpDateMore.setSecondaryColor(new Color(Integer.parseInt(ApplicationConfiguration.getItem("color.second"), 16)));
+		dpDateLess.setPrimaryColor(new Color(Integer.parseInt(ApplicationConfiguration.getItem("color.main"), 16)));
+		dpDateLess.setSecondaryColor(new Color(Integer.parseInt(ApplicationConfiguration.getItem("color.second"), 16)));
+		
 		tablePanel.setPreferredSize(
 				new Dimension(this.getWidth(), this.getHeight() - AppConstants.TOP_PANEL_HEIGHT - PNL_FILTER_HEIGHT));
 		getContentPanel().add(pnlFilter, BorderLayout.NORTH);

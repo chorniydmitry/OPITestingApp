@@ -76,41 +76,13 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 
 	}
 
-	private void checkAndSaveFile() {
-		if (fileToSave == null)
-			return;
-		
-		String oldImageLink = questionToEdit.getImageLink();
-
-		if (oldImageLink != null && !oldImageLink.isEmpty())
-			deleteUnusedFile();
-
-		File toSaveFile = new File(
-				"images/quest_illustration_" + System.currentTimeMillis() + "." + fileToSave.getName().split("\\.")[1]);
-		try {
-			Files.copy(fileToSave.toPath(), toSaveFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-		} catch (IOException e) {
-			MessageBox.showErrorMessage(dialog.getParent(), AppConstants.CANNOT_SAVEFILE_ERROR);
-			e.printStackTrace();
-			return;
-		}
-		
-		questionToEdit.setImageLink(toSaveFile.toString());
-
-	}
-
-	private void deleteUnusedFile() {
-		File f = new File(questionToEdit.getImageLink());
-		f.delete();
-	}
-
 	// TODO:
 	private void btnAddImageAction() {
 		JImageFileChooser jIFC = new JImageFileChooser();
 		fileToSave = jIFC.selectImageFile(dialog.getParent());
-
+	
 		String fileTag = fileToSave.getPath();
-
+	
 		dialog.getTfImageLink().setText(fileTag);
 	}
 
@@ -185,21 +157,51 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 		return sets.size() == 0 ? null : sets.get(0);
 	}
 
+	private void checkAndSaveFile() {
+		if (fileToSave == null)
+			return;
+		
+		String oldImageLink = questionToEdit.getImageLink();
+	
+		if (oldImageLink != null && !oldImageLink.isEmpty())
+			deleteUnusedFile();
+	
+		File toSaveFile = new File(
+				"images/quest_illustration_" + System.currentTimeMillis() + "." + fileToSave.getName().split("\\.")[1]);
+		try {
+			Files.copy(fileToSave.toPath(), toSaveFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			MessageBox.showErrorMessage(dialog.getParent(), AppConstants.CANNOT_SAVEFILE_ERROR);
+			e.printStackTrace();
+			return;
+		}
+		
+		questionToEdit.setImageLink(toSaveFile.toString());
+	
+	}
+
 	private boolean checkQuestionToSave() {
 		String errorMessage = "";
 
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
 
-		Set<ConstraintViolation<Question>> violations = validator.validate(questionToEdit);
+		Set<ConstraintViolation<Question>> questionViolations = validator.validate(questionToEdit);
 
 		Set<ConstraintViolation<Answer>> answersViolations = getAnswersViolations();
-
-		if (violations.size() == 0 && answersViolations.size() == 0) {
+		
+		//TODO: move to custom validator
+		if (!checkIfCorrectAnswerIsSet()) 
+			errorMessage += AppConstants.VALID_QUEST_NO_CORRECT_ANSWER + AppConstants.EOL;
+		
+		if(checkIfAnswersHaveDublicates())
+			errorMessage += AppConstants.VALID_QUEST_ANSWERS_HAS_DUBLICATES + AppConstants.EOL;
+		
+		if (questionViolations.size() == 0 && answersViolations.size() == 0 && errorMessage.isEmpty()) {
 			return true;
 		}
 
-		for (ConstraintViolation<Question> violation : violations)
+		for (ConstraintViolation<Question> violation : questionViolations)
 			errorMessage += violation.getMessage() + AppConstants.EOL;
 
 		errorMessage += AppConstants.EOL;
@@ -209,19 +211,39 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 
 		errorMessage += AppConstants.EOL;
 
-		if (!checkIfCorrectAnswerIsSet())
-			errorMessage += AppConstants.VALID_QUEST_NO_CORRECT_ANSWER + AppConstants.EOL;
+
 
 		MessageBox.showValidationFaildMessage(dialog, errorMessage);
 
 		return false;
 	}
 
+	//TODO: move to custom validator
 	private boolean checkIfCorrectAnswerIsSet() {
 		for (JCheckBox cb : dialog.getCbAnsList())
 			if (cb.isSelected())
 				return true;
 		return false;
+	}
+	
+	//TODO: move to custom validator
+	private boolean checkIfAnswersHaveDublicates() {
+		ArrayList<String> answersTextsList = new ArrayList<>();
+		
+		for(Answer ans: questionToEdit.getAnswers()) {
+			if(answersTextsList.indexOf(ans.getTitle()) == -1)
+				answersTextsList.add(ans.getTitle());
+			else
+				return true;
+		}
+		
+		
+		return false;
+	}
+
+	private void deleteUnusedFile() {
+		File f = new File(questionToEdit.getImageLink());
+		f.delete();
 	}
 
 	private Set<ConstraintViolation<Answer>> getAnswersViolations() {
@@ -230,8 +252,10 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 
 		Set<ConstraintViolation<Answer>> allViolations = new HashSet<>();
 
-		for (Answer ans : questionToEdit.getAnswers())
+		
+		for (Answer ans : questionToEdit.getAnswers()) {
 			allViolations.addAll(validator.validate(ans));
+		}
 
 		return allViolations;
 	}

@@ -53,7 +53,7 @@ public class AppConstants {
 		public static final String QUESTIONLIST_TEXT = "Список вопросов";
 		public static final String RESULTING_TEXT = "Результаты тестирования";
 		public static final String STATISTICS_TEXT = "СТАТИСТИКА";
-		public static final String TEST_TEXT = "Тестирование";
+		public static final String TEST_TEXT = "ТЕСТИРОВАНИЕ";
 		public static final String TESTCONSTRUCTOR_TEXT = "Конструктор тестов";
 		public static final String WRONGANSWERS_TEXT = "Не правильные ответы";
 		// TODO: UNSUSED
@@ -123,11 +123,11 @@ public class AppConstants {
 	public static final int QUESTION_TEXT_SIDE_INDENTS = 50;
 
 	// Константы шрифтов
-	public static final Font RESULTDIALOG_TEXT_FONT = new Font("Courier New", Font.BOLD, 18);
-	public static final Font TESTDIALOG_HEADER_FONT = new Font("Courier New", Font.PLAIN, 20);
-	public static final Font TESTDIALOG_QUESTION_FONT = new Font("Courier New", Font.PLAIN, 20);
-	public static final Font TESTDIALOG_ITEMS_FONT = new Font("Courier New", Font.PLAIN, 16);
-	public static final Font TOP_PANELS_TEXT_FONT = new Font("Courier New", Font.PLAIN, 22);
+	public static final Font RESULTDIALOG_TEXT_FONT = new Font("Tahoma", Font.BOLD, 18);
+	public static final Font TESTDIALOG_HEADER_FONT = new Font("Tahoma", Font.PLAIN, 20);
+	public static final Font TESTDIALOG_QUESTION_FONT = new Font("Tahoma", Font.PLAIN, 20);
+	public static final Font TESTDIALOG_ITEMS_FONT = new Font("Tahoma", Font.PLAIN, 16);
+	public static final Font TOP_PANELS_TEXT_FONT = new Font("Tahoma", Font.PLAIN, 22);
 
 	// Размеры компонентов
 	public static final int MAINFRAME_BTN_WIDTHS = 275;
@@ -263,7 +263,7 @@ public class AppConstants {
 	public static final String VALID_QUEST_ANSWERS_AMOUNT = "Для вопроса должно быть как минимум " + MIN_ANSWERS_AMOUNT
 			+ ", но не более " + MAX_ANSWERS_AMOUNT + " заполненных ответов!";
 	public static final String VALID_QUEST_NO_CORRECT_ANSWER = "Для вопроса должен быть выбран по крайней мере один правильный ответ!";
-
+	public static final String VALID_QUEST_ANSWERS_HAS_DUBLICATES = "Вопрос содержит два одинаковых ответа!";
 	/*
 	 * FOR ANSWER ENTITY
 	 */

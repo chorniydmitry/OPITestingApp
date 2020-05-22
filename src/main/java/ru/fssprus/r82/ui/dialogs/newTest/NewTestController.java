@@ -95,7 +95,7 @@ public class NewTestController extends CommonController<NewTestDialog> {
 
 	private void loadTestList() {
 		TestService service = new TestService();
-		List<Test> setList = service.getAll();
+		List<Test> setList = service.getActive();
 
 		dialog.getCbSpecification().addItem(null);
 

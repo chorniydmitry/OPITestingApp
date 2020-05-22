@@ -22,6 +22,10 @@ public class TestService {
 		return testDao.getAll();
 	}
 	
+	public List<Test> getActive() {
+		return testDao.getActive();
+	}
+	
 	public Test getById(Long id) {
 		return testDao.getById(id);
 	}

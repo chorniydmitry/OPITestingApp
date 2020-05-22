@@ -75,7 +75,7 @@ public class ResultDatabaseDao extends AbstractHibernateDao<Result> implements R
 				predicates.add(builder.lessThanOrEqualTo(root.get("date"), dateLess));
 
 			if (result != null && !result.isEmpty())
-				predicates.add(builder.like(root.get("result"), "%" + result + "%"));
+				predicates.add(builder.like(root.get("result"),  result));
 
 			if (scoreMore != 0)
 				predicates.add(builder.greaterThanOrEqualTo(root.get("score"), scoreMore));

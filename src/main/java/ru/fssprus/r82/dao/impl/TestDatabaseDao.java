@@ -146,4 +146,27 @@ public class TestDatabaseDao extends AbstractHibernateDao<Test> implements TestD
 		return testList;
 	}
 
+	@Override
+	public List<Test> getActive() {
+		List<Test> testList = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Test> criteriaQuery = builder.createQuery(Test.class);
+
+			Root<Test> root = criteriaQuery.from(Test.class);
+			criteriaQuery.select(root).where(builder.equal(root.get("isActive"), true));
+
+			Query<Test> query = session.createQuery(criteriaQuery);
+
+			testList = query.getResultList();
+			
+			session.close();
+
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
+		return testList;
+	}
+
 }

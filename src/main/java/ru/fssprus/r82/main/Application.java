@@ -1,5 +1,6 @@
 package ru.fssprus.r82.main;
 
+import java.awt.GraphicsEnvironment;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -253,6 +254,20 @@ public class Application {
 //		
 //
 //		System.out.println("end");
+		
+		
+		String fonts[] = 
+			      GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+
+			    for ( int i = 0; i < fonts.length; i++ )
+			    {
+			      System.out.println(fonts[i]);
+			    }
+		
+		
+		
+		
+		
 
 		UIManagerConfigurator.configure();
 		appStart();

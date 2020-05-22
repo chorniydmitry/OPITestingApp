@@ -200,6 +200,7 @@ public class QuestionEditDialog extends CommonDialog {
 
 	@Override
 	protected void layoutDialog() {
+		tfImageLink.setEditable(false);
 		getContentPanel().add(pnlQuestionEdit);
 	}
 

@@ -61,7 +61,7 @@ public class UIManagerConfigurator {
 	}
 
 	private static void configureDefaultFont() {
-		FontUIResource f = new FontUIResource(new Font("Tahoma", 0, 12));
+		FontUIResource f = new FontUIResource(new Font("Dialog", 0, 12));
 		Enumeration<Object> keys = UIManager.getDefaults().keys();
 		while (keys.hasMoreElements()) {
 			Object key = keys.nextElement();
@@ -78,7 +78,7 @@ public class UIManagerConfigurator {
 		UIManager.put("OptionPane.yesButtonText", "Да");
 		UIManager.put("OptionPane.noButtonText", "Нет");
 		UIManager.put("OptionPane.cancelButtonText", "Отмена");
-		UIManager.put("OptionPane.okButtonText", "Готово");
+		UIManager.put("OptionPane.okButtonText", "Ок");
 	}
 
 }

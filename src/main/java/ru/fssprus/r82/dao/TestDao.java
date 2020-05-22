@@ -17,4 +17,6 @@ public interface TestDao extends ItemDao<Test> {
 
 	public List<Test> getAllByName(String name);
 
+	public List<Test> getActive();
+
 }

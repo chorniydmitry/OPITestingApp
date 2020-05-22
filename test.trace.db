@@ -543,3 +543,19 @@ Caused by: java.lang.IllegalStateException: The file is locked: nio:/home/dmitry
 	at org.h2.mvstore.FileStore.open(FileStore.java:173)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:350)
 	... 91 more
+2020-05-22 16:20:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "SELECT * QUESTION[*] WHERE QUESTION.ID = 1"
+Syntax error in SQL statement "SELECT * QUESTION[*] WHERE QUESTION.ID = 1"; SQL statement:
+SELECT * QUESTION WHERE QUESTION.ID = 1 [42000-199]
+2020-05-22 16:20:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "SELECT * ANSWER[*] WHERE ANSWER.QUESTION_ID = 1"
+Syntax error in SQL statement "SELECT * ANSWER[*] WHERE ANSWER.QUESTION_ID = 1"; SQL statement:
+SELECT * ANSWER WHERE ANSWER.QUESTION_ID = 1 [42000-199]
+2020-05-22 16:20:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "SELECT * ANSWER[*] WHERE ANSWER.QUESTION_ID = 1"
+Syntax error in SQL statement "SELECT * ANSWER[*] WHERE ANSWER.QUESTION_ID = 1"; SQL statement:
+SELECT * ANSWER WHERE ANSWER.QUESTION_ID = 1 [42000-199]
+2020-05-22 16:21:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "DELETE *[*] FROM ANSWER WHERE ANSWER.QUESTION_ID = 1"; ожидалось "identifier"
+Syntax error in SQL statement "DELETE *[*] FROM ANSWER WHERE ANSWER.QUESTION_ID = 1"; expected "identifier"; SQL statement:
+DELETE * FROM ANSWER WHERE ANSWER.QUESTION_ID = 1 [42001-199]
