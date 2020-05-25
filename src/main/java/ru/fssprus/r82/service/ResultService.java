@@ -19,7 +19,7 @@ public class ResultService {
 	private ResultDao resultDao = new ResultDatabaseDao();
 	
 	public void add(Result result) {
-		resultDao.add(result);
+		resultDao.save(result);
 	}
 	
 	public List<Result> getAll(int fromId, int toId) {

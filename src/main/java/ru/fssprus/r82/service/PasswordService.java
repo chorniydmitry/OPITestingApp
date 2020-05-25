@@ -27,7 +27,7 @@ public class PasswordService {
 	}
 	
 	public void save(Password password) {
-		passwordDao.add(password);
+		passwordDao.save(password);
 	}
 	
 	public List<Password> getAll() {

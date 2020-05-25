@@ -47,7 +47,7 @@ public class QuestionSetService {
 	}
 	
 	public void save(QuestionSet spec) {
-		questionSetDao.add(spec);
+		questionSetDao.save(spec);
 	}
 
 	public void delete(QuestionSet setToDelete) {

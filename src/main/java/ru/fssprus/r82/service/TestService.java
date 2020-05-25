@@ -11,7 +11,7 @@ public class TestService {
 	private TestDao testDao = new TestDatabaseDao();
 	
 	public void add(Test test) {
-		testDao.add(test);
+		testDao.save(test);
 	}
 	
 	public List<Test> getAll(int fromId, int toId) {

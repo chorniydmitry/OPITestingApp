@@ -70,12 +70,12 @@ public class QuestionService {
 		for (Question question : questions) {
 			System.out.println(":::::"+question);
 			if(!questionDao.hasDuplicates(question))
-				questionDao.add(question);
+				questionDao.save(question);
 		}
 	}
 
 	public void save(Question questionToSave) {
-		questionDao.add(questionToSave);
+		questionDao.save(questionToSave);
 	}
 	
 	public void update(Question questionModified) {

@@ -41,7 +41,7 @@ public class AnswerService{
 	}
 	
 	public void save(Answer ans) {
-		answerDao.add(ans);
+		answerDao.save(ans);
 	}
 
 	public void delete(Answer ans) {

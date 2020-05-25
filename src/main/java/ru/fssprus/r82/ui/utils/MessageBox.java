@@ -21,8 +21,8 @@ public class MessageBox extends JOptionPane {
 	private static final String ERROR_VALIDATION_HEADER = "ПРОБЛЕМЫ С ВАЛИДАЦИЕЙ ФОРМЫ";
 	private static final String ERROR_COMMON_HEADER = "ОШИБКА";
 	
-	private static final String ERROR_FILE_NOT_LOAD = "Ошибка при открытии файла! Если файл выбран верно и содержит "
-			+ "набор вопросов, возможно этот файл не соответствует шаблону! Загрузить шаблон можно по нажатию на "
+	private static final String ERROR_FILE_NOT_LOAD = "Ошибка при открытии файла! Если файл выбран верно и содержит\n"
+			+ "набор вопросов, возможно этот файл не соответствует шаблону! Загрузить шаблон можно по нажатию на\n"
 			+ "соответствующую кнопку внизу экрана!";
 	private static final String ERROR_WRONG_SPEC_SPECIFIED = "Не верно указано название набора вопросов!";
 	private static final String PASSWORD_INPUT_TITLE = "Ввод пароля";

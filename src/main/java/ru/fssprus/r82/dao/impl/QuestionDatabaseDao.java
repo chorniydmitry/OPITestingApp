@@ -252,8 +252,22 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 
 	@Override
 	public boolean hasDuplicates(Question question) {
-		return getByNameAnswersAndQuestionSet(question.getTitle(), question.getAnswers(), question.getQuestionSet())
-				.size() > 0 ? true : false;
+
+		List<Question> questions = getByNameAndQuestionSet(question.getTitle(), question.getQuestionSet());
+
+		if (questions.size() > 0) {
+			int sameAns = 0;
+			for (Question q : questions)
+				for (Answer ans : q.getAnswers())
+					for (Answer ans2 : question.getAnswers())
+						if (ans.getTitle().equals(ans2.getTitle()))
+							sameAns++;
+
+			if (sameAns == question.getAnswers().size())
+				return true;
+		}
+		return false;
+
 	}
 
 	@Override

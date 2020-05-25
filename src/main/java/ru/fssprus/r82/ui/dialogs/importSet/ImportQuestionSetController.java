@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -49,11 +50,17 @@ public class ImportQuestionSetController extends CommonController<ImportQuestion
 	
 	private void loadTfSpecNames() {
 		QuestionSetService setService = new QuestionSetService();
+		
+		dialog.getCbSetName().removeAllItems();
 
 		ArrayList<String> keywords = new ArrayList<String>();
 		setService.getAll().forEach((n) -> keywords.add(n.getName()));
 
-		keywords.forEach((n) -> dialog.getCbSetName().addItem(n));
+		keywords.forEach((n) -> {
+			dialog.getCbSetName().addItem(n);
+			
+		});
+		
 	}
 
 	@Override
@@ -76,6 +83,8 @@ public class ImportQuestionSetController extends CommonController<ImportQuestion
 		QuestionSet setToDelete = qsService.getByName(dialog.getCbSetName().getSelectedItem().toString()).get(0);
 		
 		qsService.delete(setToDelete);
+		
+		init();
 	}
 
 	private void doSwitchQuestionSet() {
@@ -174,6 +183,8 @@ public class ImportQuestionSetController extends CommonController<ImportQuestion
 		saveQuestionSetToDB(questionsParsed);
 
 		MessageBox.showReadyDialog(dialog);
+		
+		init();
 	}
 
 	private boolean validateSetFileOpenning() {
@@ -216,9 +227,9 @@ public class ImportQuestionSetController extends CommonController<ImportQuestion
 		SpreadSheetParser parser = new SpreadSheetParser();
 		HashSet<Question> questions = null;
 		try {
-			MessageBox.showFileNotLoadedErrorDialog(dialog);
 			questions = parser.parse(testFile, getQuestionSet());
 		} catch(NullPointerException e) {
+			MessageBox.showFileNotLoadedErrorDialog(dialog);
 			return null;
 		}
 		return questions;

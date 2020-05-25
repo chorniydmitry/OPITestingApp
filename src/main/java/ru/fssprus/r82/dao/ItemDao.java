@@ -18,7 +18,7 @@ public interface ItemDao<T extends Model> {
 
 	public T getById(Long id);
 
-	public void add(T model);
+	public void save(T model);
 
 	public void update(T model);
 

@@ -121,7 +121,7 @@ public abstract class AbstractHibernateDao<T extends Model> {
 		return result;
 	}
 	
-	public void add(T model) {
+	public void save(T model) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
