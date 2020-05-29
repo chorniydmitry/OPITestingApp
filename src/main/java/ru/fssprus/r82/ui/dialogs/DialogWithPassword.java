@@ -17,6 +17,10 @@ public abstract class DialogWithPassword extends CommonDialog {
 
 	public DialogWithPassword(int width, int height, String title, Path icon, JFrame parent) {
 		super(width, height, title, icon, parent);
+		checkAccess();
+	}
+	
+	private void checkAccess() {
 		if (checkIfPasswordIsSet(getClass().getSimpleName())) {
 			
 			if (checkaccess(getClass().getSimpleName())) {

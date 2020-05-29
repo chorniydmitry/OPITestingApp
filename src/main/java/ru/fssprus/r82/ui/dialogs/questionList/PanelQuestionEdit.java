@@ -1,28 +1,24 @@
-package ru.fssprus.r82.ui.dialogs.questionEdit;
+package ru.fssprus.r82.ui.dialogs.questionList;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import ru.fssprus.r82.ui.dialogs.CommonDialog;
 import ru.fssprus.r82.utils.AppConstants;
 
-public class QuestionEditDialog extends CommonDialog {
-	
-	private static final long serialVersionUID = -5920884439809017250L;
+public class PanelQuestionEdit extends JPanel {
+private static final long serialVersionUID = -5920884439809017250L;
 	
 	private static final String BTN_ADD_IMAGE_CAPTION = "Добавить изображение";
 	private static final String BTN_SAVE_CAPTION = "Сохранить изменения";
@@ -64,17 +60,23 @@ public class QuestionEditDialog extends CommonDialog {
 	private JPanel pnlAnswers = new JPanel();
 	private JPanel pnlButtons = new JPanel();
 
-	public QuestionEditDialog(int width, int height, String title, Path icon, JFrame parent) {
-		super(width, height, title, icon, parent);
+	public PanelQuestionEdit() {
 
-		//TODO: MOVE THESE???
-		layoutPanelAnswers();
-		layoutPanelButtons();
-		layoutPanelQuestionEdit();
-		cbAvailibleSetNames.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		layoutPanel();
 	}
 	
 
+	protected void layoutPanel() {
+		tfImageLink.setEditable(false);
+		layoutPanelAnswers();
+		layoutPanelButtons();
+		layoutPanelQuestionEdit();
+		
+		cbAvailibleSetNames.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		
+		add(pnlQuestionEdit);
+	}
+	
 	private void layoutPanelButtons() {
 		pnlButtons.setLayout(new GridLayout(1, 2, 2, 2));
 		pnlButtons.add(btnCancel);
@@ -199,12 +201,6 @@ public class QuestionEditDialog extends CommonDialog {
 		this.btnCancel = btnCancel;
 	}
 
-	@Override
-	protected void layoutDialog() {
-		tfImageLink.setEditable(false);
-		getContentPanel().add(pnlQuestionEdit);
-	}
-	
 	public ArrayList<JTextArea> getTaAnsList() {
 		return taAnsList;
 	}
@@ -230,5 +226,4 @@ public class QuestionEditDialog extends CommonDialog {
 	public void setTfImageLink(JTextField tfImageLink) {
 		this.tfImageLink = tfImageLink;
 	}
-	
 }

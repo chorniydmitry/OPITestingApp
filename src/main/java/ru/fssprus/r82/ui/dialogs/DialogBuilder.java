@@ -1,10 +1,56 @@
 package ru.fssprus.r82.ui.dialogs;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.ADMIN_DIALOG_HEIGHT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.ADMIN_DIALOG_WIDTH;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.ADMIN_ICON;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.ADMIN_TEXT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.IMPORTQUESTIONSET_DIALOG_HEIGHT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.IMPORTQUESTIONSET_DIALOG_WIDTH;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.IMPORTQUESTIONSET_ICON;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.IMPORTQUESTIONSET_TEXT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.NEWTEST_DIALOG_HEIGHT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.NEWTEST_DIALOG_WIDTH;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.NEWTEST_ICON;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.NEWTEST_TEXT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.PASSWORDMANAGE_DIALOG_HEIGHT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.PASSWORDMANAGE_DIALOG_WIDTH;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.PASSWORDMANAGE_ICON;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.PASSWORDMANAGE_TEXT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.QUESTIONEDIT_DIALOG_HEIGHT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.QUESTIONEDIT_DIALOG_WIDTH;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.QUESTIONEDIT_ICON;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.QUESTIONEDIT_TEXT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.QUESTIONLIST_DIALOG_HEIGHT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.QUESTIONLIST_DIALOG_WIDTH;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.QUESTIONLIST_ICON;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.QUESTIONLIST_TEXT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.RESULTING_DIALOG_HEIGHT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.RESULTING_DIALOG_WIDTH;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.RESULTING_ICON;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.RESULTING_TEXT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.STATISTICS_DIALOG_HEIGHT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.STATISTICS_DIALOG_WIDTH;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.STATISTICS_ICON;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.STATISTICS_TEXT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.TESTCONSTRUCTOR_DIALOG_HEIGHT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.TESTCONSTRUCTOR_DIALOG_WIDTH;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.TESTCONSTRUCTOR_ICON;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.TESTCONSTRUCTOR_TEXT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.TEST_DIALOG_HEIGHT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.TEST_DIALOG_WIDTH;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.TEST_ICON;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.TEST_TEXT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.WRONGANSWERS_DIALOG_HEIGHT;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.WRONGANSWERS_DIALOG_WIDTH;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.WRONGANSWERS_ICON;
+import static ru.fssprus.r82.utils.AppConstants.Dialogs.WRONGANSWERS_TEXT;
+
+import java.nio.file.Paths;
+
 /**
  * @author Chernyj Dmitry
  *
  */
 import javax.swing.JFrame;
-import java.nio.file.Paths;
 
 import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.ui.dialogs.admin.AdminController;
@@ -23,15 +69,14 @@ import ru.fssprus.r82.ui.dialogs.resulting.ResultingController;
 import ru.fssprus.r82.ui.dialogs.resulting.ResultingDialog;
 import ru.fssprus.r82.ui.dialogs.statistics.StatisticsController;
 import ru.fssprus.r82.ui.dialogs.statistics.StatisticsDialog;
+import ru.fssprus.r82.ui.dialogs.test.TestController;
+import ru.fssprus.r82.ui.dialogs.test.TestDialog;
 import ru.fssprus.r82.ui.dialogs.testConstructor.TestConstructorController;
 import ru.fssprus.r82.ui.dialogs.testConstructor.TestConstructorDiaolg;
-import ru.fssprus.r82.uidialogs.test.TestController;
-import ru.fssprus.r82.uidialogs.test.TestDialog;
-import ru.fssprus.r82.uidialogs.wrongAnswers.WrongAnswersController;
-import ru.fssprus.r82.uidialogs.wrongAnswers.WrongAnswersDialog;
+import ru.fssprus.r82.ui.dialogs.wrongAnswers.WrongAnswersController;
+import ru.fssprus.r82.ui.dialogs.wrongAnswers.WrongAnswersDialog;
 import ru.fssprus.r82.utils.testingTools.TestingProcess;
 import ru.fssprus.r82.utils.testingTools.TestingProcessAnaliser;
-import static ru.fssprus.r82.utils.AppConstants.Dialogs.*;
 
 public class DialogBuilder {
 	private static JFrame parent;
@@ -93,14 +138,14 @@ public class DialogBuilder {
 	}
 
 	public static void showQuestionListDialog() {
-		new QuestionListController(
 				new QuestionListDialog(
 					QUESTIONLIST_DIALOG_WIDTH,
 					QUESTIONLIST_DIALOG_HEIGHT, 
 					QUESTIONLIST_TEXT,
 					Paths.get(QUESTIONLIST_ICON),
-					parent));
+					parent);
 	}
+	
 
 	public static void showStatisticsDialog() {
 		new StatisticsController(

@@ -1,4 +1,4 @@
-package ru.fssprus.r82.uidialogs.test;
+package ru.fssprus.r82.ui.dialogs.test;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -63,7 +63,9 @@ public class TestDialog extends CommonDialog {
 	public TestDialog(int width, int height, String title, Path icon, JFrame parent) {
 		super(width, height, title, icon, parent);
 		
+		
 		//TODO: MOVE THESE???
+		fillBgAnswers();
 		mainFrame = parent;
 		
 		setMaximized();
@@ -76,12 +78,6 @@ public class TestDialog extends CommonDialog {
 		int screenWidth = screenSize.width;
 
 		this.setSize(screenWidth, screenHeight);
-	}
-
-	@Override
-	public void init() {
-		fillBgAnswers();
-		super.init();
 	}
 
 	@Override

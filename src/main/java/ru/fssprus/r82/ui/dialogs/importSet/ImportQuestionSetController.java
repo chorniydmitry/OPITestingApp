@@ -13,9 +13,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -27,6 +27,7 @@ import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.service.TestService;
 import ru.fssprus.r82.ui.dialogs.CommonController;
+import ru.fssprus.r82.ui.utils.ComboboxToolTipRenderer;
 import ru.fssprus.r82.ui.utils.MessageBox;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.spreadsheet.SpreadSheetParser;
@@ -55,12 +56,18 @@ public class ImportQuestionSetController extends CommonController<ImportQuestion
 
 		ArrayList<String> keywords = new ArrayList<String>();
 		setService.getAll().forEach((n) -> keywords.add(n.getName()));
+		
+		ComboboxToolTipRenderer renderer = new ComboboxToolTipRenderer();
+		dialog.getCbSetName().setRenderer(renderer);
 
+		List<String> tooltips = new ArrayList<>();
+		
 		keywords.forEach((n) -> {
 			dialog.getCbSetName().addItem(n);
-			
+			tooltips.add(n);
 		});
 		
+		renderer.setTooltips(tooltips);
 	}
 
 	@Override
@@ -100,7 +107,7 @@ public class ImportQuestionSetController extends CommonController<ImportQuestion
 	private void doLoadSetFileTemplate() {
 		try {
 			SpreadsheetFileChooser chooser = new SpreadsheetFileChooser();
-			File fileToSave = chooser.selectSpreadSheetFileToSave();
+			File fileToSave = chooser.selectSpreadSheetFileToSave(dialog.getParent());
 			
 			Path source = Paths.get(ImportQuestionSetController.class.getResource("/set_template.xlsx").toURI());
 		    Path target = fileToSave.toPath();
@@ -164,7 +171,7 @@ public class ImportQuestionSetController extends CommonController<ImportQuestion
 
 	private void doOpenTestFile() {
 		SpreadsheetFileChooser chooser = new SpreadsheetFileChooser();
-		testFile = chooser.selectSpreadSheetFileToOpen();
+		testFile = chooser.selectSpreadSheetFileToOpen(dialog.getParent());
 		if (testFile != null)
 			try {
 				dialog.getTfFilePath().setText(testFile.getCanonicalFile().getPath());

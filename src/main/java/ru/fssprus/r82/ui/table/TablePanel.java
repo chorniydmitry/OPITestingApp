@@ -94,6 +94,7 @@ public class TablePanel extends JPanel {
 	}
 	
 	public void setValueAt(Object value,int rowIndex, int colIndex) {
+		System.out.println(value);
 		this.getTable().getTabModel().setValueAt(value, rowIndex, colIndex);
 	}
 	

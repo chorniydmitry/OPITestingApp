@@ -1,4 +1,4 @@
-package ru.fssprus.r82.uidialogs.wrongAnswers;
+package ru.fssprus.r82.ui.dialogs.wrongAnswers;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -58,12 +58,6 @@ public class WrongAnswersDialog extends CommonDialog {
 		contentPanel.add(scroller, BorderLayout.CENTER);
 		contentPanel.add(btnClose, BorderLayout.SOUTH);
 	}
-	
-	@Override
-	public void init() {
-		super.init();
-	}
-	
 	
 	public JEditorPane getTaWrongs() {
 		return taWrongs;

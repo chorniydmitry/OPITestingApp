@@ -121,8 +121,6 @@ public class CommonTable extends JTable {
 				int row, int column) {
 			CommonTableModel model = (CommonTableModel) table.getModel();
 			
-			
-			
 			if(isSelected) {
 				setBackground(backgroundSelected);
 				setForeground(foregroundSelected);
@@ -132,7 +130,7 @@ public class CommonTable extends JTable {
 				setForeground(foreground);
 			}
 			
-			String data = (String) value.toString();
+			String data = value == null ? "" : (String) value.toString();
 
 			if (columnMultiline[column]) {
 				

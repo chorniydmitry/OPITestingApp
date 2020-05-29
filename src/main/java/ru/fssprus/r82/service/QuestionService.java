@@ -68,7 +68,6 @@ public class QuestionService {
 	
 	public void addAllNoDuplicates(HashSet<Question> questions) {
 		for (Question question : questions) {
-			System.out.println(":::::"+question);
 			if(!questionDao.hasDuplicates(question))
 				questionDao.save(question);
 		}

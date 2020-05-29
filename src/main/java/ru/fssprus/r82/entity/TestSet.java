@@ -25,7 +25,7 @@ public class TestSet extends Model {
 	private Test test;
 
 	@ManyToOne
-	@JoinColumn(name = "questionset_id", unique=true)
+	@JoinColumn(name = "questionset_id")
 	private QuestionSet questionset;
 
 	public int getQuestionsAmount() {

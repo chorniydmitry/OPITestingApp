@@ -263,7 +263,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 						if (ans.getTitle().equals(ans2.getTitle()))
 							sameAns++;
 
-			if (sameAns == question.getAnswers().size())
+			if (sameAns >= question.getAnswers().size())
 				return true;
 		}
 		return false;

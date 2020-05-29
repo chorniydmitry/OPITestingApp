@@ -44,12 +44,7 @@ public class ResultingDialog extends CommonDialog {
 
 	public ResultingDialog(int width, int height, String title, Path icon, JFrame parent) {
 		super(width, height, title, icon, parent);
-	}
-	
-	@Override
-	public void init() {
 		initFonts();
-		super.init();
 	}
 	
 	@Override

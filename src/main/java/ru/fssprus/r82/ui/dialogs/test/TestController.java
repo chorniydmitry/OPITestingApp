@@ -1,4 +1,4 @@
-package ru.fssprus.r82.uidialogs.test;
+package ru.fssprus.r82.ui.dialogs.test;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

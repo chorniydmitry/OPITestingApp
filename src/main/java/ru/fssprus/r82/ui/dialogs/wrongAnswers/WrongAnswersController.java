@@ -1,4 +1,4 @@
-package ru.fssprus.r82.uidialogs.wrongAnswers;
+package ru.fssprus.r82.ui.dialogs.wrongAnswers;
 
 import ru.fssprus.r82.ui.dialogs.ControllerWithTimer;
 import ru.fssprus.r82.utils.CheatingStopper;

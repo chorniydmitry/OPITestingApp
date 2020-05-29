@@ -67,6 +67,7 @@ public class ImportQuestionSetDialog extends DialogWithPassword {
 	
 	public ImportQuestionSetDialog(int width, int height, String title, Path icon, JFrame parent) {
 		super(width, height, title, icon, parent);
+		initComponents();
 	}
 	
 	
@@ -133,14 +134,9 @@ public class ImportQuestionSetDialog extends DialogWithPassword {
 
 	}
 
-	@Override
-	public void init() {
-		initComponents();
-		super.init();
-	}
-
 	private void initComponents() {
 		tfFilePath.setEditable(false);
+		cbSetName.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 	}
 
 	@Override

@@ -22,6 +22,7 @@ import ru.fssprus.r82.service.TestService;
 import ru.fssprus.r82.ui.dialogs.CommonController;
 import ru.fssprus.r82.ui.table.TablePanelController;
 import ru.fssprus.r82.ui.table.UpdatableController;
+import ru.fssprus.r82.ui.utils.ComboboxToolTipRenderer;
 import ru.fssprus.r82.ui.utils.MessageBox;
 import ru.fssprus.r82.utils.AppConstants;
 
@@ -59,10 +60,23 @@ public class TestConstructorController extends CommonController<TestConstructorD
 		List<QuestionSet> questionSets = setService.getAll();
 
 		for (int i = 0; i < dialog.getCbsSetNamesList().size(); i++) {
+			ComboboxToolTipRenderer renderer = new ComboboxToolTipRenderer();
+			
 			dialog.getCbsSetNamesList().get(i).addItem(new String());
-			for (QuestionSet questionSet : questionSets) {
-				dialog.getCbsSetNamesList().get(i).addItem(new String(questionSet.getName()));
+
+			dialog.getCbsSetNamesList().get(i).setRenderer(renderer);
+			dialog.getCbsSetNamesList().get(i).setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+
+			List<String> tooltips = new ArrayList<>();
+			tooltips.add(null);
+			
+
+			for(QuestionSet qSet: questionSets) {
+				dialog.getCbsSetNamesList().get(i).addItem(qSet.getName());
+				tooltips.add(qSet.getName());
 			}
+
+			renderer.setTooltips(tooltips);
 		}
 	}
 

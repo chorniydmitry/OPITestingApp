@@ -15,8 +15,7 @@ public abstract class CommonController<T extends CommonDialog> {
 		if ((dialog instanceof DialogWithPassword) && !(dialog.isAccessGained())) {
 			return;
 		}
-		dialog.init();
-		dialog.layoutPanelTop();
+
 		setDefaultListeners();
 		setListeners();
 	}

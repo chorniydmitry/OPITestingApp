@@ -169,7 +169,11 @@ public class StatisticsDialog extends DialogWithPassword {
 
 	@Override
 	protected void layoutDialog() {
-		dpDateMore.setPrimaryColor(new Color(Integer.parseInt(ApplicationConfiguration.getItem("color.main"), 16)));
+		dpDateMore.
+		setPrimaryColor(
+				new Color(
+						Integer.parseInt(
+								ApplicationConfiguration.getItem("color.main"), 16)));
 		dpDateMore.setSecondaryColor(new Color(Integer.parseInt(ApplicationConfiguration.getItem("color.second"), 16)));
 		dpDateLess.setPrimaryColor(new Color(Integer.parseInt(ApplicationConfiguration.getItem("color.main"), 16)));
 		dpDateLess.setSecondaryColor(new Color(Integer.parseInt(ApplicationConfiguration.getItem("color.second"), 16)));

@@ -108,6 +108,11 @@ public class AppConstants {
 		public static final int DIALOG_CONFIG_HEIGHT = 600;
 
 	}
+	
+	public static final String QUESTIONLIST_FILTER_ID_NAME = "id";
+	public static final String QUESTIONLIST_FILTER_SETNAME_NAME = "setname";
+	public static final String QUESTIONLIST_FILTER_QUESTIONTEXT_NAME = "questiontext";
+	
 
 	public static final String EOL = "\n";
 	public static final int HEX = 16;

@@ -72,7 +72,7 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 
 	private void doExportSheetAction() {
 		SpreadsheetFileChooser chooser = new SpreadsheetFileChooser();
-		File fileToSave = chooser.selectSpreadSheetFileToSave();
+		File fileToSave = chooser.selectSpreadSheetFileToSave(dialog.getParent());
 		SpreadSheetAdapter adapter = new SpreadSheetAdapter(fileToSave);
 		
 		totalEntriesList = getByFilter(0,0);

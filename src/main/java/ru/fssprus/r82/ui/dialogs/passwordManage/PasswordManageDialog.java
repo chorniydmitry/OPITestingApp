@@ -33,14 +33,8 @@ public class PasswordManageDialog extends DialogWithPassword {
 
 	public PasswordManageDialog(int width, int height, String title, Path icon, JFrame parent) {
 		super(width, height, title, icon, parent);
-	}
-	
-	@Override
-	public void init() {
 		initAndFillComponentsList();
-		super.init();
 	}
-	
 	
 	private void initAndFillComponentsList() {
 		for(int i = 0; i < Dialogs.DIALOG_WITH_PASSWORDS_ARR.length; i++) {

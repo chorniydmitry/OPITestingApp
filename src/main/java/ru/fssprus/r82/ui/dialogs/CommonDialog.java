@@ -40,32 +40,47 @@ public abstract class CommonDialog extends JDialog {
 	private JLabel lblTitle = new JLabel();
 	private JButton btnClose = new JButton(BTN_CLOSE_CAPTION);
 
-	public CommonDialog(int width, int height, String title, Path icon, JFrame parent, boolean isModal) {
-		super(parent, isModal);
-		initDialog(width, height, title, icon);
-
-	}
-
-	public void setIcon(Path icon) {
-		ImageIcon emblem = ImageUtils.getColoredImageIcon(ImageUtils.class.getResourceAsStream(icon.toString()),
-				FOREGROUND_COLOR);
-		lblEmblem.setIcon(emblem);
-	}
-
 	public CommonDialog(int width, int height, String title, Path icon, JFrame parent) {
 		super(parent, false);
+		init(width, height, title, icon);
+	}
+	
+	public CommonDialog(int width, int height, String title, Path icon, JDialog parent) {
+		super(parent, false);
+		init(width, height, title, icon);
+	}
+	
+	public void init(int width, int height, String title, Path icon) {
+		System.out.println("==================>" + getParent());
+		layoutPanelTop();
+		layoutDialog();
 		initDialog(width, height, title, icon);
 	}
-
+	
+	protected void layoutPanelTop() {
+		initLblTitle();
+		initTopPanel();
+	}
+	
 	private void initDialog(int width, int height, String title, Path icon) {
 		setUndecorated(true);
 		setSize(new Dimension(width, height));
+		setLocationRelativeTo(null);
+		setResizable(false);
 		setTitle(title);
 		setIcon(icon);
 		getRootPane().setBorder(BorderFactory.createLineBorder(BACKGROUND_COLOR));
 
 		add(pnlTop, BorderLayout.NORTH);
 		add(pnlContent, BorderLayout.CENTER);
+		
+		setVisible(true);
+	}
+
+	public void setIcon(Path icon) {
+		ImageIcon emblem = ImageUtils.getColoredImageIcon(ImageUtils.class.getResourceAsStream(icon.toString()),
+				FOREGROUND_COLOR);
+		lblEmblem.setIcon(emblem);
 	}
 
 	private void initTopPanel() {
@@ -88,19 +103,9 @@ public abstract class CommonDialog extends JDialog {
 		lblTitle.setFont(AppConstants.TOP_PANELS_TEXT_FONT);
 	}
 
-	protected void layoutPanelTop() {
-		initLblTitle();
-		initTopPanel();
-	}
 
 	protected JPanel getContentPanel() {
 		return pnlContent;
-	}
-
-	protected void loadDialog() {
-		setLocationRelativeTo(null);
-		setResizable(false);
-		setVisible(true);
 	}
 
 	protected abstract void layoutDialog();
@@ -115,11 +120,6 @@ public abstract class CommonDialog extends JDialog {
 
 	protected JButton getBtnClose() {
 		return btnClose;
-	}
-
-	public void init() {
-		loadDialog();
-		layoutDialog();
 	}
 
 	public void setTitle(String title) {

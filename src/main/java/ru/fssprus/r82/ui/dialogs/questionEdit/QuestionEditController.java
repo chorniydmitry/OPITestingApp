@@ -1,5 +1,7 @@
 package ru.fssprus.r82.ui.dialogs.questionEdit;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,6 +24,7 @@ import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.service.QuestionSetService;
 import ru.fssprus.r82.ui.dialogs.CommonController;
 import ru.fssprus.r82.ui.dialogs.DialogBuilder;
+import ru.fssprus.r82.ui.utils.ComboboxToolTipRenderer;
 import ru.fssprus.r82.ui.utils.JImageFileChooser;
 import ru.fssprus.r82.ui.utils.MessageBox;
 import ru.fssprus.r82.utils.AppConstants;
@@ -43,14 +46,24 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 
 	@Override
 	protected void setListeners() {
-		dialog.getBtnCancel().addActionListener(l -> btnCancelAction());
+		addOnDisposeListener();
+		dialog.getBtnCancel().addActionListener(l -> doOnDisposeAction());
 		dialog.getBtnSaveQuestion().addActionListener(l -> btnSaveAction());
 		dialog.getBtnAddImage().addActionListener(l -> btnAddImageAction());
 	}
+	
+	private void addOnDisposeListener() {
+		dialog.addWindowListener(new WindowAdapter() {
+		    @Override
+		    public void windowClosed(WindowEvent e) {
+		    	doOnDisposeAction();
+		    }
+		});
+	}
 
-	private void btnCancelAction() {
+	private void doOnDisposeAction() {
 		dialog.dispose();
-		DialogBuilder.showQuestionListDialog();
+		dialog.getParent().setVisible(true);
 	}
 
 	private void btnSaveAction() {
@@ -85,15 +98,28 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 	
 		dialog.getTfImageLink().setText(fileTag);
 	}
-
+	
+	//TODO вынести
 	private void fillCbsWithAvailibleSets() {
 		QuestionSetService setService = new QuestionSetService();
-		List<QuestionSet> questionSets = setService.getAll();
-
+		
 		dialog.getCbAvailibleSetNames().addItem(null);
-		for (QuestionSet questionSet : questionSets) {
-			dialog.getCbAvailibleSetNames().addItem(new String(questionSet.getName()));
-		}
+
+		ArrayList<String> keywords = new ArrayList<String>();
+		setService.getAll().forEach((n) -> keywords.add(n.getName()));
+		
+		ComboboxToolTipRenderer renderer = new ComboboxToolTipRenderer();
+		dialog.getCbAvailibleSetNames().setRenderer(renderer);
+
+		List<String> tooltips = new ArrayList<>();
+		tooltips.add(null);
+		
+		keywords.forEach((n) -> {
+			dialog.getCbAvailibleSetNames().addItem(n);
+			tooltips.add(n);
+		});
+		
+		renderer.setTooltips(tooltips);
 	}
 
 	private void loadQuestion() {
@@ -259,5 +285,7 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 
 		return allViolations;
 	}
+	
+	
 
 }

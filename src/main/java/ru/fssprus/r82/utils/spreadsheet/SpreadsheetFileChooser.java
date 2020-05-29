@@ -1,5 +1,6 @@
 package ru.fssprus.r82.utils.spreadsheet;
 
+import java.awt.Component;
 import java.io.File;
 
 import javax.swing.JFileChooser;
@@ -30,22 +31,23 @@ public class SpreadsheetFileChooser {
 		return file;
 	}
 
-	public File selectSpreadSheetFileToOpen() {
+	public File selectSpreadSheetFileToOpen(Component parent) {
 		JFileChooser fileChooser = initFileChooser();
-		return getSelectedFileWithExtension(fileChooser.showOpenDialog(null), fileChooser);
+		return getSelectedFileWithExtension(fileChooser.showOpenDialog(parent), fileChooser);
 	}
 
-	public File selectSpreadSheetFileToSave() {
+	public File selectSpreadSheetFileToSave(Component parent) {
 		JFileChooser fileChooser = initFileChooser();
-		return getSelectedFileWithExtension(fileChooser.showSaveDialog(null), fileChooser);
+		return getSelectedFileWithExtension(fileChooser.showSaveDialog(parent), fileChooser);
 	}
 
 	private JFileChooser initFileChooser() {
 		JFileChooser fileChooser = new JFileChooser();
+		
 		FileNameExtensionFilter filterXSLX = new FileNameExtensionFilter("XSLSX FILES", "xlsx", "xlsx");
 		FileNameExtensionFilter filterODS = new FileNameExtensionFilter("ODS FILES", "ods", "ods");
-		fileChooser.addChoosableFileFilter(filterODS);
 		fileChooser.addChoosableFileFilter(filterXSLX);
+		fileChooser.addChoosableFileFilter(filterODS);
 		
 		fileChooser.setAcceptAllFileFilterUsed(false);
 
