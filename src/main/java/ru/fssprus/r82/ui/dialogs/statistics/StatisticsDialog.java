@@ -74,6 +74,7 @@ public class StatisticsDialog extends DialogWithPassword {
 
 	public StatisticsDialog(int width, int height, String title, Path icon, JFrame parent) {
 		super(width, height, title, icon, parent);
+		System.out.println("STATISTICS DIALOG");
 		
 		
 		//TODO: MOVE THESE???
@@ -169,6 +170,7 @@ public class StatisticsDialog extends DialogWithPassword {
 
 	@Override
 	protected void layoutDialog() {
+		System.out.println("LAYOUTDIALOG");
 		dpDateMore.
 		setPrimaryColor(
 				new Color(
@@ -263,5 +265,4 @@ public class StatisticsDialog extends DialogWithPassword {
 	public JButton getBtnExportSheet() {
 		return btnExportSheet;
 	}
-	
 }

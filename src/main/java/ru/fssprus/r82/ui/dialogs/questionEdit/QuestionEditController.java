@@ -9,6 +9,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JCheckBox;
@@ -33,40 +34,39 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 
 	private Question questionToEdit;
 	private File fileToSave;
+	
+	private Map<String, String> filters;
 
-	public QuestionEditController(QuestionEditDialog dialog, Question questionToEdit) {
+	public QuestionEditController(QuestionEditDialog dialog, Question questionToEdit, Map<String, String> filters) {
 		super(dialog);
 
 		this.questionToEdit = questionToEdit;
 
 		fillCbsWithAvailibleSets();
-
+		
+		this.filters = filters;
+		
 		loadQuestion();
 	}
 
 	@Override
 	protected void setListeners() {
 		addOnDisposeListener();
-		dialog.getBtnCancel().addActionListener(l -> doOnDisposeAction());
-		dialog.getBtnSaveQuestion().addActionListener(l -> btnSaveAction());
-		dialog.getBtnAddImage().addActionListener(l -> btnAddImageAction());
+		dialog.getBtnCancel().addActionListener(l -> doCancelAction());
+		dialog.getBtnSaveQuestion().addActionListener(l -> doSaveAction());
+		dialog.getBtnAddImage().addActionListener(l -> doAddImageAction());
 	}
 	
 	private void addOnDisposeListener() {
 		dialog.addWindowListener(new WindowAdapter() {
 		    @Override
 		    public void windowClosed(WindowEvent e) {
-		    	doOnDisposeAction();
+		    	DialogBuilder.showQuestionListDialog(filters);
 		    }
 		});
 	}
 
-	private void doOnDisposeAction() {
-		dialog.dispose();
-		dialog.getParent().setVisible(true);
-	}
-
-	private void btnSaveAction() {
+	private void doSaveAction() {
 		questionToEdit.setAnswers(new HashSet<>(getAnswersFromQuestionEditUI()));
 
 		questionToEdit.setTitle(qetQuestionTitleFromQuestionEditUI());
@@ -83,14 +83,15 @@ public class QuestionEditController extends CommonController<QuestionEditDialog>
 
 			dialog.dispose();
 
-			DialogBuilder.showQuestionListDialog();
-
 		}
-
+	}
+	
+	private void doCancelAction() {
+		dialog.dispose();
 	}
 
 	// TODO:
-	private void btnAddImageAction() {
+	private void doAddImageAction() {
 		JImageFileChooser jIFC = new JImageFileChooser();
 		fileToSave = jIFC.selectImageFile(dialog.getParent());
 	

@@ -45,6 +45,8 @@ import static ru.fssprus.r82.utils.AppConstants.Dialogs.WRONGANSWERS_ICON;
 import static ru.fssprus.r82.utils.AppConstants.Dialogs.WRONGANSWERS_TEXT;
 
 import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.Map;
 
 /**
  * @author Chernyj Dmitry
@@ -126,7 +128,7 @@ public class DialogBuilder {
 					parent));
 	}
 
-	public static void showQuestionEditDialog(Question questionToEdit) {
+	public static void showQuestionEditDialog(Question questionToEdit, Map<String, String> filters) {
 		new QuestionEditController(
 				new QuestionEditDialog(
 					QUESTIONEDIT_DIALOG_WIDTH,
@@ -134,16 +136,17 @@ public class DialogBuilder {
 					QUESTIONEDIT_TEXT,
 					Paths.get(QUESTIONEDIT_ICON),
 					parent), 
-				questionToEdit);
+				questionToEdit,
+				filters);
 	}
 
-	public static void showQuestionListDialog() {
-				new QuestionListDialog(
+	public static void showQuestionListDialog(Map<String, String> filters) {
+				new QuestionListController(new QuestionListDialog(
 					QUESTIONLIST_DIALOG_WIDTH,
 					QUESTIONLIST_DIALOG_HEIGHT, 
 					QUESTIONLIST_TEXT,
 					Paths.get(QUESTIONLIST_ICON),
-					parent);
+					parent), filters);
 	}
 	
 

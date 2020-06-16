@@ -54,8 +54,15 @@ public class NewTestDialog extends DialogWithPassword {
 		contentPanel.setLayout(new GridBagLayout());;
 		//gridx, gridy, gridwidth, gridheight, weightx, weighty, anchor, fill, insets, ipadx, ipady
 		
+		contentPanel.validate();
+		contentPanel.revalidate();
+		contentPanel.repaint();
+		System.out.println(contentPanel == null);
+		System.out.println(contentPanel.isValid());
+		System.out.println(contentPanel.isDisplayable());
+		System.out.println(contentPanel.isVisible());
 		// 1st row
-		contentPanel.add(
+		getContentPanel().add(
 				lblInfo, new GridBagConstraints(0, 0, 4, 1, 4, 1, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 		

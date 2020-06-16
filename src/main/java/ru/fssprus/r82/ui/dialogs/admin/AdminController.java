@@ -31,7 +31,7 @@ public class AdminController extends CommonController<AdminDialog> {
 
 	private void doOpenQuestionEditDialog() {
 		dialog.dispose();
-		DialogBuilder.showQuestionListDialog();
+		DialogBuilder.showQuestionListDialog(null);
 		
 	}
 
