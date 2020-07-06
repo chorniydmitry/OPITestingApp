@@ -309,6 +309,7 @@ public class AppConstants {
 			+ "(в базе данных не должно содержаться записи с таким же значением)!";
 
 	public static final String CANNOT_SAVEFILE_ERROR = "Невозможно создать файл!";
+	public static final String APP_TITLE = "ОПИ ФССП ТЕСТ";
 	
 	public static Color COLOR_TOPPANEL_FOREGROUND = new Color(0x000000);
 	public static Color COLOR_TOPPANEL_BACKGROUND = new Color(0xffffff);

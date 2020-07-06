@@ -69,6 +69,10 @@ public class CommonTable extends JTable {
 		setDefaultRenderer(Object.class, new MultilineCellRenderer());
 
 	}
+	
+	public void select(int index) {
+		this.lastSelectedIndex = index;
+	}
 
 	public void unselectAll() {
 		setLastSelectedIndex(AppConstants.NO_INDEX_SELECTED);

@@ -11,7 +11,6 @@ public class TestService {
 	private TestDao testDao = new TestDatabaseDao();
 	
 	public void add(Test test) {
-		System.out.println(test);
 		testDao.save(test);
 	}
 	

@@ -11,6 +11,8 @@ import javax.swing.table.AbstractTableModel;
  * @author Chernyj Dmitry
  *
  */
+
+
 public class CommonTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = -9209664050296683407L;
 

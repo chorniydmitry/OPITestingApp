@@ -2,7 +2,10 @@ package ru.fssprus.r82.ui.main.mainFrame;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Image;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -44,6 +47,12 @@ public class MainFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setLayout(new FlowLayout());
+		
+		setLocation(0,0);
+	
+		loadIcon();
+		
+		setTitle(AppConstants.APP_TITLE);
 
 		setButtonsSizes();
 
@@ -60,6 +69,14 @@ public class MainFrame extends JFrame {
 		setFullScreen();
 
 		setVisible(true);
+	}
+	
+	private void loadIcon() {
+		try {
+			setIconImage(ImageIO.read(MainFrame.class.getResourceAsStream("/emblem.png")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void colorButtonIcons() {

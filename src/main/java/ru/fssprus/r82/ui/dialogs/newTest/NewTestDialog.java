@@ -57,10 +57,6 @@ public class NewTestDialog extends DialogWithPassword {
 		contentPanel.validate();
 		contentPanel.revalidate();
 		contentPanel.repaint();
-		System.out.println(contentPanel == null);
-		System.out.println(contentPanel.isValid());
-		System.out.println(contentPanel.isDisplayable());
-		System.out.println(contentPanel.isVisible());
 		// 1st row
 		getContentPanel().add(
 				lblInfo, new GridBagConstraints(0, 0, 4, 1, 4, 1, GridBagConstraints.NORTHWEST,

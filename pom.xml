@@ -70,27 +70,17 @@
 					<include>wronganswers.png</include>
 					<include>exit.png</include>
 					<include>edit.png</include>
+					<include>emblem.png</include>
 				</includes>
 			</resource>
 		</resources>
 	</build>
-	<repositories>
-		<repository>
-			<id>in-project</id>
-			<name>In Project Repo</name>
-			<url>file://${project.basedir}/src/main/resources/lib</url>
-		</repository>
-
-	</repositories>
 	<dependencies>
-
 
 		<dependency>
 			<groupId>JDatePicker</groupId>
 			<artifactId>JDatePicker</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/resources/lib/JDatePicker.jar</systemPath>
 		</dependency>
 
 		<!-- <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> 
@@ -180,6 +170,20 @@
 			<groupId>com.hp.gagawa</groupId>
 			<artifactId>gagawa</artifactId>
 			<version>1.0.1</version>
+		</dependency>
+
+		<!-- API, java.xml.bind module -->
+		<dependency>
+			<groupId>jakarta.xml.bind</groupId>
+			<artifactId>jakarta.xml.bind-api</artifactId>
+			<version>2.3.2</version>
+		</dependency>
+
+		<!-- Runtime, com.sun.xml.bind module -->
+		<dependency>
+			<groupId>org.glassfish.jaxb</groupId>
+			<artifactId>jaxb-runtime</artifactId>
+			<version>2.3.2</version>
 		</dependency>
 
 

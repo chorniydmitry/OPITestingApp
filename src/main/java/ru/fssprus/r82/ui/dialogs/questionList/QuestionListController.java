@@ -1,15 +1,13 @@
 package ru.fssprus.r82.ui.dialogs.questionList;
 
-import java.awt.Component;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.swing.JTextField;
-
-import java.util.Set;
 
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
@@ -51,9 +49,9 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 
 		this.filters = filters;
 		
-		mapToFields(filters);
-		
 		updateDialog();
+		
+		mapToFields(filters);
 	}
 	
 	
@@ -62,7 +60,11 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 			return;
 		
 		for(Entry<String, String> entry : filters.entrySet()) {
-		
+			
+			if(entry.getKey().equals("page"))
+				if(entry.getValue() != null && !entry.getValue().isEmpty())
+					goToPage(Integer.parseInt(entry.getValue()));
+	
 			for(int i = 0; i < dialog.getPnlFilter().getComponentCount(); i++) {
 				String filterName = dialog.getPnlFilter().getComponent(i).getName();
 				if(filterName == null)
@@ -76,6 +78,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 			}
 		
 		}
+		
 		
 	}
 
@@ -161,7 +164,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		totalQuestions = questionService.countByNameSpecListAndId(getQuestionTitleFromFilterUI(), getSetsFromFilterUI(),
 				getIdFromFilterUI());
 
-		return this.totalPages = totalQuestions / ENTRIES_FOR_PAGE + 1;
+		return this.totalPages = totalQuestions / ENTRIES_FOR_PAGE;
 	}
 
 	private Set<QuestionSet> parseSets(String setsText) {
@@ -208,6 +211,13 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	private void updateFilters() {
 		if(filters == null)
 			filters = new HashMap<String, String>();
+		
+		if(!dialog.getTabPanel().getTfPage().getText().isEmpty())
+			filters.put("page", dialog.getTabPanel().getTfPage().getText());
+		
+		if(dialog.getTable().getSelectedRow() > 0)
+			filters.put("row", String.valueOf(dialog.getTable().getSelectedRow()));
+		
 		for(int i = 0; i < dialog.getPnlFilter().getComponentCount(); i++) {
 			if(dialog.getPnlFilter().getComponent(i).getName() == null)
 				continue;

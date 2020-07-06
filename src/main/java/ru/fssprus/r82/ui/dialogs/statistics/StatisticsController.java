@@ -253,7 +253,7 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 	private int countTotalPages() {
 		ResultDao testDao = new ResultDatabaseDao();
 		this.totalPages = testDao.countByUserTestAndDate(getUsers(), getTests(),
-				getDateMore(), getDateLess(), getResult(), getScoreMore(), getScoreLess()) / ENTRIES_FOR_PAGE + 1;
+				getDateMore(), getDateLess(), getResult(), getScoreMore(), getScoreLess()) / ENTRIES_FOR_PAGE;
 		
 		return totalPages;
 	}
