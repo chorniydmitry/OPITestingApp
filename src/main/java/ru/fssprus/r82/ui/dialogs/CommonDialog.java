@@ -33,7 +33,6 @@ public abstract class CommonDialog extends JDialog {
 	private static final Color BACKGROUND_COLOR = AppConstants.COLOR_TOPPANEL_BACKGROUND;
 	private static final Color FOREGROUND_COLOR = AppConstants.COLOR_TOPPANEL_FOREGROUND;
 
-	protected boolean accesGained = false;
 	private JPanel pnlTop = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	private JPanel pnlContent = new JPanel();
 	private JLabel lblEmblem = new JLabel();
@@ -108,10 +107,6 @@ public abstract class CommonDialog extends JDialog {
 		return pnlContent;
 	}
 
-
-	protected boolean isAccessGained() {
-		return accesGained;
-	}
 
 	protected JPanel getPnlTop() {
 		return pnlTop;

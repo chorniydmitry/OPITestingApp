@@ -2,7 +2,6 @@ package ru.fssprus.r82.ui.main.mainFrame;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Image;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;

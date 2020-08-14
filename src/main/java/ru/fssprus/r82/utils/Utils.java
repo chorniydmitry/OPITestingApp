@@ -9,11 +9,11 @@ public class Utils {
 	private static final double MAX_PERCENT = 100.0;
 
 	public static int countTestDialogTaQuestionHeight(int height) {
-		return (2 * (height - 60) / 3) - 160;
+		return (2 * (height - 60) / 3) - 200;
 	}
 
 	public static int countTestDialogPnlAnswersHeight(int height) {
-		return ((height - 60) / 3) + 40;
+		return ((height - 60) / 3) + 80;
 	}
 	
 	public static int countCommonQuestsAmount(int amountOfQuestions, int commonPercent) {

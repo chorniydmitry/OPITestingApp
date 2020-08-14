@@ -46,24 +46,24 @@ public class AppConstants {
 		public static final String CONFIG_DIALOG = "ConfigDialog";
 
 		public static final String ADMIN_TEXT = "АДМИНИСТРИРОВАНИЕ";
-		public static final String IMPORTQUESTIONSET_TEXT = "Импорт вопросов";
-		public static final String NEWTEST_TEXT = "ТЕСТИРОВАНИЕ";
-		public static final String PASSWORDMANAGE_TEXT = "Редакторование паролей";
-		public static final String QUESTIONEDIT_TEXT = "Редактирование вопроса";
-		public static final String QUESTIONLIST_TEXT = "Список вопросов";
-		public static final String RESULTING_TEXT = "Результаты тестирования";
+		public static final String IMPORTQUESTIONSET_TEXT = "ИМПОРТ ВОПРОСОВ";
+		public static final String NEWTEST_TEXT = "СОЗДАНИЕ НОВОГО ТЕСТА";
+		public static final String PASSWORDMANAGE_TEXT = "РЕДАКТИРОВАНИЕ ПАРОЛЕЙ";
+		public static final String QUESTIONEDIT_TEXT = "РЕДАКТИРОВАНИЕ ВОПРОСА";
+		public static final String QUESTIONLIST_TEXT = "СПИСОК ВОПРОСОВ";
+		public static final String RESULTING_TEXT = "РЕЗУЛЬТАТЫ ТЕСТИРОВАНИЯ";
 		public static final String STATISTICS_TEXT = "СТАТИСТИКА";
 		public static final String TEST_TEXT = "ТЕСТИРОВАНИЕ";
-		public static final String TESTCONSTRUCTOR_TEXT = "Конструктор тестов";
-		public static final String WRONGANSWERS_TEXT = "Не правильные ответы";
+		public static final String TESTCONSTRUCTOR_TEXT = "КОНСТРУКТОР ТЕСТОВ";
+		public static final String WRONGANSWERS_TEXT = "НЕПРАВИЛЬНЫЕ ОТВЕТЫ";
 		// TODO: UNSUSED
-		public static final String CONFIG_TEXT = "Конфигурация";
+		public static final String CONFIG_TEXT = "КОНФИГУРАЦИЯ";
 
 		public static final String[] DIALOG_WITH_PASSWORDS_TEXT_ARR = { NEWTEST_TEXT, STATISTICS_TEXT, ADMIN_TEXT,
-				IMPORTQUESTIONSET_TEXT, PASSWORDMANAGE_TEXT, QUESTIONLIST_TEXT, TEST_TEXT, TESTCONSTRUCTOR_TEXT, };
+				IMPORTQUESTIONSET_TEXT, PASSWORDMANAGE_TEXT, QUESTIONLIST_TEXT, TESTCONSTRUCTOR_TEXT, };
 
 		public static final String[] DIALOG_WITH_PASSWORDS_ARR = { NEWTEST_DIALOG, STATISTICS_DIALOG, ADMIN_DIALOG,
-				IMPORTQUESTIONSET_DIALOG, QUESTIONLIST_DIALOG, PASSWORDMANAGE_DIALOG, TEST_DIALOG,
+				IMPORTQUESTIONSET_DIALOG, QUESTIONLIST_DIALOG, PASSWORDMANAGE_DIALOG,
 				TESTCONSTRUCTOR_DIALOG, };
 
 		// Размеры окон

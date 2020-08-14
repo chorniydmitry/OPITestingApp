@@ -17,21 +17,21 @@ public abstract class DialogWithPassword extends CommonDialog {
 
 	public DialogWithPassword(int width, int height, String title, Path icon, JFrame parent) {
 		super(width, height, title, icon, parent);
-		checkAccess();
+		desideShowOrNot();
 	}
 	
-	private void checkAccess() {
-		if (checkIfPasswordIsSet(getClass().getSimpleName())) {
+	private void desideShowOrNot() {
+		if (checkIfPasswordIsSet(getClass().getSimpleName()) && !checkAccess(getClass().getSimpleName())) {
+			System.out.println(getClass().getSimpleName());
 			
-			if (checkaccess(getClass().getSimpleName())) {
-				accesGained = true;
-			}
-		} else {
-			accesGained = true;
+			this.dispose();
 		}
+		
+		System.out.println("****"+getClass().getSimpleName());
+			
 	}
 
-	private boolean checkaccess(String section) {
+	private boolean checkAccess(String section) {
 		PasswordService passService = new PasswordService();
 
 		String inputedPass = MessageBox.showInputPasswordDialog(null);

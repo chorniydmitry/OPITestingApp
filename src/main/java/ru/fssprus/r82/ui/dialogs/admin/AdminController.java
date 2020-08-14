@@ -15,7 +15,6 @@ public class AdminController extends CommonController<AdminDialog> {
 		dialog.getBtnQuestionEdit().addActionListener(listener -> doOpenQuestionEditDialog());
 		dialog.getBtnQuestionLoad().addActionListener(listener -> doOpenQuestionLoagingDialog());
 		dialog.getBtnTestConstructor().addActionListener(listener -> doOpenTestConstructorDialog());
-		dialog.getBtnLook().addActionListener(listener -> doOpenUIDesignerDialog());
 	}
 
 	private void doOpenTestConstructorDialog() {
@@ -38,11 +37,6 @@ public class AdminController extends CommonController<AdminDialog> {
 	private void doOpenManagePasswordsDialog() {
 		dialog.dispose();
 		DialogBuilder.showPasswordManageDialog();
-		
-	}
-
-	private void doOpenUIDesignerDialog() {
-		dialog.dispose();
 		
 	}
 }

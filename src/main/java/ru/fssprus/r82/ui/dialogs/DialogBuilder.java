@@ -45,7 +45,6 @@ import static ru.fssprus.r82.utils.AppConstants.Dialogs.WRONGANSWERS_ICON;
 import static ru.fssprus.r82.utils.AppConstants.Dialogs.WRONGANSWERS_TEXT;
 
 import java.nio.file.Paths;
-import java.util.HashSet;
 import java.util.Map;
 
 /**

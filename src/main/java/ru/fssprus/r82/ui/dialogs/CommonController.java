@@ -12,9 +12,6 @@ public abstract class CommonController<T extends CommonDialog> {
 
 	public CommonController(T dialog) {
 		this.dialog = dialog;
-		if ((dialog instanceof DialogWithPassword) && !(dialog.isAccessGained())) {
-			return;
-		}
 		
 		dialog.layoutDialog();
 		

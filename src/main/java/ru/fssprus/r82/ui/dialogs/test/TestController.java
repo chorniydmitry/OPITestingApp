@@ -32,7 +32,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 
 	private static final String QUESTION_NUM_TEXT = "ВОПРОС #";
 	private static final String OF_TEXT = " из ";
-	private static final int ANSWER_OFFSET = 300;
+	private static final int ANSWER_OFFSET = 450;
 	private static final int NEXT = 1;
 	private static final int PREVIOUS = -1;
 	private static final String ANS_P_STYLE_WIDTH = "width: ";
@@ -103,7 +103,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 
 	private String generateHTMLText(Answer answer) {
 		final int ansWidth = dialog.getWidth() - ANSWER_OFFSET;
-
+		
 		Html html = new Html();
 		P p = new P();
 		p.setStyle(ANS_P_STYLE_WIDTH + ansWidth + ANS_P_STYLE_PX);
