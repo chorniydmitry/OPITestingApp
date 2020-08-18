@@ -10,9 +10,9 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class AppConstants {
-	
+
 	private AppConstants() {
-		
+
 	}
 
 	public static class Dialogs {
@@ -60,11 +60,10 @@ public class AppConstants {
 		public static final String CONFIG_TEXT = "КОНФИГУРАЦИЯ";
 
 		public static final String[] DIALOG_WITH_PASSWORDS_TEXT_ARR = { NEWTEST_TEXT, STATISTICS_TEXT, ADMIN_TEXT,
-				IMPORTQUESTIONSET_TEXT, PASSWORDMANAGE_TEXT, QUESTIONLIST_TEXT, TESTCONSTRUCTOR_TEXT, };
+				IMPORTQUESTIONSET_TEXT, PASSWORDMANAGE_TEXT, QUESTIONLIST_TEXT, TESTCONSTRUCTOR_TEXT };
 
 		public static final String[] DIALOG_WITH_PASSWORDS_ARR = { NEWTEST_DIALOG, STATISTICS_DIALOG, ADMIN_DIALOG,
-				IMPORTQUESTIONSET_DIALOG, QUESTIONLIST_DIALOG, PASSWORDMANAGE_DIALOG,
-				TESTCONSTRUCTOR_DIALOG, };
+				IMPORTQUESTIONSET_DIALOG, PASSWORDMANAGE_DIALOG, QUESTIONLIST_DIALOG, TESTCONSTRUCTOR_DIALOG };
 
 		// Размеры окон
 		public static final int ADMIN_DIALOG_WIDTH = 500;
@@ -108,11 +107,10 @@ public class AppConstants {
 		public static final int DIALOG_CONFIG_HEIGHT = 600;
 
 	}
-	
+
 	public static final String QUESTIONLIST_FILTER_ID_NAME = "id";
 	public static final String QUESTIONLIST_FILTER_SETNAME_NAME = "setname";
 	public static final String QUESTIONLIST_FILTER_QUESTIONTEXT_NAME = "questiontext";
-	
 
 	public static final String EOL = "\n";
 	public static final int HEX = 16;
@@ -310,19 +308,19 @@ public class AppConstants {
 
 	public static final String CANNOT_SAVEFILE_ERROR = "Невозможно создать файл!";
 	public static final String APP_TITLE = "ОПИ ФССП ТЕСТ";
-	
+
 	public static Color COLOR_TOPPANEL_FOREGROUND = new Color(0x000000);
 	public static Color COLOR_TOPPANEL_BACKGROUND = new Color(0xffffff);
-	
+
 	static {
 		try {
 			COLOR_TOPPANEL_BACKGROUND = new Color(
 					Integer.parseInt(ApplicationConfiguration.getItem("color.topPanel.background"), HEX));
 			COLOR_TOPPANEL_FOREGROUND = new Color(
 					Integer.parseInt(ApplicationConfiguration.getItem("color.topPanel.foreground"), HEX));
-			
-		} catch(Exception e) {
-			//TODO:
+
+		} catch (Exception e) {
+			// TODO:
 		}
 	}
 

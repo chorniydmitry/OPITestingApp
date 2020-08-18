@@ -19,16 +19,10 @@ public abstract class DialogWithPassword extends CommonDialog {
 		super(width, height, title, icon, parent);
 		desideShowOrNot();
 	}
-	
+
 	private void desideShowOrNot() {
-		if (checkIfPasswordIsSet(getClass().getSimpleName()) && !checkAccess(getClass().getSimpleName())) {
-			System.out.println(getClass().getSimpleName());
-			
+		if (checkIfPasswordIsSet(getClass().getSimpleName()) && !checkAccess(getClass().getSimpleName()))
 			this.dispose();
-		}
-		
-		System.out.println("****"+getClass().getSimpleName());
-			
 	}
 
 	private boolean checkAccess(String section) {
@@ -36,7 +30,8 @@ public abstract class DialogWithPassword extends CommonDialog {
 
 		String inputedPass = MessageBox.showInputPasswordDialog(null);
 
-		boolean accessAllowed = passService.checkPassword(getClass().getSimpleName(), CryptWithMD5.cryptWithMD5(inputedPass));
+		boolean accessAllowed = passService.checkPassword(getClass().getSimpleName(),
+				CryptWithMD5.cryptWithMD5(inputedPass));
 
 		return accessAllowed;
 

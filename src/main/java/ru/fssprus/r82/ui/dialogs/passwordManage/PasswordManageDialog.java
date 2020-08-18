@@ -74,6 +74,8 @@ public class PasswordManageDialog extends DialogWithPassword {
 			contentPanel.add(btnList.get(i), new GridBagConstraints(2, (i + 1), 1, 1, 0.2, 1, GridBagConstraints.CENTER,
 					GridBagConstraints.HORIZONTAL, new Insets(2, 10, 10, 2), 0, 0));
 		}
+		
+		contentPanel.validate();
 
 	}
 

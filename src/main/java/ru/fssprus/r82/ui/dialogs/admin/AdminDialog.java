@@ -35,7 +35,6 @@ public class AdminDialog extends DialogWithPassword {
 
 	@Override
 	protected void layoutDialog() {
-		System.out.println("ADMIN LAYOUT");
 		JPanel contentPanel = getContentPanel();
 		contentPanel.setLayout(new GridBagLayout());
 		
@@ -51,8 +50,8 @@ public class AdminDialog extends DialogWithPassword {
 		contentPanel.add(btnPasswords, new GridBagConstraints(0, 3, GridBagConstraints.REMAINDER, 1, 1, 1,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 10, 10));
 		
+		contentPanel.validate();
 	}
-	
 	
 	public JButton getBtnQuestionLoad() {
 		return btnQuestionLoad;

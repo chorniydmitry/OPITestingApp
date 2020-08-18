@@ -37,7 +37,7 @@ public class ImportQuestionSetDialog extends DialogWithPassword {
 	private static final String BTN_LOAD_CAPTION = "Добавить";
 
 	private static final String BTN_LOAD_TEMPLATE = "Сохранить шаблон файла вопросов";
-	
+
 	private static final String BTN_DELETE_SET_CAPTION = "Удалить";
 
 	private JPanel pnlSetEditing = new JPanel();
@@ -54,7 +54,7 @@ public class ImportQuestionSetDialog extends DialogWithPassword {
 	private JLabel lblTotalQuestionsInSetVal = new JLabel();
 	private JLabel lblTimesInTest = new JLabel(LBL_TIMESINTESTS_CAPTION);
 	private JLabel lblTimesInTestVal = new JLabel();
-	
+
 	private JLabel lblAddQuestions = new JLabel(LBL_ADDQUESTIONS_CAPTION);
 	private JButton btnOpenTextFile = new JButton(BTN_OPEN_CAPTION);
 	private JTextField tfFilePath = new JTextField();
@@ -63,23 +63,21 @@ public class ImportQuestionSetDialog extends DialogWithPassword {
 	private JButton btnLoadSetFileTemplate = new JButton(BTN_LOAD_TEMPLATE);
 
 	private JButton btnDeleteSet = new JButton(BTN_DELETE_SET_CAPTION);
-	
-	
+
 	public ImportQuestionSetDialog(int width, int height, String title, Path icon, JFrame parent) {
 		super(width, height, title, icon, parent);
 		initComponents();
 	}
-	
-	
+
 	private void layoutPnlSetEditing() {
 		layoutPnlAddNewSet();
 		layoutPnlAddQuestionsFromFile();
-		
+
 		pnlSetEditing.setLayout(new BorderLayout());
 		pnlSetEditing.add(pnlAddNewSet, BorderLayout.NORTH);
 		pnlSetEditing.add(pnlAddQuestionsFromFile, BorderLayout.SOUTH);
 	}
-	
+
 	private void layoutPnlAddNewSet() {
 		pnlAddNewSet.setBorder(new TitledBorder(PNL_ADD_NEW_SET_TITLE));
 		pnlAddNewSet.setBackground(Color.LIGHT_GRAY);
@@ -96,39 +94,36 @@ public class ImportQuestionSetDialog extends DialogWithPassword {
 		pnlAddQuestionsFromFile.add(lblSpecName, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.WEST,
 				GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 1, 1));
 
-		pnlAddQuestionsFromFile.add(cbSetName, new GridBagConstraints(1, 0, 5, 1, 1, 1,
-				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 1, 1));
-		
-		pnlAddQuestionsFromFile.add(btnDeleteSet, new GridBagConstraints(7, 0, 5, 1, 1, 1,
-				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 1, 1));
-		
+		pnlAddQuestionsFromFile.add(cbSetName, new GridBagConstraints(1, 0, 5, 1, 1, 1, GridBagConstraints.NORTH,
+				GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 1, 1));
+
+		pnlAddQuestionsFromFile.add(btnDeleteSet, new GridBagConstraints(7, 0, 5, 1, 1, 1, GridBagConstraints.NORTH,
+				GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 1, 1));
 
 		// 2 row
-		
 		pnlAddQuestionsFromFile.add(lblTotalQuestionsInSet, new GridBagConstraints(2, 1, 1, 1, 1, 1,
 				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 1, 1));
-		
+
 		pnlAddQuestionsFromFile.add(lblTotalQuestionsInSetVal, new GridBagConstraints(3, 1, 1, 1, 1, 1,
 				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 1, 1));
-		
-		pnlAddQuestionsFromFile.add(lblTimesInTest, new GridBagConstraints(4, 1, 1, 1, 1, 1,
-				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 1, 1));
-		
+
+		pnlAddQuestionsFromFile.add(lblTimesInTest, new GridBagConstraints(4, 1, 1, 1, 1, 1, GridBagConstraints.NORTH,
+				GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 1, 1));
+
 		pnlAddQuestionsFromFile.add(lblTimesInTestVal, new GridBagConstraints(5, 1, 1, 1, 1, 1,
 				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 1, 1));
-		
-		
+
 		// 3 row
 		pnlAddQuestionsFromFile.add(lblAddQuestions, new GridBagConstraints(0, 2, GridBagConstraints.REMAINDER, 1, 1, 1,
 				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
 
 		// 4 row
-		pnlAddQuestionsFromFile.add(btnOpenTextFile, new GridBagConstraints(0, 3, 1, 1, 1, 1, GridBagConstraints.NORTHWEST,
-				GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 1, 1));
-		
-		pnlAddQuestionsFromFile.add(tfFilePath, new GridBagConstraints(1, 3, 5, 1, 1, 1,
-				GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(0, 0, 10, 0), 1, 1));
-		
+		pnlAddQuestionsFromFile.add(btnOpenTextFile, new GridBagConstraints(0, 3, 1, 1, 1, 1,
+				GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 1, 1));
+
+		pnlAddQuestionsFromFile.add(tfFilePath, new GridBagConstraints(1, 3, 5, 1, 1, 1, GridBagConstraints.NORTHWEST,
+				GridBagConstraints.BOTH, new Insets(0, 0, 10, 0), 1, 1));
+
 		pnlAddQuestionsFromFile.add(btnImportQuestionsSet, new GridBagConstraints(6, 3, 2, 1, 1, 1,
 				GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 1, 1));
 
@@ -142,7 +137,7 @@ public class ImportQuestionSetDialog extends DialogWithPassword {
 	@Override
 	protected void layoutDialog() {
 		layoutPnlSetEditing();
-		
+
 		JPanel contentPanel = getContentPanel();
 		contentPanel.setLayout(new BorderLayout());
 
@@ -152,7 +147,6 @@ public class ImportQuestionSetDialog extends DialogWithPassword {
 
 		contentPanel.add(btnLoadSetFileTemplate, BorderLayout.SOUTH);
 	}
-
 
 	public JButton getBtnImportQuestionsSet() {
 		return btnImportQuestionsSet;
